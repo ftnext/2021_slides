@@ -61,6 +61,16 @@ html_static_path = ['_static']
 
 # -- Options for Reveal.js output -------------------------------------------------
 
+revealjs_script_conf = """
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: "none",
+    }
+"""
+
 revealjs_script_plugins = [
     {
         "name": "RevealHighlight",
