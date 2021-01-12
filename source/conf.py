@@ -58,3 +58,16 @@ html_theme = 'alabaster'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# -- Options for Reveal.js output -------------------------------------------------
+
+revealjs_script_plugins = [
+    {
+        "name": "RevealHighlight",
+        "src": "revealjs4/plugin/highlight/highlight.js",
+    },
+]
+
+revealjs_css_files = [
+    "revealjs4/plugin/highlight/zenburn.css",
+]
