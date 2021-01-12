@@ -68,6 +68,7 @@ revealjs_script_conf = """
         history: true,
         center: true,
         transition: "none",
+        slideNumber: "c/t",
     }
 """
 
