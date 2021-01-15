@@ -61,6 +61,7 @@ html_static_path = ['_static']
 
 # -- Options for Reveal.js output -------------------------------------------------
 
+revealjs_static_path = ["_static"]
 revealjs_script_conf = """
     {
         controls: true,
@@ -81,4 +82,5 @@ revealjs_script_plugins = [
 
 revealjs_css_files = [
     "revealjs4/plugin/highlight/zenburn.css",
+    "css/common.css",
 ]
