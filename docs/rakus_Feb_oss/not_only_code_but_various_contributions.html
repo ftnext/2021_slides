@@ -1,0 +1,326 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>コードだけじゃない！いろいろなコントリビュート</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="../reveal.js/dist/theme/black.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/plugin/highlight/zenburn.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/common.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides">
+            <section >
+<h1>コードだけじゃない！いろいろなコントリビュート</h1>
+<dl class="field-list simple">
+<dt class="field-odd">Event</dt>
+<dd class="field-odd"><p>ラクス OSS LT会</p>
+</dd>
+<dt class="field-even">Presented</dt>
+<dd class="field-even"><p>2021/02/03 nikkie</p>
+</dd>
+</dl>
+</section>
+<section >
+<h2>お前、誰よ (About nikkie)</h2>
+<ul class="simple">
+<li><p>ハンドルネーム「にっきー」（Twitter <a class="reference external" href="https://twitter.com/ftnext">&#64;ftnext</a> / GitHub <a class="reference external" href="https://github.com/ftnext">&#64;ftnext</a>）</p></li>
+<li><p>2016〜 ソフトウェアエンジニア 日本語、PHP、etc</p></li>
+<li><p>業務や趣味でPython🐍書いています（2019〜 データサイエンティスト）</p></li>
+<li><p>Love anime!!（＠　🎺🎷🔥　🌈　🏔🏕）</p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2>LT：コードだけじゃない！いろいろなコントリビュート</h2>
+<ul class="simple">
+<li><p>私はコードをバリバリ書いてコントリビュートしているわけではない</p></li>
+<li><p>コントリビュートしたいので、<strong>コード以外の道</strong> を模索。それを共有します</p></li>
+</ul>
+</section>
+<section >
+<h3>コード以外でのコントリビュート</h3>
+<ul class="simple">
+<li><p>チュートリアルを英語から日本語へ翻訳</p></li>
+<li><p>ドキュメントやコードのtypo指摘</p></li>
+<li><p>カンファレンスや勉強会スタッフ（PyCon JP 2019〜スタッフ、2021 座長）</p></li>
+<li><p>Teaching Assistant (TA)</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>コントリビュート、なぜやりたいのか？</h2>
+<ul class="simple">
+<li><p>3年前、Pythonを独学で始めた</p></li>
+<li><p><a class="reference external" href="https://gitpitch.com/ftnext/2019_slides/master?p=pynyumon_May_mokumoku_teach/#/3/3">コミュニティのもくもく会で教わる</a></p></li>
+<li><p>初めて半年経った頃「受け取ったもの多数。<a class="reference external" href="https://gitpitch.com/ftnext/2019_slides/master?p=pynyumon_May_mokumoku_teach/#/5/1">できる範囲で返していきたい</a>」</p></li>
+</ul>
+</section>
+<section >
+<h3>コミュニティから受け取ったもののお返しを</h3>
+<ul class="simple">
+<li><p>いただいたものをコミュニティに返す</p></li>
+<li><p>とはいえ先を行く人に返すのは難しそう</p></li>
+<li><p>自分がしてもらったことを、<strong>次のPython入門者につなぐ</strong> ことはできる！（<a class="reference external" href="https://gitpitch.com/ftnext/2019_slides/master?p=pynyumon_May_mokumoku_teach/#/5/2">TAを始めた</a>）</p></li>
+</ul>
+</section>
+<section >
+<h3>お品書き：これまで経験したコントリビュートを共有します</h3>
+<ul class="simple">
+<li><p>チュートリアルを英語から日本語へ <em>翻訳</em></p></li>
+<li><p>ドキュメントやコードの <em>typo指摘</em></p></li>
+<li><p><em>カンファレンススタッフ</em></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>LT：コードだけじゃない！いろいろなコントリビュート</h2>
+<ul class="simple">
+<li><p><strong>チュートリアルを英語から日本語へ翻訳</strong></p></li>
+<li><p>ドキュメントやコードのtypo指摘</p></li>
+<li><p>カンファレンススタッフ</p></li>
+</ul>
+</section>
+<section >
+<h3><a class="reference external" href="https://tutorial.djangogirls.org/ja/">Django Girls Tutorial</a> 翻訳に参加（2018〜）</h3>
+<div class="figure align-default">
+<img alt="../_images/202102django_girls_tutorial_ja_top.png" src="../_images/202102django_girls_tutorial_ja_top.png" />
+</div>
+</section>
+<section >
+<h3>Django Girls Tutorial とは</h3>
+<ul class="simple">
+<li><p>Django Girls Workshop（<strong>プログラミング入門者向け</strong> ワークショップ）の教材</p>
+<ul>
+<li><p>Webに公開されており、誰でも利用できます</p></li>
+</ul>
+</li>
+<li><p>Django（Python製Webフレームワーク）を使ってWebアプリ（ブログ）を作る</p></li>
+</ul>
+</section>
+<section >
+<h3>翻訳の経緯</h3>
+<ul class="simple">
+<li><p>2018/05 <a class="reference external" href="https://djangocongress.jp/2018">Django Congress JP 2018</a></p></li>
+<li><p>当時のnikkieはDjango Girls Tutorialを終えたくらいのDjango入門者🔰</p></li>
+<li><p>Sprint（Django本体の開発やDjangoドキュメントの翻訳を集まって行う）にも申し込んでみた</p></li>
+</ul>
+</section>
+<section >
+<h3>スプリントが迫る中</h3>
+<ul class="simple">
+<li><p>「Django入門レベルでSprintへの申込みは夢見すぎだったかも。。」🥺 🥺 🥺</p></li>
+<li><p>LTでDjango Girls Tutorial翻訳の参加者募集</p></li>
+<li><p>「Tutorialは1周したし、英語でドキュメントも読むから、やれるかも！」🙋‍♂️</p></li>
+</ul>
+</section>
+<section >
+<h3>翻訳に飛び込んでみて🐸</h3>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/djangocongress?src=hash&amp;ref_src=twsrc%5Etfw">#djangocongress</a> <br>day2 スプリント終了〜。おつかれさまでしたー。<br><br>2日間ともDjangoに関わる全ての人のためのイベントだったと感じています。<br>どんなレベルでもOSSには関われるし、レベルが上がれば色んな関わり方ができるんだなぁと<br><br>翻訳に挑戦したことで学びもあったので、これはあとでブログに</p>&mdash; nikkie (@ftnext) <a href="https://twitter.com/ftnext/status/998133652692205573?ref_src=twsrc%5Etfw">May 20, 2018</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+<section >
+<h3>翻訳に飛び込んでみて🐸</h3>
+<ul class="simple">
+<li><p><strong>入門レベルから</strong> 熟練レベルまで、OSSには関われる💪</p></li>
+<li><p>副次的効果として、正確に翻訳しようとする中でTutorialの内容への理解が深まった</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>LT：コードだけじゃない！いろいろなコントリビュート</h2>
+<ul class="simple">
+<li><p>チュートリアルを英語から日本語へ翻訳</p></li>
+<li><p><strong>ドキュメントやコードのtypo指摘</strong></p></li>
+<li><p>カンファレンススタッフ</p></li>
+</ul>
+</section>
+<section >
+<h3>typo指摘でコントリビュート（2020〜）</h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/python-doc-ja/python-doc-ja/issues?q=is%3Aissue+author%3Aftnext+is%3Aclosed">Pythonの公式ドキュメント 日本語版へのIssues</a></p></li>
+<li><p>PyTorch LightningのDocument <a class="reference external" href="https://github.com/PyTorchLightning/pytorch-lightning/pull/4346">PR</a></p></li>
+<li><p>blackのコード中のdocstring <a class="reference external" href="https://github.com/psf/black/pull/1885">PR</a></p></li>
+</ul>
+</section>
+<section >
+<h3>typoを見つけるシーン</h3>
+<ul class="simple">
+<li><p>ドキュメントを読み込んでいるとき</p></li>
+<li><p>チュートリアルを写経しているとき</p></li>
+</ul>
+</section>
+<section >
+<h3>たかがtypo、されどtypo</h3>
+<ul class="simple">
+<li><p>typoは日本語や英語の <strong>バグ</strong> 🐛。かつ、<strong>すぐ修正できる</strong> 🦅</p></li>
+<li><p>同じように他の人もひっかかるはず</p></li>
+<li><p>👉見つけたら直すか、少なくとも知らせる ようにしています</p></li>
+</ul>
+</section>
+<section >
+<h3>typo指摘のお供に</h3>
+<ul class="simple">
+<li><p>修正する際に、<strong>同じページに同様のtypoがないか</strong> 探したい🔍</p></li>
+<li><p>英語のtypo指摘にオススメ！ VSCode拡張 <a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker">Code Spell Checker</a></p></li>
+<li><p>拡張を使って根絶やしにした <a class="reference external" href="https://github.com/attakei/sphinx-revealjs/pull/37">例</a></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>LT：コードだけじゃない！いろいろなコントリビュート</h2>
+<ul class="simple">
+<li><p>チュートリアルを英語から日本語へ翻訳</p></li>
+<li><p>ドキュメントやコードのtypo指摘</p></li>
+<li><p><strong>カンファレンススタッフ</strong></p></li>
+</ul>
+</section>
+<section >
+<h3>PyCon JP スタッフ（2019〜）</h3>
+<ul class="simple">
+<li><p>PyCon＝Python Conference</p></li>
+<li><p>Pythonコミュニティへのお返しとして</p></li>
+</ul>
+</section>
+<section >
+<h3>好きなLT 『ありがとうと言おう』（PyCon JP 2019）</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7U2D5tcMZb4?start=2081" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></section>
+<section >
+<h3>カンファレンススタッフ</h3>
+<ul class="simple">
+<li><p>PyCon JPのスタッフは <strong>Pythonを書けなくても</strong> 全然やっていきます！</p></li>
+<li><p>他のカンファレンススタッフも同じだと思います</p></li>
+<li><p>プログラミングで自動化できたら10x staff🏋️‍♂️になれるかも</p></li>
+</ul>
+</section>
+<section >
+<h3>私の熱いスタッフ活動（2019）</h3>
+<ul class="simple">
+<li><p>PyCon JP Blogに記事を書く✍️</p></li>
+<li><p>キーノートスピーカーとメールやり取り📧（『独学プログラマー』のCoryさん）</p></li>
+<li><p>託児室の運営👪</p></li>
+</ul>
+</section>
+<section >
+<h3>スタッフ活動でコードも書きたい！（2020）</h3>
+<ul class="simple">
+<li><p>繰り返す作業の自動化🤖</p></li>
+<li><p>プロポーザルレビューに使うWebアプリを自作</p></li>
+<li><p>詳しくは July Tech Festa 2020 <a class="reference external" href="https://docs.google.com/presentation/d/1ATNL1J5OtCW3ay3rs8kynULl0cJ6bKJje654XvI8BuM/edit#slide=id.g8cb055e450_0_144">カンファレンススタッフとしてコードを書いて広げるエンジニアリング・ライフ</a></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>質問：英語でのコミュニケーションは？</h2>
+<ul class="simple">
+<li><p>コード以外の道でも、英語のコミュニケーションは必要</p>
+<ul>
+<li><p>Issueを書く、Pull requestを書く</p></li>
+</ul>
+</li>
+<li><p>前提：nikkie自身はふだんからドキュメントを英語でも読む（ようになった）</p></li>
+</ul>
+</section>
+<section >
+<h3>英語を読めれば、ツールを駆使して英語を書ける</h3>
+<ol class="arabic simple">
+<li><p>日本語を <strong>DeepL翻訳</strong> に入れる</p></li>
+<li><p>出てきた英語を読んで修正（macOSの <strong>辞書.app</strong> を引く）</p></li>
+</ol>
+<p>英語のドキュメントに当たっているなら大丈夫です！
+（<a class="reference external" href="https://nikkie-ftnext.hatenablog.com/entry/stay-home-connect-global-pyconhiro2020">詳しく知りたい方へ</a>）</p>
+</section>
+</section>
+<section>
+<section >
+<h2>まとめ：コードだけじゃない！いろいろなコントリビュート</h2>
+<ul class="simple">
+<li><p><strong>コードがバリバリ書けなくても</strong> コントリビュートできる！</p></li>
+<li><p>このLTが一歩目を踏み出すきっかけになったら嬉しいです</p></li>
+</ul>
+</section>
+<section >
+<h3>nikkieが経験した、いろいろなコントリビュート</h3>
+<ul class="simple">
+<li><p>チュートリアルを英語から日本語へ翻訳</p></li>
+<li><p>ドキュメントやコードのtypo指摘</p></li>
+<li><p>カンファレンスや勉強会スタッフ</p></li>
+<li><p>Teaching Assistant (TA)</p></li>
+</ul>
+</section>
+<section >
+<h3>一歩目の例</h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://oss-gate.doorkeeper.jp/">OSS Gate</a> さん</p></li>
+<li><p><a class="reference external" href="https://pyconjp.blogspot.com/2021/01/2021-staff-application-start.html">PyCon JP 2021 スタッフ募集のお知らせ</a></p>
+<ul>
+<li><p>一緒にカンファレンスを創りませんか？</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>ご清聴ありがとうございました</h3>
+<blockquote>
+<div><p>コード以外の道で経験値を稼いだ結果、最近ではPythonを使っているOSSに、小さなコードでコントリビュートできるようになってきて、めちゃくちゃ楽しいです！！
+（<a class="reference external" href="https://twitter.com/ftnext/status/1355472263345106952?s=20">nikkie談</a>）</p>
+</div></blockquote>
+<p>Special thanks <a class="reference external" href="https://github.com/attakei/sphinx-revealjs">sphinx-revealjs</a> by &#64;attakeiさん</p>
+</section>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../reveal.js/dist/reveal.js"></script>
+    
+    
+      <script src="../reveal.js/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: "none",
+        slideNumber: "c/t",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>
