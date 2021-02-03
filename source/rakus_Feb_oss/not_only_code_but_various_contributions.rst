@@ -80,8 +80,8 @@ Django Girls Tutorial とは
 ------------------------------------------------
 
 * 「Django入門レベルでSprintへの申込みは夢見すぎだったかも。。」🥺 🥺 🥺
-* LTでTutorial翻訳の参加者募集
-* 「チュートリアルは1周したし、英語でドキュメントも読むから、やれるかも！」🙋‍♂️
+* LTでDjango Girls Tutorial翻訳の参加者募集
+* 「Tutorialは1周したし、英語でドキュメントも読むから、やれるかも！」🙋‍♂️
 
 翻訳に飛び込んでみて🐸
 ------------------------------------------------
@@ -106,7 +106,7 @@ LT：コードだけじゃない！いろいろなコントリビュート
 typo指摘でコントリビュート（2020〜）
 ------------------------------------------------
 
-* `Pythonの公式ドキュメントへのIssues <https://github.com/python-doc-ja/python-doc-ja/issues?q=is%3Aissue+author%3Aftnext+is%3Aclosed>`_
+* `Pythonの公式ドキュメント 日本語版へのIssues <https://github.com/python-doc-ja/python-doc-ja/issues?q=is%3Aissue+author%3Aftnext+is%3Aclosed>`_
 * PyTorch LightningのDocument `PR <https://github.com/PyTorchLightning/pytorch-lightning/pull/4346>`_
 * blackのコード中のdocstring `PR <https://github.com/psf/black/pull/1885>`_
 
@@ -115,8 +115,6 @@ typoを見つけるシーン
 
 * ドキュメントを読み込んでいるとき
 * チュートリアルを写経しているとき
-
-技術書を読んでいるときも気がつきますね
 
 たかがtypo、されどtypo
 ------------------------------------------------
@@ -157,7 +155,7 @@ PyCon JP スタッフ（2019〜）
 
 * PyCon JPのスタッフは **Pythonを書けなくても** 全然やっていきます！
 * 他のカンファレンススタッフも同じだと思います
-* プログラミングで自動化できたら10x staff🧙‍♂️になれるかも
+* プログラミングで自動化できたら10x staff🏋️‍♂️になれるかも
 
 私の熱いスタッフ活動（2019）
 ------------------------------------------------
