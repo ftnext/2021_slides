@@ -1,0 +1,310 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2020年の宿題：EelでPythonのクラスを使えるか？</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="../reveal.js/dist/theme/black.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/plugin/highlight/zenburn.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/common.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides">
+            <section >
+<h1>2020年の宿題：EelでPythonのクラスを使えるか？</h1>
+<dl class="field-list simple">
+<dt class="field-odd">Event</dt>
+<dd class="field-odd"><p>みんなのPython勉強会 #65 LT</p>
+</dd>
+<dt class="field-even">Presented</dt>
+<dd class="field-even"><p>2021/01/13 nikkie</p>
+</dd>
+</dl>
+</section>
+<section >
+<h2>お前、誰よ (About nikkie)</h2>
+<ul class="simple">
+<li><p>ハンドルネーム「にっきー」（Twitter <a class="reference external" href="https://twitter.com/ftnext">&#64;ftnext</a> / GitHub <a class="reference external" href="https://github.com/ftnext">&#64;ftnext</a>）</p></li>
+<li><p>Python歴 3年</p></li>
+<li><p>stapy 4代目 <strong>LT王子</strong></p></li>
+<li><p>Love anime!!（＠　🎺🎷🔥　🌈　🏔🏕　🏃‍♀️👹）</p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2>師走tapy（しわすたぱい）にて</h2>
+<ul class="simple">
+<li><p>登壇「Bring your Python script to more users! 2020冬 stapy ver.」</p></li>
+<li><p><a class="reference external" href="https://docs.google.com/presentation/d/1Mv3xMknHCZ_mXvGijymuo9IvgWT6XURXfvX_RMNk-XM/edit?usp=sharing">スライド</a></p></li>
+<li><p><a class="reference external" href="https://youtu.be/6YsMKnjcoTc?t=1641">YouTube</a> （デモしてます）</p></li>
+</ul>
+</section>
+<section >
+<h3>Bring your Python script to more users!の一コマ</h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ChrisKnott/Eel">Eel</a> というパッケージを紹介</p></li>
+<li><p>Python, HTML, CSS, JavaScriptから <strong>GUIアプリ</strong> が作れる</p></li>
+<li><p>Pythonの関数をJavaScriptから呼び出せる</p></li>
+</ul>
+</section>
+<section >
+<h3>Eelのイメージ</h3>
+<pre><code data-trim data-noescape class="python">
+&#64;eel.expose
+def say_hello():
+    return f&quot;Hello World {random.choice(NUMBERS)}&quot;</code></pre>
+<pre><code data-trim data-noescape class="html">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  // Pythonのsay_hello関数をJavaScriptから呼び出せる！
+  eel.say_hello();
+&lt;/script&gt;</code></pre>
+</section>
+<section >
+<h3>いただいた質問📩</h3>
+<blockquote>
+<div><p>Eelを使った時に、HTMLからclassを読み出すことも可能ですか?</p>
+</div></blockquote>
+<p>このLTで回答していきます</p>
+</section>
+<section >
+<h3>Eelを使った時に、HTMLからclassを読み出すことも可能ですか?</h3>
+<ol class="arabic simple">
+<li><p>HTMLの要素のclassを扱いたい？</p></li>
+<li><p>PythonのクラスをJavaScriptで扱いたい？</p></li>
+</ol>
+<p>2への回答を中心に準備してきました</p>
+<p>アンジャッシュのコントみたく、質問と噛み合わなかったらすみません🙏</p>
+</section>
+</section>
+<section>
+<section >
+<h2>（Eelアプリで）HTMLの要素のclassを扱いたい</h2>
+<p>👉 <strong>JavaScriptでやる</strong> のをオススメします（要素のclassを変更できる）</p>
+</section>
+<section >
+<h3>JavaScriptでHTMLの要素のクラスを変更するコード</h3>
+<p><a class="reference external" href="https://github.com/ftnext/bring-script-more-users/blob/25706dc9053a9c8161d19f52ad1c988c0be3608f/gui/hello/hello.html#L43">ソース全体</a></p>
+<pre><code data-trim data-noescape class="javascript">
+let styledElements = document.getElementsByClassName(&quot;styled&quot;);
+for (var i=0, len=styledElements.length|0; i&lt;len; i=i+1|0) {
+  // red-styledクラスからblue-styledクラスに変える
+  styledElements[i].classList.remove(&quot;red-styled&quot;);
+  styledElements[i].classList.add(&quot;blue-styled&quot;);
+}</code></pre>
+</section>
+<section >
+<h3>アプリ例：ボタンクリックでボタンの色が変わる</h3>
+<div class="figure align-default">
+<img alt="../_images/202001class_change_sample.drawio.png" src="../_images/202001class_change_sample.drawio.png" />
+</div>
+</section>
+<section >
+<h3>（Eelアプリで）HTMLの要素のclassを扱いたい</h3>
+<ul class="simple">
+<li><p>👉 <strong>JavaScript</strong> でできます</p></li>
+<li><p>参考： <a class="reference external" href="https://developer.mozilla.org/ja/docs/Web/API/Element/classList">Element.classList</a></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>EelアプリでPythonのクラスをJavaScriptから扱いたい</h2>
+<ul class="simple">
+<li><p>👉 Pythonのクラスは扱えない（と思われる）</p></li>
+<li><p>👉 クラスの <em>スタティックメソッド</em> なら呼び出せた</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">&#64;eel.expose</span></code> は「デコレータ」</h3>
+<p><a class="reference external" href="https://docs.python.org/ja/3/glossary.html#term-decorator">Python用語集</a> によると</p>
+<blockquote>
+<div><p>別の関数を返す関数で、通常、 &#64;wrapper 構文で関数変換として適用されます。</p>
+</div></blockquote>
+<pre><code data-trim data-noescape class="python">
+&#64;eel.expose
+def say_hello():
+    return f&quot;Hello World {random.choice(NUMBERS)}&quot;</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">&#64;eel.expose</span></code> の動き</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;eel.expose</span></code> が付いたPythonの関数の名前を <strong>eel.jsに書き込む</strong> （動的！）</p></li>
+<li><p>eel.jsが実行された後、JavaScriptのコードでは、<code class="docutils literal notranslate"><span class="pre">eel.Pythonの関数名</span></code> と呼び出せる（ように見える）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">console.log(eel);</span></code> で確認できます</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>Pythonのクラスにもデコレータは付けられる</h2>
+<pre><code data-trim data-noescape class="python">
+&#64;eel.expose
+class Helloest:
+    &#64;staticmethod
+    def say():
+        return &quot;Hello World from Helloest class&quot;</code></pre>
+<pre><code data-trim data-noescape class="python">
+&gt;&gt;&gt; Helloest.say()
+'Hello World from Helloest class'</code></pre>
+</section>
+<section >
+<h3>JavaScriptのeelオブジェクトがPythonのクラスを持った🙌</h3>
+<p><code class="docutils literal notranslate"><span class="pre">eel.Helloest</span></code></p>
+<div class="figure align-default">
+<img alt="../_images/202001console_log_eel.drawio.png" src="../_images/202001console_log_eel.drawio.png" />
+</div>
+</section>
+<section >
+<h3>しかし、Pythonのクラスのメソッドを呼び出すことはできません🙅‍♂️</h3>
+<pre><code data-trim data-noescape class="javascript">
+eel.Helloest.say();
+// raises `Uncaught TypeError: eel.Helloest.say is not a function`</code></pre>
+<p>Pythonのクラスのメソッドは、JavaScriptから呼び出せないようです</p>
+</section>
+</section>
+<section>
+<section >
+<h2>クラスの各メソッドにデコレータを付けたら？</h2>
+<ul class="simple">
+<li><p>インスタンスメソッド</p></li>
+<li><p>クラスメソッド</p></li>
+<li><p>スタティックメソッド</p></li>
+</ul>
+</section>
+<section >
+<h3>インスタンスメソッド</h3>
+<pre><code data-trim data-noescape class="python">
+class Helloer:
+    def __init__(self, name):
+        self.name = name
+
+    # JavaScriptでeel.と呼び出すときの名前を指定
+    &#64;eel.expose(&quot;Helloer_say_instance_method&quot;)
+    def say_instance(self):
+        return f&quot;Hello World from instance method / {self.name}&quot;</code></pre>
+<pre><code data-trim data-noescape class="python">
+&gt;&gt;&gt; h = Helloer(&quot;Alice&quot;)
+&gt;&gt;&gt; h.say_instance()
+'Hello World from instance method / Alice'</code></pre>
+</section>
+<section >
+<h3>クラスメソッド</h3>
+<pre><code data-trim data-noescape class="python">
+class Helloer:
+    class_var = &quot;BLOND&quot;
+
+    &#64;classmethod
+    &#64;eel.expose(&quot;Helloer_say_class_method&quot;)
+    def say_class(cls):
+        return f&quot;Hello World from class method / {cls.class_var}&quot;</code></pre>
+<pre><code data-trim data-noescape class="python">
+&gt;&gt;&gt; Helloer.say_class()
+'Hello World from class method / BLOND'</code></pre>
+</section>
+<section >
+<h3>スタティックメソッド</h3>
+<pre><code data-trim data-noescape class="python">
+class Helloer:
+    &#64;staticmethod
+    &#64;eel.expose(&quot;Helloer_say_static_method&quot;)
+    def say_static():
+        return &quot;Hello World from static method&quot;</code></pre>
+<pre><code data-trim data-noescape class="python">
+&gt;&gt;&gt; Helloer.say_static()
+'Hello World from static method'</code></pre>
+</section>
+<section >
+<h3>JavaScriptから呼び出した結果</h3>
+<ul class="simple">
+<li><p><strong>スタティックメソッド</strong> は呼び出せた🎉</p></li>
+</ul>
+<pre><code data-trim data-noescape class="javascript">
+eel.Helloer_say_static_method();</code></pre>
+</section>
+<section >
+<h3>JavaScriptから呼び出した結果（承前）</h3>
+<ul class="simple">
+<li><p>インスタンスメソッド・クラスメソッドは呼び出せない🙅‍♀️</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">self</span></code> や <code class="docutils literal notranslate"><span class="pre">cls</span></code> 引数に該当するオブジェクトがJavaScriptから渡せない模様</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">self</span></code> や <code class="docutils literal notranslate"><span class="pre">cls</span></code> をメソッド内で使っていなければダミーの引数を使って呼び出せる（それはスタティックメソッドでは？）</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>まとめ：EelでPythonのクラスを使えるか？</h2>
+<ul class="simple">
+<li><p>スタティックメソッドは呼び出せた</p></li>
+<li><p>思うに、クラスの呼び出しはPython・JavaScriptそれぞれの中で完結。互いに呼び出すときは <strong>言語標準のデータ構造</strong> で</p></li>
+<li><p>HTMLのclassについての質問でしたら、JavaScriptでできます</p></li>
+</ul>
+</section>
+<section >
+<h3>質問 &amp; ご清聴ありがとうございました</h3>
+<ul class="simple">
+<li><p>質問の意図が汲めていなかったら <a class="reference external" href="https://twitter.com/ftnext">&#64;ftnext</a> までどうぞ</p></li>
+<li><p>Special thanks <a class="reference external" href="https://github.com/attakei/sphinx-revealjs">sphinx-revealjs</a> by &#64;attakeiさん</p></li>
+</ul>
+</section>
+</section>
+<section >
+<h2>Appendix</h2>
+<ul class="simple">
+<li><p>Python 3.8.6, <code class="docutils literal notranslate"><span class="pre">Eel==0.14.0</span></code></p></li>
+<li><p><a class="reference external" href="https://github.com/ftnext/bring-script-more-users/issues/53">PythonのクラスをexposeしたらJavaScriptからも操作できるか調べる</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ftnext/bring-script-more-users/issues/51">EelアプリでHTML要素のclassを扱う例を追加する</a></p></li>
+</ul>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../reveal.js/dist/reveal.js"></script>
+    
+    
+      <script src="../reveal.js/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: "none",
+        slideNumber: "c/t",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>

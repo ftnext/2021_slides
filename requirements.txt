@@ -1,0 +1,2 @@
+-e tools/deploy_slide
+-r requirements.lock
