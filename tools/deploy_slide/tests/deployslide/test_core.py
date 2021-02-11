@@ -36,3 +36,23 @@ class SlideDeployerTestCase(TestCase):
         _create_directories.assert_called_once_with()
         _deploy_slide.assert_called_once_with()
         _copy_images.assert_called_once_with()
+
+    def test__create_directories(self):
+        html_rule = MagicMock(spec=HtmlNamingRule(""))
+        images_rule = MagicMock(spec=ImagesNamingRule())
+
+        deployer = sut.SlideDeployer(html_rule, images_rule)
+        deployer._create_directories()
+
+        html_rule.source.mkdir.assert_called_once_with(
+            parents=True, exist_ok=True
+        )
+        html_rule.destination.mkdir.assert_called_once_with(
+            parents=True, exist_ok=True
+        )
+        images_rule.source.mkdir.assert_called_once_with(
+            parents=True, exist_ok=True
+        )
+        images_rule.destination.mkdir.assert_called_once_with(
+            parents=True, exist_ok=True
+        )
