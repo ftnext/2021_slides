@@ -12,12 +12,22 @@ class HtmlNamingRuleTestCase(TestCase):
         self.assertIsInstance(actual, sut.BaseNamingRule)
 
     def test_source(self):
-        slide_directory_name = "test_html_rule"
+        slide_directory_name = "test_html_rule_src"
 
-        actual = sut.HtmlNamingRule(slide_directory_name)
+        rule = sut.HtmlNamingRule(slide_directory_name)
+        actual = rule.source
 
-        expected = Path("build/revealjs") / "test_html_rule"
-        self.assertEqual(actual.source, expected)
+        expected = Path("build/revealjs") / "test_html_rule_src"
+        self.assertEqual(actual, expected)
+
+    def test_destination(self):
+        slide_directory_name = "test_html_rule_dest"
+
+        rule = sut.HtmlNamingRule(slide_directory_name)
+        actual = rule.destination
+
+        expected = Path("docs") / "test_html_rule_dest"
+        self.assertEqual(actual, expected)
 
 
 class EntireRulesTestCase(TestCase):
