@@ -14,3 +14,15 @@ class SlideDeployer:
     ):
         """Factory from `naming_rules.EntireRules` instance."""
         return cls(entire_rules.for_html, entire_rules.for_images)
+
+    def deploy(self):
+        raise NotImplementedError
+
+    def _create_directories(self):
+        raise NotImplementedError
+
+    def _deploy_slide(self):
+        raise NotImplementedError
+
+    def _copy_images(self):
+        raise NotImplementedError
