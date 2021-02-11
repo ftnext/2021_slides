@@ -16,7 +16,9 @@ class SlideDeployer:
         return cls(entire_rules.for_html, entire_rules.for_images)
 
     def deploy(self):
-        raise NotImplementedError
+        self._create_directories()
+        self._deploy_slide()
+        self._copy_images()
 
     def _create_directories(self):
         raise NotImplementedError
