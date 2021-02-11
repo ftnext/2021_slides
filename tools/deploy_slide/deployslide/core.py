@@ -31,4 +31,6 @@ class SlideDeployer:
         raise NotImplementedError
 
     def _copy_images(self):
-        raise NotImplementedError
+        for image_path in self.images_rule.source.glob("*.png"):
+            destination_path = self.images_rule.destination / image_path.name
+            shutil.copyfile(image_path, destination_path)
