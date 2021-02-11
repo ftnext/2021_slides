@@ -9,6 +9,11 @@ class BaseNamingRule(ABC):
     def source(self):
         raise NotImplementedError
 
+    @property
+    @abstractmethod
+    def destination(self):
+        raise NotImplementedError
+
 
 @dataclass
 class HtmlNamingRule(BaseNamingRule):
@@ -17,6 +22,10 @@ class HtmlNamingRule(BaseNamingRule):
     @property
     def source(self):
         return Path("build/revealjs") / self.slide_directory_name
+
+    @property
+    def destination(self):
+        return Path("docs") / self.slide_directory_name
 
 
 class ImagesNamingRule:
