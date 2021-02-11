@@ -31,7 +31,7 @@ class HtmlNamingRule(BaseNamingRule):
 class ImagesNamingRule(BaseNamingRule):
     @property
     def source(self):
-        raise NotImplementedError
+        return Path("build/revealjs") / "_images"
 
     @property
     def destination(self):
