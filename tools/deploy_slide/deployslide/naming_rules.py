@@ -1,9 +1,17 @@
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from pathlib import Path
 
 
+class BaseNamingRule(ABC):
+    @property
+    @abstractmethod
+    def source(self):
+        raise NotImplementedError
+
+
 @dataclass
-class HtmlNamingRule:
+class HtmlNamingRule(BaseNamingRule):
     slide_directory_name: str
 
     @property
