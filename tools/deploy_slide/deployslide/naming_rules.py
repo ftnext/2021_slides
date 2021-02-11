@@ -28,8 +28,14 @@ class HtmlNamingRule(BaseNamingRule):
         return Path("docs") / self.slide_directory_name
 
 
-class ImagesNamingRule:
-    pass
+class ImagesNamingRule(BaseNamingRule):
+    @property
+    def source(self):
+        raise NotImplementedError
+
+    @property
+    def destination(self):
+        raise NotImplementedError
 
 
 @dataclass
