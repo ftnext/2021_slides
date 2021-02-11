@@ -6,6 +6,11 @@ from deployslide import naming_rules as sut
 
 
 class HtmlNamingRuleTestCase(TestCase):
+    def test_inheritance(self):
+        actual = sut.HtmlNamingRule("hoge")
+
+        self.assertIsInstance(actual, sut.BaseNamingRule)
+
     def test_source(self):
         slide_directory_name = "test_html_rule"
 
