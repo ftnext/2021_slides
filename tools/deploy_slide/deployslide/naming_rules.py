@@ -35,7 +35,7 @@ class ImagesNamingRule(BaseNamingRule):
 
     @property
     def destination(self):
-        raise NotImplementedError
+        return Path("docs") / "_images"
 
 
 @dataclass
