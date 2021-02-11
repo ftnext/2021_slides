@@ -1,3 +1,4 @@
+import tempfile
 from pathlib import Path
 from unittest import TestCase
 from unittest.mock import MagicMock, call, patch
@@ -55,6 +56,27 @@ class SlideDeployerTestCase(TestCase):
         self.images_rule.destination.mkdir.assert_called_once_with(
             parents=True, exist_ok=True
         )
+
+    def test__deploy_slide(self):
+        fixture_directory_path = Path(__file__).parent / "fixtures"
+        self.html_rule.source.glob.return_value = iter(
+            (fixture_directory_path / "deploy_slide" / "source.html",)
+        )
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            self.html_rule.destination = Path(temp_dir)
+
+            self.deployer._deploy_slide()
+
+            expected_html_path = (
+                fixture_directory_path / "deploy_slide" / "expected.html"
+            )
+            expected = expected_html_path.read_text(encoding="utf-8")
+            with open(f"{temp_dir}/source.html", encoding="utf-8") as f:
+                actual = f.read()
+            self.assertEqual(actual, expected)
+
+        self.html_rule.source.glob.assert_called_once_with("*.html")
 
     @patch("deployslide.core.shutil")
     def test__copy_images(self, shutil):
