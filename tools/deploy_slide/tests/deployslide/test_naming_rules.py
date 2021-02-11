@@ -30,6 +30,13 @@ class HtmlNamingRuleTestCase(TestCase):
         self.assertEqual(actual, expected)
 
 
+class ImagesNamingRuleTestCase(TestCase):
+    def test_inheritance(self):
+        actual = sut.ImagesNamingRule()
+
+        self.assertIsInstance(actual, sut.BaseNamingRule)
+
+
 class EntireRulesTestCase(TestCase):
     @patch("deployslide.naming_rules.ImagesNamingRule")
     @patch("deployslide.naming_rules.HtmlNamingRule")
