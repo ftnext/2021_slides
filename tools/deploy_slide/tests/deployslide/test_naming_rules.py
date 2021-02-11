@@ -36,6 +36,13 @@ class ImagesNamingRuleTestCase(TestCase):
 
         self.assertIsInstance(actual, sut.BaseNamingRule)
 
+    def test_source(self):
+        rule = sut.ImagesNamingRule()
+        actual = rule.source
+
+        expected = Path("build/revealjs") / "_images"
+        self.assertEqual(actual, expected)
+
 
 class EntireRulesTestCase(TestCase):
     @patch("deployslide.naming_rules.ImagesNamingRule")
