@@ -1,8 +1,14 @@
 from dataclasses import dataclass
+from pathlib import Path
 
 
+@dataclass
 class HtmlNamingRule:
-    pass
+    slide_directory_name: str
+
+    @property
+    def source(self):
+        return Path("build/revealjs") / self.slide_directory_name
 
 
 class ImagesNamingRule:
