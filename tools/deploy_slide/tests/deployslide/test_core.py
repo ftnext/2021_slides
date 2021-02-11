@@ -1,5 +1,6 @@
+from pathlib import Path
 from unittest import TestCase
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, call, patch
 
 from deployslide import core as sut
 from deployslide.naming_rules import (
@@ -53,4 +54,24 @@ class SlideDeployerTestCase(TestCase):
         )
         self.images_rule.destination.mkdir.assert_called_once_with(
             parents=True, exist_ok=True
+        )
+
+    @patch("deployslide.core.shutil")
+    def test__copy_images(self, shutil):
+        image1_path = Path("build/revealjs/_images/image01.png")
+        image2_path = Path("build/revealjs/_images/image02.png")
+        self.images_rule.source.glob.return_value = iter(
+            (image1_path, image2_path)
+        )
+        images_destination_path = Path("docs/_images")
+        self.images_rule.destination = images_destination_path
+
+        self.deployer._copy_images()
+
+        self.images_rule.source.glob.assert_called_once_with("*.png")
+        shutil.copyfile.assert_has_calls(
+            [
+                call(image1_path, images_destination_path / "image01.png"),
+                call(image2_path, images_destination_path / "image02.png"),
+            ]
         )
