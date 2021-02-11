@@ -1,7 +1,18 @@
+from pathlib import Path
 from unittest import TestCase
 from unittest.mock import patch
 
 from deployslide import naming_rules as sut
+
+
+class HtmlNamingRuleTestCase(TestCase):
+    def test_source(self):
+        slide_directory_name = "test_html_rule"
+
+        actual = sut.HtmlNamingRule(slide_directory_name)
+
+        expected = Path("build/revealjs") / "test_html_rule"
+        self.assertEqual(actual.source, expected)
 
 
 class EntireRulesTestCase(TestCase):
