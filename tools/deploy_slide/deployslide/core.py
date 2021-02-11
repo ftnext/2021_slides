@@ -21,7 +21,10 @@ class SlideDeployer:
         self._copy_images()
 
     def _create_directories(self):
-        raise NotImplementedError
+        mkdir_kwargs = dict(parents=True, exist_ok=True)
+        for rule in (self.html_rule, self.images_rule):
+            rule.source.mkdir(**mkdir_kwargs)
+            rule.destination.mkdir(**mkdir_kwargs)
 
     def _deploy_slide(self):
         raise NotImplementedError
