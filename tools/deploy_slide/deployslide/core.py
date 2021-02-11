@@ -1,3 +1,4 @@
+import re
 import shutil
 from dataclasses import dataclass
 
@@ -28,7 +29,18 @@ class SlideDeployer:
             rule.destination.mkdir(**mkdir_kwargs)
 
     def _deploy_slide(self):
-        raise NotImplementedError
+        # TODO: HTMLの中身について知りすぎているので、converterを渡せるように変更する
+        slide_paths = list(self.html_rule.source.glob("*.html"))
+        assert len(slide_paths) == 1, "multiple html slides!"
+        slide_path = slide_paths[0]
+
+        with slide_path.open(encoding="utf-8") as fin:
+            converted_lines = [
+                re.sub("_static/revealjs4", "reveal.js", line) for line in fin
+            ]
+
+        destination_path = self.html_rule.destination / slide_path.name
+        destination_path.write_text("".join(converted_lines), encoding="utf-8")
 
     def _copy_images(self):
         for image_path in self.images_rule.source.glob("*.png"):
