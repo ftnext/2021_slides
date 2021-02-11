@@ -14,7 +14,7 @@ pytz==2020.5
 requests==2.25.1
 snowballstemmer==2.0.0
 Sphinx==3.4.3
-sphinx-revealjs==1.0.0
+sphinx-revealjs==1.0.1
 sphinxcontrib-applehelp==1.0.2
 sphinxcontrib-devhelp==1.0.2
 sphinxcontrib-htmlhelp==1.0.3
