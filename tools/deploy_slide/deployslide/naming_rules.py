@@ -38,8 +38,14 @@ class ImagesNamingRule(BaseNamingRule):
         return Path("docs") / "_images"
 
 
-class CssNamingRule:
-    pass
+class CssNamingRule(BaseNamingRule):
+    @property
+    def source(self):
+        raise NotImplementedError
+
+    @property
+    def destination(self):
+        raise NotImplementedError
 
 
 @dataclass
