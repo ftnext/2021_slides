@@ -51,6 +51,13 @@ class ImagesNamingRuleTestCase(TestCase):
         self.assertEqual(actual, expected)
 
 
+class CssNamingRuleTestCase(TestCase):
+    def test_inheritance(self):
+        actual = sut.CssNamingRule()
+
+        self.assertIsInstance(actual, sut.BaseNamingRule)
+
+
 class EntireRulesTestCase(TestCase):
     @patch("deployslide.naming_rules.CssNamingRule")
     @patch("deployslide.naming_rules.ImagesNamingRule")
