@@ -52,8 +52,11 @@ class ImagesNamingRuleTestCase(TestCase):
 
 
 class CssNamingRuleTestCase(TestCase):
+    def setUp(self):
+        self.rule = sut.CssNamingRule()
+
     def test_inheritance(self):
-        actual = sut.CssNamingRule()
+        actual = self.rule
 
         self.assertIsInstance(actual, sut.BaseNamingRule)
 
