@@ -38,6 +38,10 @@ class ImagesNamingRule(BaseNamingRule):
         return Path("docs") / "_images"
 
 
+class CssNamingRule:
+    pass
+
+
 @dataclass
 class EntireRules:
     for_html: HtmlNamingRule
