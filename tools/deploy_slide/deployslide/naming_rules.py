@@ -46,9 +46,11 @@ class CssNamingRule:
 class EntireRules:
     for_html: HtmlNamingRule
     for_images: ImagesNamingRule
+    for_css: CssNamingRule
 
     @classmethod
     def build(cls, slide_directory_name):
         html_rule = HtmlNamingRule(slide_directory_name)
         images_rule = ImagesNamingRule()
-        return cls(html_rule, images_rule)
+        css_rule = CssNamingRule()
+        return cls(html_rule, images_rule, css_rule)
