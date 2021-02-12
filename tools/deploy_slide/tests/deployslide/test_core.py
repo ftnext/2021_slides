@@ -22,7 +22,7 @@ class SlideDeployerTestCase(TestCase):
         self.deployer = sut.SlideDeployer(self.html_rule, self.images_rule)
 
     def test_create_from_entire_rules(self):
-        entire_rules = MagicMock(spec=EntireRules(None, None))
+        entire_rules = MagicMock(spec=EntireRules(None, None, None))
 
         actual = sut.SlideDeployer.create_from_entire_rules(entire_rules)
 
