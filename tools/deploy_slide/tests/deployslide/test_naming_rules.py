@@ -60,6 +60,12 @@ class CssNamingRuleTestCase(TestCase):
 
         self.assertIsInstance(actual, sut.BaseNamingRule)
 
+    def test_source(self):
+        actual = self.rule.source
+
+        expected = Path("build/revealjs") / "_static" / "css"
+        self.assertEqual(actual, expected)
+
 
 class EntireRulesTestCase(TestCase):
     @patch("deployslide.naming_rules.CssNamingRule")
