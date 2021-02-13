@@ -30,6 +30,7 @@ class SlideDeployer:
         self._create_directories()
         self._deploy_slide()
         self._copy_images()
+        self._copy_css()
 
     def _create_directories(self):
         mkdir_kwargs = dict(parents=True, exist_ok=True)
