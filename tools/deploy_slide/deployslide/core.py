@@ -9,22 +9,32 @@ from deployslide import naming_rules
 class SlideDeployer:
     html_rule: naming_rules.HtmlNamingRule
     images_rule: naming_rules.ImagesNamingRule
+    css_rule: naming_rules.CssNamingRule
 
     @classmethod
     def create_from_entire_rules(
         cls, entire_rules: "naming_rules.EntireRules"
     ):
         """Factory from `naming_rules.EntireRules` instance."""
-        return cls(entire_rules.for_html, entire_rules.for_images)
+        return cls(
+            entire_rules.for_html,
+            entire_rules.for_images,
+            entire_rules.for_css,
+        )
+
+    @property
+    def rules(self):
+        return (self.html_rule, self.images_rule, self.css_rule)
 
     def deploy(self):
         self._create_directories()
         self._deploy_slide()
         self._copy_images()
+        self._copy_css()
 
     def _create_directories(self):
         mkdir_kwargs = dict(parents=True, exist_ok=True)
-        for rule in (self.html_rule, self.images_rule):
+        for rule in self.rules:
             rule.source.mkdir(**mkdir_kwargs)
             rule.destination.mkdir(**mkdir_kwargs)
 
@@ -46,3 +56,8 @@ class SlideDeployer:
         for image_path in self.images_rule.source.glob("*.png"):
             destination_path = self.images_rule.destination / image_path.name
             shutil.copyfile(image_path, destination_path)
+
+    def _copy_css(self):
+        for css_path in self.css_rule.iter_target():
+            destination_path = self.css_rule.destination / css_path.name
+            shutil.copyfile(css_path, destination_path)
