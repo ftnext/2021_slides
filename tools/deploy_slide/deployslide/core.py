@@ -22,6 +22,10 @@ class SlideDeployer:
             entire_rules.for_css,
         )
 
+    @property
+    def rules(self):
+        raise NotImplementedError
+
     def deploy(self):
         self._create_directories()
         self._deploy_slide()

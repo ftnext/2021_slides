@@ -37,6 +37,12 @@ class SlideDeployerTestCase(TestCase):
         )
         self.assertEqual(actual, expected)
 
+    def test_rules_property(self):
+        actual = self.deployer.rules
+
+        expected = (self.html_rule, self.images_rule, self.css_rule)
+        self.assertEqual(actual, expected)
+
     @patch("deployslide.core.SlideDeployer._copy_images")
     @patch("deployslide.core.SlideDeployer._deploy_slide")
     @patch("deployslide.core.SlideDeployer._create_directories")
