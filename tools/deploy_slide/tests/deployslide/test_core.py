@@ -118,3 +118,21 @@ class SlideDeployerTestCase(TestCase):
                 call(image2_path, images_destination_path / "image02.png"),
             ]
         )
+
+    @patch("deployslide.core.shutil")
+    def test__copy_css(self, shutil):
+        css1_path = Path("build/revealjs/_static/css/style1.css")
+        css2_path = Path("build/revealjs/_static/css/style2.css")
+        self.css_rule.iter_target.return_value = iter((css1_path, css2_path))
+        css_destination_path = Path("docs/_static/css")
+        self.css_rule.destination = css_destination_path
+
+        self.deployer._copy_css()
+
+        self.css_rule.iter_target.assert_called_once_with()
+        shutil.copyfile.assert_has_calls(
+            [
+                call(css1_path, css_destination_path / "style1.css"),
+                call(css2_path, css_destination_path / "style2.css"),
+            ]
+        )

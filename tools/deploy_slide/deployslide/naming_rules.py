@@ -47,6 +47,9 @@ class CssNamingRule(BaseNamingRule):
     def destination(self):
         return Path("docs") / "_static" / "css"
 
+    def iter_target(self):
+        raise NotImplementedError
+
 
 @dataclass
 class EntireRules:
