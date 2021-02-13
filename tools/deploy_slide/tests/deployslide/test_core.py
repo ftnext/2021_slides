@@ -1,7 +1,7 @@
 import tempfile
 from pathlib import Path
 from unittest import TestCase
-from unittest.mock import MagicMock, call, patch
+from unittest.mock import MagicMock, PropertyMock, call, patch
 
 from deployslide import core as sut
 from deployslide.naming_rules import (
@@ -54,20 +54,25 @@ class SlideDeployerTestCase(TestCase):
         _copy_images.assert_called_once_with()
 
     def test__create_directories(self):
-        self.deployer._create_directories()
+        with patch(
+            "deployslide.core.SlideDeployer.rules", new_callable=PropertyMock
+        ) as rules:
+            rules.return_value = (self.html_rule, self.css_rule)
 
-        self.html_rule.source.mkdir.assert_called_once_with(
-            parents=True, exist_ok=True
-        )
-        self.html_rule.destination.mkdir.assert_called_once_with(
-            parents=True, exist_ok=True
-        )
-        self.images_rule.source.mkdir.assert_called_once_with(
-            parents=True, exist_ok=True
-        )
-        self.images_rule.destination.mkdir.assert_called_once_with(
-            parents=True, exist_ok=True
-        )
+            self.deployer._create_directories()
+
+            self.html_rule.source.mkdir.assert_called_once_with(
+                parents=True, exist_ok=True
+            )
+            self.html_rule.destination.mkdir.assert_called_once_with(
+                parents=True, exist_ok=True
+            )
+            self.css_rule.source.mkdir.assert_called_once_with(
+                parents=True, exist_ok=True
+            )
+            self.css_rule.destination.mkdir.assert_called_once_with(
+                parents=True, exist_ok=True
+            )
 
     def test__deploy_slide(self):
         fixture_directory_path = Path(__file__).parent / "fixtures"
