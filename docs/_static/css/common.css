@@ -6,3 +6,7 @@
 .reveal h6 {
   text-transform: none;
 }
+
+.reveal strong {
+  color: #5ae08e;
+}
