@@ -24,7 +24,7 @@ class SlideDeployer:
 
     @property
     def rules(self):
-        raise NotImplementedError
+        return (self.html_rule, self.images_rule, self.css_rule)
 
     def deploy(self):
         self._create_directories()
