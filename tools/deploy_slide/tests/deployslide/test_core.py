@@ -1,10 +1,11 @@
 import tempfile
 from pathlib import Path
 from unittest import TestCase
-from unittest.mock import MagicMock, call, patch
+from unittest.mock import MagicMock, PropertyMock, call, patch
 
 from deployslide import core as sut
 from deployslide.naming_rules import (
+    CssNamingRule,
     EntireRules,
     HtmlNamingRule,
     ImagesNamingRule,
@@ -18,30 +19,48 @@ class SlideDeployerTestCase(TestCase):
         # ref: https://bugs.python.org/issue41768
         self.html_rule = MagicMock(spec=HtmlNamingRule(""))
         self.images_rule = MagicMock(spec=ImagesNamingRule())
+        self.css_rule = MagicMock(spec=CssNamingRule())
 
-        self.deployer = sut.SlideDeployer(self.html_rule, self.images_rule)
+        self.deployer = sut.SlideDeployer(
+            self.html_rule, self.images_rule, self.css_rule
+        )
 
     def test_create_from_entire_rules(self):
-        entire_rules = MagicMock(spec=EntireRules(None, None))
+        entire_rules = MagicMock(spec=EntireRules(None, None, None))
 
         actual = sut.SlideDeployer.create_from_entire_rules(entire_rules)
 
         expected = sut.SlideDeployer(
-            entire_rules.for_html, entire_rules.for_images
+            entire_rules.for_html,
+            entire_rules.for_images,
+            entire_rules.for_css,
         )
         self.assertEqual(actual, expected)
 
+    def test_rules_property(self):
+        actual = self.deployer.rules
+
+        expected = (self.html_rule, self.images_rule, self.css_rule)
+        self.assertEqual(actual, expected)
+
+    @patch("deployslide.core.SlideDeployer._copy_css")
     @patch("deployslide.core.SlideDeployer._copy_images")
     @patch("deployslide.core.SlideDeployer._deploy_slide")
     @patch("deployslide.core.SlideDeployer._create_directories")
-    def test_deploy(self, _create_directories, _deploy_slide, _copy_images):
+    def test_deploy(
+        self, _create_directories, _deploy_slide, _copy_images, _copy_css
+    ):
         self.deployer.deploy()
 
         _create_directories.assert_called_once_with()
         _deploy_slide.assert_called_once_with()
         _copy_images.assert_called_once_with()
+        _copy_css.assert_called_once_with()
 
-    def test__create_directories(self):
+    @patch("deployslide.core.SlideDeployer.rules", new_callable=PropertyMock)
+    def test__create_directories(self, rules_property):
+        rules_property.return_value = (self.html_rule, self.css_rule)
+
         self.deployer._create_directories()
 
         self.html_rule.source.mkdir.assert_called_once_with(
@@ -50,10 +69,10 @@ class SlideDeployerTestCase(TestCase):
         self.html_rule.destination.mkdir.assert_called_once_with(
             parents=True, exist_ok=True
         )
-        self.images_rule.source.mkdir.assert_called_once_with(
+        self.css_rule.source.mkdir.assert_called_once_with(
             parents=True, exist_ok=True
         )
-        self.images_rule.destination.mkdir.assert_called_once_with(
+        self.css_rule.destination.mkdir.assert_called_once_with(
             parents=True, exist_ok=True
         )
 
@@ -95,5 +114,23 @@ class SlideDeployerTestCase(TestCase):
             [
                 call(image1_path, images_destination_path / "image01.png"),
                 call(image2_path, images_destination_path / "image02.png"),
+            ]
+        )
+
+    @patch("deployslide.core.shutil")
+    def test__copy_css(self, shutil):
+        css1_path = Path("build/revealjs/_static/css/style1.css")
+        css2_path = Path("build/revealjs/_static/css/style2.css")
+        self.css_rule.iter_target.return_value = iter((css1_path, css2_path))
+        css_destination_path = Path("docs/_static/css")
+        self.css_rule.destination = css_destination_path
+
+        self.deployer._copy_css()
+
+        self.css_rule.iter_target.assert_called_once_with()
+        shutil.copyfile.assert_has_calls(
+            [
+                call(css1_path, css_destination_path / "style1.css"),
+                call(css2_path, css_destination_path / "style2.css"),
             ]
         )

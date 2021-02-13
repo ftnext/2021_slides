@@ -38,13 +38,28 @@ class ImagesNamingRule(BaseNamingRule):
         return Path("docs") / "_images"
 
 
+class CssNamingRule(BaseNamingRule):
+    @property
+    def source(self):
+        return Path("build/revealjs") / "_static" / "css"
+
+    @property
+    def destination(self):
+        return Path("docs") / "_static" / "css"
+
+    def iter_target(self):
+        yield from self.source.glob("*.css")
+
+
 @dataclass
 class EntireRules:
     for_html: HtmlNamingRule
     for_images: ImagesNamingRule
+    for_css: CssNamingRule
 
     @classmethod
     def build(cls, slide_directory_name):
         html_rule = HtmlNamingRule(slide_directory_name)
         images_rule = ImagesNamingRule()
-        return cls(html_rule, images_rule)
+        css_rule = CssNamingRule()
+        return cls(html_rule, images_rule, css_rule)
