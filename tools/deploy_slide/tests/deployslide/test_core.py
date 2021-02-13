@@ -27,7 +27,9 @@ class SlideDeployerTestCase(TestCase):
         actual = sut.SlideDeployer.create_from_entire_rules(entire_rules)
 
         expected = sut.SlideDeployer(
-            entire_rules.for_html, entire_rules.for_images
+            entire_rules.for_html,
+            entire_rules.for_images,
+            entire_rules.for_css,
         )
         self.assertEqual(actual, expected)
 
