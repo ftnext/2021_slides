@@ -1,6 +1,7 @@
 from pathlib import Path
+from types import GeneratorType
 from unittest import TestCase
-from unittest.mock import patch
+from unittest.mock import MagicMock, PropertyMock, patch
 
 from deployslide import naming_rules as sut
 
@@ -71,6 +72,31 @@ class CssNamingRuleTestCase(TestCase):
 
         expected = Path("docs") / "_static" / "css"
         self.assertEqual(actual, expected)
+
+    @patch(
+        "deployslide.naming_rules.CssNamingRule.source",
+        new_callable=PropertyMock,
+    )
+    def test_iter_target(self, source_property):
+        path = MagicMock(spec=Path(""))
+        source_property.return_value = path
+        path.glob.return_value = iter(
+            (
+                Path("build/revealjs/_static/css/iter1.css"),
+                Path("build/revealjs/_static/css/iter2.css"),
+            )
+        )
+
+        generator = self.rule.iter_target()
+        actual = list(generator)
+
+        self.assertIsInstance(generator, GeneratorType)
+        expected = [
+            Path("build/revealjs/_static/css/iter1.css"),
+            Path("build/revealjs/_static/css/iter2.css"),
+        ]
+        self.assertEqual(actual, expected)
+        path.glob.assert_called_once_with("*.css")
 
 
 class EntireRulesTestCase(TestCase):
