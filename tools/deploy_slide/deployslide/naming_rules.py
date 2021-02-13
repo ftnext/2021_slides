@@ -45,7 +45,7 @@ class CssNamingRule(BaseNamingRule):
 
     @property
     def destination(self):
-        raise NotImplementedError
+        return Path("docs") / "_static" / "css"
 
 
 @dataclass
