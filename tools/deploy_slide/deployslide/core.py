@@ -33,7 +33,7 @@ class SlideDeployer:
 
     def _create_directories(self):
         mkdir_kwargs = dict(parents=True, exist_ok=True)
-        for rule in (self.html_rule, self.images_rule):
+        for rule in self.rules:
             rule.source.mkdir(**mkdir_kwargs)
             rule.destination.mkdir(**mkdir_kwargs)
 
