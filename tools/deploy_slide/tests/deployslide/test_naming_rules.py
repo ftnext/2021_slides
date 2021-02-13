@@ -66,6 +66,12 @@ class CssNamingRuleTestCase(TestCase):
         expected = Path("build/revealjs") / "_static" / "css"
         self.assertEqual(actual, expected)
 
+    def test_destination(self):
+        actual = self.rule.destination
+
+        expected = Path("docs") / "_static" / "css"
+        self.assertEqual(actual, expected)
+
 
 class EntireRulesTestCase(TestCase):
     @patch("deployslide.naming_rules.CssNamingRule")
