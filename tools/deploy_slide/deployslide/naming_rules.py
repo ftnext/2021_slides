@@ -41,7 +41,7 @@ class ImagesNamingRule(BaseNamingRule):
 class CssNamingRule(BaseNamingRule):
     @property
     def source(self):
-        raise NotImplementedError
+        return Path("build/revealjs") / "_static" / "css"
 
     @property
     def destination(self):
