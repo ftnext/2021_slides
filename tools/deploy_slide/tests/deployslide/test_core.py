@@ -43,15 +43,19 @@ class SlideDeployerTestCase(TestCase):
         expected = (self.html_rule, self.images_rule, self.css_rule)
         self.assertEqual(actual, expected)
 
+    @patch("deployslide.core.SlideDeployer._copy_css")
     @patch("deployslide.core.SlideDeployer._copy_images")
     @patch("deployslide.core.SlideDeployer._deploy_slide")
     @patch("deployslide.core.SlideDeployer._create_directories")
-    def test_deploy(self, _create_directories, _deploy_slide, _copy_images):
+    def test_deploy(
+        self, _create_directories, _deploy_slide, _copy_images, _copy_css
+    ):
         self.deployer.deploy()
 
         _create_directories.assert_called_once_with()
         _deploy_slide.assert_called_once_with()
         _copy_images.assert_called_once_with()
+        _copy_css.assert_called_once_with()
 
     def test__create_directories(self):
         with patch(

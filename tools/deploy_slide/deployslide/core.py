@@ -55,3 +55,6 @@ class SlideDeployer:
         for image_path in self.images_rule.source.glob("*.png"):
             destination_path = self.images_rule.destination / image_path.name
             shutil.copyfile(image_path, destination_path)
+
+    def _copy_css(self):
+        raise NotImplementedError
