@@ -48,7 +48,7 @@ class CssNamingRule(BaseNamingRule):
         return Path("docs") / "_static" / "css"
 
     def iter_target(self):
-        raise NotImplementedError
+        yield from self.source.glob("*.css")
 
 
 @dataclass
