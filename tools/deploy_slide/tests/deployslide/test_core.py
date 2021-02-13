@@ -5,6 +5,7 @@ from unittest.mock import MagicMock, call, patch
 
 from deployslide import core as sut
 from deployslide.naming_rules import (
+    CssNamingRule,
     EntireRules,
     HtmlNamingRule,
     ImagesNamingRule,
@@ -18,8 +19,11 @@ class SlideDeployerTestCase(TestCase):
         # ref: https://bugs.python.org/issue41768
         self.html_rule = MagicMock(spec=HtmlNamingRule(""))
         self.images_rule = MagicMock(spec=ImagesNamingRule())
+        self.css_rule = MagicMock(spec=CssNamingRule())
 
-        self.deployer = sut.SlideDeployer(self.html_rule, self.images_rule)
+        self.deployer = sut.SlideDeployer(
+            self.html_rule, self.images_rule, self.css_rule
+        )
 
     def test_create_from_entire_rules(self):
         entire_rules = MagicMock(spec=EntireRules(None, None, None))
