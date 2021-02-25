@@ -1,0 +1,627 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yield について</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="../reveal.js/dist/theme/black.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/plugin/highlight/zenburn.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/Font-Awesome/css/all.min.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@ftnext" />
+    <meta property="og:url" content="https://ftnext.github.io/2021_slides/rakus_Feb_pythontips/about_yield.html" />
+    <meta property="og:title" content="yield について" />
+    <meta property="og:description" content="2021/02 ラクス Python Tips LT会 スライド" />
+
+
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides">
+            <section >
+<h1><code class="docutils literal notranslate"><span class="pre">yield</span></code> について</h1>
+<dl class="field-list simple">
+<dt class="field-odd">Event</dt>
+<dd class="field-odd"><p>ラクス Python Tips LT会</p>
+</dd>
+<dt class="field-even">Presented</dt>
+<dd class="field-even"><p>2021/02/25 nikkie</p>
+</dd>
+</dl>
+</section>
+<section >
+<h2>❓ Question（チャットお願いします🙏）</h2>
+<p>ふだん <code class="docutils literal notranslate"><span class="pre">yield</span></code> 使ってますか？</p>
+<ul class="simple">
+<li><p>ガッツリ💪</p></li>
+<li><p>たまに😃</p></li>
+<li><p>初耳！👂</p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2>お前、誰よ</h2>
+<ul class="simple">
+<li><p>我が名は <strong>にっきー</strong> （<span class="raw-html"><i class="fab fa-twitter"></i></span> <a class="reference external" href="https://twitter.com/ftnext">&#64;ftnext</a> / <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext">&#64;ftnext</a>）</p></li>
+<li><p>Python歴3年。データサイエンティストなう</p></li>
+<li><p>Love anime!!（＠　🎺🎷🔥　🌈　🏔🏕　👩‍🎨🐯🐟）</p></li>
+<li><p><strong>tips</strong>: Python界隈では <em>自己紹介のエイリアス</em> が「お前、誰よ」（<a class="reference external" href="https://www.ianlewis.org/jp/pycon-mini-jp">ルーツ</a>）</p></li>
+</ul>
+</section>
+<section >
+<h3>お前、誰よ × tips</h3>
+<p>関わっているPythonコミュニティ</p>
+<ul class="simple">
+<li><p>毎月第2水曜の <a class="reference external" href="https://startpython.connpass.com/">みんなのPython勉強会</a></p></li>
+<li><p>Pythonのカンファレンス PyCon JP の <a class="reference external" href="https://youtube.com/playlist?list=PLMkWB0UjwFGkgC4eCjltRKD1HS_eups9A">アーカイブ</a></p></li>
+</ul>
+<p>PyCon JP 2021座長です。<a class="reference external" href="https://pyconjp.blogspot.com/2021/01/2021-staff-application-start.html">スタッフ募集中</a>！📣</p>
+</section>
+</section>
+<section >
+<h2>LT：<code class="docutils literal notranslate"><span class="pre">yield</span></code> について</h2>
+<p>Python Tipsと聞いて、浮かんだネタの1つが <code class="docutils literal notranslate"><span class="pre">yield</span></code> でした</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> とは</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> よき</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> こんなことまで</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> 別の使い方</p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2><code class="docutils literal notranslate"><span class="pre">yield</span></code> について</h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> <strong>とは</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> よき</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> こんなことまで</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> 別の使い方（Appendix）</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">yield</span></code> の簡単な例</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def easy_generator():
+    yield &quot;👩&quot;
+    yield &quot;🐯&quot;
+    yield &quot;🐟&quot;</code></pre>
+</section>
+<section >
+<h3>用語「ジェネレータ」</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> を使った <strong>関数</strong> （<a class="reference external" href="https://docs.python.org/ja/3/glossary.html#term-generator">用語集</a>）</p></li>
+<li><p>例：先の関数 <code class="docutils literal notranslate"><span class="pre">easy_generator</span></code> もジェネレータ</p></li>
+</ul>
+<aside class="notes">
+doctestを通すための下準備
+&gt;&gt;&gt; def easy_generator():
+...     yield &quot;👩&quot;
+...     yield &quot;🐯&quot;
+...     yield &quot;🐟&quot;</aside>
+</section>
+<section >
+<h3>もう一つの用語「ジェネレータイテレータ」</h3>
+<ul class="simple">
+<li><p>ジェネレータ関数の <strong>返り値</strong> （<a class="reference external" href="https://docs.python.org/ja/3/glossary.html#term-generator-iterator">用語集</a>）</p></li>
+</ul>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; g = easy_generator()  # gはジェネレータイテレータ
+&gt;&gt;&gt; type(g)
+&lt;class 'generator'&gt;</code></pre>
+</section>
+<section >
+<h3>組み込み関数 <code class="docutils literal notranslate"><span class="pre">next</span></code> で次の要素を取得</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">next</span></code> は、<em>イテレータ</em> の <code class="docutils literal notranslate"><span class="pre">__next__()</span></code> メソッドを呼び出し、次の要素を取得（<a class="reference external" href="https://docs.python.org/ja/3/library/functions.html#next">ドキュメント</a>）</p></li>
+</ul>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; next(g)  # ジェネレータイテレータの次の要素
+'👩'</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">yield</span></code> で一時停止</h3>
+<p><code class="docutils literal notranslate"><span class="pre">next(g)</span></code> で 2行目の <code class="docutils literal notranslate"><span class="pre">yield</span></code> で値が返され、<strong>一時停止</strong></p>
+<pre><code data-trim data-noescape data-line-numbers="2" class="python">
+def easy_generator():
+    yield &quot;👩&quot;  # 👈
+    yield &quot;🐯&quot;
+    yield &quot;🐟&quot;</code></pre>
+</section>
+<section >
+<h3>再開 &amp; 一時停止</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; next(g)  # 次の要素
+'🐯'</code></pre>
+<pre><code data-trim data-noescape data-line-numbers="3" class="python">
+def easy_generator():
+    yield &quot;👩&quot;
+    yield &quot;🐯&quot;  # 👈
+    yield &quot;🐟&quot;</code></pre>
+</section>
+<section >
+<h3>再度 再開 &amp; 一時停止</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; next(g)  # 次の要素
+'🐟'</code></pre>
+<pre><code data-trim data-noescape data-line-numbers="4" class="python">
+def easy_generator():
+    yield &quot;👩&quot;
+    yield &quot;🐯&quot;
+    yield &quot;🐟&quot;  # 👈</code></pre>
+</section>
+<section >
+<h3>次がない時：<code class="docutils literal notranslate"><span class="pre">StopIteration</span></code> 例外（<a class="reference external" href="https://docs.python.org/ja/3/library/exceptions.html#StopIteration">ドキュメント</a>）</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; next(g)
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+StopIteration</code></pre>
+</section>
+<section >
+<h3>ジェネレータイテレータは <code class="docutils literal notranslate"><span class="pre">for</span></code> 文で繰り返せる</h3>
+<p>ジェネレータ <strong>イテレータ</strong></p>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; for item in easy_generator():
+...     print(item)
+...
+👩
+🐯
+🐟</code></pre>
+<p><strong>tips</strong>: <code class="docutils literal notranslate"><span class="pre">StopIteration</span></code> 例外は繰り返しの仕組みに関係（<a class="reference external" href="https://www.slideshare.net/shimizukawa/how-does-python-get-the-length-with-the-len-function">PyCon JP 2017 トーク</a>）</p>
+</section>
+</section>
+<section>
+<section >
+<h2><code class="docutils literal notranslate"><span class="pre">yield</span></code> について</h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> とは</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> <strong>よき</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> こんなことまで</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> 別の使い方（Appendix）</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">yield</span></code> 何がいいの？</h3>
+<p>リストも <code class="docutils literal notranslate"><span class="pre">for</span></code> 文で繰り返せる</p>
+<pre><code data-trim data-noescape  class="python">
+def return_list():
+    return [&quot;👩&quot;, &quot;🐯&quot;, &quot;🐟&quot;]</code></pre>
+<aside class="notes">
+doctestを通すための下準備
+&gt;&gt;&gt; def return_list():
+...     return [&quot;👩&quot;, &quot;🐯&quot;, &quot;🐟&quot;]</aside>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; for item in return_list():
+...     print(item)
+...
+👩
+🐯
+🐟</code></pre>
+</section>
+<section >
+<h3>リストの場合と <code class="docutils literal notranslate"><span class="pre">yield</span></code> の比較（Appendixで実験）</h3>
+<ul class="simple">
+<li><p>リストの場合はすべての要素をメモリに保持する</p>
+<ul>
+<li><p>長くないリストならいいのですが、長くなると・・😢</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> は <strong>すべてメモリに展開しない</strong> 👈 tips!</p>
+<ul>
+<li><p>一時停止により、<strong>一度に1つの要素</strong> を処理</p></li>
+<li><p>リストで全要素をメモリに保持するのにかかる時間が <code class="docutils literal notranslate"><span class="pre">yield</span></code> では発生しない</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>例：<code class="docutils literal notranslate"><span class="pre">yield</span></code> でファイル読み込み</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def practical_generator(file_path):
+    with open(file_path) as fh:
+        for row in fh:
+            yield row</code></pre>
+</section>
+<section >
+<h3>例：長いファイル</h3>
+<p>たくさんの行をもつファイル（<code class="docutils literal notranslate"><span class="pre">example.txt</span></code>）があります</p>
+<pre><code data-trim data-noescape  class="txt">
+Kumiko
+Haduki
+Sapphire
+Reina
+:</code></pre>
+<aside class="notes">
+doctestを通すための下準備
+&gt;&gt;&gt; def practical_generator(file_path):
+...     with open(file_path) as fh:
+...         for row in fh:
+...             yield row</aside>
+</section>
+<section >
+<h3>例：<code class="docutils literal notranslate"><span class="pre">yield</span></code> でファイル読み込み</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; g = practical_generator(&quot;example.txt&quot;)
+&gt;&gt;&gt; for member in g:
+...     print(member.rstrip())  # 右側に付く \n を除く
+...
+Kumiko
+Haduki</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2><code class="docutils literal notranslate"><span class="pre">yield</span></code> について</h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> とは</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> よき</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> <strong>こんなことまで</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> 別の使い方（Appendix）</p></li>
+</ul>
+</section>
+<section >
+<h3>別の再開方法</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">next(g)</span></code> （<code class="docutils literal notranslate"><span class="pre">g.__next__()</span></code>）は、一時停止していた <code class="docutils literal notranslate"><span class="pre">yield</span></code> の後から再開</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">g.send()</span></code> で <strong>値を送って、再開</strong> させられる</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> は送られた値を受け取れる（<code class="docutils literal notranslate"><span class="pre">value</span> <span class="pre">=</span> <span class="pre">yield</span> <span class="pre">&quot;🐯&quot;</span></code>）</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>値を受け取るようにジェネレータを変更</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def send_example_generator():
+    value = &quot;🐯&quot;
+    while True:
+        value = yield value
+        if not value:
+            break
+        else:
+            value = &quot;🐟&quot;</code></pre>
+<aside class="notes">
+doctestを通すための下準備
+&gt;&gt;&gt; def send_example_generator():
+...     value = &quot;🐯&quot;
+...     while True:
+...         value = yield value
+...         if not value:
+...             break
+...         else:
+...             value = &quot;🐟&quot;</aside>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">send</span></code> メソッド</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; g = send_example_generator()
+&gt;&gt;&gt; g.send(None)  # 開始するときはNoneを送る（next(g)でも開始）
+'🐯'</code></pre>
+<pre><code data-trim data-noescape data-line-numbers="2,4" class="python">
+def send_example_generator():
+    value = &quot;🐯&quot;
+    while True:
+        value = yield value  # 初期値 🐯 が返った
+        if not value:
+            break
+        else:
+            value = &quot;🐟&quot;</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">send</span></code> メソッド</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; g.send(1)
+'🐟'</code></pre>
+<pre><code data-trim data-noescape data-line-numbers="4" class="python">
+def send_example_generator():
+    value = &quot;🐯&quot;
+    while True:
+        value = yield value  # valueに1が代入された
+        if not value:
+            break
+        else:
+            value = &quot;🐟&quot;</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">send</span></code> メソッド</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; g.send(&quot;False&quot;)
+'🐟'</code></pre>
+<pre><code data-trim data-noescape data-line-numbers="4" class="python">
+def send_example_generator():
+    value = &quot;🐯&quot;
+    while True:
+        value = yield value  # valueに&quot;False&quot;が代入された
+        if not value:  # bool(value)がFalseならジェネレータ実行は終了
+            break
+        else:
+            value = &quot;🐟&quot;</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">send</span></code> メソッド</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; bool([])
+False
+&gt;&gt;&gt; g.send([])  # ジェネレータ実行を止める
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+StopIteration</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2>まとめ：<code class="docutils literal notranslate"><span class="pre">yield</span></code> について</h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> を使った関数＝ <strong>ジェネレータ</strong></p></li>
+<li><p><strong>一時停止</strong> &amp; （値を送って） <strong>再開</strong></p></li>
+<li><p>ジェネレータの返り値はジェネレータ <em>イテレータ</em></p></li>
+<li><p>リストを使って繰り返す場合と比べると、全要素をメモリに展開しないため <strong>省メモリ・省時間</strong></p></li>
+</ul>
+</section>
+<section >
+<h3>このLTで扱ったtips</h3>
+<ul class="simple">
+<li><p>Python界隈では <strong>自己紹介のエイリアス</strong> が「お前、誰よ」</p></li>
+<li><p>第2水曜 <a class="reference external" href="https://startpython.connpass.com/">みんなのPython勉強会</a> ・<a class="reference external" href="https://www.youtube.com/user/PyConJP/playlists">PyCon JP アーカイブ</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StopIteration</span></code> 例外は <strong>繰り返しの仕組み</strong> に関係</p></li>
+<li><p>コンテキストマネージャ＝ <code class="docutils literal notranslate"><span class="pre">with</span></code> と一緒に使えるオブジェクト</p></li>
+</ul>
+</section>
+<section >
+<h3>ご清聴ありがとうございました</h3>
+<p><strong>Enjoy</strong> development with <code class="docutils literal notranslate"><span class="pre">yield</span></code>!</p>
+<p>References、<strong>Appendix</strong> が続きます（よろしければどうぞ！）</p>
+</section>
+</section>
+<section>
+<section >
+<h2>References 1/2 ジェネレータ関連</h2>
+<ul class="simple">
+<li><p>自身を持ってコードを書こう by 陶山さん（<a class="reference external" href="https://pyconjp.connpass.com/event/177586/">2020/07 Python Charity Talks</a>）</p>
+<ul>
+<li><p><a class="reference external" href="https://docs.google.com/presentation/d/1qu3zFbzMh3AYhQ3DuDCDKbLlLqIrcklZdzi9fKyZPZQ/edit#slide=id.g7eca55c2c3_0_73">スライド（45枚目）</a> ・ <a class="reference external" href="https://youtu.be/o-UBokTvQjE?t=1196">YouTube</a></p></li>
+</ul>
+</li>
+<li><p>Generators, coroutines, and nanoservices by Reuven M. Lerner (PyCon Africa 2020)</p>
+<ul>
+<li><p><a class="reference external" href="https://youtu.be/tkoaeVS2zRQ">YouTube</a> ・ <a class="reference external" href="https://lerner.co.il/2020/05/08/making-sense-of-generators-coroutines-and-yield-from-in-python/">Blogバージョン</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://realpython.com/list-comprehension-python/#choose-generators-for-large-datasets">When to Use a List Comprehension in Python (Choose Generators for Large Datasets)</a></p></li>
+<li><p><a class="reference external" href="https://www.python.org/dev/peps/pep-0255/">PEP 255 -- Simple Generators</a></p></li>
+</ul>
+</section>
+<section >
+<h3>References 2/2</h3>
+<ul class="simple">
+<li><p>The Enters and Exits of Context Managers by Mason Egger（<a class="reference external" href="https://www.meetup.com/ja-JP/_ChiPy_/events/276239528/">2021/02 ChiPy</a>）</p>
+<ul>
+<li><p><a class="reference external" href="https://youtu.be/vQlekAHqpBg?t=2686">YouTube</a> ・ <a class="reference external" href="https://github.com/MasonEgger/context-managers-sample-code/blob/main/example08.py">ソースコード</a></p></li>
+</ul>
+</li>
+<li><p>Pythonはどうやってlen関数で長さを手にいれているの？ by 清水川さん（PyCon JP 2017）</p>
+<ul>
+<li><p><a class="reference external" href="https://www.slideshare.net/shimizukawa/how-does-python-get-the-length-with-the-len-function">スライド</a> （33枚目から <code class="docutils literal notranslate"><span class="pre">for</span></code> の仕組み）・<a class="reference external" href="https://youtu.be/aich6wqftkA">YouTube</a></p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section >
+<h2>Appendix：<code class="docutils literal notranslate"><span class="pre">yield</span></code> について</h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> 別の使い方（本編に入り切らなかった話題）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> のtips</p></li>
+<li><p>大量の行のファイルを扱う実験</p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2>番外編：<code class="docutils literal notranslate"><span class="pre">yield</span></code> について</h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> とは</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> よき</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> こんなことまで</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> <strong>別の使い方</strong></p></li>
+</ul>
+</section>
+<section >
+<h3>ジェネレータを <code class="docutils literal notranslate"><span class="pre">with</span></code> と一緒に使える</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">contextlib.contextmanager</span></code> デコレータをジェネレータに付ける（<a class="reference external" href="https://docs.python.org/ja/3/library/contextlib.html#contextlib.contextmanager">ドキュメント</a>）</p></li>
+<li><p><strong>tips</strong>: コンテキストマネージャ＝ <code class="docutils literal notranslate"><span class="pre">with</span></code> と一緒に使える（<a class="reference external" href="https://docs.python.org/ja/3/glossary.html#term-context-manager">用語集</a>）</p></li>
+</ul>
+</section>
+<section >
+<h3>コンテキストマネージャになったジェネレータ</h3>
+<pre><code data-trim data-noescape  class="python">
+&#64;contextlib.contextmanager
+def contextmanager_generator():
+    # withのブロックに入る前の処理（__enter__）
+
+    yield  # 値を返したときは as で受け取れる
+
+    # withのブロックを抜けた直後の処理（__exit__）</code></pre>
+</section>
+<section >
+<h3>コード例（『ゼロから作るDeep Learning③』より）</h3>
+<p><code class="docutils literal notranslate"><span class="pre">with</span></code> の中でだけ、<code class="docutils literal notranslate"><span class="pre">Config</span></code> の属性を書き換え（<a class="reference external" href="https://github.com/oreilly-japan/deep-learning-from-scratch-3/blob/master/steps/step18.py#L11">18章</a>）</p>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+&#64;contextlib.contextmanager
+def using_config(name, value):
+    old_value = getattr(Config, name)
+    setattr(Config, name, value)
+    try:
+        yield
+    finally:
+        setattr(Config, name, old_value)</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2><code class="docutils literal notranslate"><span class="pre">yield</span></code> のtips</h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">from</span> <span class="pre">&lt;イテレータ&gt;</span></code></p></li>
+<li><p>ref: <a class="reference external" href="https://www.python.org/dev/peps/pep-0380/">PEP 380</a> Python 3.3〜</p></li>
+<li><p>ファイル読み込みの例を次で書き変えます</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">yield</span></code> でファイル読み込みの例を書き換え</h3>
+<pre><code data-trim data-noescape data-line-numbers="5" class="python">
+def practical_generator(file_path):
+    with open(file_path) as fh:
+        # for row in fh:
+        #     yield row
+        yield from fh</code></pre>
+</section>
+<section >
+<h3>ジェネレータイテレータの繰り返しは1回のみ</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; g = easy_generator()
+&gt;&gt;&gt; for item in g:
+...     print(item)
+...
+👩
+🐯
+🐟
+&gt;&gt;&gt; for item in g:
+...     print(item)
+...</code></pre>
+</section>
+<section >
+<h3>ジェネレータイテレータを繰り返し使いたい</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">itertools.tee</span></code> （<a class="reference external" href="https://docs.python.org/ja/3/library/itertools.html#itertools.tee">ドキュメント</a>）</p></li>
+<li><p><em>一つの iterable から n 個の独立したイテレータを返します。</em></p></li>
+</ul>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; import itertools
+&gt;&gt;&gt; g = easy_generator()
+&gt;&gt;&gt; g1, g2 = itertools.tee(g)</code></pre>
+</section>
+<section >
+<h3>ジェネレータイテレータを繰り返し使いたい</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; for item in g1:
+...     print(item)
+...
+👩
+🐯
+🐟
+&gt;&gt;&gt; for item in g2:
+...     print(item)
+...
+👩
+🐯
+🐟</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2>大量の行のファイルを扱う実験：リストと <code class="docutils literal notranslate"><span class="pre">yield</span></code></h2>
+<p>10行を繰り返して行の数が多いファイルを用意</p>
+<pre><code data-trim data-noescape  class="bash">
+$ wc -l many_names_1b.txt  # 10億行！（6.4GB）
+ 1000000000 many_names_1b.txt</code></pre>
+</section>
+<section >
+<h3>実験環境</h3>
+<ul class="simple">
+<li><p>MacBook Pro</p></li>
+<li><p>プロセサ 2.3 GHz Intel Core i5、4コア</p></li>
+<li><p>メモリ 16GB</p></li>
+<li><p>Python 3.9.0</p></li>
+</ul>
+</section>
+<section >
+<h3>リストを使った場合</h3>
+<pre><code data-trim data-noescape  class="bash">
+$ time python compare_speed.py
+
+real        21m47.461s
+user        5m50.540s
+sys 10m31.005s</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">yield</span></code> を使った場合</h3>
+<pre><code data-trim data-noescape  class="bash">
+$ time python compare_speed.py
+
+real        3m42.741s
+user        3m40.157s
+sys 0m2.286s</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">time</span></code> コマンドの結果の見方</h3>
+<ul class="simple">
+<li><p>user：プログラム自体の処理時間</p></li>
+<li><p>sys：プログラムを処理するために、OSが処理をした時間</p></li>
+<li><p>ref: <a class="reference external" href="https://qiita.com/tossh/items/659e5934e52b38183200">https://qiita.com/tossh/items/659e5934e52b38183200</a></p></li>
+</ul>
+</section>
+<section >
+<h3>考察</h3>
+<ul class="simple">
+<li><p><strong>user</strong> を比べると、リストのほうが長い -&gt; 全ての要素を保持する処理の時間と考えられる</p></li>
+<li><p><strong>sys</strong> を比べると、大きな差 -&gt; プログラム処理で巨大なリストを扱うためにOSの処理が必要になったと考えている</p></li>
+</ul>
+<p>大量の行のファイルの読み込み、<code class="docutils literal notranslate"><span class="pre">yield</span></code> を試してみては？</p>
+</section>
+</section>
+<section >
+<h2>EOF</h2>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../reveal.js/dist/reveal.js"></script>
+    
+    
+      <script src="../reveal.js/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: "none",
+        slideNumber: "c/t",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>
