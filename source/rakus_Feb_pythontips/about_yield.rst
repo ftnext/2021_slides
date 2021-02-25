@@ -1,3 +1,6 @@
+.. role:: raw-html(raw)
+    :format: html
+
 ============================================================
 ``yield`` について
 ============================================================
@@ -17,10 +20,10 @@
 お前、誰よ
 ============================================================
 
-* 我が名は「にっきー」（Twitter `@ftnext <https://twitter.com/ftnext>`_ / GitHub `@ftnext <https://github.com/ftnext>`_）
+* 我が名は **にっきー** （:raw-html:`<i class="fab fa-twitter"></i>` `@ftnext <https://twitter.com/ftnext>`_ / :raw-html:`<i class="fab fa-github"></i>` `@ftnext <https://github.com/ftnext>`_）
 * Python歴3年。データサイエンティストなう
 * Love anime!!（＠　🎺🎷🔥　🌈　🏔🏕　👩‍🎨🐯🐟）
-* tips: Python界隈では **自己紹介のエイリアス** が「お前、誰よ」（`ルーツ <https://www.ianlewis.org/jp/pycon-mini-jp>`_）
+* **tips**: Python界隈では *自己紹介のエイリアス* が「お前、誰よ」（`ルーツ <https://www.ianlewis.org/jp/pycon-mini-jp>`_）
 
 お前、誰よ × tips
 ------------------------------------------------
@@ -45,7 +48,7 @@ Python Tipsと聞いて、浮かんだネタの1つが ``yield`` でした
 ``yield`` について
 ============================================================
 
-* ``yield`` とは 👈
+* ``yield`` **とは**
 * ``yield`` よき
 * ``yield`` こんなことまで
 * ``yield`` 別の使い方（Appendix）
@@ -97,7 +100,7 @@ Python Tipsと聞いて、浮かんだネタの1つが ``yield`` でした
 ``yield`` で一時停止
 ------------------------------------------------
 
-``next(g)`` で 1行目の ``yield`` で値が返され、**一時停止**
+``next(g)`` で 2行目の ``yield`` で値が返され、**一時停止**
 
 .. code-block:: python
     :linenos:
@@ -166,13 +169,13 @@ Python Tipsと聞いて、浮かんだネタの1つが ``yield`` でした
     🐯
     🐟
 
-tips: ``StopIteration`` 例外は繰り返しの仕組みに関係（`PyCon JP 2017 トーク <https://www.slideshare.net/shimizukawa/how-does-python-get-the-length-with-the-len-function>`_）
+**tips**: ``StopIteration`` 例外は繰り返しの仕組みに関係（`PyCon JP 2017 トーク <https://www.slideshare.net/shimizukawa/how-does-python-get-the-length-with-the-len-function>`_）
 
 ``yield`` について
 ============================================================
 
 * ``yield`` とは
-* ``yield`` よき 👈
+* ``yield`` **よき**
 * ``yield`` こんなことまで
 * ``yield`` 別の使い方（Appendix）
 
@@ -258,7 +261,7 @@ tips: ``StopIteration`` 例外は繰り返しの仕組みに関係（`PyCon JP 2
 
 * ``yield`` とは
 * ``yield`` よき
-* ``yield`` こんなことまで 👈
+* ``yield`` **こんなことまで**
 * ``yield`` 別の使い方（Appendix）
 
 別の再開方法
@@ -303,7 +306,18 @@ tips: ``StopIteration`` 例外は繰り返しの仕組みに関係（`PyCon JP 2
     >>> g.send(None)  # 開始するときはNoneを送る（next(g)でも開始）
     '🐯'
 
-``value`` の初期値 🐯 が返った
+.. code-block:: python
+    :linenos:
+    :emphasize-lines: 2,4
+
+    def send_example_generator():
+        value = "🐯"
+        while True:
+            value = yield value  # 初期値 🐯 が返った
+            if not value:
+                break
+            else:
+                value = "🐟"
 
 ``send`` メソッド
 ------------------------------------------------
@@ -371,7 +385,8 @@ tips: ``StopIteration`` 例外は繰り返しの仕組みに関係（`PyCon JP 2
 ------------------------------------------------
 
 * Python界隈では **自己紹介のエイリアス** が「お前、誰よ」
-* ``StopIteration`` 例外は繰り返しの仕組みに関係
+* 第2水曜 `みんなのPython勉強会 <https://startpython.connpass.com/>`_ ・`PyCon JP アーカイブ <https://www.youtube.com/user/PyConJP/playlists>`_
+* ``StopIteration`` 例外は **繰り返しの仕組み** に関係
 * コンテキストマネージャ＝ ``with`` と一緒に使えるオブジェクト
 
 ご清聴ありがとうございました
@@ -419,13 +434,13 @@ Appendix：``yield`` について
 * ``yield`` とは
 * ``yield`` よき
 * ``yield`` こんなことまで
-* ``yield`` 別の使い方 👈
+* ``yield`` **別の使い方**
 
 ジェネレータを ``with`` と一緒に使える
 ------------------------------------------------
 
 * ``contextlib.contextmanager`` デコレータをジェネレータに付ける（`ドキュメント <https://docs.python.org/ja/3/library/contextlib.html#contextlib.contextmanager>`_）
-* tips: コンテキストマネージャ＝ ``with`` と一緒に使える（`用語集 <https://docs.python.org/ja/3/glossary.html#term-context-manager>`_）
+* **tips**: コンテキストマネージャ＝ ``with`` と一緒に使える（`用語集 <https://docs.python.org/ja/3/glossary.html#term-context-manager>`_）
 
 コンテキストマネージャになったジェネレータ
 ------------------------------------------------
@@ -477,6 +492,52 @@ Appendix：``yield`` について
             #     yield row
             yield from fh
 
+ジェネレータイテレータの繰り返しは1回のみ
+------------------------------------------------
+
+.. code-block:: python
+
+    >>> g = easy_generator()
+    >>> for item in g:
+    ...     print(item)
+    ...
+    👩
+    🐯
+    🐟
+    >>> for item in g:
+    ...     print(item)
+    ...
+
+ジェネレータイテレータを繰り返し使いたい
+------------------------------------------------
+
+* ``itertools.tee`` （`ドキュメント <https://docs.python.org/ja/3/library/itertools.html#itertools.tee>`_）
+* *一つの iterable から n 個の独立したイテレータを返します。*
+
+.. code-block:: python
+
+    >>> import itertools
+    >>> g = easy_generator()
+    >>> g1, g2 = itertools.tee(g)
+
+ジェネレータイテレータを繰り返し使いたい
+------------------------------------------------
+
+.. code-block:: python
+
+    >>> for item in g1:
+    ...     print(item)
+    ...
+    👩
+    🐯
+    🐟
+    >>> for item in g2:
+    ...     print(item)
+    ...
+    👩
+    🐯
+    🐟
+
 大量の行のファイルを扱う実験：リストと ``yield``
 ============================================================
 
@@ -527,8 +588,8 @@ Appendix：``yield`` について
 考察
 ------------------------------------------------
 
-* userを比べると、リストのほうが長い -> 全ての要素を保持する処理の時間と考えられる
-* sysを比べると、大きな差 -> プログラム処理で巨大なリストを扱うためにOSの処理が必要になったと考えている
+* **user** を比べると、リストのほうが長い -> 全ての要素を保持する処理の時間と考えられる
+* **sys** を比べると、大きな差 -> プログラム処理で巨大なリストを扱うためにOSの処理が必要になったと考えている
 
 大量の行のファイルの読み込み、``yield`` を試してみては？
 
