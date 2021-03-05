@@ -76,7 +76,4 @@ References 関連するアウトプット
 
   * Remote.py #1 2020/05
 
-Appendix：PyCon JPのスタッフ活動の中でこんなふうにPython使ってます
-============================================================
-
-TODO：Appendix
+.. include:: appendix.rst.txt
