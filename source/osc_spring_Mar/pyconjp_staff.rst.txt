@@ -4,6 +4,12 @@ PyCon JP (曖昧さ回避)
 * PyCon JP
 * PyCon JP Association
 
+PyCon JP (曖昧さ回避)
+------------------------------------------------
+
+* **PyCon JP** （イベント）
+* PyCon JP Association
+
 PyCon JP
 ============================================================
 
@@ -25,6 +31,12 @@ PyCon JP 2021
 * ティザーサイト Coming soon ...
 * `スタッフ募集中！！ <https://pyconjp.blogspot.com/2021/01/2021-staff-application-start.html>`_ 🙏 Help us! 🙏
 
+PyCon JP (曖昧さ回避)
+------------------------------------------------
+
+* PyCon JP （イベント）
+* **PyCon JP Association**
+
 PyCon JP Association
 ============================================================
 
@@ -35,7 +47,7 @@ PyCon JP Association
 Associationの活動 1/2
 ------------------------------------------------
 
-* 「日本国内のPythonユーザのために、Python の普及及び開発支援を行う」
+* 「日本国内のPythonユーザのために、*Python の普及及び開発支援* を行う」
 * Python Boot Camp（初心者向け Python チュートリアル） `相談会やってます <https://pyconjp.blogspot.com/2021/02/python-boot-camp-online-talkto3.html.html>`_
 
 ref: `2020年のOSCでのAssociationの発表資料 <https://github.com/pyconjp/slides/blob/master/assets/pyconjp2020.md>`_
@@ -44,7 +56,7 @@ Associationの活動 2/2
 ------------------------------------------------
 
 * `PyCon JP TVをはじめます!! <https://pyconjp.blogspot.com/2021/01/pyconjptv-will-start.html>`_ 👉 `YouTube <https://youtube.com/playlist?list=PLMkWB0UjwFGnmt4FKkJAP8x17-br80l2Y>`_ をチェック！
-* PyCon JPは、その年の座長に **委託** （nikkieはAssociationのメンバーでは *ない* です）
+* PyCon JP（カンファレンス）は、その年の座長に **委託** （nikkieはAssociationのメンバーでは *ない* です）
 
 AssociationとOSC
 ------------------------------------------------
