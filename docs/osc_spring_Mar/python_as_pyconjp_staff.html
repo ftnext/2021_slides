@@ -388,8 +388,6 @@ $ python main.py pyconjp2020-day1.yml \
 &gt;     to_sheet &lt;シートのID&gt; \
 &gt;     &lt;サービスアカウントのJSONファイルのパス&gt; \
 &gt;     --output_worksheet_name pyconjp2020_day1</code></pre>
-<aside class="notes">
-番外 YAMLにしたのは宣言的に書ける偏見があったため（JSONやiniでもよい）</aside>
 </section>
 <section>
 <section >
@@ -600,6 +598,15 @@ $ python -i main.py
 <p>フィードバックは <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/2021_slides">ftnext/2021_slides</a> へ（質問Issue歓迎）</p>
 <p>References、<strong>Appendix</strong> が続きます（よろしければどうぞ！）</p>
 </section>
+</section>
+<section >
+<h2>質問：なぜYAMLを選択？（JSONやTOMLもある）</h2>
+<ul class="simple">
+<li><p>k8sのリソース定義やGitHub Actionsの設定の経験から、YAMLを選択した</p></li>
+<li><p>YAMLの定義に合わせて◯印を配置するので、<strong>宣言的</strong> に書くならYAMLという連想（というか偏見）</p></li>
+<li><p>他の候補としては、INIやTOML</p></li>
+<li><p>JSONは見送り。人に見やすくインデントを入れて、タイムテーブルを表現するのが大変そう</p></li>
+</ul>
 </section>
 <section >
 <h2>References 関連するアウトプット</h2>
