@@ -1,0 +1,79 @@
+Appendix：PyCon JPのスタッフ活動の中でこんなふうにPython使ってます
+============================================================
+
+* ソースコード :raw-html:`<i class="fab fa-github"></i>` `ftnext/python-as-pyconjp-staff timetable_maker <https://github.com/ftnext/python-as-pyconjp-staff/tree/78c6f90b50944acac309fbc7873c779f2d943210/timetable_maker>`_
+* 1つのスクリプトで動かした後、ファイルに分けて切り出した
+* 次に書くとしたらテストコードから
+
+開発環境
+------------------------------------------------
+
+* ``Python 3.8.6``
+* ``PyYAML 5.4.1``
+* ``gspread 3.7.0``
+
+エントリポイントは薄く
+------------------------------------------------
+
+* ファイル分割の裏にある考え方
+* ``main.py`` を **短く**
+* 詳しくは 陶山さん「`自信を持ってコードを書こう <https://docs.google.com/presentation/d/1fGZkxBJVbIcBgAkhJOSjOzqAarTwZVvT9J1FnyewRFY/edit#slide=id.p>`_ 」（スライド31）
+
+スクリプト作成中のデバッグ
+------------------------------------------------
+
+* ``if __name__ == "__main__"`` ブロックのコードは ``python -i`` でデバッグ容易
+* 関数には ``breakpoint()`` を仕込むのがオススメ（2019 `Python言語最新情報 <https://github.com/pyconjp/slides/blob/master/osc2019fukuoka/PITCHME.md>`_ もどうぞ）
+
+``dataclass``
+------------------------------------------------
+
+.. code-block:: python
+
+    @dataclass
+    class Program:
+        """ある時間からある時間までのプログラムを表す"""
+        start: time
+        end: time
+        title: str
+        rooms: list[str]
+
+https://docs.python.org/ja/3/library/dataclasses.html#dataclasses.dataclass
+
+ファーストクラスコレクション
+------------------------------------------------
+
+.. code-block:: python
+
+    @dataclass
+    class Programs(Sequence):
+        """Programのファーストクラスコレクション"""
+        programs: list[Program]
+
+        def __getitem__(self, key):
+            return self.programs[key]
+
+        def __len__(self):
+            return len(self.programs)
+
+ファーストクラスコレクション 実装の仕組み
+------------------------------------------------
+
+* ``collections.abc.Sequence`` （`ドキュメント <https://docs.python.org/ja/3/library/collections.abc.html#collections.abc.Sequence>`_）を継承し、``__getitem__`` と ``__len__`` を実装
+* 👉 ``for`` **文で繰り返せる** ようになる
+* 詳しくは 清水川さん「`Pythonはどうやってlen関数で長さを手にいれているの？ <https://www.slideshare.net/shimizukawa/how-does-python-get-the-length-with-the-len-function>`_ 」（`YouTube <https://youtu.be/aich6wqftkA>`_）
+
+その他、実装で工夫した点
+------------------------------------------------
+
+See :raw-html:`<i class="fab fa-github"></i>` `Issue #34 <https://github.com/ftnext/python-as-pyconjp-staff/issues/34>`_
+
+* 時間の扱い
+
+  * 文字列 ➡️ ``datetime.time`` オブジェクト
+  * X分刻みとの足し算
+
+* argparse with Enum（実験的）
+
+EOF
+------------------------------------------------

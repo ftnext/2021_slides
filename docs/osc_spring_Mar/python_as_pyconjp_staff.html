@@ -1,0 +1,736 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PyCon JPのスタッフ活動の中でこんなふうにPython使ってます</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="../reveal.js/dist/theme/black.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/plugin/highlight/zenburn.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/Font-Awesome/css/all.min.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@ftnext" />
+    <meta property="og:url" content="https://ftnext.github.io/2021_slides/osc_spring_Mar/python_as_pyconjp_staff.html" />
+    <meta property="og:title" content="PyCon JPのスタッフ活動の中でこんなふうにPython使ってます" />
+    <meta property="og:description" content="2021/03 オープンソースカンファレンス2021 Online/Spring セミナー スライド" />
+    
+    
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides">
+            <section >
+<h1>PyCon JPのスタッフ活動の中でこんなふうにPython使ってます</h1>
+</section>
+<section >
+<h2>PyCon JPのスタッフ活動の中でこんなふうにPython使ってます</h2>
+<dl class="field-list simple">
+<dt class="field-odd">Event</dt>
+<dd class="field-odd"><p>オープンソースカンファレンス2021 Online/Spring</p>
+</dd>
+<dt class="field-even">Presented</dt>
+<dd class="field-even"><p>2021/03/06 nikkie</p>
+</dd>
+</dl>
+</section>
+<section>
+<section >
+<h2>Zoomのチャットでアンケート</h2>
+<p>ふだんPython書いてますか？</p>
+</section>
+<section >
+<h3>Zoomのチャットでアンケート その2</h3>
+<p>ふだん書いている方向け</p>
+<p>Pythonで何をやってますか？（機械学習、データ分析、etc.）</p>
+</section>
+<section >
+<h3>最初にお願い</h3>
+<ul class="simple">
+<li><p><strong>顔出し</strong> 推奨👨‍💼</p></li>
+<li><p><strong>質問お気軽に</strong> どうぞ💬</p>
+<ul>
+<li><p>Zoomのチャット中心に拾います</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>お前、誰よ</h2>
+<ul class="simple">
+<li><p>我が名は <strong>にっきー</strong> （<span class="raw-html"><i class="fab fa-twitter"></i></span> <a class="reference external" href="https://twitter.com/ftnext">&#64;ftnext</a> / <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext">&#64;ftnext</a>）</p></li>
+<li><p>ふだんPython書いてます</p>
+<ul>
+<li><p>自動化、Webアプリ（プライベート）</p></li>
+<li><p>機械学習（データサイエンティスト）</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>お前、誰よ（続）</h3>
+<ul class="simple">
+<li><p>PyCon JP 2021 座長</p></li>
+<li><p>指針：怠惰、DRY、KISS（<a class="reference external" href="https://nikkie-ftnext.hatenablog.com/entry/tidying-policy-in-programming">最近のブログ</a>） etc.</p></li>
+<li><p>Love anime!!（＠　🎺🎷🔥　🌈　🏔🏕　👩‍🎨🐯🐟　🐴🍚🚿）</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>PyCon JP (曖昧さ回避)</h2>
+<ul class="simple">
+<li><p>PyCon JP</p></li>
+<li><p>PyCon JP Association</p></li>
+</ul>
+</section>
+<section >
+<h3>PyCon JP (曖昧さ回避)</h3>
+<ul class="simple">
+<li><p><strong>PyCon JP</strong> （イベント）</p></li>
+<li><p>PyCon JP Association</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>PyCon JP</h2>
+<ul class="simple">
+<li><p><strong>Py</strong> thon <strong>Con</strong> ference as PyCon</p></li>
+<li><p>プログラミング言語Pythonについてのカンファレンス（国際会議）</p></li>
+<li><p>世界各地で開かれている（オンライン参加、楽しいですよ）</p></li>
+</ul>
+</section>
+<section >
+<h3>PyCon JP</h3>
+<ul class="simple">
+<li><p><strong>日本最大級</strong> のPyCon（Kyushu,  Shizuoka, Hiroshimaなど地域PyConもあります）</p></li>
+<li><p>2011年から毎年開催。2018, 2019は参加者 <strong>1000名</strong> 規模</p></li>
+<li><p>詳しくは <a class="reference external" href="https://www.pycon.jp/history.html">PyCon JP の歴史</a></p></li>
+</ul>
+</section>
+<section >
+<h3>PyCon JP 2021</h3>
+<ul class="simple">
+<li><p>10/15(金)、16(土)に仮決定！</p></li>
+<li><p>ティザーサイト Coming soon ...</p></li>
+<li><p><a class="reference external" href="https://pyconjp.blogspot.com/2021/01/2021-staff-application-start.html">スタッフ募集中！！</a> 🙏 Help us! 🙏</p></li>
+</ul>
+</section>
+<section >
+<h3>PyCon JP (曖昧さ回避)</h3>
+<ul class="simple">
+<li><p>PyCon JP （イベント）</p></li>
+<li><p><strong>PyCon JP Association</strong></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>PyCon JP Association</h2>
+<blockquote>
+<div><p>日本国内の Python ユーザーのために、Python の普及及び開発支援を行う為に、継続的にカンファレンス(PyCon)を開くことを目的とした非営利組織</p>
+</div></blockquote>
+<p><a class="reference external" href="https://www.pycon.jp/committee/index.html">一般社団法人PyCon JP Associationについて</a></p>
+</section>
+<section >
+<h3>Associationの活動 1/2</h3>
+<ul class="simple">
+<li><p>「日本国内のPythonユーザのために、<em>Python の普及及び開発支援</em> を行う」</p></li>
+<li><p>Python Boot Camp（初心者向け Python チュートリアル） <a class="reference external" href="https://pyconjp.blogspot.com/2021/02/python-boot-camp-online-talkto3.html.html">相談会やってます</a></p></li>
+</ul>
+<p>ref: <a class="reference external" href="https://github.com/pyconjp/slides/blob/master/assets/pyconjp2020.md">2020年のOSCでのAssociationの発表資料</a></p>
+</section>
+<section >
+<h3>Associationの活動 2/2</h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pyconjp.blogspot.com/2021/01/pyconjptv-will-start.html">PyCon JP TVをはじめます!!</a> 👉 <a class="reference external" href="https://youtube.com/playlist?list=PLMkWB0UjwFGnmt4FKkJAP8x17-br80l2Y">YouTube</a> をチェック！</p></li>
+<li><p>PyCon JP（カンファレンス）は、その年の座長に <strong>委託</strong> （nikkieはAssociationのメンバーでは <em>ない</em> です）</p></li>
+</ul>
+</section>
+<section >
+<h3>AssociationとOSC</h3>
+<ul class="simple">
+<li><p>2019 <a class="reference external" href="https://github.com/pyconjp/slides/blob/master/osc2019fukuoka/PITCHME.md">Python言語最新情報</a></p>
+<ul>
+<li><p>Pythonのアップデート情報の整理（例：Python 3.7~ dataclass）</p></li>
+</ul>
+</li>
+<li><p>2020 <a class="reference external" href="https://github.com/pyconjp/slides/blob/master/osc2020fukuoka/PITCHME.md">Python開発環境の整え方</a></p>
+<ul>
+<li><p>Pythonのインストール、venvなど</p></li>
+</ul>
+</li>
+</ul>
+<p>よければ見てみてください</p>
+</section>
+</section>
+<section>
+<section >
+<h2><strong>PyCon JPのスタッフ活動</strong> の中でこんなふうにPython使ってます</h2>
+</section>
+<section >
+<h3>ボランティア</h3>
+<div class="figure align-default">
+<img alt="../_images/202103_osc_staff_talk_volunteer_image.jpeg" src="../_images/202103_osc_staff_talk_volunteer_image.jpeg" />
+</div>
+</section>
+<section >
+<h3>参加要件はありません</h3>
+<ul class="simple">
+<li><p><strong>やりたい</strong> という方は、ぜひ飛び込んで</p></li>
+<li><p>Pythonを触ったことがなくてもスタッフはできます（活躍している方がいます）</p></li>
+<li><p>IT系の職種でなくてもスタッフはできます（活躍している方がいます！）</p></li>
+</ul>
+</section>
+<section >
+<h3>PyCon JP 2021に向けて現在考えていること</h3>
+<ul class="simple">
+<li><p>タイムテーブル（オンライン／現地併催）</p></li>
+<li><p>スポンサープラン</p></li>
+<li><p>予算</p></li>
+<li><p>etc.</p></li>
+</ul>
+</section>
+<section >
+<h3>スタッフ活動の一部を紹介</h3>
+<ul class="simple">
+<li><p>スタッフmtgの <strong>ブログ記事</strong> を書く</p></li>
+<li><p><strong>メール</strong> でのやり取り（スピーカー、スポンサー）</p></li>
+<li><p>Webサイトの構築</p></li>
+</ul>
+<a href="https://docs.google.com/forms/d/e/1FAIpQLScAAcvrt7qD5eUX3zIi4OoW6xYosfy7cSuuWu8acYSmEL4M5g/viewform" style="background-color: #554171; border-radius: 15px; color: white; display: block; font-weight: bold; margin: 7px auto; padding: 7px 8px; text-align: center; text-decoration: none; width: 60%;" target="_blank">
+  スタッフ申込フォーム
+</a></section>
+</section>
+<section>
+<section >
+<h2>PyCon JPのスタッフ活動の中で <strong>こんなふうにPython使ってます</strong></h2>
+<ul class="simple">
+<li><p>nikkieはスタッフ活動でPython使っています</p></li>
+<li><p>注：使わなければならないという話ではないです</p></li>
+</ul>
+</section>
+<section >
+<h3>スタッフの考え方（抜粋）</h3>
+<ul class="simple">
+<li><p>やり方は自由</p></li>
+<li><p>費用対効果を考えよう</p></li>
+</ul>
+<p><a class="reference external" href="https://manual.pycon.jp/staff/attitude.html">https://manual.pycon.jp/staff/attitude.html</a></p>
+</section>
+<section >
+<h3>nikkieはなぜPythonを使う？ 1/2</h3>
+<ul class="simple">
+<li><p>やり方は自由 だから</p></li>
+<li><p>スタッフ活動と並行して、エンジニアとして <strong>力をつけられる</strong> 💪道（手を動かす道）を選ぶ</p></li>
+</ul>
+</section>
+<section >
+<h3>nikkieはなぜPythonを使う？ 2/2</h3>
+<ul class="simple">
+<li><p>費用対効果</p></li>
+<li><p>繰り返す退屈なタスクを自動化し、<strong>省力化</strong> &amp; 毎回 <strong>同じ質</strong> （<em>2x staff</em> 🏋️‍♂️）</p></li>
+<li><p>自動化できないタスクに人間は注力</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>Python as PyCon JP staff 事例 1/2</h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.google.com/presentation/d/1xucUXyiHIUGB8862mimuiESGaR4Liwxu4eKdVFn0o0A/edit#slide=id.g910cf14a7a_0_206">自動で止まるSlackリマインダー</a> （Googleスプレッドシートから投稿）&#64; <a class="reference external" href="https://youtu.be/VBeJU9o9API?t=211">PyCon JP 2020</a></p></li>
+<li><p><a class="reference external" href="https://docs.google.com/presentation/d/1uVMYiCewRAVITS7-uw0J9u9F3LTj0w--_vWmzLGr4so/edit#slide=id.g86a462ae2c_0_542">Googleドライブの議事録テンプレートコピーSlackコマンド</a> &#64; <a class="reference external" href="https://youtu.be/VvYeUQ12GSQ">PyCon Taiwan 2020</a></p></li>
+</ul>
+<p>いずれも動作環境はAWS Lambda</p>
+</section>
+<section >
+<h3>Python as PyCon JP staff 2/2</h3>
+<ul class="simple">
+<li><p>JIRA／Confluenceのチェック（実装中）</p></li>
+<li><p><a class="reference external" href="https://docs.google.com/presentation/d/1xucUXyiHIUGB8862mimuiESGaR4Liwxu4eKdVFn0o0A/edit#slide=id.g910cf14a7a_0_211">プロポーザルレビュー Webアプリ</a> &#64; <a class="reference external" href="https://youtu.be/VBeJU9o9API?t=211">PyCon JP 2020</a></p>
+<ul>
+<li><p>他のスタッフが作業を進めやすくするための <strong>環境整備</strong></p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>Timetable as YAML</h2>
+<p>今回紹介する事例</p>
+</section>
+<section >
+<h3>注意事項</h3>
+<ul class="simple">
+<li><p>タイムテーブル作成はマイナーなタスク（みんながやるわけではない）</p></li>
+<li><p>共有したいのは、Pythonで自動化するときの <strong>考え方</strong></p></li>
+<li><p>具体的なタイムテーブル作成ロジックに興味ある方は <a class="reference external" href="https://github.com/ftnext/python-as-pyconjp-staff/tree/78c6f90b50944acac309fbc7873c779f2d943210/timetable_maker">ソースコード</a> をどうぞ</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>タスク：タイムテーブル作成</h2>
+<ul class="simple">
+<li><p>スタッフ用のタイムテーブル</p></li>
+<li><p>企画段階で <strong>カンファレンスの全体像を描く</strong> のに使う</p></li>
+<li><p>Googleスプレッドシートで共有</p></li>
+</ul>
+</section>
+<section >
+<h3>スタッフ用タイムテーブル（イメージ）</h3>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="../_images/202103_osc_staff_talk_staff_timetable.drawio.png"><img alt="../_images/202103_osc_staff_talk_staff_timetable.drawio.png" src="../_images/202103_osc_staff_talk_staff_timetable.drawio.png" style="width: 125%;" /></a>
+</div>
+<aside class="notes">
+人間が作るとこう（実物はスタッフ限定なので、見せない）</aside>
+</section>
+<section >
+<h3>スタッフ用タイムテーブル（イメージ）</h3>
+<ul class="simple">
+<li><p>カンファレンスの <strong>全体像</strong> ＝この時間帯はどの部屋で、基調講演／トーク／パーティー etc.</p></li>
+<li><p>並行しているトラックが分かる（スタッフ配置のイメージ）</p></li>
+<li><p>5分刻みで具体化していく（初版は荒く15分刻み）</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>変更しづらい😫</h2>
+<p>解決したい課題</p>
+<p><em>タイムテーブル作成をPythonにやらせよう</em></p>
+</section>
+<section >
+<h3>PyCon JP 2020 タイムテーブルは何回も変更</h3>
+<ul class="simple">
+<li><p>スタッフから意見をもらい、トークの枠を <strong>並べ替え</strong></p></li>
+<li><p>現地開催➡オンライン開催と方針転換（ベースにしつつも大きく変更）</p>
+<ul>
+<li><p>休憩時間変更で <strong>◯印を移動</strong></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>トーク並べ替えの例</h3>
+<p>お昼のあとのトーク、30分➡️45分と並べた</p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="../_images/202103_osc_staff_talk_timetable_before.drawio.png"><img alt="../_images/202103_osc_staff_talk_timetable_before.drawio.png" src="../_images/202103_osc_staff_talk_timetable_before.drawio.png" style="width: 125%;" /></a>
+</div>
+</section>
+<section >
+<h3>トーク並べ替えの例</h3>
+<p>意見を聞いて45分➡️30分に並べ替える</p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="../_images/202103_osc_staff_talk_timetable_after.drawio.png"><img alt="../_images/202103_osc_staff_talk_timetable_after.drawio.png" src="../_images/202103_osc_staff_talk_timetable_after.drawio.png" style="width: 125%;" /></a>
+</div>
+<aside class="notes">
+スプレッドシートの関数を使って、row()を元にtimeを算出できれば少し楽になるかもしれない</aside>
+</section>
+</section>
+<section>
+<section >
+<h2>💡タイムテーブルの出力（◯印）は自動で</h2>
+<p>解決案</p>
+</section>
+<section >
+<h3>役割分担！</h3>
+<ul class="simple">
+<li><p>時間帯の変更と <strong>整合するように◯印を並べ替える</strong> のがツラい</p></li>
+<li><p>人間👨‍💼：時間帯だけにフォーカス</p></li>
+<li><p>機械🤖：時間帯を元に○印を出力（Python🐍にアサイン）</p></li>
+</ul>
+</section>
+<section >
+<h3>Timetable as YAML 1/2</h3>
+<ul class="simple">
+<li><p>人間が <strong>時間帯・部屋・コンテンツを配置</strong> し、YAMLで表す</p></li>
+<li><p>2日間のカンファレンスなら <code class="docutils literal notranslate"><span class="pre">1日目.yml</span></code> と <code class="docutils literal notranslate"><span class="pre">2日目.yml</span></code></p></li>
+</ul>
+<pre><code data-trim data-noescape  class="yaml">
+- rooms: [&quot;#pyconjp_1&quot;, &quot;#pyconjp_2&quot;, &quot;#pyconjp_3&quot;, &quot;#pyconjp_4&quot;, &quot;#pyconjp_5&quot;]
+  start: 11:50
+  end: 12:35
+  title: トーク（45分）</code></pre>
+</section>
+<section >
+<h3>Timetable as YAML 2/2</h3>
+<ul class="simple">
+<li><p>プログラムは入力されたYAMLを元に、<strong>タイムテーブル（◯印付き）を出力</strong></p></li>
+<li><p>出力先としてGoogleスプレッドシートもサポート</p></li>
+</ul>
+</section>
+</section>
+<section >
+<h2>Demo</h2>
+<pre><code data-trim data-noescape  class="bash">
+$ python main.py pyconjp2020-day1.yml \
+&gt;     --step_min 5 \
+&gt;     to_sheet &lt;シートのID&gt; \
+&gt;     &lt;サービスアカウントのJSONファイルのパス&gt; \
+&gt;     --output_worksheet_name pyconjp2020_day1</code></pre>
+<aside class="notes">
+番外 YAMLにしたのは宣言的に書ける偏見があったため（JSONやiniでもよい）</aside>
+</section>
+<section>
+<section >
+<h2>Timetable as YAML どう作るか？</h2>
+<ul class="simple">
+<li><p>登場人物 整理</p></li>
+<li><p>ライブラリ 扱い方 確認</p></li>
+<li><p>徐々にスクリプトを作る</p></li>
+</ul>
+</section>
+<section >
+<h3>Timetable as YAML どう作るか？</h3>
+<ul class="simple">
+<li><p><strong>登場人物 整理</strong></p></li>
+<li><p>ライブラリ 扱い方 確認</p></li>
+<li><p>徐々にスクリプトを作る</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>登場人物 整理</h2>
+<ul class="simple">
+<li><p>やりたいことの登場人物をまず考え、使うライブラリを決める</p></li>
+<li><p>参考 岩崎さん 「<a class="reference external" href="https://www.slideshare.net/laughk/python-webapi-nextsteppythonprograming">入門書を読み終わったらなにしよう？</a> 」（スライド19）</p></li>
+</ul>
+</section>
+<section >
+<h3>Timetable as YAMLの登場人物</h3>
+<ul class="simple">
+<li><p>入力：YAML形式のファイル</p></li>
+<li><p>出力：Googleスプレッドシート</p></li>
+</ul>
+</section>
+<section >
+<h3>登場人物をPythonでどう扱う？</h3>
+<ul class="simple">
+<li><p>Pythonはサードパーティライブラリが <strong>豊富</strong></p></li>
+<li><p><strong>検索</strong> してメジャーなライブラリを掴む</p></li>
+<li><p>目的が達成できそうなものを <strong>選択</strong></p></li>
+</ul>
+</section>
+<section >
+<h3>🔍「python yaml」</h3>
+<ul class="simple">
+<li><p><strong>PyYAML</strong> の情報が多く見つかった</p></li>
+<li><p><a class="reference external" href="https://pyyaml.org/wiki/PyYAMLDocumentation">ドキュメント</a> が古い（Python 2系での記述）が、他のブログの情報でカバーできた</p></li>
+<li><p>参考：<a class="reference external" href="https://dev.classmethod.jp/articles/getting-started-with-pyyaml-and-ruamel-yaml/">【PyYAML VS ruamel.yaml】PythonからYAMLファイルを触ってみた</a></p></li>
+</ul>
+</section>
+<section >
+<h3>🔍「python Googleスプレッドシート」</h3>
+<ul class="simple">
+<li><p><strong>gspread</strong> の情報が多く見つかった</p></li>
+<li><p>ドキュメントを確認（<a class="reference external" href="https://gspread.readthedocs.io/en/latest/#quick-example">Quick Example</a>、<a class="reference external" href="https://gspread.readthedocs.io/en/latest/oauth2.html">Authentication</a>、<a class="reference external" href="https://gspread.readthedocs.io/en/latest/user-guide.html">Examples</a>）→ 使いやすそう</p></li>
+</ul>
+</section>
+<section >
+<h3>補足：Googleスプレッドシートにプログラムからアクセス</h3>
+<ul class="simple">
+<li><p><strong>Sheets API</strong> を呼び出している</p></li>
+<li><p>Sheets APIの有効化と、認証情報（サービスアカウント）の入手は、GCPのConsoleで操作が必要</p></li>
+<li><p>サービスアカウントの設定は『<a class="reference external" href="https://book.impress.co.jp/books/1118101147">仕事がはかどるPython自動処理 全部入り。</a>』を参照した</p></li>
+</ul>
+<aside class="notes">
+ドキュメントより、gspreadはSheets API v4のラッパー</aside>
+</section>
+<section >
+<h3>Timetable as YAML どう作るか？</h3>
+<ul class="simple">
+<li><p>登場人物 整理</p></li>
+<li><p><strong>ライブラリ 扱い方 確認</strong></p></li>
+<li><p>徐々にスクリプトを作る</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>扱い方 確認</h2>
+<ul class="simple">
+<li><p>使いたいライブラリを <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> （仮想環境を利用しています）</p>
+<ul>
+<li><p>参考：2020 <a class="reference external" href="https://github.com/pyconjp/slides/blob/master/osc2020fukuoka/PITCHME.md">Python開発環境の整え方</a> （<code class="docutils literal notranslate"><span class="pre">venv</span></code>, <code class="docutils literal notranslate"><span class="pre">pip</span></code>）</p></li>
+</ul>
+</li>
+<li><p>ドキュメントの <strong>サンプルコード</strong> をPythonの <strong>対話モード</strong> で実行</p></li>
+</ul>
+<pre><code data-trim data-noescape  class="bash">
+(venv) $ python
+&gt;&gt;&gt;</code></pre>
+</section>
+<section >
+<h3>PyYAML 扱い方確認</h3>
+<p>sample.yml</p>
+<pre><code data-trim data-noescape  class="yaml">
+---
+- rooms: [Room A, Room B, Room C]
+  start: 9:00
+  end: 10:00
+  title: 素敵なオープニング</code></pre>
+</section>
+<section >
+<h3>PyYAML 扱い方確認</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; import yaml
+&gt;&gt;&gt; with open(&quot;sample.yaml&quot;) as f:
+...     data = yaml.load(f)
+...
+&lt;stdin&gt;:2: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.</code></pre>
+<p>Warningについて：<a class="reference external" href="https://github.com/yaml/pyyaml/wiki/PyYAML-yaml.load(input)-Deprecation">https://github.com/yaml/pyyaml/wiki/PyYAML-yaml.load(input)-Deprecation</a></p>
+</section>
+<section >
+<h3>PyYAML 扱い方確認</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; with open(&quot;sample.yaml&quot;) as f:
+...     data = yaml.load(f, Loader=yaml.BaseLoader)
+...
+&gt;&gt;&gt; data
+[{'rooms': ['Room A', 'Room B', 'Room C'], 'start': '9:00', 'end': '10:00', 'title': '素敵なオープニング'}]</code></pre>
+<p><code class="docutils literal notranslate"><span class="pre">Loader=yaml.BaseLoader</span></code> を指定すると、すべて文字列として読み込まれる</p>
+</section>
+<section >
+<h3>gspread 扱い方確認</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; import gspread
+&gt;&gt;&gt; gc = gspread.service_account()
+&gt;&gt;&gt; wks = gc.open_by_key(&quot;スプレッドシートのキー&quot;).sheet1</code></pre>
+<p><code class="docutils literal notranslate"><span class="pre">https://docs.google.com/spreadsheets/d/&lt;スプレッドシートのキー&gt;/edit#gid=0</span></code></p>
+</section>
+<section >
+<h3>gspread 扱い方確認</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; wks = gc.open_by_key(&quot;スプレッドシートのキー&quot;).sheet1
+&gt;&gt;&gt; rows = [[1, 2], [3, 4]]
+&gt;&gt;&gt; # A1, A2, B1, B2に値が入る
+&gt;&gt;&gt; wks.update(&quot;A1&quot;, [[1, 2], [3, 4]])</code></pre>
+<p>一行をリストで表す。それを要素とするリストを引数に <code class="docutils literal notranslate"><span class="pre">update</span></code> を呼び出す</p>
+</section>
+<section >
+<h3>Timetable as YAML どう作るか？</h3>
+<ul class="simple">
+<li><p>登場人物 整理</p></li>
+<li><p>ライブラリ 扱い方 確認</p></li>
+<li><p><strong>徐々にスクリプトを作る</strong></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>徐々にスクリプトを作る</h2>
+<ul class="simple">
+<li><p>対話モードで確認したコードを少しずつ <strong>スクリプトに移す</strong></p>
+<ul>
+<li><p>確認したPyYAMLの使い方を移動</p></li>
+<li><p>確認したgspreadの使い方（の一部）を移動</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-i</span> <span class="pre">スクリプト</span></code> がオススメ</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">-i</span></code> オプション（<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-i</span></code>）</h3>
+<blockquote>
+<div><p>最初の引数にスクリプトが指定された場合（中略）、スクリプトかコマンドを実行した後にインタラクティブモードに入ります。</p>
+</div></blockquote>
+<p><a class="reference external" href="https://docs.python.org/ja/3/using/cmdline.html#cmdoption-i">https://docs.python.org/ja/3/using/cmdline.html#cmdoption-i</a></p>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">-i</span></code> オプション</h3>
+<ul class="simple">
+<li><p>スクリプトを実行した後に <strong>対話モードに入る</strong> ので、少しずつ作る際に便利</p></li>
+<li><p>例：ワークシート <code class="docutils literal notranslate"><span class="pre">wks</span></code> が取得できたら移動してスクリプト実行</p></li>
+</ul>
+<pre><code data-trim data-noescape  class="python">
+$ python -i main.py
+&gt;&gt;&gt; # wks を使った処理を試す</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2>Timetable as YAML どう作るか？</h2>
+<ul class="simple">
+<li><p>登場人物 整理</p></li>
+<li><p>ライブラリ 扱い方 確認</p></li>
+<li><p>徐々にスクリプトを作る</p></li>
+</ul>
+</section>
+<section >
+<h3>Timetable as YAML どう作るか？</h3>
+<ul class="simple">
+<li><p>ライブラリは <strong>検索</strong> して掴み、<strong>ドキュメント</strong> を確認</p></li>
+<li><p><strong>対話モード</strong> や <code class="docutils literal notranslate"><span class="pre">-i</span></code> オプションを駆使して、扱い方を確認。<strong>徐々に</strong> スクリプトに</p></li>
+<li><p>タイムテーブル作成ロジックの実装はAppendixや <a class="reference external" href="https://github.com/ftnext/python-as-pyconjp-staff/tree/78c6f90b50944acac309fbc7873c779f2d943210/timetable_maker">GitHub</a> をどうぞ！</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>まとめ🌯：PyCon JPのスタッフ活動の中でこんなふうにPython使ってます</h2>
+<ul class="simple">
+<li><p>力をつけるため、楽をするために、Pythonを使っています</p></li>
+<li><p>Pythonで自動化するときの考え方を紹介</p></li>
+<li><p><a class="reference external" href="https://pyconjp.blogspot.com/2021/01/2021-staff-application-start.html">スタッフやりませんか？</a> 🙏 Help us! 🙏</p></li>
+</ul>
+</section>
+<section >
+<h3>ご清聴ありがとうございました</h3>
+<p>フィードバックは <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/2021_slides">ftnext/2021_slides</a> へ（質問Issue歓迎）</p>
+<p>References、<strong>Appendix</strong> が続きます（よろしければどうぞ！）</p>
+</section>
+</section>
+<section >
+<h2>References 関連するアウトプット</h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.google.com/presentation/d/1ATNL1J5OtCW3ay3rs8kynULl0cJ6bKJje654XvI8BuM/edit?usp=sharing">カンファレンススタッフとしてコードを書いて広げるエンジニアリング・ライフ</a></p>
+<ul>
+<li><p>July Tech Festa 2020/07</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://docs.google.com/presentation/d/1YP03-0THNmWLdqIi_hrcgi-k7y_2G7jj5iWXf973Ew4/edit?usp=sharing">Pythonで自動化スクリプトを作るときに考えていること</a></p>
+<ul>
+<li><p>Remote.py #1 2020/05</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section>
+<section >
+<h2>Appendix：PyCon JPのスタッフ活動の中でこんなふうにPython使ってます</h2>
+<ul class="simple">
+<li><p>ソースコード <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/python-as-pyconjp-staff/tree/78c6f90b50944acac309fbc7873c779f2d943210/timetable_maker">ftnext/python-as-pyconjp-staff timetable_maker</a></p></li>
+<li><p>1つのスクリプトで動かした後、ファイルに分けて切り出した</p></li>
+<li><p>次に書くとしたらテストコードから</p></li>
+</ul>
+</section>
+<section >
+<h3>開発環境</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">3.8.6</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PyYAML</span> <span class="pre">5.4.1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gspread</span> <span class="pre">3.7.0</span></code></p></li>
+</ul>
+</section>
+<section >
+<h3>エントリポイントは薄く</h3>
+<ul class="simple">
+<li><p>ファイル分割の裏にある考え方</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">main.py</span></code> を <strong>短く</strong></p></li>
+<li><p>詳しくは 陶山さん「<a class="reference external" href="https://docs.google.com/presentation/d/1fGZkxBJVbIcBgAkhJOSjOzqAarTwZVvT9J1FnyewRFY/edit#slide=id.p">自信を持ってコードを書こう</a> 」（スライド31）</p></li>
+</ul>
+</section>
+<section >
+<h3>スクリプト作成中のデバッグ</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;</span></code> ブロックのコードは <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-i</span></code> でデバッグ容易</p></li>
+<li><p>関数には <code class="docutils literal notranslate"><span class="pre">breakpoint()</span></code> を仕込むのがオススメ（2019 <a class="reference external" href="https://github.com/pyconjp/slides/blob/master/osc2019fukuoka/PITCHME.md">Python言語最新情報</a> もどうぞ）</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">dataclass</span></code></h3>
+<pre><code data-trim data-noescape  class="python">
+&#64;dataclass
+class Program:
+    &quot;&quot;&quot;ある時間からある時間までのプログラムを表す&quot;&quot;&quot;
+    start: time
+    end: time
+    title: str
+    rooms: list[str]</code></pre>
+<p><a class="reference external" href="https://docs.python.org/ja/3/library/dataclasses.html#dataclasses.dataclass">https://docs.python.org/ja/3/library/dataclasses.html#dataclasses.dataclass</a></p>
+</section>
+<section >
+<h3>ファーストクラスコレクション</h3>
+<pre><code data-trim data-noescape  class="python">
+&#64;dataclass
+class Programs(Sequence):
+    &quot;&quot;&quot;Programのファーストクラスコレクション&quot;&quot;&quot;
+    programs: list[Program]
+
+    def __getitem__(self, key):
+        return self.programs[key]
+
+    def __len__(self):
+        return len(self.programs)</code></pre>
+</section>
+<section >
+<h3>ファーストクラスコレクション 実装の仕組み</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">collections.abc.Sequence</span></code> （<a class="reference external" href="https://docs.python.org/ja/3/library/collections.abc.html#collections.abc.Sequence">ドキュメント</a>）を継承し、<code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> と <code class="docutils literal notranslate"><span class="pre">__len__</span></code> を実装</p></li>
+<li><p>👉 <code class="docutils literal notranslate"><span class="pre">for</span></code> <strong>文で繰り返せる</strong> ようになる</p></li>
+<li><p>詳しくは 清水川さん「<a class="reference external" href="https://www.slideshare.net/shimizukawa/how-does-python-get-the-length-with-the-len-function">Pythonはどうやってlen関数で長さを手にいれているの？</a> 」（<a class="reference external" href="https://youtu.be/aich6wqftkA">YouTube</a>）</p></li>
+</ul>
+</section>
+<section >
+<h3>その他、実装で工夫した点</h3>
+<p>See <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/python-as-pyconjp-staff/issues/34">Issue #34</a></p>
+<ul class="simple">
+<li><p>時間の扱い</p>
+<ul>
+<li><p>文字列 ➡️ <code class="docutils literal notranslate"><span class="pre">datetime.time</span></code> オブジェクト</p></li>
+<li><p>X分刻みとの足し算</p></li>
+</ul>
+</li>
+<li><p>argparse with Enum（実験的）</p></li>
+</ul>
+</section>
+<section >
+<h3>EOF</h3>
+</section>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../reveal.js/dist/reveal.js"></script>
+    
+    
+      <script src="../reveal.js/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: "none",
+        slideNumber: "c/t",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>

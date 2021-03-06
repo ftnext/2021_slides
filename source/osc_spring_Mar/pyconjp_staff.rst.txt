@@ -1,0 +1,151 @@
+PyCon JP (曖昧さ回避)
+============================================================
+
+* PyCon JP
+* PyCon JP Association
+
+PyCon JP (曖昧さ回避)
+------------------------------------------------
+
+* **PyCon JP** （イベント）
+* PyCon JP Association
+
+PyCon JP
+============================================================
+
+* **Py** thon **Con** ference as PyCon
+* プログラミング言語Pythonについてのカンファレンス（国際会議）
+* 世界各地で開かれている（オンライン参加、楽しいですよ）
+
+PyCon JP
+------------------------------------------------
+
+* **日本最大級** のPyCon（Kyushu,  Shizuoka, Hiroshimaなど地域PyConもあります）
+* 2011年から毎年開催。2018, 2019は参加者 **1000名** 規模
+* 詳しくは `PyCon JP の歴史 <https://www.pycon.jp/history.html>`_
+
+PyCon JP 2021
+------------------------------------------------
+
+* 10/15(金)、16(土)に仮決定！
+* ティザーサイト Coming soon ...
+* `スタッフ募集中！！ <https://pyconjp.blogspot.com/2021/01/2021-staff-application-start.html>`_ 🙏 Help us! 🙏
+
+PyCon JP (曖昧さ回避)
+------------------------------------------------
+
+* PyCon JP （イベント）
+* **PyCon JP Association**
+
+PyCon JP Association
+============================================================
+
+    日本国内の Python ユーザーのために、Python の普及及び開発支援を行う為に、継続的にカンファレンス(PyCon)を開くことを目的とした非営利組織
+
+`一般社団法人PyCon JP Associationについて <https://www.pycon.jp/committee/index.html>`_
+
+Associationの活動 1/2
+------------------------------------------------
+
+* 「日本国内のPythonユーザのために、*Python の普及及び開発支援* を行う」
+* Python Boot Camp（初心者向け Python チュートリアル） `相談会やってます <https://pyconjp.blogspot.com/2021/02/python-boot-camp-online-talkto3.html.html>`_
+
+ref: `2020年のOSCでのAssociationの発表資料 <https://github.com/pyconjp/slides/blob/master/assets/pyconjp2020.md>`_
+
+Associationの活動 2/2
+------------------------------------------------
+
+* `PyCon JP TVをはじめます!! <https://pyconjp.blogspot.com/2021/01/pyconjptv-will-start.html>`_ 👉 `YouTube <https://youtube.com/playlist?list=PLMkWB0UjwFGnmt4FKkJAP8x17-br80l2Y>`_ をチェック！
+* PyCon JP（カンファレンス）は、その年の座長に **委託** （nikkieはAssociationのメンバーでは *ない* です）
+
+AssociationとOSC
+------------------------------------------------
+
+* 2019 `Python言語最新情報 <https://github.com/pyconjp/slides/blob/master/osc2019fukuoka/PITCHME.md>`_
+
+  * Pythonのアップデート情報の整理（例：Python 3.7~ dataclass）
+
+* 2020 `Python開発環境の整え方 <https://github.com/pyconjp/slides/blob/master/osc2020fukuoka/PITCHME.md>`_
+
+  * Pythonのインストール、venvなど
+
+よければ見てみてください
+
+**PyCon JPのスタッフ活動** の中でこんなふうにPython使ってます
+============================================================
+
+ボランティア
+------------------------------------------------
+
+.. figure:: ../_static/osc_spring_Mar/202103_osc_staff_talk_volunteer_image.jpeg
+
+参加要件はありません
+------------------------------------------------
+
+* **やりたい** という方は、ぜひ飛び込んで
+* Pythonを触ったことがなくてもスタッフはできます（活躍している方がいます）
+* IT系の職種でなくてもスタッフはできます（活躍している方がいます！）
+
+PyCon JP 2021に向けて現在考えていること
+------------------------------------------------
+
+* タイムテーブル（オンライン／現地併催）
+* スポンサープラン
+* 予算
+* etc.
+
+スタッフ活動の一部を紹介
+------------------------------------------------
+
+* スタッフmtgの **ブログ記事** を書く
+* **メール** でのやり取り（スピーカー、スポンサー）
+* Webサイトの構築
+
+.. raw:: html
+
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLScAAcvrt7qD5eUX3zIi4OoW6xYosfy7cSuuWu8acYSmEL4M5g/viewform" style="background-color: #554171; border-radius: 15px; color: white; display: block; font-weight: bold; margin: 7px auto; padding: 7px 8px; text-align: center; text-decoration: none; width: 60%;" target="_blank">
+    スタッフ申込フォーム
+  </a>
+
+PyCon JPのスタッフ活動の中で **こんなふうにPython使ってます**
+============================================================
+
+* nikkieはスタッフ活動でPython使っています
+* 注：使わなければならないという話ではないです
+
+スタッフの考え方（抜粋）
+------------------------------------------------
+
+* やり方は自由
+* 費用対効果を考えよう
+
+https://manual.pycon.jp/staff/attitude.html
+
+nikkieはなぜPythonを使う？ 1/2
+------------------------------------------------
+
+* やり方は自由 だから
+* スタッフ活動と並行して、エンジニアとして **力をつけられる** 💪道（手を動かす道）を選ぶ
+
+nikkieはなぜPythonを使う？ 2/2
+------------------------------------------------
+
+* 費用対効果
+* 繰り返す退屈なタスクを自動化し、**省力化** & 毎回 **同じ質** （*2x staff* 🏋️‍♂️）
+* 自動化できないタスクに人間は注力
+
+Python as PyCon JP staff 事例 1/2
+============================================================
+
+* `自動で止まるSlackリマインダー <https://docs.google.com/presentation/d/1xucUXyiHIUGB8862mimuiESGaR4Liwxu4eKdVFn0o0A/edit#slide=id.g910cf14a7a_0_206>`_ （Googleスプレッドシートから投稿）@ `PyCon JP 2020 <https://youtu.be/VBeJU9o9API?t=211>`_
+* `Googleドライブの議事録テンプレートコピーSlackコマンド <https://docs.google.com/presentation/d/1uVMYiCewRAVITS7-uw0J9u9F3LTj0w--_vWmzLGr4so/edit#slide=id.g86a462ae2c_0_542>`_ @ `PyCon Taiwan 2020 <https://youtu.be/VvYeUQ12GSQ>`_
+
+いずれも動作環境はAWS Lambda
+
+Python as PyCon JP staff 2/2
+------------------------------------------------
+
+* JIRA／Confluenceのチェック（実装中）
+* `プロポーザルレビュー Webアプリ <https://docs.google.com/presentation/d/1xucUXyiHIUGB8862mimuiESGaR4Liwxu4eKdVFn0o0A/edit#slide=id.g910cf14a7a_0_211>`_ @ `PyCon JP 2020 <https://youtu.be/VBeJU9o9API?t=211>`_
+
+  * 他のスタッフが作業を進めやすくするための **環境整備**
