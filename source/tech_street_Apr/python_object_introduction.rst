@@ -14,17 +14,16 @@ object活用ことはじめ 〜dataclassと特殊メソッド〜
 1. dataclass使ったことありますか？
 2. 「特殊メソッド」ピンと来ますか？
 
-お前、誰よ
+はじめに
 ============================================================
 
-* **活用事例**: Python界隈では *自己紹介のエイリアス* が「お前、誰よ」（`ルーツ <https://www.ianlewis.org/jp/pycon-mini-jp>`_）
-* 我が名は **にっきー** （:raw-html:`<i class="fab fa-twitter"></i>` `@ftnext <https://twitter.com/ftnext>`_ / :raw-html:`<i class="fab fa-github"></i>` `@ftnext <https://github.com/ftnext>`_）
+* Python界隈では *自己紹介のエイリアス* が「お前、誰よ」（`ルーツ <https://www.ianlewis.org/jp/pycon-mini-jp>`_） **活用ください！**
 
 お前、誰よ
 ------------------------------------------------
 
 * 我が名は **にっきー** （:raw-html:`<i class="fab fa-twitter"></i>` `@ftnext <https://twitter.com/ftnext>`_ / :raw-html:`<i class="fab fa-github"></i>` `@ftnext <https://github.com/ftnext>`_）
-* Python歴3年半ほど。現在はユーザベース所属のデータサイエンティスト
+* **Python歴3年半** ほど。現在は `ユーザベース <https://www.wantedly.com/projects/622337>`_ 所属のデータサイエンティスト
 * Love anime!!（＠　🎺🎷🔥　🌲🌳🐲　🐴🍚🚿　👩‍🎨🐯🐟）
 
     ペアプロ・TDDでPython書いて、日々楽しく働いています😃
@@ -40,7 +39,7 @@ Pythonの最新トレンドが共有される他の勉強会イベント
 ------------------------------------------------------------------------------------------------
 
 * Pythonのカンファレンス **PyCon JP**
-* `PyCon JP 2020 アーカイブ動画 <https://youtube.com/playlist?list=PLMkWB0UjwFGkgC4eCjltRKD1HS_eups9A>`_
+* YouTube `PyCon JP 2020 アーカイブ動画 <https://youtube.com/playlist?list=PLMkWB0UjwFGkgC4eCjltRKD1HS_eups9A>`_
 * nikkieはPyCon JP 2021 **座長** 🇨🇭です。`スタッフ募集中 <https://pyconjp.blogspot.com/2021/01/2021-staff-application-start.html>`_！📣🙏
 
 LTするので宣伝させてください🙏
@@ -56,23 +55,23 @@ LTするので宣伝させてください🙏
 1. dataclass使ったことありますか？
 2. 「特殊メソッド」ピンと来ますか？
 
-→ nikkieはこれらを活用し始められて、Python書くのがすごく楽しい！😆
+→ nikkieはこれらを活用し始められて、Python書くのがすごく **楽しい** ！😆
 
 おことわり
 ------------------------------------------------
 
-* Pythonを活用するために **裏側を知りましょう** （Pythonの話をします）
-* 活用事例を話すわけではありません
+* Python活用事例や最新トレンドではありません🙇‍♂️（私も知りたい！）
+* Pythonを活用するために **Pythonの裏側を知りましょう**
 * この話が「当たり前」という人は、Pythonを活用できていると思います！
 * 動作環境：Python 3.9.4
 
-Python活用事例が聞きたかったという方へ
+補注：Python活用事例が聞きたかったという方へ
 ------------------------------------------------
 
-TODO
+nikkieの過去のアウトプットから
 
-* remote.py
-* 2020 PyCon
+* PyCon Taiwan 2020で発表 `PyCon JP スタッフ活動でのPython活用事例 <https://docs.google.com/presentation/d/1uVMYiCewRAVITS7-uw0J9u9F3LTj0w--_vWmzLGr4so/edit?usp=sharing>`_ （英語）
+* 2020年Remote.pyで発表「`Pythonで自動化スクリプトを作るときに考えていること <https://docs.google.com/presentation/d/1YP03-0THNmWLdqIi_hrcgi-k7y_2G7jj5iWXf973Ew4/edit?usp=sharing>`_」
 
 目次：object活用ことはじめ 〜dataclassと特殊メソッド〜
 ------------------------------------------------------------------------------------------------
@@ -95,17 +94,17 @@ objectとは
 
 `Python 言語リファレンス - 3. データモデル - 3.1 . オブジェクト、値、および型 <https://docs.python.org/ja/3/reference/datamodel.html#objects-values-and-types>`_ （強調は引用者による）
 
-objectとは、データ
+大事なことなので、2回
 ------------------------------------------------
 
-    Python プログラムにおけるデータは全て、オブジェクトまたはオブジェクト間の関係として表されます。
+    Python プログラムにおける **データ** は全て、オブジェクトまたはオブジェクト間の関係として表されます。
 
-`Python 言語リファレンス - 3. データモデル - 3.1 . オブジェクト、値、および型 <https://docs.python.org/ja/3/reference/datamodel.html#objects-values-and-types>`_
+`Python 言語リファレンス - 3. データモデル - 3.1 . オブジェクト、値、および型 <https://docs.python.org/ja/3/reference/datamodel.html#objects-values-and-types>`_ （強調は引用者による）
 
 補注：オブジェクト指向とは無関係です
 ------------------------------------------------
 
-* Pythonのobject＝データという話をしています
+* Pythonのオブジェクト(object) ＝ **データ** という話をしています
 * 示唆を与えてくださったブログ：`オブジェクト指向という言葉を使わずともコードは書ける <https://essay.zopfco.de/entry/2020/12/12/231752>`_
 
 用語集でobjectを引く
@@ -118,7 +117,7 @@ https://docs.python.org/ja/3/glossary.html#term-object （強調は引用者に�
 用語集でobjectを引く 続き
 ------------------------------------------------
 
-    もしくは、全ての 新スタイルクラス の究極の基底クラスのこと。
+    もしくは、全ての 新スタイルクラス の究極の **基底クラス** のこと。
 
 .. code-block:: python
     :linenos:
@@ -126,12 +125,13 @@ https://docs.python.org/ja/3/glossary.html#term-object （強調は引用者に�
     class SomeClass:  # クラスはobjectを継承している
         pass
 
-小まとめ🥟：Pythonのobject
+小まとめ🥟：Pythonのobjectは2重の意味合い
 ------------------------------------------------
 
-* Pythonのobjectはデータで、属性とメソッドを持つ
-* Pythonでは、どんなクラスも ``object`` を継承している（2重の意味合い）
-* 👉 ここからはPythonにおける **クラスのインスタンス** について話していきます
+* 属性とメソッドを持つ **データ**
+* どんなクラスも ``object`` を継承（究極の **基底クラス**）
+
+👉 ここからはPythonにおけるデータの *振る舞い* について話していきます
 
 object活用ことはじめ 〜dataclassと特殊メソッド〜
 ============================================================
@@ -143,11 +143,12 @@ object活用ことはじめ 〜dataclassと特殊メソッド〜
 ❓ Question（チャット💬 お願いします🙏）
 ============================================================
 
-次のデータ（object）は等しい？
+次のデータ（馬🐴の名を表すobject）は等しい？
 
 .. code-block:: python
 
     >>> class RaceHorseName:
+    ...     """競走馬の名前を表す"""
     ...     def __init__(self, value):
     ...         self.value = value
     >>> rice = RaceHorseName("ライスシャワー")
@@ -156,6 +157,8 @@ object活用ことはじめ 〜dataclassと特殊メソッド〜
 
 次のデータ（object）は等しい？ - 🙅‍♀️ （ぶっぶー）
 ------------------------------------------------------------------------------------------------
+
+馬の名は、等しくない
 
 .. code-block:: python
 
@@ -177,7 +180,7 @@ https://docs.python.org/ja/3/reference/datamodel.html#object.__eq__
 ------------------------------------------------
 
 * ``RaceHorseName`` には実装していない
-* 究極の基底クラス ``object`` が ``__eq__`` を持つ
+* **究極の基底クラス** ``object`` が ``__eq__`` を持つ
 * その実装は ``True if x is y else NotImplemented`` （`ドキュメント <https://docs.python.org/ja/3/reference/datamodel.html#object.__eq__>`_）
 
 ``is``：同一性の比較
@@ -195,14 +198,14 @@ https://docs.python.org/ja/3/reference/expressions.html#is （強調は引用者
 小まとめ🥟：等しくなかった理由
 ------------------------------------------------
 
-* ``rice == rice2`` で、オブジェクトの同一性を比較した
+* ``rice == rice2`` は、オブジェクトの *同一性* を比較する結果になった
 * ``rice`` と ``rice2`` は **別々のオブジェクトを指す** ので、``False``
 * （組み込み関数 ``id`` で、別々のオブジェクトを指していることを確認できます）
 
 「等しい」は作れる！
 ============================================================
 
-* ``value`` 属性の値が等しいとき、データ（object）は等しくしたい（ライスシャワーはライスシャワー）
+* ``value`` 属性の **値が等しい** とき、**データ（object）は等しく** したい（ライスシャワーはライスシャワー）
 * 👉 ``__eq__`` メソッドを ``RaceHorseName`` クラスで実装する（``object`` の ``__eq__`` を **オーバーライド**）
 
 ``__eq__`` メソッド オーバーライド
@@ -251,12 +254,20 @@ https://docs.python.org/ja/3/reference/expressions.html#is （強調は引用者
 * クラスに付けるデコレータ（`用語集 <https://docs.python.org/ja/3/glossary.html#term-decorator>`_）
 * ``RaceHorseName`` クラスに ``__eq__`` を作り、``object`` の ``__eq__`` をオーバーライド
 
-補注：``@dataclasses.dataclass``
+補注：以下2つのデコレータの機能は同じ
 ------------------------------------------------
 
-    dataclass() が引数を指定しない単純なデコレータとして使用された場合、ドキュメントに記載されているシグネチャの **デフォルト値のとおり** に動作します。
+.. code-block:: python
 
-https://docs.python.org/ja/3/library/dataclasses.html#dataclasses.dataclass （強調は引用者による）
+    @dataclass
+    class RaceHorseName1:
+        ...
+    
+    @dataclass()
+    class RaceHorseName2:
+        ...
+
+.. 詳しくはAppendixへ（TODO）
 
 ``@dataclasses.dataclass`` の ``eq`` 引数
 ------------------------------------------------
@@ -269,9 +280,9 @@ https://docs.python.org/ja/3/library/dataclasses.html#dataclasses.dataclass （�
 ``@dataclasses.dataclass`` によって
 ------------------------------------------------
 
-* ``RaceHorseName`` クラスに ``__eq__`` メソッドが作られた
+* ``RaceHorseName`` クラスに **``__eq__`` メソッドが作られた**
 * この ``__eq__`` では、クラスが同じことと ``(self.value, )`` を比較
-* 👉 クラスが同じで、上記タプルが等しいので、``rice == rice2`` は ``True`` と評価された
+* 👉 **クラスが同じで、上記タプルが等しい** ので、``rice == rice2`` は ``True`` と評価された
 
 .. 確認用
     >>> (rice.value, ) == (rice2.value, )
@@ -281,7 +292,7 @@ https://docs.python.org/ja/3/library/dataclasses.html#dataclasses.dataclass （�
 ------------------------------------------------
 
 * クラスに ``__eq__`` メソッドを実装して、``object`` の ``__eq__`` をオーバーライドすればいい
-* ``@dataclasses.dataclass`` でクラスをデコレートすると ``__eq__`` メソッドが作られて、少ない記述で済む🙌
+* ``@dataclasses.dataclass`` でクラスをデコレートすると ``__eq__`` メソッドが作られて、**少ない記述で済む** 🙌
 
 object活用ことはじめ 〜dataclassと特殊メソッド〜
 ============================================================
@@ -294,7 +305,7 @@ object活用ことはじめ 〜dataclassと特殊メソッド〜
 ------------------------------------------------
 
 * ``__eq__`` などのメソッドのこと（`特殊メソッド名一覧 <https://docs.python.org/ja/3/reference/datamodel.html#specialnames>`_）
-* 究極の基底クラス ``object`` で定義されていて、**オーバーライドすることでobjectの振る舞いをカスタマイズできる**
+* 究極の基底クラス ``object`` で定義されていて、**オーバーライド** することで **データの振る舞いをカスタマイズ** できる
 * マジックメソッド、ダンダーメソッドとも呼ばれる
 
 用語集へのリンクはAppendixへ（TODO：dataclassにダンダーメソッドの訳注発見）
@@ -315,7 +326,7 @@ object活用ことはじめ 〜dataclassと特殊メソッド〜
 反復できるobjectの作り方
 ------------------------------------------------
 
-* 今回は ``Sequence`` を継承して、特殊メソッドをオーバーライドして作成
+* 今回は **``Sequence`` というクラスを継承** して、特殊メソッドをオーバーライドして作成
 * ``for`` 文で繰り返したいだけであれば、Iterable（`用語集 <https://docs.python.org/ja/3/glossary.html#term-iterable>`_）になればいいので、他の特殊メソッドをオーバーライドしてもできます
 
 用語集より「シーケンス」
@@ -341,8 +352,8 @@ https://docs.python.org/ja/3/glossary.html#term-sequence
 ------------------------------------------------
 
 * ``collections.abc.Sequence`` を継承する
-* 継承することで、``__len__``、``__getitem__`` の実装が強制される
-* オススメ理由：実装する特殊メソッドを覚えておくより、継承する抽象基底クラスを覚えておくほうが簡単（※個人の見解です）
+* 継承することで、``__len__``、``__getitem__`` の **実装が強制される**
+* オススメ理由：実装する特殊メソッドを覚えておくより、継承する抽象基底クラスを覚えておくほうが覚える量が少ない（※個人の見解です）
 
 補注：実装が強制される様子
 ------------------------------------------------
@@ -388,6 +399,8 @@ https://docs.python.org/ja/3/reference/datamodel.html#object.__len__ （強調�
 ``__getitem__`` を実装
 ------------------------------------------------
 
+.. TODO：スライスの場合
+
 .. code-block:: python
 
     >>> @dataclass
@@ -423,17 +436,18 @@ https://docs.python.org/ja/3/reference/datamodel.html#object.__len__ （強調�
 小まとめ🥟：特殊メソッドでobjectを反復できる
 ------------------------------------------------
 
-* クラスに ``__len__``、``__getitem__`` を実装した
-* ``Sequence`` を継承することで、実装が強制される（推奨納言）
-* objectの振る舞いのカスタマイズの一例
+* クラスに **``__len__``、``__getitem__``** を実装した
+* **``Sequence`` を継承** することで、実装が強制される（推奨納言）
+* Pythonのデータ (object) の振る舞いのカスタマイズの一例
 
 まとめ🌯：object活用ことはじめ 〜dataclassと特殊メソッド〜
 ============================================================
 
-* Pythonのobjectはデータ
-* ``object`` は究極の基底クラスで、特殊メソッドを持つ
-* ``@dataclass`` でクラスに特殊メソッドを作成して、**データの振る舞いをカスタマイズ**
-* 抽象基底クラスを継承して特殊メソッドを作成してもいい
+* Pythonのobjectはデータであり、究極の基底クラス
+* ``object`` が持つ **特殊メソッドをオーバーライド** して、データの振る舞いをカスタマイズ 😆
+
+  * **``@dataclass``** で特殊メソッド作成
+  * 抽象基底クラスを継承して特殊メソッド実装
 
 ご清聴ありがとうございました
 ------------------------------------------------
