@@ -464,3 +464,5 @@ References
 * 『`ゼロから作るDeep Learning ❸――フレームワーク編 <https://www.oreilly.co.jp/books/9784873119069/>`_』
 
   * ``__call__`` , ``__add__`` , ``__radd__`` が紹介されていて興味を持ちました
+
+.. include:: appendix.rst.txt

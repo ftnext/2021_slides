@@ -1,0 +1,132 @@
+Appendix：object活用ことはじめ 〜dataclassと特殊メソッド〜
+============================================================
+
+``object`` の ``__eq__``
+============================================================
+
+* 究極の基底クラス ``object`` の ``__eq__`` の実装
+* ``True if x is y else NotImplemented`` と共有しました
+
+同値性と同一性
+------------------------------------------------
+
+* 同値性： 同じ **値** （同一でなくても値として同じになりうる）
+* 同一性： ``is`` で比較。同じ **オブジェクト** （同じ ``id``）
+
+このLTでは、``__eq__`` をオーバーライドして同値性を比較できるようにした
+
+``NotImplemented``
+============================================================
+
+* 単一の値しかない型（ref: `標準型の階層 <https://docs.python.org/ja/3/reference/datamodel.html#the-standard-type-hierarchy>`_）
+* ``NotImplementedError`` ではないので注意
+
+``__eq__`` で ``NotImplemented`` を ``return``
+------------------------------------------------
+
+``==`` の評価は ``False`` （そうなるための仕組みが ``NotImplemented``）
+
+.. code-block:: python
+
+    >>> class RaceHorseName:
+    ...     def __init__(self, value):
+    ...         self.value = value
+    ...     def __eq__(self, other):
+    ...         if not isinstance(other, self.__class__):
+    ...             return NotImplemented
+    ...         return self.value == other.value
+    >>> rice = RaceHorseName("ライスシャワー")
+    >>> rice == "ライスシャワー"
+    False
+
+以下2つのデコレータの機能は同じ
+============================================================
+
+* ``@dataclass``
+* ``@dataclass()``
+
+nikkieは上の方で使うことが多いです
+
+``dataclasses`` のドキュメントより
+------------------------------------------------
+
+    dataclass() が引数を指定しない単純なデコレータとして使用された場合、ドキュメントに記載されているシグネチャの **デフォルト値のとおり** に動作します。
+
+https://docs.python.org/ja/3/library/dataclasses.html#dataclasses.dataclass （強調は引用者による）
+
+特殊メソッドに関する用語
+============================================================
+
+* 特殊メソッド
+* マジックメソッド
+* ダンダーメソッド
+
+用語集 特殊メソッド
+------------------------------------------------
+
+* special method の訳語
+* （LT本編で解説したとおり）
+
+https://docs.python.org/ja/3/glossary.html#term-special-method
+
+用語集 マジックメソッド
+------------------------------------------------
+
+    special method のくだけた同義語です。
+
+https://docs.python.org/ja/3/glossary.html#term-magic-method
+
+ダンダーメソッド
+------------------------------------------------
+
+    "ダンダー" メソッド (訳注：dunderはdouble underscoreの略で、メソッド名の前後にアンダースコアが2つ付いているメソッド)
+
+https://docs.python.org/ja/3/library/dataclasses.html#dataclasses.dataclass
+
+Python3.9 / 3.8以前と型ヒント
+============================================================
+
+.. doctestを通す
+    >>> from dataclasses import dataclass
+    >>> from collections.abc import Sequence
+
+以下のコードはPython3.8以前では動きません
+
+.. code-block:: python
+
+    >>> @dataclass  # doctest: +SKIP
+    ... class RaceHorseNames(Sequence):
+    ...     names: list[RaceHorseName]
+    TypeError: 'type' object is not subscriptable
+
+なぜPython3.8以前は動かない？
+------------------------------------------------
+
+* Python3.9で ``list`` など組み込み型が **Generic型** になった
+* 詳しくは過去のアウトプット：`PEP 585, type hinting generics in standard collections について <https://docs.google.com/presentation/d/1KJlSSS-ZDByqqg_HO0_EFGbXCBqR8OMzzWwz8xvGQkU/edit?usp=sharing>`_
+* オススメ：`2021年版Pythonの型ヒントの書き方 (for Python 3.9) <https://future-architect.github.io/articles/20201223/>`_
+
+Python 3.8でも動かす方法1
+------------------------------------------------
+
+.. code-block:: python
+
+    >>> from typing import List
+    >>> @dataclass
+    ... class RaceHorseNames(Sequence):
+    ...     names: List[RaceHorseName]
+
+``typing.List`` はPython3.9でdeprecated
+
+Python 3.8でも動かす方法2 オススメ
+------------------------------------------------
+
+.. code-block:: python
+
+    >>> from __future__ import annotations
+    >>> @dataclass  # doctest: +SKIP
+    ... class RaceHorseNames(Sequence):
+    ...     names: list[RaceHorseName]
+
+EOF
+============================================================
