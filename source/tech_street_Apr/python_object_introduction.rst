@@ -218,7 +218,7 @@ https://docs.python.org/ja/3/reference/expressions.html#is （強調は引用者
     ...         self.value = value
     ...     def __eq__(self, other):
     ...         if not isinstance(other, self.__class__):
-    ...             return NotImplemented  # TODO: Appendixで補足
+    ...             return NotImplemented  # 👉 Appendix
     ...         return self.value == other.value
 
 ``__eq__`` メソッド オーバーライド
@@ -254,8 +254,8 @@ https://docs.python.org/ja/3/reference/expressions.html#is （強調は引用者
 * クラスに付けるデコレータ（`用語集 <https://docs.python.org/ja/3/glossary.html#term-decorator>`_）
 * ``RaceHorseName`` クラスに ``__eq__`` を作り、``object`` の ``__eq__`` をオーバーライド
 
-補注：以下2つのデコレータの機能は同じ
-------------------------------------------------
+補注：以下2つのデコレータの機能は同じ (👉 Appendix)
+------------------------------------------------------------------------------------------------
 
 .. code-block:: python
 
@@ -266,8 +266,6 @@ https://docs.python.org/ja/3/reference/expressions.html#is （強調は引用者
     @dataclass()
     class RaceHorseName2:
         ...
-
-.. 詳しくはAppendixへ（TODO）
 
 ``@dataclasses.dataclass`` の ``eq`` 引数
 ------------------------------------------------
@@ -280,7 +278,7 @@ https://docs.python.org/ja/3/library/dataclasses.html#dataclasses.dataclass （�
 ``@dataclasses.dataclass`` によって
 ------------------------------------------------
 
-* ``RaceHorseName`` クラスに **``__eq__`` メソッドが作られた**
+* ``RaceHorseName`` クラスに **__eq__メソッドが作られた**
 * この ``__eq__`` では、クラスが同じことと ``(self.value, )`` を比較
 * 👉 **クラスが同じで、上記タプルが等しい** ので、``rice == rice2`` は ``True`` と評価された
 
@@ -306,9 +304,7 @@ object活用ことはじめ 〜dataclassと特殊メソッド〜
 
 * ``__eq__`` などのメソッドのこと（`特殊メソッド名一覧 <https://docs.python.org/ja/3/reference/datamodel.html#specialnames>`_）
 * 究極の基底クラス ``object`` で定義されていて、**オーバーライド** することで **データの振る舞いをカスタマイズ** できる
-* マジックメソッド、ダンダーメソッドとも呼ばれる
-
-用語集へのリンクはAppendixへ（TODO：dataclassにダンダーメソッドの訳注発見）
+* マジックメソッド、ダンダーメソッドとも呼ばれる（👉 Appendix）
 
 例：反復できるobjectを作りたい
 ------------------------------------------------
@@ -326,7 +322,7 @@ object活用ことはじめ 〜dataclassと特殊メソッド〜
 反復できるobjectの作り方
 ------------------------------------------------
 
-* 今回は **``Sequence`` というクラスを継承** して、特殊メソッドをオーバーライドして作成
+* 今回は **Sequence というクラスを継承** して、特殊メソッドをオーバーライドして作成
 * ``for`` 文で繰り返したいだけであれば、Iterable（`用語集 <https://docs.python.org/ja/3/glossary.html#term-iterable>`_）になればいいので、他の特殊メソッドをオーバーライドしてもできます
 
 用語集より「シーケンス」
@@ -363,7 +359,7 @@ https://docs.python.org/ja/3/glossary.html#term-sequence
     >>> from collections.abc import Sequence
     >>> @dataclass
     ... class RaceHorseNames(Sequence):
-    ...     names: list[RaceHorseName]  # TODO: Appendix
+    ...     names: list[RaceHorseName]  # 👉 Appendix
     >>> names = RaceHorseNames([])
     Traceback (most recent call last):
       File "<stdin>", line 1, in <module>
@@ -399,8 +395,6 @@ https://docs.python.org/ja/3/reference/datamodel.html#object.__len__ （強調�
 ``__getitem__`` を実装
 ------------------------------------------------
 
-.. TODO：スライスの場合
-
 .. code-block:: python
 
     >>> @dataclass
@@ -409,6 +403,8 @@ https://docs.python.org/ja/3/reference/datamodel.html#object.__len__ （強調�
     ...     # -- __len__ は省略 --
     ...     # namesはリストなので、整数もスライスも受け付けられる
     ...     def __getitem__(self, key):
+    ...         if isinstance(key, slice):
+    ...             return self.__class__(self.names[key])
     ...         return self.names[key]
 
 .. RaceHorseNamesクラスの全容
@@ -416,6 +412,8 @@ https://docs.python.org/ja/3/reference/datamodel.html#object.__len__ （強調�
     ... class RaceHorseNames(Sequence):
     ...     names: list[RaceHorseName]
     ...     def __getitem__(self, key):
+    ...         if isinstance(key, slice):
+    ...             return self.__class__(self.names[key])
     ...         return self.names[key]
     ...     def __len__(self):
     ...         return len(self.names)
@@ -436,8 +434,8 @@ https://docs.python.org/ja/3/reference/datamodel.html#object.__len__ （強調�
 小まとめ🥟：特殊メソッドでobjectを反復できる
 ------------------------------------------------
 
-* クラスに **``__len__``、``__getitem__``** を実装した
-* **``Sequence`` を継承** することで、実装が強制される（推奨納言）
+* クラスに **__len__、__getitem__** を実装した
+* **Sequence を継承** することで、実装が強制される（推奨納言）
 * Pythonのデータ (object) の振る舞いのカスタマイズの一例
 
 まとめ🌯：object活用ことはじめ 〜dataclassと特殊メソッド〜
@@ -446,7 +444,7 @@ https://docs.python.org/ja/3/reference/datamodel.html#object.__len__ （強調�
 * Pythonのobjectはデータであり、究極の基底クラス
 * ``object`` が持つ **特殊メソッドをオーバーライド** して、データの振る舞いをカスタマイズ 😆
 
-  * **``@dataclass``** で特殊メソッド作成
+  * **@dataclass** で特殊メソッド作成
   * 抽象基底クラスを継承して特殊メソッド実装
 
 ご清聴ありがとうございました
@@ -455,3 +453,14 @@ https://docs.python.org/ja/3/reference/datamodel.html#object.__len__ （強調�
 **Enjoy** development with ``object``!
 
 References、**Appendix** が続きます（よろしければどうぞ！）
+
+References
+============================================================
+
+* PyCon JP 2017 `Pythonはどうやってlen関数で長さを手にいれているの？ <https://www.slideshare.net/shimizukawa/how-does-python-get-the-length-with-the-len-function>`_
+
+  * このLTと特に関係するのは、スライド43。このトーク自体オススメです
+
+* 『`ゼロから作るDeep Learning ❸――フレームワーク編 <https://www.oreilly.co.jp/books/9784873119069/>`_』
+
+  * ``__call__`` , ``__add__`` , ``__radd__`` が紹介されていて興味を持ちました
