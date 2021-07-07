@@ -121,6 +121,19 @@ LTするので宣伝させてください🙏
                 raise ValueError("不正: 0未満")
             object.__setattr__(self, "value", value)
 
+.. 続くdocstring中のdoctestを通すためのコード
+    >>> from __future__ import annotations
+    >>> from dataclasses import dataclass
+    >>> @dataclass(frozen=True)
+    ... class Money:
+    ...     value: int
+    ...     def __init__(self, value: int) -> None:
+    ...         if value < 0:
+    ...             raise ValueError("不正: 0未満")
+    ...         object.__setattr__(self, "value", value)
+    ...     def multiply(self, number: int) -> "Money":
+    ...         return Money(self.value * number)
+
 例：``Money`` （金額を扱うクラス）続き
 ------------------------------------------------
 
@@ -133,6 +146,7 @@ LTするので宣伝させてください🙏
 
         >>> Money(500).multiply(3)
         Money(value=1500)
+
         """
         return Money(self.value * number)
 
