@@ -1,0 +1,448 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>小ネタ：値オブジェクトで読みやすく（Pythonを例に）</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="../reveal.js/dist/theme/black.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/plugin/highlight/zenburn.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/Font-Awesome/css/all.min.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@ftnext" />
+    <meta property="og:url" content="https://ftnext.github.io/2021_slides/rakus_July_readable/value_object_tip.html" />
+    <meta property="og:title" content="小ネタ：値オブジェクトで読みやすく（Pythonを例に）" />
+    <meta property="og:description" content="2021/07 ラクス リーダブルコード LT会 スライド（コメント返答追加ver.）" />
+
+    
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides">
+            <section >
+<h1>小ネタ：値オブジェクトで読みやすく（Pythonを例に）</h1>
+<dl class="field-list simple">
+<dt class="field-odd">Event</dt>
+<dd class="field-odd"><p>ラクス リーダブルコード LT会 - vol.2</p>
+</dd>
+<dt class="field-even">Presented</dt>
+<dd class="field-even"><p>2021/07/07🎋 nikkie</p>
+</dd>
+</dl>
+</section>
+<section >
+<h2>❓ Question（チャット💬 お願いします🙏）</h2>
+<p>みなさん、ふだんどの言語を書いてますか？</p>
+<p>インタラクティブにやってみるので、LT中の <strong>Zoomチャット大歓迎</strong> です！</p>
+</section>
+<section>
+<section >
+<h2>お前、誰よ</h2>
+<ul class="simple">
+<li><p>我が名は <strong>にっきー</strong> （<span class="raw-html"><i class="fab fa-twitter"></i></span> <a class="reference external" href="https://twitter.com/ftnext">&#64;ftnext</a> / <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext">&#64;ftnext</a>）</p></li>
+<li><p><strong>Python歴3年半</strong> ほど。現在は <a class="reference external" href="https://www.wantedly.com/projects/622337">ユーザベース</a> 所属のデータサイエンティスト</p></li>
+</ul>
+</section>
+<section >
+<h3>お前、誰よ（承前）</h3>
+<ul class="simple">
+<li><p>Love Python!</p></li>
+<li><p>Love anime!!（🎺🎷🔥　🌲🌳🐲　📽🎞🎥🎬🧡　🍎🍋🥝🍇🧺）</p></li>
+<li><p>PyCon JP 2021 座長🇨🇭</p></li>
+</ul>
+</section>
+<section >
+<h3>LTするので宣伝させてください🙏</h3>
+<ul class="simple">
+<li><p><strong>Py</strong> thon <strong>Con</strong> ference as PyCon（＝年に一度のPython祭り）</p></li>
+<li><p>PyCon JP 2021 10/15(金), 16(土)</p>
+<ul>
+<li><p>15日は <a class="reference external" href="https://pyconjp.blogspot.com/2021/07/hybrid-pyconjp-2021-plan-june.html">ハイブリッド開催</a></p></li>
+</ul>
+</li>
+<li><p>📣 <strong>7/10(土)</strong> までトークのプロポーザル募集中！！ 📣 <a class="reference external" href="https://pyconjp.blogspot.com/2021/05/start-proposal.html">募集開始ブログ</a></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>ここから本題：#readablelt</h2>
+<blockquote>
+<div><p>可読性の高いコードやリファクタリングについてLTでアウトプットしましょう！</p>
+</div></blockquote>
+<p><a class="reference external" href="https://rakus.connpass.com/event/215225/">connpass リーダブルコード LT会 - vol.2</a></p>
+</section>
+<section >
+<h3>リーダブルといえば</h3>
+<p>『<a class="reference external" href="https://www.oreilly.co.jp/books/9784873115658/">リーダブルコード――より良いコードを書くためのシンプルで実践的なテクニック</a>』🎼</p>
+<p>💬 読んだ方？🙋‍♂️ 聞いたことはある方？🙋‍♀️</p>
+</section>
+</section>
+<section>
+<section >
+<h2>私と『リーダブルコード』🎼</h2>
+<ul class="simple">
+<li><p>新卒1年目のとき、会社でおすすめされて読んだ</p></li>
+<li><p>「他の人が最短時間で理解できるように」（1章）👉 <strong>読みやすさ</strong></p></li>
+<li><p><strong>命名</strong> が特に印象的（他にも早期リターンなど）</p></li>
+</ul>
+</section>
+<section >
+<h3>「カラフル」🌈</h3>
+<blockquote>
+<div><p>もっと「カラフル」な単語を探す（2章）</p>
+</div></blockquote>
+<ul>
+<li><p>情報が伝わる</p></li>
+<li><p>目的に適した明確な名前</p>
+<blockquote>
+<div><p>気取った言い回しよりも明確で正確なほうがいい。（2章）</p>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section >
+<h3>カラフルを求めて🌈</h3>
+<ul class="simple">
+<li><p>変数や関数をカラフルな単語で命名（愚直に実践）</p></li>
+<li><p>カラフル優先で、単語数が増え、変数名長くなりがち🤯</p></li>
+<li><p>当時の悩み：カラフルの加減 <a class="reference external" href="https://youtu.be/J9JQrg1ugsk">ムズイ</a> （<a class="reference external" href="https://github.com/ftnext/2018_LTslides/blob/master/aniben_August_imas/PITCHME.md">当時のLTスライド</a>）</p></li>
+</ul>
+</section>
+<section >
+<h3>読みやすさについての最近の気づき</h3>
+<ul class="simple">
+<li><p>実践してきた命名だけではなさそう</p></li>
+<li><p>『リーダブルコード』には <strong>外側</strong> がある！</p></li>
+<li><p>気づきの中から、<strong>値オブジェクト</strong> を共有します</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>値オブジェクト</h2>
+<p>💬 知ってる方？🙋‍♂️ 聞いたことはある方？🙋‍♀️</p>
+<ul class="simple">
+<li><p>バリューオブジェクトとも</p></li>
+<li><p>脱線：<a class="reference external" href="https://twitter.com/kaiinu/status/1360571177677123588?s=20">一人称が「アタイ」のヒロイン</a></p></li>
+</ul>
+</section>
+<section >
+<h3>値オブジェクトと読みやすさの気づき</h3>
+<ul>
+<li><p>『<a class="reference external" href="https://gihyo.jp/book/2017/978-4-7741-9087-7">現場で役立つシステム設計の原則</a>』</p></li>
+<li><p>1章「小さくまとめてわかりやすくする」で値オブジェクトを紹介</p>
+<blockquote>
+<div><p>値を扱うための専用クラスを作る</p>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section >
+<h3>値を扱うための専用クラスとは？</h3>
+<ul class="simple">
+<li><p>基本データ型を <strong>属性</strong> として1つか2つ</p></li>
+<li><p>コンストラクタで値の範囲の検証（完全コンストラクタ）</p></li>
+<li><p>不変（値オブジェクトを使った計算では、新しい値オブジェクトを返す）</p></li>
+</ul>
+</section>
+<section >
+<h3>例：<code class="docutils literal notranslate"><span class="pre">Money</span></code> （金額を扱うクラス）</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+&#64;dataclass(frozen=True)
+class Money:
+    value: int  # 基本データ型を属性として1つ
+
+    def __init__(self, value: int) -&gt; None:
+        if value &lt; 0:  # 完全コンストラクタ（金額は0円以上）
+            raise ValueError(&quot;不正: 0未満&quot;)
+        object.__setattr__(self, &quot;value&quot;, value)</code></pre>
+<aside class="notes">
+続くdocstring中のdoctestを通すためのコード
+&gt;&gt;&gt; from __future__ import annotations
+&gt;&gt;&gt; from dataclasses import dataclass
+&gt;&gt;&gt; &#64;dataclass(frozen=True)
+... class Money:
+...     value: int
+...     def __init__(self, value: int) -&gt; None:
+...         if value &lt; 0:
+...             raise ValueError(&quot;不正: 0未満&quot;)
+...         object.__setattr__(self, &quot;value&quot;, value)
+...     def multiply(self, number: int) -&gt; &quot;Money&quot;:
+...         return Money(self.value * number)</aside>
+</section>
+<section >
+<h3>例：<code class="docutils literal notranslate"><span class="pre">Money</span></code> （金額を扱うクラス）続き</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def multiply(self, number: int) -&gt; Money:
+    &quot;&quot;&quot;Moneyを整数倍した、新しいMoneyを作って返す（不変）
+
+    &gt;&gt;&gt; Money(500).multiply(3)
+    Money(value=1500)
+
+    &quot;&quot;&quot;
+    return Money(self.value * number)</code></pre>
+</section>
+<section >
+<h3>別の例：<code class="docutils literal notranslate"><span class="pre">Quantity</span></code> （数量を扱うクラス）</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+&#64;dataclass(frozen=True)
+class Quantity:
+    value: int  # 基本データ型の属性
+
+    def __init__(self, value: int) -&gt; None:
+        if value &lt; 0:  # 完全コンストラクタ
+            raise ValueError(&quot;不正: 0未満&quot;)
+        object.__setattr__(self, &quot;value&quot;, value)</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2>値オブジェクトで読みやすく</h2>
+<ul class="simple">
+<li><p>『現場で役立つシステム設計の原則』から読みやすいと思った例</p></li>
+<li><p>注：Pythonの型ヒントが絡みます</p></li>
+</ul>
+</section>
+<section >
+<h3>補足：Pythonの型ヒント</h3>
+<ul class="simple">
+<li><p>変数や関数の仮引数・返り値の型を表す <strong>ラベル</strong> （コメントに近い）</p></li>
+<li><p>実行時に型をチェックするわけでは <strong>ない</strong></p></li>
+</ul>
+<p>詳しくは <a class="reference external" href="https://docs.google.com/presentation/d/1KJlSSS-ZDByqqg_HO0_EFGbXCBqR8OMzzWwz8xvGQkU/edit#slide=id.gac59f1be36_0_318">過去の登壇資料</a> をどうぞ</p>
+</section>
+<section >
+<h3>値オブジェクトを使わない場合</h3>
+<p>引数の順番、分かりづらくないですか？（型ヒントがともに <code class="docutils literal notranslate"><span class="pre">int</span></code>。第1引数は金額？個数？）</p>
+<pre><code data-trim data-noescape  class="python">
+def amount(unit_price: int, quantity: int) -&gt; int:
+    &quot;&quot;&quot;総額計算&quot;&quot;&quot;
+    return unit_price * quantity</code></pre>
+</section>
+<section >
+<h3>値オブジェクトを使うと</h3>
+<pre><code data-trim data-noescape  class="python">
+def amount(unit_price: Money, quantity: Quantity) -&gt; Money:
+    # quantity.as_int()で Quantity型からint型に変換
+    return unit_price.multiply(quantity.as_int())</code></pre>
+<p><strong>読みやすい</strong> ！</p>
+</section>
+<section >
+<h3>値オブジェクトで読みやすくなった🙌</h3>
+<ul class="simple">
+<li><p>型ヒントを手がかりに、理解にかかる時間が短くなっている印象</p></li>
+<li><p>値オブジェクトで、<strong>どんな値を処理しているか</strong> が明確に</p></li>
+<li><p>例えば、<code class="docutils literal notranslate"><span class="pre">unit_price</span></code> が <code class="docutils literal notranslate"><span class="pre">Money</span></code> （金額）であることは、命名の工夫ではここまで短くできないのでは？</p></li>
+</ul>
+</section>
+<section >
+<h3>さらに、エディタの補完、わかりやすい！</h3>
+<p>引数に何をどんな順番で渡せばいいかが明確！（VSCodeでの例）</p>
+<div class="figure align-default">
+<img alt="../_images/202107_readable_type_hint_in_vscode.png" src="../_images/202107_readable_type_hint_in_vscode.png" />
+</div>
+</section>
+<section >
+<h3>値オブジェクト &amp; 型ヒントで</h3>
+<ul class="simple">
+<li><p>値オブジェクトによる <strong>不変性</strong></p></li>
+<li><p>静的型チェック（例： <code class="docutils literal notranslate"><span class="pre">Money</span></code> を渡していないと気づける）</p></li>
+<li><p>副次的に読みやすく</p></li>
+</ul>
+</section>
+<section >
+<h3>とはいえ、シルバーバレットではない</h3>
+<ul class="simple">
+<li><p>デメリット： <strong>小さいクラスたくさん</strong> になるので、実装量は増える</p></li>
+<li><p>デメリットを軽減する方法を見つけるべく、プライベートで書くスクリプトでやっていき💪</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>まとめ🌯：値オブジェクトで読みやすく</h2>
+<ul class="simple">
+<li><p>『現場で役立つシステム設計の原則』で値オブジェクトを知った</p></li>
+<li><p>値オブジェクトと型ヒントで、関数が読みやすくなる！</p></li>
+<li><p>『リーダブルコード』の外側（<strong>設計で読みやすく</strong> する）に気づいた</p></li>
+</ul>
+</section>
+<section >
+<h3>ご清聴ありがとうございました</h3>
+<p>📣 PyCon JP 2021は <strong>7/10(土)</strong> までトークのプロポーザル募集中！🙏</p>
+<p>関連アウトプット、Appendix、いただいたコメントへの返答が続きます（よろしければどうぞ！）</p>
+</section>
+</section>
+<section >
+<h2>関連アウトプット</h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://nikkie-ftnext.hatenablog.com/entry/value-object-python-dataclass">dataclassを使って、Pythonで値オブジェクトを実装する</a></p></li>
+<li><p><a class="reference external" href="https://www.tech-street.jp/entry/2021/06/09/183129">【イベントレポート】Pythonエンジニア勉強会</a></p>
+<ul>
+<li><p>「object活用ことはじめ 〜dataclassと特殊メソッド〜」というLTをしました</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section>
+<section >
+<h2>Appendix: <code class="docutils literal notranslate"><span class="pre">NewType</span></code></h2>
+<p><a class="reference external" href="https://docs.python.org/ja/3/library/typing.html#newtype">https://docs.python.org/ja/3/library/typing.html#newtype</a></p>
+<p>静的型検査器は新しい型を元々の型のサブクラスのように扱います。</p>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; from typing import NewType
+&gt;&gt;&gt; Money = NewType(&quot;Money&quot;, int)
+&gt;&gt;&gt; money = Money(1000)</code></pre>
+</section>
+<section >
+<h3>Appendix: <code class="docutils literal notranslate"><span class="pre">NewType</span></code></h3>
+<p>値オブジェクトと比較すると、<strong>不変でない</strong></p>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; Money(1000) + Money(500)  # return int
+1500</code></pre>
+<p>完全コンストラクタも実装されていません</p>
+</section>
+</section>
+<section >
+<h2>Future works</h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pydantic-docs.helpmanual.io/">PyDantic</a> 導入？</p>
+<ul>
+<li><p>本文では標準ライブラリの <a class="reference external" href="https://docs.python.org/ja/3/library/dataclasses.html">dataclasses</a> モジュールを使った実装を紹介</p></li>
+<li><p>PyDantic は dataclasses + <strong>実行時の型チェック</strong></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section>
+<section >
+<h2>LT中のコメント・質疑から</h2>
+<ul class="simple">
+<li><p>たくさんのコメントありがとうございました！</p></li>
+<li><p>勉強会の盛り上がりを感じました</p></li>
+</ul>
+</section>
+<section >
+<h3>みなさん、ふだんどの言語を書いてますか？</h3>
+<ul class="simple">
+<li><p>いろいろな言語が挙がりました（サーバサイド〜フロントエンド）</p></li>
+<li><p>Python使いの方もちらほら</p></li>
+</ul>
+</section>
+<section >
+<h3>『リーダブルコード』読んだ方？🙋‍♂️ 聞いたことはある方？🙋‍♀️</h3>
+<ul class="simple">
+<li><p>読んだ方が多め</p></li>
+<li><p>会社の「おすすめ技術本で殿堂入り」</p></li>
+</ul>
+</section>
+<section >
+<h3>値オブジェクト、知ってる方？🙋‍♂️ 聞いたことはある方？🙋‍♀️</h3>
+<ul class="simple">
+<li><p>（ここは飛ばしすぎてコメントする余裕が作れなかったかもしれません）</p></li>
+<li><p>2本目のしげ丸さんの <a class="reference external" href="https://speakerdeck.com/hirotokirimaru/designing-with-code-smells-primitive-obsession">Primitive Obsession</a> の話にも通じますね</p></li>
+</ul>
+</section>
+<section >
+<h3>💬 小ネタへの感想</h3>
+<blockquote>
+<div><p>不変オブジェクトは考えることが減って安心して使えて嬉しいです。</p>
+<p>ドメインに処理を持たせるの良いですよね！</p>
+</div></blockquote>
+</section>
+<section >
+<h3>💬 動的型付けの Python でも値オブジェクトの恩恵はあるんですねー</h3>
+<ul class="simple">
+<li><p>nikkieはソフトウェアエンジニアリングを極めたい！志向なので恩恵はあると思います</p></li>
+<li><p>ただPythonを適用する分野によっては使っても恩恵は得られにくいかと思います（例：機械学習）</p></li>
+</ul>
+</section>
+<section >
+<h3>💬 動的型付けの Python でも値オブジェクトの恩恵はあるんですねー（続き）</h3>
+<ul class="simple">
+<li><p>PythonでDDDの例：<a class="reference external" href="https://github.com/iktakahiro/dddpy">https://github.com/iktakahiro/dddpy</a></p></li>
+<li><p>動的型付け言語ではありますが、例えば静的型チェッカー <code class="docutils literal notranslate"><span class="pre">mypy</span></code> をエディタでファイル保存時に走らせて、実行する前に書き間違えに気づけるようにもできます</p></li>
+</ul>
+</section>
+<section >
+<h3>💬 PyCharm と vs code どちらが使いやすいですか？</h3>
+<ul class="simple">
+<li><p>nikkieはVSCodeしか使っていない（比較していない）ので、偏った回答になります</p></li>
+<li><p>他のPython使いにも聞いていただくといろいろな意見が集まって参考にしやすいと思います</p></li>
+</ul>
+</section>
+<section >
+<h3>値オブジェクトのデメリットの面についてコメント（感謝）</h3>
+<ul class="simple">
+<li><p>💬 「書く量が増えるかわりに読むスピードはあがる」</p></li>
+<li><p>トータルコストで考える視点はありませんでした。コメントありがとうございます</p></li>
+</ul>
+</section>
+<section >
+<h3>🐦 関数名の語順</h3>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">ちょっと複雑なメソッドの命名で動詞＋目的（処理対象）＋補語ってする宗派と、動詞＋補語＋目的ってする宗派があると思うけどみんなどっちが好きなんでしょう？<br>例えば退職中のユーザーを取得するメソッドをgetUserRetiredとするかgetRetiredUserが好きかみたいな。<a href="https://twitter.com/hashtag/readablelt?src=hash&amp;ref_src=twsrc%5Etfw">#readablelt</a></p>&mdash; IKEDA@ホモ・リディクラス (@masaike1221) <a href="https://twitter.com/masaike1221/status/1412731449501839368?ref_src=twsrc%5Etfw">July 7, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+<section >
+<h3>🐦 関数名の語順 への考え</h3>
+<ul class="simple">
+<li><p>getよりはfetchでしょうか（まず目が行きました）</p></li>
+<li><p>語順は後者にすると思います（<code class="docutils literal notranslate"><span class="pre">getRetiredUser</span></code> 「retired userを取得」と読めるので）</p></li>
+<li><p>前者だと SVC文型 で、user を retired にするとも読めちゃうかもしれません</p></li>
+<li><p>状況によっては <code class="docutils literal notranslate"><span class="pre">getUser(status.Retired)</span></code> のようなメソッドにするかも</p></li>
+</ul>
+</section>
+</section>
+<section >
+<h2>EOF</h2>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../reveal.js/dist/reveal.js"></script>
+    
+    
+      <script src="../reveal.js/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: "none",
+        slideNumber: "c/t",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>
