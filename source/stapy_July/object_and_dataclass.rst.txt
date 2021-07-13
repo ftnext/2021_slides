@@ -1,0 +1,211 @@
+後半戦 ``dataclass`` へ
+============================================================
+
+* クラスの秘密
+* ``dataclass``
+
+後半戦 ``dataclass`` へ
+------------------------------------------------
+
+* **クラスの秘密**
+* ``dataclass``
+
+クラスの秘密
+============================================================
+
+* ``Avatar`` は ``DragonAvatar`` や ``PrincessAvatar`` の親クラス（基底クラス）
+* では ``Avatar`` の親クラス（基底クラス）は？
+
+``object`` というクラス
+------------------------------------------------
+
+    全ての 新スタイルクラス の究極の基底クラス（用語集より）
+
+https://docs.python.org/ja/3/glossary.html#term-object
+
+究極の基底クラス ``object``
+------------------------------------------------
+
+* ``Avatar`` の親クラスは ``object``
+* 継承で、属性とメソッドを引き継ぐ（ref:前半戦）
+* どんなメソッドを引き継いでいる？
+
+``object`` から引き継ぐメソッド
+------------------------------------------------
+
+* 例えば、インスタンスどうし **等しい** と比較するメソッド
+* 別のクラス（競走馬名🐴）で示します
+
+クイズ：次のインスタンスどうしは等しい？
+============================================================
+
+.. code-block:: python
+    :linenos:
+
+    >>> class RaceHorseName:
+    ...     """競走馬の名前を表す"""
+    ...     def __init__(self, value):
+    ...         self.value = value
+    >>> rice = RaceHorseName("ライスシャワー")
+    >>> rice2 = RaceHorseName("ライスシャワー")
+    >>> rice == rice2  # doctest: +SKIP
+
+「こう思う」をチャット💬でお寄せください
+
+次のインスタンスどうしは等しい？ - 🙅‍♀️ （ぶっぶー）
+------------------------------------------------
+
+馬の名は、等しくない
+
+.. code-block:: python
+
+    >>> rice == rice2
+    False
+
+インスタンスどうしは等しい？
+------------------------------------------------
+
+.. code-block:: python
+
+    >>> rice.value == rice2.value  # value属性の値は等しい
+    True
+    >>> rice is rice2  # オブジェクトは同一ではない
+    False
+
+比較演算子 ``==``
+------------------------------------------------
+
+    ``x==y`` は ``x.__eq__(y)`` を呼び出します
+
+https://docs.python.org/ja/3/reference/datamodel.html#object.__eq__
+
+``__eq__`` メソッド？
+------------------------------------------------
+
+* **究極の基底クラス** ``object`` が ``__eq__`` を持つ
+* ``RaceHorseName`` には実装していないが、引き継いでいる
+
+``__eq__`` メソッド
+------------------------------------------------
+
+* 実装は ``True if x is y else NotImplemented`` （`ドキュメント <https://docs.python.org/ja/3/reference/datamodel.html#object.__eq__>`_）
+
+.. code-block:: python
+
+    >>> # オブジェクトは同一ではないので、__eq__ は NotImplemented を返し
+    >>> # rice == rice2 は False と評価される
+    >>> rice is rice2
+    False
+
+（補足） ``is``：同一性の比較
+------------------------------------------------
+
+    ``x is y`` は、 x と y が **同じオブジェクトを指す** とき、かつそのときに限り真になります。 オブジェクトの同一性は id() 関数を使って判定されます。
+
+https://docs.python.org/ja/3/reference/expressions.html#is （強調は引用者による）
+
+.. code-block:: python
+
+    >>> rice is rice  # オブジェクトは同一
+    True
+    >>> rice2 is rice2
+    True
+
+「等しい」は作れる！
+============================================================
+
+* ライスシャワーはライスシャワー！
+* ``value`` 属性の **値が等しい** とき、 **インスタンスは等しく** したい
+* 👉 ``__eq__`` メソッドを ``RaceHorseName`` クラスで **上書き** する
+
+``__eq__`` メソッド 上書き
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    >>> class RaceHorseName:
+    ...     def __init__(self, value):
+    ...         self.value = value
+    ...     def __eq__(self, other):
+    ...         if not isinstance(other, self.__class__):
+    ...             return NotImplemented
+    ...         return self.value == other.value
+
+``__eq__`` メソッド 上書き結果
+------------------------------------------------
+
+.. code-block:: python
+
+    >>> rice = RaceHorseName("ライスシャワー")
+    >>> rice2 = RaceHorseName("ライスシャワー")
+    >>> rice == rice2  # value属性が等しいときに、インスタンスは等しくできた
+    True
+    >>> rice is rice2
+    False
+
+後半戦 ``dataclass`` へ
+------------------------------------------------
+
+* クラスの秘密
+* **dataclass**
+
+``dataclass``
+============================================================
+
+* ``@dataclasses.dataclass`` のこと
+* クラスに付けるデコレータ（`用語集 <https://docs.python.org/ja/3/glossary.html#term-decorator>`_）
+
+.. code-block:: python
+
+    >>> from dataclasses import dataclass
+    >>> @dataclass
+    ... class RaceHorseName:
+    ...     ...
+
+``dataclass`` で「等しい」はもっと簡単に作れる
+------------------------------------------------
+
+.. code-block:: python
+
+    >>> from dataclasses import dataclass
+    >>> @dataclass
+    ... class RaceHorseName:
+    ...     value: str
+    >>> rice = RaceHorseName("ライスシャワー")
+    >>> rice2 = RaceHorseName("ライスシャワー")
+    >>> rice == rice2
+    True
+
+``@dataclass`` の効能 1/2
+------------------------------------------------
+
+* ``__eq__`` メソッドが自動で作られる
+
+    ``eq``: (デフォルトの)真の場合、 __eq__() メソッドが生成されます
+
+https://docs.python.org/ja/3/library/dataclasses.html#dataclasses.dataclass （強調は引用者による）
+
+``@dataclass`` の効能 1/2（承前）
+------------------------------------------------
+
+    （前のスライドの続き）このメソッドはクラスの比較を、そのクラスの **フィールドからなるタプルを比較** するように行います。
+    比較する2つのインスタンスのクラスは同一でなければなりません。
+
+* 作られる ``__eq__`` メソッドでは、クラスが同じことと ``(self.value, )`` を比較
+
+``@dataclass`` の効能 2/2
+------------------------------------------------
+
+* ``__init__`` メソッドも自動で作られる
+
+    init: (デフォルトの)真の場合、 __init__() メソッドが生成されます。
+
+https://docs.python.org/ja/3/library/dataclasses.html#dataclasses.dataclass （強調は引用者による）
+
+🥟まとめ： ``dataclass`` へ
+------------------------------------------------
+
+* 究極の基底クラス ``object``
+* ``object`` のメソッドを上書き（「等しい」を作る例）
+* ``@dataclasses.dataclass`` でクラスをデコレートすると **少ない記述で** ``__eq__`` メソッド（など）が作られる🙌
