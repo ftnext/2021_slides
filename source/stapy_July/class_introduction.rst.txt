@@ -1,0 +1,261 @@
+前半戦 クラス入門
+============================================================
+
+* クラスとは
+* クラスの継承
+
+前半戦 クラス入門
+------------------------------------------------
+
+* **クラスとは**
+* クラスの継承
+
+2021年5月 辻さん (#stapy)
+------------------------------------------------
+
+.. raw:: html
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/zXctQwofKVA?start=1296" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+「Pythonスタートブックを出して11年」
+------------------------------------------------
+
+* 辻さんが苦心したという「関数」「クラス」
+* 今回クラスを扱うにあたって、クラスの章を読んできました
+
+クラスとは
+============================================================
+
+* 新しいデータ型を作りたい（『Pythonスタートブック [増補改訂版]』9章）
+* ``int`` や ``str`` をまとめて新しいデータ型
+
+皆さんが知っているクラス ``datetime.date``
+------------------------------------------------
+
+* 日付を表すクラス（ `CPythonソースコード(3.9.6) <https://github.com/python/cpython/blob/db3ff76da19004f266b62e98a81bdfd322861436/Lib/datetime.py#L793>`_）
+* 3つの ``int`` をまとめる（年・月・日）
+
+.. code-block:: python
+    :linenos:
+
+    >>> from datetime import date
+    >>> date(2021, 7, 16)
+    datetime.date(2021, 7, 16)
+
+クラスは新しいデータ型
+------------------------------------------------
+
+* 新しいデータ型の設計図がクラス
+* モノの仕組みや動きを **ソフトウェアの中で実現** するために使う
+
+クラスに関する用語
+------------------------------------------------
+
+* インスタンス：クラス（設計図）から作られた **実体**
+* 属性：クラスにまとめた **データ**
+* メソッド：クラスで表すモノの **機能**
+
+クラスの例
+============================================================
+
+* オンライン空間の **アバター** を表すクラス
+* イメージ：Clusterの3Dアバター
+
+``Avatar`` クラス
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    class Avatar:
+        def __init__(self, name: str):  # メソッド（初期化用）
+            self.name = name  # 属性
+        
+        def greet(self):  # メソッド（selfはインスタンス自身）
+            print(f"こんにちは！ {self.name}です")
+
+インスタンス ``avatar``
+------------------------------------------------
+
+.. doctestを通すためのコード
+    >>> class Avatar:
+    ...     def __init__(self, name: str):
+    ...         self.name = name
+    ...     def greet(self):
+    ...         print(f"こんにちは！ {self.name}です")
+
+.. code-block:: python
+    :linenos:
+
+    >>> avatar = Avatar("nikkie")  # インスタンス作成。__init__ で初期化
+    >>> avatar.name  # 属性
+    'nikkie'
+    >>> avatar.greet()  # メソッド呼び出し
+    こんにちは！ nikkieです
+
+前半戦 クラス入門
+------------------------------------------------
+
+* クラスとは
+* **クラスの継承**
+
+クラスの継承
+============================================================
+
+* 既存のクラスをもとにして新しいクラスを作る（『Pythonスタートブック [増補改訂版]』9章）
+* 属性とメソッドを **引き継ぐ**
+
+クラスの継承に関する用語
+------------------------------------------------
+
+* 親クラス＝ **基底クラス** ：継承元の既存クラス
+* 子クラス＝継承してできる新しいクラス
+
+例：継承における引き継ぎ
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    class DragonAvatar(Avatar):
+        """Avatarの属性・メソッドを引き継いだクラス"""
+        pass  # 引き継ぐ以外は何もしない
+
+例：継承における引き継ぎ（承前）
+------------------------------------------------
+
+.. doctestを通すためのコード
+    >>> class DragonAvatar(Avatar):
+    ...     pass
+
+.. code-block:: python
+    :linenos:
+
+    >>> dragon = DragonAvatar("竜")  # インスタンス作成（__init__も引き継ぐ）
+    >>> dragon.name  # 引き継いだ属性
+    '竜'
+    >>> dragon.greet()  # 引き継いだメソッド呼び出し
+    こんにちは！ 竜です
+
+例：継承してメソッド追加
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    class DragonAvatar(Avatar):
+        """name属性と__init__, greetメソッドを
+        引き継いだ上でメソッド追加
+        """
+        def fly(self):  # 子クラスに追加したメソッド
+            print("我飛翔可能")
+
+例：継承してメソッド追加（承前）
+------------------------------------------------
+
+.. doctestを通すためのコード
+    >>> class DragonAvatar(Avatar):
+    ...     def fly(self):
+    ...         print("我飛翔可能")
+
+.. code-block:: python
+    :linenos:
+
+    >>> dragon = DragonAvatar("竜")  # インスタンス作成
+    >>> dragon.name  # 引き継いだ属性
+    '竜'
+    >>> dragon.greet()  # 引き継いだメソッド呼び出し
+    こんにちは！ 竜です
+    >>> dragon.fly()  # 追加したメソッド呼び出し（Avatarにはない）
+    我飛翔可能
+
+継承して、上書き
+============================================================
+
+* 親クラス（基底クラス）と **同名** のメソッドを子クラスに定義
+* 親クラスのメソッドを上書きできる
+
+例：継承して、上書き
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    class DragonAvatar(Avatar):
+        """name属性と__init__メソッドを引き継ぐ。
+        flyメソッドを追加。
+        greetメソッドを上書き
+        """
+        def fly(self):  # 子クラスに追加したメソッド
+            print("我飛翔可能")
+        
+        def greet(self):  # 親クラスのgreetメソッドを上書き
+            print(f"我、{self.name}なり")
+
+例：継承して、上書き（承前）
+------------------------------------------------
+
+.. doctestを通すためのコード
+    >>> class DragonAvatar(Avatar):
+    ...     def fly(self):
+    ...         print("我飛翔可能")
+    ...     def greet(self):
+    ...         print(f"我、{self.name}なり")
+
+.. code-block:: python
+    :linenos:
+
+    >>> dragon = DragonAvatar("竜")  # インスタンス作成
+    >>> dragon.name  # 引き継いだ属性
+    '竜'
+    >>> dragon.fly()  # 追加したメソッド
+    我飛翔可能
+    >>> dragon.greet()  # 上書きしたメソッド呼び出し
+    我、竜なり
+
+継承して、メソッドの動きの一部を変える
+------------------------------------------------
+
+* 親クラス（基底クラス）のメソッドを呼んだ上で、 **処理を追加** できる
+* 上書きしたメソッドの中で、 **親クラスのメソッドを呼び出し** て実現
+
+例：継承して、メソッドの動きの一部を変える
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    class PrincessAvatar(Avatar):
+        """__init__メソッドに処理を追加"""
+        def __init__(self, name):
+            super().__init__(name)  # 親クラスの __init__ 呼び出し
+            # super(PrincessAvatar, self).__init__(name)  # 同じ処理
+            self.is_flecked = True  # 属性追加
+
+例：継承して、メソッドの動きの一部を変える（承前）
+------------------------------------------------
+
+.. doctestを通すためのコード
+    >>> class PrincessAvatar(Avatar):
+    ...     def __init__(self, name):
+    ...         super().__init__(name)
+    ...         super(PrincessAvatar, self).__init__(name)
+    ...         self.is_flecked = True
+
+.. code-block:: python
+    :linenos:
+
+    >>> princess = PrincessAvatar("姫")  # インスタンス作成
+    >>> princess.name  # 引き継いだ属性
+    '姫'
+    >>> princess.is_flecked  # __init__に処理を足して追加した属性
+    True
+    >>> princess.greet()  # 引き継いだメソッド呼び出し
+    こんにちは！ 姫です
+
+🥟まとめ：クラス入門
+------------------------------------------------
+
+* クラスで新しいデータ型を作る
+* 既存のクラスを継承して新しいクラスを作る（🐲 👸）
+* メソッドの引き継ぎ、同名で上書き、`super`で一部の処理を上書き
