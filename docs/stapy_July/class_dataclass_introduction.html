@@ -1,0 +1,642 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pythonのクラス・ dataclass 入門</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="../reveal.js/dist/theme/black.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/plugin/highlight/zenburn.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/Font-Awesome/css/all.min.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@ftnext" />
+    <meta property="og:url" content="https://ftnext.github.io/2021_slides/stapy_July/class_dataclass_introduction.html" />
+    <meta property="og:title" content="Pythonのクラス・dataclass入門" />
+    <meta property="og:description" content="2021/07 みんなのPython勉強会 #71 10分トーク スライド" />
+
+    
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides">
+            <section >
+<h1>Pythonのクラス・ <code class="docutils literal notranslate"><span class="pre">dataclass</span></code> 入門</h1>
+<dl class="field-list simple">
+<dt class="field-odd">Event</dt>
+<dd class="field-odd"><p>みんなのPython勉強会 #71</p>
+</dd>
+<dt class="field-even">Presented</dt>
+<dd class="field-even"><p>2021/07/14 nikkie</p>
+</dd>
+</dl>
+</section>
+<section>
+<section >
+<h2>7月の #stapy 「みんなのSDGs」🌏</h2>
+<ul class="simple">
+<li><p>SDGs 興味深い🤩</p></li>
+<li><p>「みんなのPython勉強会という名前なのに、Pythonの話は少ない？」</p></li>
+</ul>
+</section>
+<section >
+<h3>このトーク「Pythonのクラス・ <code class="docutils literal notranslate"><span class="pre">dataclass</span></code> 入門」が来た！</h3>
+</section>
+<section >
+<h3>「Pythonのクラス・ <code class="docutils literal notranslate"><span class="pre">dataclass</span></code> 入門」</h3>
+<ul class="simple">
+<li><p>話す</p>
+<ul>
+<li><p>クラスについて <strong>10分</strong> で入門</p></li>
+<li><p>クラス・ <code class="docutils literal notranslate"><span class="pre">object</span></code> ・ <code class="docutils literal notranslate"><span class="pre">dataclass</span></code></p></li>
+</ul>
+</li>
+<li><p>話さない</p>
+<ul>
+<li><p>初めてクラスを聞いたという方は難しく感じるかも🙏</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>お前、誰よ</h2>
+<ul class="simple">
+<li><p>我が名は <strong>にっきー</strong> （<span class="raw-html"><i class="fab fa-twitter"></i></span> <a class="reference external" href="https://twitter.com/ftnext">&#64;ftnext</a> / <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext">&#64;ftnext</a>）</p></li>
+<li><p>Love Python!（3年半） <a class="reference external" href="https://www.wantedly.com/projects/622337">ユーザベース</a> 所属のデータサイエンティスト・NLPer</p></li>
+<li><p>みんなのPython勉強会 4代目 <strong>LT王子</strong> 🤴・スタッフ</p></li>
+</ul>
+</section>
+<section >
+<h3>お前、誰よ（承前）</h3>
+<ul class="simple">
+<li><p><strong>Py</strong> thon <strong>Con</strong> ference JP 2021 座長🇨🇭</p></li>
+<li><p>Love anime!!（🎺🎷🔥　🌲🌳🐲　📽🎞🎥🎬🧡　🍎🍋🥝🍇🧺）</p></li>
+<li><p>竜そば、楽しみですね</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>前半戦 クラス入門</h2>
+<ul class="simple">
+<li><p>クラスとは</p></li>
+<li><p>クラスの継承</p></li>
+</ul>
+</section>
+<section >
+<h3>前半戦 クラス入門</h3>
+<ul class="simple">
+<li><p><strong>クラスとは</strong></p></li>
+<li><p>クラスの継承</p></li>
+</ul>
+</section>
+<section >
+<h3>2021年5月 辻さん (#stapy)</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zXctQwofKVA?start=1296" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></section>
+<section >
+<h3>「Pythonスタートブックを出して11年」</h3>
+<ul class="simple">
+<li><p>辻さんが <strong>苦心</strong> したという「関数」「クラス」</p></li>
+<li><p>今回クラスを扱うにあたって、クラスの章を読んできました</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>クラスとは</h2>
+<ul class="simple">
+<li><p><em>新しいデータ型を作りたい</em> （『Pythonスタートブック [増補改訂版]』9章）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">int</span></code> や <code class="docutils literal notranslate"><span class="pre">str</span></code> を <strong>まとめて</strong> 新しいデータ型</p></li>
+</ul>
+</section>
+<section >
+<h3>皆さんが知っているクラス <code class="docutils literal notranslate"><span class="pre">datetime.date</span></code></h3>
+<ul class="simple">
+<li><p>日付を表すクラス（ <a class="reference external" href="https://github.com/python/cpython/blob/db3ff76da19004f266b62e98a81bdfd322861436/Lib/datetime.py#L793">CPythonソースコード(3.9.6)</a>）</p></li>
+<li><p>3つの <code class="docutils literal notranslate"><span class="pre">int</span></code> をまとめる（年・月・日）</p></li>
+</ul>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; from datetime import date
+&gt;&gt;&gt; date(2021, 7, 16)
+datetime.date(2021, 7, 16)</code></pre>
+</section>
+<section >
+<h3>クラスは新しいデータ型</h3>
+<ul class="simple">
+<li><p>新しいデータ型の設計図がクラス</p></li>
+<li><p>モノの仕組みや動きを <strong>ソフトウェアの中で実現</strong> するために使う</p></li>
+</ul>
+</section>
+<section >
+<h3>クラスに関する用語</h3>
+<ul class="simple">
+<li><p>インスタンス：クラス（設計図）から作られた <strong>実体</strong></p></li>
+<li><p>属性：クラスにまとめた <strong>データ</strong></p></li>
+<li><p>メソッド：クラスで表すモノの <strong>機能</strong></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>クラスの例</h2>
+<ul class="simple">
+<li><p>オンライン空間の <strong>アバター</strong> を表すクラス</p></li>
+<li><p>イメージ：Clusterの3Dアバター</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">Avatar</span></code> クラス</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+class Avatar:
+    def __init__(self, name: str):  # メソッド（初期化用）
+        self.name = name  # 属性
+
+    def greet(self):  # メソッド（selfはインスタンス自身）
+        print(f&quot;こんにちは！ {self.name}です&quot;)</code></pre>
+</section>
+<section >
+<h3>インスタンス <code class="docutils literal notranslate"><span class="pre">avatar</span></code></h3>
+<aside class="notes">
+doctestを通すためのコード
+&gt;&gt;&gt; class Avatar:
+...     def __init__(self, name: str):
+...         self.name = name
+...     def greet(self):
+...         print(f&quot;こんにちは！ {self.name}です&quot;)</aside>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; avatar = Avatar(&quot;nikkie&quot;)  # インスタンス作成。__init__ で初期化
+&gt;&gt;&gt; avatar.name  # 属性
+'nikkie'
+&gt;&gt;&gt; avatar.greet()  # メソッド呼び出し
+こんにちは！ nikkieです</code></pre>
+</section>
+<section >
+<h3>前半戦 クラス入門</h3>
+<ul class="simple">
+<li><p>クラスとは</p></li>
+<li><p><strong>クラスの継承</strong></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>クラスの継承</h2>
+<ul class="simple">
+<li><p><em>既存のクラスをもとにして新しいクラスを作る</em> （『Pythonスタートブック [増補改訂版]』9章）</p></li>
+<li><p>属性とメソッドを <strong>引き継ぐ</strong></p></li>
+</ul>
+</section>
+<section >
+<h3>クラスの継承に関する用語</h3>
+<ul class="simple">
+<li><p>親クラス＝ <strong>基底クラス</strong> ：継承元の既存クラス</p></li>
+<li><p>子クラス：継承してできる新しいクラス</p></li>
+</ul>
+</section>
+<section >
+<h3>例：継承における引き継ぎ</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+class DragonAvatar(Avatar):
+    &quot;&quot;&quot;Avatarの属性・メソッドを引き継いだクラス&quot;&quot;&quot;
+    pass  # 引き継ぐ以外は何もしない</code></pre>
+</section>
+<section >
+<h3>例：継承における引き継ぎ（承前）</h3>
+<aside class="notes">
+doctestを通すためのコード
+&gt;&gt;&gt; class DragonAvatar(Avatar):
+...     pass</aside>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; dragon = DragonAvatar(&quot;竜&quot;)  # インスタンス作成（__init__も引き継ぐ）
+&gt;&gt;&gt; dragon.name  # 引き継いだ属性
+'竜'
+&gt;&gt;&gt; dragon.greet()  # 引き継いだメソッド呼び出し
+こんにちは！ 竜です</code></pre>
+</section>
+<section >
+<h3>継承した子クラスにメソッド追加</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+class DragonAvatar(Avatar):
+    &quot;&quot;&quot;name属性と__init__, greetメソッドを
+    引き継いだ上でメソッド追加
+    &quot;&quot;&quot;
+    def fly(self):  # 子クラスに追加したメソッド
+        print(&quot;我飛翔可能&quot;)</code></pre>
+</section>
+<section >
+<h3>例：子クラスにメソッド追加</h3>
+<aside class="notes">
+doctestを通すためのコード
+&gt;&gt;&gt; class DragonAvatar(Avatar):
+...     def fly(self):
+...         print(&quot;我飛翔可能&quot;)</aside>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; dragon = DragonAvatar(&quot;竜&quot;)  # インスタンス作成
+&gt;&gt;&gt; dragon.name  # 引き継いだ属性
+'竜'
+&gt;&gt;&gt; dragon.greet()  # 引き継いだメソッド呼び出し
+こんにちは！ 竜です
+&gt;&gt;&gt; dragon.fly()  # 追加したメソッド呼び出し（Avatarにはない）
+我飛翔可能</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2>継承して、上書き</h2>
+<ul class="simple">
+<li><p>親クラス（基底クラス）と <strong>同名</strong> のメソッドを子クラスに定義</p></li>
+<li><p>親クラスのメソッドを上書きできる</p></li>
+</ul>
+</section>
+<section >
+<h3>例：継承して、上書き</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+class DragonAvatar(Avatar):
+    &quot;&quot;&quot;name属性と__init__メソッドを引き継ぐ。
+    flyメソッドを追加。
+    greetメソッドを上書き
+    &quot;&quot;&quot;
+    def fly(self):  # 子クラスに追加したメソッド
+        print(&quot;我飛翔可能&quot;)
+
+    def greet(self):  # 親クラスのgreetメソッドを上書き
+        print(f&quot;我、{self.name}なり&quot;)</code></pre>
+</section>
+<section >
+<h3>例：継承して、上書き（承前）</h3>
+<aside class="notes">
+doctestを通すためのコード
+&gt;&gt;&gt; class DragonAvatar(Avatar):
+...     def fly(self):
+...         print(&quot;我飛翔可能&quot;)
+...     def greet(self):
+...         print(f&quot;我、{self.name}なり&quot;)</aside>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; dragon = DragonAvatar(&quot;竜&quot;)  # インスタンス作成
+&gt;&gt;&gt; dragon.name  # 引き継いだ属性
+'竜'
+&gt;&gt;&gt; dragon.fly()  # 追加したメソッド
+我飛翔可能
+&gt;&gt;&gt; dragon.greet()  # 上書きしたメソッド呼び出し
+我、竜なり</code></pre>
+</section>
+<section >
+<h3>継承して、メソッドの動きの一部を変える</h3>
+<ul class="simple">
+<li><p>親クラス（基底クラス）のメソッドを呼んだ上で、 <strong>処理を追加</strong> できる</p></li>
+<li><p>上書きしたメソッドの中で、 <strong>親クラスのメソッドを呼び出し</strong> て実現</p></li>
+</ul>
+</section>
+<section >
+<h3>例：継承して、メソッドの動きの一部を変える</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+class PrincessAvatar(Avatar):
+    &quot;&quot;&quot;__init__メソッドに処理を追加&quot;&quot;&quot;
+    def __init__(self, name):
+        super().__init__(name)  # 親クラスの __init__ 呼び出し
+        # super(PrincessAvatar, self).__init__(name)  # 別の書き方（結果は同じ）
+        self.is_flecked = True  # 属性追加</code></pre>
+</section>
+<section >
+<h3>例：継承して、メソッドの動きの一部を変える（承前）</h3>
+<aside class="notes">
+doctestを通すためのコード
+&gt;&gt;&gt; class PrincessAvatar(Avatar):
+...     def __init__(self, name):
+...         super().__init__(name)
+...         super(PrincessAvatar, self).__init__(name)
+...         self.is_flecked = True</aside>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; princess = PrincessAvatar(&quot;姫&quot;)  # インスタンス作成（上書きした__init__が呼ばれる）
+&gt;&gt;&gt; princess.name  # 引き継いだ属性
+'姫'
+&gt;&gt;&gt; princess.is_flecked  # __init__に処理を足して追加した属性
+True
+&gt;&gt;&gt; princess.greet()  # 引き継いだメソッド呼び出し
+こんにちは！ 姫です</code></pre>
+</section>
+<section >
+<h3>前半まとめ🥟：クラス入門</h3>
+<ul class="simple">
+<li><p>クラスで <strong>新しいデータ型</strong> を作る</p></li>
+<li><p>既存のクラスを <strong>継承</strong> して新しいクラスを作る（🐲 👸）</p></li>
+<li><p>メソッドの引き継ぎ、追加、上書き、<code class="docutils literal notranslate"><span class="pre">super</span></code> を使って処理を一部だけ上書き</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>後半戦 <code class="docutils literal notranslate"><span class="pre">dataclass</span></code> へ</h2>
+<ul class="simple">
+<li><p>クラスの秘密</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dataclass</span></code></p></li>
+</ul>
+</section>
+<section >
+<h3>後半戦 <code class="docutils literal notranslate"><span class="pre">dataclass</span></code> へ</h3>
+<ul class="simple">
+<li><p><strong>クラスの秘密</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dataclass</span></code></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>クラスの秘密</h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Avatar</span></code> は <code class="docutils literal notranslate"><span class="pre">DragonAvatar</span></code> や <code class="docutils literal notranslate"><span class="pre">PrincessAvatar</span></code> の親クラス（基底クラス）</p></li>
+<li><p>では <code class="docutils literal notranslate"><span class="pre">Avatar</span></code> の親クラス（基底クラス）は？</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">object</span></code> というクラス</h3>
+<blockquote>
+<div><p>全ての 新スタイルクラス の究極の基底クラス（用語集より）</p>
+</div></blockquote>
+<p><a class="reference external" href="https://docs.python.org/ja/3/glossary.html#term-object">https://docs.python.org/ja/3/glossary.html#term-object</a></p>
+</section>
+<section >
+<h3>究極の基底クラス <code class="docutils literal notranslate"><span class="pre">object</span></code></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Avatar</span></code> の親クラスは <code class="docutils literal notranslate"><span class="pre">object</span></code></p></li>
+<li><p><em>継承で、属性とメソッドを引き継ぐ</em> （ref:前半戦）</p></li>
+<li><p>どんなメソッドを引き継いでいる？</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">object</span></code> から引き継ぐメソッド</h3>
+<ul class="simple">
+<li><p>例えば、インスタンスどうし <strong>等しい</strong> と比較するメソッド（<code class="docutils literal notranslate"><span class="pre">==</span></code> で呼び出されるメソッド）</p></li>
+<li><p>別のクラス（競走馬名🐴）で示します</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>クイズ：次のインスタンスどうしは等しい？</h2>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; class RaceHorseName:
+...     &quot;&quot;&quot;競走馬の名前を表す&quot;&quot;&quot;
+...     def __init__(self, value):
+...         self.value = value
+&gt;&gt;&gt; rice = RaceHorseName(&quot;ライスシャワー&quot;)
+&gt;&gt;&gt; rice2 = RaceHorseName(&quot;ライスシャワー&quot;)
+&gt;&gt;&gt; rice.value == rice2.value  # value属性の値は等しい
+True
+&gt;&gt;&gt; rice == rice2  </code></pre>
+<p>「こう思う」をチャット💬でお寄せください</p>
+</section>
+<section >
+<h3>次のインスタンスどうしは等しい？ - 🙅‍♀️ （ぶっぶー）</h3>
+<p>馬の名は、等しくない</p>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; rice == rice2
+False</code></pre>
+<p>なぜ等しくないか？💃</p>
+</section>
+<section >
+<h3>比較演算子 <code class="docutils literal notranslate"><span class="pre">==</span></code></h3>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">x==y</span></code> は <code class="docutils literal notranslate"><span class="pre">x.__eq__(y)</span></code> を呼び出します</p>
+</div></blockquote>
+<p><a class="reference external" href="https://docs.python.org/ja/3/reference/datamodel.html#object.__eq__">https://docs.python.org/ja/3/reference/datamodel.html#object.__eq__</a></p>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">__eq__</span></code> メソッド？</h3>
+<ul class="simple">
+<li><p><strong>究極の基底クラス</strong> <code class="docutils literal notranslate"><span class="pre">object</span></code> が <code class="docutils literal notranslate"><span class="pre">__eq__</span></code> を持つ</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RaceHorseName</span></code> には実装していないが、引き継いでいる</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">__eq__</span></code> メソッド</h3>
+<ul class="simple">
+<li><p>実装は <code class="docutils literal notranslate"><span class="pre">True</span> <span class="pre">if</span> <span class="pre">x</span> <span class="pre">is</span> <span class="pre">y</span> <span class="pre">else</span> <span class="pre">NotImplemented</span></code> （<a class="reference external" href="https://docs.python.org/ja/3/reference/datamodel.html#object.__eq__">ドキュメント</a>）</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">is</span></code>：同一性の比較</h3>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">is</span> <span class="pre">y</span></code> は、 x と y が <strong>同じオブジェクトを指す</strong> とき、かつそのときに限り真になります。 オブジェクトの同一性は id() 関数を使って判定されます。</p>
+</div></blockquote>
+<p><a class="reference external" href="https://docs.python.org/ja/3/reference/expressions.html#is">https://docs.python.org/ja/3/reference/expressions.html#is</a> （強調は引用者による）</p>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">is</span></code>：同一性の比較（承前）</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; rice is rice  # オブジェクト（インスタンス）は同一
+True
+&gt;&gt;&gt; rice2 is rice2
+True</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">__eq__</span></code> メソッド</h3>
+<p><code class="docutils literal notranslate"><span class="pre">True</span> <span class="pre">if</span> <span class="pre">x</span> <span class="pre">is</span> <span class="pre">y</span> <span class="pre">else</span> <span class="pre">NotImplemented</span></code></p>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; rice is rice2  # オブジェクト（インスタンス）は同一ではない
+False
+&gt;&gt;&gt; # __eq__ は NotImplemented を返し、== の式は False と評価される
+&gt;&gt;&gt; rice == rice2
+False</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2>「等しい」は作れる！</h2>
+<ul class="simple">
+<li><p>ライスシャワーはライスシャワー！</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">value</span></code> 属性の <strong>値が等しい</strong> とき、 <strong>インスタンスは等しく</strong> したい</p></li>
+<li><p>👉 <code class="docutils literal notranslate"><span class="pre">__eq__</span></code> メソッドを <code class="docutils literal notranslate"><span class="pre">RaceHorseName</span></code> クラスで <strong>上書き</strong> する</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">__eq__</span></code> メソッド 上書き</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+&gt;&gt;&gt; class RaceHorseName:
+...     def __init__(self, value):
+...         self.value = value
+...     def __eq__(self, other):
+...         if not isinstance(other, self.__class__):
+...             return NotImplemented
+...         return self.value == other.value</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">__eq__</span></code> メソッド 上書き結果</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; rice = RaceHorseName(&quot;ライスシャワー&quot;)
+&gt;&gt;&gt; rice2 = RaceHorseName(&quot;ライスシャワー&quot;)
+&gt;&gt;&gt; rice == rice2  # value属性が等しいときに、インスタンスは等しくできた
+True
+&gt;&gt;&gt; rice is rice2
+False</code></pre>
+</section>
+<section >
+<h3>後半戦 <code class="docutils literal notranslate"><span class="pre">dataclass</span></code> へ</h3>
+<ul class="simple">
+<li><p>クラスの秘密</p></li>
+<li><p><strong>dataclass</strong></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2><code class="docutils literal notranslate"><span class="pre">dataclass</span></code></h2>
+<ul class="simple">
+<li><p>このトークでは <code class="docutils literal notranslate"><span class="pre">&#64;dataclasses.dataclass</span></code> のこと</p></li>
+<li><p>クラスに付けるデコレータ（<a class="reference external" href="https://docs.python.org/ja/3/glossary.html#term-decorator">用語集</a>）</p></li>
+</ul>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; from dataclasses import dataclass
+&gt;&gt;&gt; &#64;dataclass
+... class RaceHorseName:
+...     ...</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">dataclass</span></code> で「等しい」はもっと簡単に作れる</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; from dataclasses import dataclass
+&gt;&gt;&gt; &#64;dataclass
+... class RaceHorseName:
+...     value: str
+&gt;&gt;&gt; rice = RaceHorseName(&quot;ライスシャワー&quot;)
+&gt;&gt;&gt; rice2 = RaceHorseName(&quot;ライスシャワー&quot;)
+&gt;&gt;&gt; rice == rice2
+True</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> の効能 1/2</h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">__eq__</span></code> メソッドが自動で作られる</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">eq</span></code>: (デフォルトの)真の場合、 __eq__() メソッドが生成されます</p>
+</div></blockquote>
+</li>
+</ul>
+<p><a class="reference external" href="https://docs.python.org/ja/3/library/dataclasses.html#dataclasses.dataclass">https://docs.python.org/ja/3/library/dataclasses.html#dataclasses.dataclass</a> （強調は引用者による）</p>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> の効能 1/2（承前）</h3>
+<blockquote>
+<div><p>（前のスライドの続き）このメソッドはクラスの比較を、そのクラスの <strong>フィールドからなるタプルを比較</strong> するように行います。
+比較する2つのインスタンスのクラスは同一でなければなりません。</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>作られる <code class="docutils literal notranslate"><span class="pre">__eq__</span></code> メソッドでは、クラスが同じことと <code class="docutils literal notranslate"><span class="pre">(self.value,</span> <span class="pre">)</span></code> を比較</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> の効能 2/2</h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">__init__</span></code> メソッドも自動で作られる</p>
+<blockquote>
+<div><p>init: (デフォルトの)真の場合、 __init__() メソッドが生成されます。</p>
+</div></blockquote>
+</li>
+</ul>
+<p><a class="reference external" href="https://docs.python.org/ja/3/library/dataclasses.html#dataclasses.dataclass">https://docs.python.org/ja/3/library/dataclasses.html#dataclasses.dataclass</a></p>
+</section>
+<section >
+<h3>後半まとめ🥟： <code class="docutils literal notranslate"><span class="pre">dataclass</span></code> へ</h3>
+<ul class="simple">
+<li><p>究極の基底クラス <code class="docutils literal notranslate"><span class="pre">object</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">object</span></code> のメソッドを上書き（「等しい」を作る例）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;dataclasses.dataclass</span></code> でクラスをデコレートすると <strong>少ない記述で</strong> <code class="docutils literal notranslate"><span class="pre">__eq__</span></code> メソッド（など）が作られる🙌</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>まとめ🌯：Pythonのクラス・ <code class="docutils literal notranslate"><span class="pre">dataclass</span></code> 入門</h2>
+<ul class="simple">
+<li><p>クラスで新しいデータ型を作る</p></li>
+<li><p>クラスを継承し、メソッドを <strong>上書き</strong> （究極の基底クラス <code class="docutils literal notranslate"><span class="pre">object</span></code>）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;dataclasses.dataclass</span></code> でクラスをデコレートすることで、<code class="docutils literal notranslate"><span class="pre">object</span></code> のメソッドを上書きできる</p></li>
+</ul>
+</section>
+<section >
+<h3>ご清聴ありがとうございました</h3>
+<p><strong>Enjoy</strong> development with class!</p>
+<p>関連アウトプット、Appendixが続きます（よろしければどうぞ！）</p>
+</section>
+</section>
+<section >
+<h2>関連アウトプット</h2>
+<p>このトークの内容を元に、以下が楽しめると思います😃</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.tech-street.jp/entry/2021/06/09/183129">【イベントレポート】Pythonエンジニア勉強会</a></p></li>
+<li><p>「object活用ことはじめ 〜dataclassと特殊メソッド〜」というLTをしました</p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2>Appendix: <code class="docutils literal notranslate"><span class="pre">RaceHorseName</span></code> クラスの使い所？</h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">RaceHorseName</span></code> クラスは説明用のクラスではありません</p></li>
+<li><p>説明のためにコードを削っていますが、「 <strong>値オブジェクト</strong> 」として使えます</p></li>
+<li><p><em>完全コンストラクタを実装することで、競走馬の名前の範囲を表現できます</em> （<code class="docutils literal notranslate"><span class="pre">str</span></code> より便利と感じます）</p></li>
+</ul>
+</section>
+<section >
+<h3>Appendix: <code class="docutils literal notranslate"><span class="pre">RaceHorseName</span></code> クラスの使い所？（承前）</h3>
+<p>関連アウトプット</p>
+<ul class="simple">
+<li><p>LT <a class="reference external" href="https://ftnext.github.io/2021_slides/rakus_July_readable/value_object_tip.html">小ネタ：値オブジェクトで読みやすく（Pythonを例に）</a></p></li>
+<li><p>Blog <a class="reference external" href="https://nikkie-ftnext.hatenablog.com/entry/value-object-python-dataclass">dataclassを使って、Pythonで値オブジェクトを実装する</a></p></li>
+</ul>
+</section>
+</section>
+<section >
+<h2>EOF</h2>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../reveal.js/dist/reveal.js"></script>
+    
+    
+      <script src="../reveal.js/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: "none",
+        slideNumber: "c/t",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>
