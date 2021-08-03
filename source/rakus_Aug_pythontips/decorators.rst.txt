@@ -1,0 +1,100 @@
+デコレータ（用語集）
+============================================================
+
+    別の関数を返す関数で、通常、 @wrapper 構文で関数変換として適用されます
+
+https://docs.python.org/ja/3/glossary.html#term-decorator
+
+デコレータの例（Django）
+------------------------------------------------
+
+.. code-block:: python
+
+    from django.contrib.auth.decorators import login_required
+
+    @login_required
+    def post_new(request):  # デコレータをつけることで、ログイン必須にできる
+
+        ...
+
+https://tutorial-extensions.djangogirls.org/ja/authentication_authorization#nono
+
+デコレータ
+------------------------------------------------
+
+* *「ラップする関数への呼び出しの前後で追加コードを実行することができます」* （『Effective Python 第2版』項目26 p.97）
+* Djangoの ``login_required`` は ``post_new`` 関数の前に、ログインを検証するコードを実行した
+
+``@`` はシンタックスシュガー
+------------------------------------------------
+
+以下の2つは同じ
+
+.. code-block:: python
+
+    def f(...):
+        ...
+
+    f = awesome_decorator(f)
+
+.. code-block:: python
+
+    @awesome_decorator
+    def f(...):
+        ...
+
+簡単なデコレータを作ってみる
+============================================================
+
+* ラップする関数に追加するコード
+
+  * 実行前に開始する旨を出力
+  * 実行後に修了する旨を出力
+
+関数の開始と終了を示すデコレータ
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    def show_start_end(func):
+        def wrapper(*args, **kwargs):
+            print(func.__name__, "Start")
+            returned = func(*args, **kwargs)
+            print(func.__name__, "End")
+            return returned
+        return wrapper
+
+.. doctest を通す
+    >>> def show_start_end(func):
+    ...     def wrapper(*args, **kwargs):
+    ...         print(func.__name__, "Start")
+    ...         returned = func(*args, **kwargs)
+    ...         print(func.__name__, "End")
+    ...         return returned
+    ...     return wrapper
+
+関数の開始と終了を示すデコレータを使う
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    @show_start_end
+    def bmi(height_m, weight_kg):
+        return weight_kg / height_m / height_m
+
+.. doctest を通す
+    >>> @show_start_end
+    ... def bmi(height_m, weight_kg):
+    ...     return weight_kg / height_m / height_m
+
+.. code-block:: python
+
+    >>> bmi(1.58, 46)
+    bmi Start
+    bmi End
+    18.426534209261334
+
+``*args`` ? ``**kwargs`` ?
+============================================================
