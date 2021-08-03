@@ -1,0 +1,89 @@
+Pythonの関数
+============================================================
+
+.. code-block:: python
+    :linenos:
+
+    def bmi(height_m, weight_kg):
+        # ref: https://en.wikipedia.org/wiki/Body_mass_index
+        return weight_kg / height_m / height_m
+
+.. doctest を通す
+    >>> def bmi(height_m, weight_kg):
+    ...     return weight_kg / height_m / height_m
+
+.. code-block:: python
+
+    >>> bmi(1.58, 46)
+    18.426534209261334
+
+(寄り道) 関数のtips
+------------------------------------------------
+
+* 返り値として複数の式を返せる（タプル）
+* ``yield`` によるジェネレータ（vol.1のスライド参照）
+* ``bmi(height_m=1.58, weight_kg=46)`` とも呼び出せる
+
+  * Python 3.8~ 位置のみ・キーワードのみ引数
+
+優先ソート
+============================================================
+
+.. doctest を通す
+    >>> def sort_priority(values, group):
+    ...     def helper(x):
+    ...         if x in group:
+    ...             return (0, x)
+    ...         return (1, x)
+    ...     values.sort(key=helper)
+
+.. code-block:: python
+
+    >>> values = [1, 4, 3, 5, 2]
+    >>> # valuesを素数を優先して並び替え（素数の昇順、残りの昇順）
+    >>> sort_priority(values, {2, 3, 5})
+    >>> values
+    [2, 3, 5, 1, 4]
+    >>> # valuesを偶数を優先して並び替え（素数の昇順、残りの昇順）
+    >>> sort_priority(values, {2, 4})
+    >>> values
+    [2, 4, 1, 3, 5]
+
+優先ソート実装：関数の中に関数
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    def sort_priority(values, group):
+        def helper(x):
+            if x in group:
+                return (0, x)
+            return (1, x)
+        values.sort(key=helper)
+
+https://github.com/bslatkin/effectivepython/blob/master/example_code/item_21.py#L50
+
+``sort_priority(values, {2, 3, 5})``
+------------------------------------------------
+
+* ``values = [1, 4, 3, 5, 2]``
+* ``helper`` の返り値
+
+  * ``group`` については ``(0, 2), (0, 3), (0, 5)``
+  * ``group`` にないもの ``(1, 1), (1, 5)``
+
+* key: ``(1, 1), (0, 4), (0, 3), (1, 5), (0, 2)`` で並べ替えた
+
+優先ソートの例から
+============================================================
+
+* クロージャ
+* 関数は、ファーストクラスオブジェクト
+
+クロージャ
+------------------------------------------------
+
+
+ファーストクラスオブジェクト
+------------------------------------------------
