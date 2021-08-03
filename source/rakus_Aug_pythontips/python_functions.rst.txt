@@ -81,9 +81,75 @@ https://github.com/bslatkin/effectivepython/blob/master/example_code/item_21.py#
 * クロージャ
 * 関数は、ファーストクラスオブジェクト
 
+(再掲)優先ソート実装
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    def sort_priority(values, group):
+        def helper(x):  # クロージャ
+            if x in group:
+                return (0, x)
+            return (1, x)
+        values.sort(key=helper)  # ファーストクラスオブジェクト
+
 クロージャ
 ------------------------------------------------
 
+* *定義されたスコープの変数を参照する関数* （『Effective Python 第2版』項目21 p.80）
+* 優先ソートの ``helper`` 関数
+
+  * ``sort_priority`` の引数 ``group`` を **参照** している
 
 ファーストクラスオブジェクト
 ------------------------------------------------
+
+* 関数を *「直接参照でき、変数に代入したり、他の関数の引数として渡したり、式の中やif文の中で比較」* できる（『Effective Python 第2版』項目21 p.80）
+* 優先ソートの ``values.sort(key=helper)``
+
+  * ``sort`` メソッドの ``key`` **引数に関数を渡し** ている
+
+関数を返す関数
+============================================================
+
+* 関数がファーストクラスオブジェクトであることとクロージャを利用する
+* 例：特定の人のBMI
+* 体重の増減に興味（身長は大きく変わらない）
+
+例：ある身長の人のBMIを算出する関数を返す
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    def bmi_with_height(height_m):
+        def bmi_wrapper(weight_kg):
+            return weight_kg / height_m / height_m
+        return bmi_wrapper
+
+.. doctest を通す
+    >>> def bmi_with_height(height_m):
+    ...     def bmi_wrapper(weight_kg):
+    ...         return weight_kg / height_m / height_m
+    ...     return bmi_wrapper
+
+ある身長の人のBMIの変化を求める
+------------------------------------------------
+
+.. code-block:: python
+
+    >>> bmi = bmi_with_height(1.58)
+    >>> bmi(46)
+    18.426534209261334
+    >>> bmi(42)
+    16.824226886716872
+    >>> bmi(50)
+    20.0288415318058
+
+まとめ：Pythonの関数
+============================================================
+
+* 関数の中に関数を書く例を見てきた
+* クロージャ：内側の関数から外側の関数の引数を **参照** できる
+* ファーストクラスオブジェクト：内側の関数を外側の関数の **返り値** にできる
