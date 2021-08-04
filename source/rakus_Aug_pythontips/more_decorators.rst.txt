@@ -22,7 +22,7 @@
 
 https://github.com/bslatkin/effectivepython/blob/master/example_code/item_21.py#L65
 
-優先したかを返していない？
+優先したかを返していない？🤨
 ------------------------------------------------
 
 .. doctest を通す
@@ -57,7 +57,7 @@ https://github.com/bslatkin/effectivepython/blob/master/example_code/item_21.py#
 1. 現在の関数のスコープ
 2. （他の関数の中にある場合）外側のスコープ
 3. グローバルスコープ（コードを含むモジュールのスコープ）
-4. 組み込むスコープ
+4. 組み込みスコープ
 
 『Effective Python 第2版』p.81
 
@@ -101,7 +101,7 @@ https://github.com/bslatkin/effectivepython/blob/master/example_code/item_21.py#
         values.sort(key=helper)
         return found  # sort_priorityのスコープのfound
 
-解決策： ``nonlocal`` 文
+💡解決策： ``nonlocal`` 文
 ============================================================
 
 .. code-block:: python
@@ -118,7 +118,7 @@ https://github.com/bslatkin/effectivepython/blob/master/example_code/item_21.py#
         values.sort(key=helper)
         return found
 
-優先したかを返すように！
+優先したかを返すように！🙌
 ------------------------------------------------
 
 .. doctest を通す
@@ -141,6 +141,14 @@ https://github.com/bslatkin/effectivepython/blob/master/example_code/item_21.py#
     >>> values
     [2, 3, 5, 1, 4]
 
+``nonlocal`` を使ったデコレータ：呼び出しは1分に1回
+------------------------------------------------------------------------------------------------
+
+.. literalinclude:: ../../samplecode/decorators/call_limit_decorators.py
+    :language: python
+    :pyobject: once_per_minute
+    :linenos:
+
 より便利なデコレータを書くために
 ------------------------------------------------
 
@@ -149,3 +157,71 @@ https://github.com/bslatkin/effectivepython/blob/master/example_code/item_21.py#
 
 デコレータの例（FastAPI）
 ============================================================
+
+.. code-block:: python
+
+    @app.get("/")
+    async def root():
+        return {"message": "Hello World"}
+
+https://fastapi.tiangolo.com/ja/tutorial/first-steps/
+
+引数を取るデコレータはどう書く？
+------------------------------------------------
+
+* **3つの関数** で実装する
+
+.. code-block:: python
+
+    def decorator_with_args(x, y):  # 引数を受け取りmiddleを返す
+        def middle(func):  # 関数を受け取りwrapperを返す
+            def wrapper(*args, **kwargs):
+                ...
+            return wrapper
+        return middle
+
+引数を取るデコレータ：呼び出しはN分に1回
+============================================================
+
+.. literalinclude:: ../../samplecode/decorators/call_limit_decorators.py
+    :language: python
+    :pyobject: once_per_n_minutes
+    :linenos:
+
+引数を渡してデコレート
+------------------------------------------------
+
+.. literalinclude:: ../../samplecode/decorators/call_limit_decorators.py
+    :language: python
+    :pyobject: calculate_bmi2
+    :linenos:
+
+.. literalinclude:: ../../samplecode/decorators/call_limit_decorators.py
+    :language: python
+    :pyobject: calculate_bmi3
+    :linenos:
+
+引数を渡してデコレート 実行例
+------------------------------------------------
+
+.. doctest を通す（デコレータは除いた実装）
+    >>> def calculate_bmi2(height_m, weight_kg):
+    ...     return weight_kg / height_m / height_m
+    >>> def calculate_bmi3(height_m, weight_kg):
+    ...     return weight_kg / height_m / height_m
+
+.. code-block:: python
+
+    >>> calculate_bmi2(1.58, 46)
+    18.426534209261334
+    >>> calculate_bmi2(1.58, 46)
+    18.426534209261334
+    >>> calculate_bmi3(1.58, 46)
+    18.426534209261334
+    >>> # calculate_bmi3(1.58, 46)  # Raise RunTooOftenError
+
+🥟小まとめ：より便利なデコレータを書くために
+============================================================
+
+* 外側のスコープの変数、参照できるが、代入には ``nonlocal`` 文
+* 引数を取るデコレータは、 **3つ** の関数で実装
