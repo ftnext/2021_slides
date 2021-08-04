@@ -14,7 +14,6 @@ https://docs.python.org/ja/3/glossary.html#term-decorator
 
     @login_required
     def post_new(request):  # デコレータをつけることで、ログイン必須にできる
-
         ...
 
 https://tutorial-extensions.djangogirls.org/ja/authentication_authorization#nono
@@ -97,4 +96,182 @@ https://tutorial-extensions.djangogirls.org/ja/authentication_authorization#nono
     18.426534209261334
 
 ``*args`` ? ``**kwargs`` ?
+============================================================
+
+2つのシーンで使う
+
+* 関数定義
+* 関数呼び出し
+
+関数定義の ``*args``・ ``**kwargs``
+============================================================
+
+* ``*args``：可変個の位置引数
+
+  * 関数のスコープでは ``args`` はタプル
+
+* ``**kwargs``：可変個のキーワード引数
+
+  * 関数のスコープでは ``kwargs`` は辞書
+
+例：関数定義の ``*args``・ ``**kwargs``
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    def f(*args, **kwargs):
+        print(args)
+        print(kwargs)
+
+.. doctest を通す
+    >>> def f(*args, **kwargs):
+    ...     print(args)
+    ...     print(kwargs)
+
+.. code-block:: python
+
+    >>> f(1, 2, c=3)
+    (1, 2)
+    {'c': 3}
+
+例：関数定義の ``*args``・ ``**kwargs`` 実行例
+------------------------------------------------
+
+.. code-block:: python
+
+    >>> # 位置引数のみ渡した時、kwargsは空の辞書
+    >>> f(1, 2, 3)
+    (1, 2, 3)
+    {}
+    >>> # キーワード引数のみ渡した時、argsは空のタプル
+    >>> f(a=1, b=2, c=3)
+    ()
+    {'a': 1, 'b': 2, 'c': 3}
+
+関数呼び出しの ``*args``・ ``**kwargs``
+============================================================
+
+* タプルやリストなど **シーケンス** は ``*`` 演算子で、要素を位置引数に渡せる
+* 辞書など **マッピング** は ``*`` 演算子で、``キー=値`` 形式で各要素を位置引数に渡せる
+
+例：関数呼び出しの ``*args``・ ``**kwargs`` 実行例
+------------------------------------------------
+
+.. code-block:: python
+
+    >>> # シーケンスを * を使って渡す（argsがタプルとして受け取る）
+    >>> f(*[1,2,3])
+    (1, 2, 3)
+    {}
+    >>> # マッピングを ** を使って渡す（kwargsが辞書として受け取る）
+    >>> f(**{"a": 1, "b": 2, "c": 3})
+    ()
+    {'a': 1, 'b': 2, 'c': 3}
+
+再掲：関数の開始と終了を示すデコレータ
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    def show_start_end(func):
+        def wrapper(*args, **kwargs):
+            print(func.__name__, "Start")
+            # wrapper に渡された位置引数、キーワード引数はfuncに渡されるということ
+            returned = func(*args, **kwargs)
+            print(func.__name__, "End")
+            return returned
+        return wrapper
+
+デコレータを作るときのtips
+============================================================
+
+* ``f = awesome_decorator(f)`` という代入の落とし穴
+
+落とし穴
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    @show_start_end
+    def fully_documented_bmi(height_m, weight_kg):
+        """Calculate BMI (body mass index)."""
+        return weight_kg / height_m / height_m
+
+.. doctest を通す
+    >>> @show_start_end
+    ... def fully_documented_bmi(height_m, weight_kg):
+    ...     """Calculate BMI (body mass index)."""
+    ...     return weight_kg / height_m / height_m
+
+.. code-block:: python
+
+    >>> fully_documented_bmi.__name__  # show_start_endが返す関数の名
+    'wrapper'
+    >>> print(fully_documented_bmi.__doc__)  # 失われたdocstring
+    None
+
+解決策： ``functools.wraps``
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    from functools import wraps
+
+    def show_start_end(func):
+        @wraps(func)  # wrapperをデコレートする
+        def wrapper(*args, **kwargs):
+            print(func.__name__, "Start")
+            returned = func(*args, **kwargs)
+            print(func.__name__, "End")
+            return returned
+        return wrapper
+
+.. doctest を通す
+    >>> from functools import wraps
+    >>> def show_start_end(func):
+    ...     @wraps(func)
+    ...     def wrapper(*args, **kwargs):
+    ...         print(func.__name__, "Start")
+    ...         returned = func(*args, **kwargs)
+    ...         print(func.__name__, "End")
+    ...         return returned
+    ...     return wrapper
+
+``functools.wraps`` で落とし穴回避
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    @show_start_end
+    def fully_documented_bmi(height_m, weight_kg):
+        """Calculate BMI (body mass index)."""
+        return weight_kg / height_m / height_m
+
+.. doctest を通す
+    >>> @show_start_end
+    ... def fully_documented_bmi(height_m, weight_kg):
+    ...     """Calculate BMI (body mass index)."""
+    ...     return weight_kg / height_m / height_m
+
+.. code-block:: python
+
+    >>> fully_documented_bmi.__name__  # デコレータを付けた関数自体の名！
+    'fully_documented_bmi'
+    >>> print(fully_documented_bmi.__doc__)  # docstringが失われていない！
+    Calculate BMI (body mass index).
+
+まとめ：デコレータ
+============================================================
+
+* 関数の呼び出し前後に処理を追加できる
+* **関数を返す関数** として実装
+* 関数定義と関数呼び出しで ``*args``・ ``**kwargs`` を使う
+* ワンポイント： ``functools.wraps``
+
+（時間があれば）私が車輪の再実装したデコレータ
 ============================================================
