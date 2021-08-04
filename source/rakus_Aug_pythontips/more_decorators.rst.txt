@@ -1,0 +1,151 @@
+より便利なデコレータを書くために
+============================================================
+
+* 参照と代入それぞれのスコープの扱い
+* 引数を取るデコレータ
+
+例：優先したかどうかを返す優先ソート
+============================================================
+
+.. code-block:: python
+    :linenos:
+
+    def sort_priority(values, group):
+        found = False
+        def helper(x):
+            if x in group:
+                found = True
+                return (0, x)
+            return (1, x)
+        values.sort(key=helper)
+        return found
+
+https://github.com/bslatkin/effectivepython/blob/master/example_code/item_21.py#L65
+
+優先したかを返していない？
+------------------------------------------------
+
+.. doctest を通す
+    >>> def sort_priority(values, group):
+    ...     found = False
+    ...     def helper(x):
+    ...         if x in group:
+    ...             found = True
+    ...             return (0, x)
+    ...         return (1, x)
+    ...     values.sort(key=helper)
+    ...     return found
+
+.. code-block:: python
+
+    >>> values = [1, 4, 3, 5, 2]
+    >>> # valuesを素数を優先して並び替えているが、返り値はFalse
+    >>> sort_priority(values, {2, 3, 5})
+    False
+    >>> values
+    [2, 3, 5, 1, 4]
+
+なぜ優先したかを返さない？
+------------------------------------------------
+
+* 変数の参照のスコープ解決順
+* 代入のスコープ解決
+
+変数の参照のスコープ解決順
+============================================================
+
+1. 現在の関数のスコープ
+2. （他の関数の中にある場合）外側のスコープ
+3. グローバルスコープ（コードを含むモジュールのスコープ）
+4. 組み込むスコープ
+
+『Effective Python 第2版』p.81
+
+例：クロージャ ``helper`` の ``group``
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    def sort_priority(values, group):
+        found = False
+        def helper(x):
+            if x in group:  # 外側のスコープのgroupを参照
+                found = True
+                return (0, x)
+            return (1, x)
+        values.sort(key=helper)
+        return found
+
+代入のスコープ解決
+============================================================
+
+    変数が現在のスコープに存在しないと、Pythonは、代入を変数定義のように扱います
+
+『Effective Python 第2版』p.81
+
+なぜ優先したかを返さなかったか？
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    def sort_priority(values, group):
+        found = False
+        def helper(x):
+            if x in group:
+                # 以下はhelperのスコープで変数foundを定義
+                found = True  # 2行目のfoundとは無関係
+                return (0, x)
+            return (1, x)
+        values.sort(key=helper)
+        return found  # sort_priorityのスコープのfound
+
+解決策： ``nonlocal`` 文
+============================================================
+
+.. code-block:: python
+    :linenos:
+
+    def sort_priority(values, group):
+        found = False
+        def helper(x):
+            nonlocal found  # sort_priorityのfound
+            if x in group:
+                found = True  # helperのスコープから代入できる！（nonlocalの効果）
+                return (0, x)
+            return (1, x)
+        values.sort(key=helper)
+        return found
+
+優先したかを返すように！
+------------------------------------------------
+
+.. doctest を通す
+    >>> def sort_priority(values, group):
+    ...     found = False
+    ...     def helper(x):
+    ...         nonlocal found
+    ...         if x in group:
+    ...             found = True
+    ...             return (0, x)
+    ...         return (1, x)
+    ...     values.sort(key=helper)
+    ...     return found
+
+.. code-block:: python
+
+    >>> values = [1, 4, 3, 5, 2]
+    >>> sort_priority(values, {2, 3, 5})
+    True
+    >>> values
+    [2, 3, 5, 1, 4]
+
+より便利なデコレータを書くために
+------------------------------------------------
+
+* 参照と代入それぞれのスコープの扱い
+* **引数を取るデコレータ**
+
+デコレータの例（FastAPI）
+============================================================
