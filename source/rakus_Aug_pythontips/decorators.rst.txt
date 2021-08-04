@@ -45,7 +45,7 @@ https://tutorial-extensions.djangogirls.org/ja/authentication_authorization#nono
 簡単なデコレータを作ってみる
 ============================================================
 
-* ラップする関数に追加するコード
+* ラップする関数に **追加** するコード
 
   * 実行前に開始する旨を出力
   * 実行後に修了する旨を出力
@@ -106,13 +106,13 @@ https://tutorial-extensions.djangogirls.org/ja/authentication_authorization#nono
 関数定義の ``*args``・ ``**kwargs``
 ============================================================
 
-* ``*args``：可変個の位置引数
+* ``*args``：可変個の **位置** 引数
 
-  * 関数のスコープでは ``args`` はタプル
+  * 関数のスコープでは ``args`` は **タプル**
 
-* ``**kwargs``：可変個のキーワード引数
+* ``**kwargs``：可変個の **キーワード** 引数
 
-  * 関数のスコープでは ``kwargs`` は辞書
+  * 関数のスコープでは ``kwargs`` は **辞書**
 
 例：関数定義の ``*args``・ ``**kwargs``
 ------------------------------------------------
@@ -153,10 +153,10 @@ https://tutorial-extensions.djangogirls.org/ja/authentication_authorization#nono
 ============================================================
 
 * タプルやリストなど **シーケンス** は ``*`` 演算子で、要素を位置引数に渡せる
-* 辞書など **マッピング** は ``*`` 演算子で、``キー=値`` 形式で各要素を位置引数に渡せる
+* 辞書など **マッピング** は ``**`` 演算子で、``キー=値`` 形式で各要素を位置引数に渡せる
 
 例：関数呼び出しの ``*args``・ ``**kwargs`` 実行例
-------------------------------------------------
+------------------------------------------------------------------------------------------------
 
 .. code-block:: python
 
@@ -189,7 +189,7 @@ https://tutorial-extensions.djangogirls.org/ja/authentication_authorization#nono
 
 * ``f = awesome_decorator(f)`` という代入の落とし穴
 
-落とし穴
+落とし穴😱
 ------------------------------------------------
 
 .. code-block:: python
@@ -213,7 +213,7 @@ https://tutorial-extensions.djangogirls.org/ja/authentication_authorization#nono
     >>> print(fully_documented_bmi.__doc__)  # 失われたdocstring
     None
 
-解決策： ``functools.wraps``
+💡解決策： ``functools.wraps``
 ------------------------------------------------
 
 .. code-block:: python
@@ -241,7 +241,7 @@ https://tutorial-extensions.djangogirls.org/ja/authentication_authorization#nono
     ...         return returned
     ...     return wrapper
 
-``functools.wraps`` で落とし穴回避
+``functools.wraps`` で落とし穴回避🙌
 ------------------------------------------------
 
 .. code-block:: python
@@ -265,7 +265,7 @@ https://tutorial-extensions.djangogirls.org/ja/authentication_authorization#nono
     >>> print(fully_documented_bmi.__doc__)  # docstringが失われていない！
     Calculate BMI (body mass index).
 
-まとめ：デコレータ
+🥟小まとめ：デコレータ
 ============================================================
 
 * 関数の呼び出し前後に処理を追加できる
@@ -273,5 +273,17 @@ https://tutorial-extensions.djangogirls.org/ja/authentication_authorization#nono
 * 関数定義と関数呼び出しで ``*args``・ ``**kwargs`` を使う
 * ワンポイント： ``functools.wraps``
 
-（時間があれば）私が車輪の再実装したデコレータ
+``@skip`` （時間があれば）私が車輪の再実装したデコレータ
 ============================================================
+
+.. literalinclude:: ../../samplecode/decorators/cached_decorator.py
+    :language: python
+    :pyobject: cache_enabled
+    :linenos:
+
+お品書き：デコレータについて
+------------------------------------------------
+
+* Pythonの関数
+* デコレータ
+* **より便利なデコレータを書くために**
