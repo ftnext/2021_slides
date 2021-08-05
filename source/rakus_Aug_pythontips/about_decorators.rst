@@ -22,7 +22,7 @@
 
 * Python大好き **にっきー** （:raw-html:`<i class="fab fa-twitter"></i>` `@ftnext <https://twitter.com/ftnext>`_ / :raw-html:`<i class="fab fa-github"></i>` `@ftnext <https://github.com/ftnext>`_）
 * Python歴3年半。データサイエンティストにしてNLPer
-* PyCon JP 2021 座長🇨🇭
+* *Py* thon *Con* ference JP 2021 座長🇨🇭
 * **tips**: Python界隈では *自己紹介のエイリアス* が「お前、誰よ」（`ルーツ <https://www.ianlewis.org/jp/pycon-mini-jp>`_）
 
 お前、誰よ（承前）
@@ -75,6 +75,28 @@
 **Enjoy** development with decorators!
 
 References、**Appendix** が続きます（よろしければどうぞ！）
+
+References 1/2
+============================================================
+
+* 『`Effective Python 第2版 <https://www.oreilly.co.jp/books/9784873119175/>`_』3章関数（特に以下）
+
+  * 項目21 クロージャが変数スコープとどう関わるかを把握しておく
+  * 項目22 可変長位置引数を使って、見た目をすっきりさせる
+  * 項目26 functools.wrapsを使って関数デコレータを定義する
+
+References 2/2
+------------------------------------------------
+
+* The Global Dev Study #4 - FastAPI / Python
+
+  * `YouTube <https://youtu.be/Ly3ZUDqAsL8>`_
+  * `Source code <https://github.com/reuven/Forkwell-2021-July-6>`_
+
+* PyCon JP 2020 「`詳解デコレータ <https://pycon.jp/2020/timetable/?id=203944>`_」
+
+Appendix 作成中
+============================================================
 
 EOF
 ============================================================
