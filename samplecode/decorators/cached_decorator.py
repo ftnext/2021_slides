@@ -19,6 +19,7 @@ def cache_enabled(func):
 
 @cache_enabled
 def get_api(number):
+    """外部のAPIへのリクエスト送信のような時間のかかる処理を単純化しています"""
     time.sleep(2)
     return number + 1
 
