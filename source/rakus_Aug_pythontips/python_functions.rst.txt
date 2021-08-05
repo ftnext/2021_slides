@@ -1,0 +1,163 @@
+Pythonの関数
+============================================================
+
+.. code-block:: python
+    :linenos:
+
+    def calculate_bmi(height_m, weight_kg):
+        # ref: https://en.wikipedia.org/wiki/Body_mass_index
+        return weight_kg / height_m / height_m
+
+.. doctest を通す
+    >>> def calculate_bmi(height_m, weight_kg):
+    ...     return weight_kg / height_m / height_m
+
+.. code-block:: python
+
+    >>> calculate_bmi(1.58, 46)
+    18.426534209261334
+
+``@skip`` (寄り道) 関数のtips
+------------------------------------------------
+
+* 返り値として複数の式を返せる（タプル）
+* ``yield`` によるジェネレータ（ `vol.1のスライド <https://ftnext.github.io/2021_slides/rakus_Feb_pythontips/about_yield.html>`_ 参照）
+* ``calculate_bmi(height_m=1.58, weight_kg=46)`` とも呼び出せる
+
+  * Python 3.8~ 位置のみ・キーワードのみ引数
+
+優先ソート
+============================================================
+
+.. doctest を通す
+    >>> def sort_priority(values, group):
+    ...     def helper(x):
+    ...         if x in group:
+    ...             return (0, x)
+    ...         return (1, x)
+    ...     values.sort(key=helper)
+
+.. code-block:: python
+
+    >>> values = [1, 4, 3, 5, 2]
+    >>> # valuesを素数を優先して並び替え（素数の昇順、残りの昇順）
+    >>> sort_priority(values, {2, 3, 5})
+    >>> values
+    [2, 3, 5, 1, 4]
+    >>> # valuesを偶数を優先して並び替え（素数の昇順、残りの昇順）
+    >>> sort_priority(values, {2, 4})
+    >>> values
+    [2, 4, 1, 3, 5]
+
+優先ソート実装：関数の中に関数
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    def sort_priority(values, group):
+        def helper(x):
+            if x in group:
+                return (0, x)
+            return (1, x)
+        values.sort(key=helper)
+
+:raw-html:`<i class="fab fa-github"></i>` https://github.com/bslatkin/effectivepython/blob/master/example_code/item_21.py#L50
+
+``sort_priority(values, {2, 3, 5})``
+------------------------------------------------
+
+* ``values = [1, 4, 3, 5, 2]``
+* ``helper`` の返り値
+
+  * ``group`` については ``(0, 2), (0, 3), (0, 5)``
+  * ``group`` にないもの ``(1, 1), (1, 4)``
+
+* key: ``(1, 1), (1, 4), (0, 3), (0, 5), (0, 2)`` で並べ替えた
+
+優先ソートの例から2点
+============================================================
+
+* クロージャ
+* 関数は、ファーストクラスオブジェクト
+
+(再掲)優先ソート実装
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    def sort_priority(values, group):
+        def helper(x):  # クロージャ
+            if x in group:
+                return (0, x)
+            return (1, x)
+        values.sort(key=helper)  # ファーストクラスオブジェクト
+
+クロージャ
+------------------------------------------------
+
+* *functions that refer to variables from the scope in which they were defined* （『Effective Python second edition』Item 21 p.84）
+* ＝自身が定義されたスコープから（外側のスコープの）変数を参照する関数（訳の案）
+* 優先ソートの ``helper`` 関数
+
+  * ``sort_priority`` の引数 ``group`` を **参照** している
+
+ファーストクラスオブジェクト
+------------------------------------------------
+
+* 関数を *「直接参照でき、変数に代入したり、他の関数の引数として渡したり、式の中やif文の中で比較」* できる（『Effective Python 第2版』項目21 p.80）
+* 優先ソートの ``values.sort(key=helper)``
+
+  * ``sort`` メソッドの ``key`` **引数に関数を渡し** ている
+
+関数を返す関数
+============================================================
+
+* 関数がファーストクラスオブジェクトであることとクロージャを利用する
+* 例：特定の人のBMI
+* 体重の増減に興味（身長は大きく変わらない）
+
+例：ある身長の人のBMIを算出する関数を返す
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    def bmi_calculator_with_height(height_m):
+        def calculate_bmi_wrapper(weight_kg):
+            return weight_kg / height_m / height_m
+        return calculate_bmi_wrapper
+
+.. doctest を通す
+    >>> def bmi_calculator_with_height(height_m):
+    ...     def calculate_bmi_wrapper(weight_kg):
+    ...         return weight_kg / height_m / height_m
+    ...     return calculate_bmi_wrapper
+
+ある身長の人のBMIの変化を求める
+------------------------------------------------
+
+.. code-block:: python
+
+    >>> calculate_her_bmi = bmi_calculator_with_height(1.58)
+    >>> calculate_her_bmi(46)
+    18.426534209261334
+    >>> calculate_her_bmi(42)
+    16.824226886716872
+    >>> calculate_her_bmi(50)
+    20.0288415318058
+
+🥟小まとめ：Pythonの関数
+============================================================
+
+* 関数の中に関数を書く例を見てきた
+* クロージャ：内側の関数から外側の関数の引数を **参照** できる
+* ファーストクラスオブジェクト：内側の関数を外側の関数の **返り値** にできる
+
+お品書き：デコレータについて
+------------------------------------------------
+
+* Pythonの関数
+* **デコレータ**
+* より便利なデコレータを書くために
