@@ -48,7 +48,7 @@ https://tutorial-extensions.djangogirls.org/ja/authentication_authorization#nono
 * ラップする関数に **追加** するコード
 
   * 実行前に開始する旨を出力
-  * 実行後に修了する旨を出力
+  * 実行後に終了する旨を出力
 
 関数の開始と終了を示すデコレータ
 ------------------------------------------------
@@ -80,19 +80,19 @@ https://tutorial-extensions.djangogirls.org/ja/authentication_authorization#nono
     :linenos:
 
     @show_start_end
-    def bmi(height_m, weight_kg):
+    def calculate_bmi(height_m, weight_kg):
         return weight_kg / height_m / height_m
 
 .. doctest を通す
     >>> @show_start_end
-    ... def bmi(height_m, weight_kg):
+    ... def calculate_bmi(height_m, weight_kg):
     ...     return weight_kg / height_m / height_m
 
 .. code-block:: python
 
-    >>> bmi(1.58, 46)
-    bmi Start
-    bmi End
+    >>> calculate_bmi(1.58, 46)
+    calculate_bmi Start
+    calculate_bmi End
     18.426534209261334
 
 ``*args`` ? ``**kwargs`` ?
@@ -153,7 +153,7 @@ https://tutorial-extensions.djangogirls.org/ja/authentication_authorization#nono
 ============================================================
 
 * タプルやリストなど **シーケンス** は ``*`` 演算子で、要素を位置引数に渡せる
-* 辞書など **マッピング** は ``**`` 演算子で、``キー=値`` 形式で各要素を位置引数に渡せる
+* 辞書など **マッピング** は ``**`` 演算子で、``キー=値`` 形式で各要素をキーワード引数に渡せる
 
 例：関数呼び出しの ``*args``・ ``**kwargs`` 実行例
 ------------------------------------------------------------------------------------------------
