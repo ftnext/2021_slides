@@ -1,0 +1,885 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>デコレータについて</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="../reveal.js/dist/theme/black.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/plugin/highlight/zenburn.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/Font-Awesome/css/all.min.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@ftnext" />
+    <meta property="og:url" content="https://ftnext.github.io/2021_slides/rakus_Aug_pythontips/about_decorators.html" />
+    <meta property="og:title" content="デコレータについて" />
+    <meta property="og:description" content="2021/08 ラクス Python Tips LT会 vol.2 スライド（初版）" />
+
+    
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides">
+            <section >
+<h1>デコレータについて</h1>
+<dl class="field-list simple">
+<dt class="field-odd">Event</dt>
+<dd class="field-odd"><p>ラクス Python Tips LT会 vol.2</p>
+</dd>
+<dt class="field-even">Presented</dt>
+<dd class="field-even"><p>2021/08/05 nikkie</p>
+</dd>
+</dl>
+</section>
+<section >
+<h2>❓ Question（チャットお願いします🙏）</h2>
+<p>ふだん <strong>デコレータ</strong> 使ってますか？</p>
+<ul class="simple">
+<li><p>ガッツリ💪</p></li>
+<li><p>たまに😃</p></li>
+<li><p>初耳！👂</p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2>お前、誰よ</h2>
+<ul class="simple">
+<li><p>Python大好き <strong>にっきー</strong> （<span class="raw-html"><i class="fab fa-twitter"></i></span> <a class="reference external" href="https://twitter.com/ftnext">&#64;ftnext</a> / <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext">&#64;ftnext</a>）</p></li>
+<li><p>Python歴3年半。データサイエンティストにしてNLPer</p></li>
+<li><p><em>Py</em> thon <em>Con</em> ference JP 2021 座長🇨🇭</p></li>
+<li><p><strong>tips</strong>: Python界隈では <em>自己紹介のエイリアス</em> が「お前、誰よ」（<a class="reference external" href="https://www.ianlewis.org/jp/pycon-mini-jp">ルーツ</a>）</p></li>
+</ul>
+</section>
+<section >
+<h3>お前、誰よ（承前）</h3>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">我が名はにっきー。アニメ大好き🥰この夏はアニメ映画がアツい！！<br>竜とそばかすの姫🐉、サイダーのように言葉が湧き上がる🥤、映画大好きポンポさん🎦、かくしごと👩‍🎨、きんモザ and so on！<br>しかしここ数日都内は感染者数3000人突破。外出しづらい。めっちゃ見たい！けどリスクとるか悩む。ぐおおお🤨</p>&mdash; nikkie 📣PyCon JP 2021 スタッフ募集中！ (@ftnext) <a href="https://twitter.com/ftnext/status/1421319212081942528?ref_src=twsrc%5Etfw">July 31, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+</section>
+<section>
+<section >
+<h2>今回のテーマは「デコレータ」</h2>
+</section>
+<section >
+<h3>デコレータ</h3>
+<ul class="simple">
+<li><p>語弊を恐れずに言えば、 <strong>関数を返す関数</strong></p></li>
+<li><p>「関数が関数を返すってどういうこと？」🤨</p></li>
+<li><p>👉 関数の基本から見ていきましょう</p></li>
+</ul>
+</section>
+<section >
+<h3>お品書き：デコレータについて</h3>
+<ul class="simple">
+<li><p>Pythonの関数</p></li>
+<li><p>デコレータ</p></li>
+<li><p>より便利なデコレータを書くために</p></li>
+</ul>
+</section>
+<section >
+<h3>お品書き：デコレータについて</h3>
+<ul class="simple">
+<li><p><strong>Pythonの関数</strong></p></li>
+<li><p>デコレータ</p></li>
+<li><p>より便利なデコレータを書くために</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>Pythonの関数</h2>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def calculate_bmi(height_m, weight_kg):
+    # ref: https://en.wikipedia.org/wiki/Body_mass_index
+    return weight_kg / height_m / height_m</code></pre>
+<aside class="notes">
+doctest を通す
+&gt;&gt;&gt; def calculate_bmi(height_m, weight_kg):
+...     return weight_kg / height_m / height_m</aside>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; calculate_bmi(1.58, 46)
+18.426534209261334</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">&#64;skip</span></code> (寄り道) 関数のtips</h3>
+<ul class="simple">
+<li><p>返り値として複数の式を返せる（タプル）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> によるジェネレータ（ <a class="reference external" href="https://ftnext.github.io/2021_slides/rakus_Feb_pythontips/about_yield.html">vol.1のスライド</a> 参照）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">calculate_bmi(height_m=1.58,</span> <span class="pre">weight_kg=46)</span></code> とも呼び出せる</p>
+<ul>
+<li><p>Python 3.8~ 位置のみ・キーワードのみ引数</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>優先ソート</h2>
+<aside class="notes">
+doctest を通す
+&gt;&gt;&gt; def sort_priority(values, group):
+...     def helper(x):
+...         if x in group:
+...             return (0, x)
+...         return (1, x)
+...     values.sort(key=helper)</aside>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; values = [1, 4, 3, 5, 2]
+&gt;&gt;&gt; # valuesを素数を優先して並び替え（素数の昇順、残りの昇順）
+&gt;&gt;&gt; sort_priority(values, {2, 3, 5})
+&gt;&gt;&gt; values
+[2, 3, 5, 1, 4]
+&gt;&gt;&gt; # valuesを偶数を優先して並び替え（素数の昇順、残りの昇順）
+&gt;&gt;&gt; sort_priority(values, {2, 4})
+&gt;&gt;&gt; values
+[2, 4, 1, 3, 5]</code></pre>
+</section>
+<section >
+<h3>優先ソート実装：関数の中に関数</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def sort_priority(values, group):
+    def helper(x):
+        if x in group:
+            return (0, x)
+        return (1, x)
+    values.sort(key=helper)</code></pre>
+<p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/bslatkin/effectivepython/blob/master/example_code/item_21.py#L50">https://github.com/bslatkin/effectivepython/blob/master/example_code/item_21.py#L50</a></p>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">sort_priority(values,</span> <span class="pre">{2,</span> <span class="pre">3,</span> <span class="pre">5})</span></code></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">values</span> <span class="pre">=</span> <span class="pre">[1,</span> <span class="pre">4,</span> <span class="pre">3,</span> <span class="pre">5,</span> <span class="pre">2]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">helper</span></code> の返り値</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">group</span></code> については <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">2),</span> <span class="pre">(0,</span> <span class="pre">3),</span> <span class="pre">(0,</span> <span class="pre">5)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">group</span></code> にないもの <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">1),</span> <span class="pre">(1,</span> <span class="pre">4)</span></code></p></li>
+</ul>
+</li>
+<li><p>key: <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">1),</span> <span class="pre">(1,</span> <span class="pre">4),</span> <span class="pre">(0,</span> <span class="pre">3),</span> <span class="pre">(0,</span> <span class="pre">5),</span> <span class="pre">(0,</span> <span class="pre">2)</span></code> で並べ替えた</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>優先ソートの例から2点</h2>
+<ul class="simple">
+<li><p>クロージャ</p></li>
+<li><p>関数は、ファーストクラスオブジェクト</p></li>
+</ul>
+</section>
+<section >
+<h3>(再掲)優先ソート実装</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def sort_priority(values, group):
+    def helper(x):  # クロージャ
+        if x in group:
+            return (0, x)
+        return (1, x)
+    values.sort(key=helper)  # ファーストクラスオブジェクト</code></pre>
+</section>
+<section >
+<h3>クロージャ</h3>
+<ul class="simple">
+<li><p><em>functions that refer to variables from the scope in which they were defined</em> （『Effective Python second edition』Item 21 p.84）</p></li>
+<li><p>＝自身が定義されたスコープから（外側のスコープの）変数を参照する関数（訳の案）</p></li>
+<li><p>優先ソートの <code class="docutils literal notranslate"><span class="pre">helper</span></code> 関数</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">sort_priority</span></code> の引数 <code class="docutils literal notranslate"><span class="pre">group</span></code> を <strong>参照</strong> している</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>ファーストクラスオブジェクト</h3>
+<ul class="simple">
+<li><p>関数を <em>「直接参照でき、変数に代入したり、他の関数の引数として渡したり、式の中やif文の中で比較」</em> できる（『Effective Python 第2版』項目21 p.80）</p></li>
+<li><p>優先ソートの <code class="docutils literal notranslate"><span class="pre">values.sort(key=helper)</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">sort</span></code> メソッドの <code class="docutils literal notranslate"><span class="pre">key</span></code> <strong>引数に関数を渡し</strong> ている</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>関数を返す関数</h2>
+<ul class="simple">
+<li><p>関数がファーストクラスオブジェクトであることとクロージャを利用する</p></li>
+<li><p>例：特定の人のBMI</p></li>
+<li><p>体重の増減に興味（身長は大きく変わらない）</p></li>
+</ul>
+</section>
+<section >
+<h3>例：ある身長の人のBMIを算出する関数を返す</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def bmi_calculator_with_height(height_m):
+    def calculate_bmi_wrapper(weight_kg):
+        return weight_kg / height_m / height_m
+    return calculate_bmi_wrapper</code></pre>
+<aside class="notes">
+doctest を通す
+&gt;&gt;&gt; def bmi_calculator_with_height(height_m):
+...     def calculate_bmi_wrapper(weight_kg):
+...         return weight_kg / height_m / height_m
+...     return calculate_bmi_wrapper</aside>
+</section>
+<section >
+<h3>ある身長の人のBMIの変化を求める</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; calculate_her_bmi = bmi_calculator_with_height(1.58)
+&gt;&gt;&gt; calculate_her_bmi(46)
+18.426534209261334
+&gt;&gt;&gt; calculate_her_bmi(42)
+16.824226886716872
+&gt;&gt;&gt; calculate_her_bmi(50)
+20.0288415318058</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2>🥟小まとめ：Pythonの関数</h2>
+<ul class="simple">
+<li><p>関数の中に関数を書く例を見てきた</p></li>
+<li><p>クロージャ：内側の関数から外側の関数の引数を <strong>参照</strong> できる</p></li>
+<li><p>ファーストクラスオブジェクト：内側の関数を外側の関数の <strong>返り値</strong> にできる</p></li>
+</ul>
+</section>
+<section >
+<h3>お品書き：デコレータについて</h3>
+<ul class="simple">
+<li><p>Pythonの関数</p></li>
+<li><p><strong>デコレータ</strong></p></li>
+<li><p>より便利なデコレータを書くために</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>デコレータ（用語集）</h2>
+<blockquote>
+<div><p>別の関数を返す関数で、通常、 &#64;wrapper 構文で関数変換として適用されます</p>
+</div></blockquote>
+<p><a class="reference external" href="https://docs.python.org/ja/3/glossary.html#term-decorator">https://docs.python.org/ja/3/glossary.html#term-decorator</a></p>
+</section>
+<section >
+<h3>デコレータの例（Django）</h3>
+<pre><code data-trim data-noescape  class="python">
+from django.contrib.auth.decorators import login_required
+
+&#64;login_required
+def post_new(request):  # デコレータをつけることで、ログイン必須にできる
+    ...</code></pre>
+<p><a class="reference external" href="https://tutorial-extensions.djangogirls.org/ja/authentication_authorization#nono">https://tutorial-extensions.djangogirls.org/ja/authentication_authorization#nono</a></p>
+</section>
+<section >
+<h3>デコレータ</h3>
+<ul class="simple">
+<li><p><em>「ラップする関数への呼び出しの前後で追加コードを実行することができます」</em> （『Effective Python 第2版』項目26 p.97）</p></li>
+<li><p>Djangoの <code class="docutils literal notranslate"><span class="pre">login_required</span></code> は <code class="docutils literal notranslate"><span class="pre">post_new</span></code> 関数の前に、ログインを検証するコードを実行した</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">&#64;</span></code> はシンタックスシュガー</h3>
+<p>以下の2つは同じ</p>
+<pre><code data-trim data-noescape  class="python">
+def f(...):
+    ...
+
+f = awesome_decorator(f)</code></pre>
+<pre><code data-trim data-noescape  class="python">
+&#64;awesome_decorator
+def f(...):
+    ...</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2>簡単なデコレータを作ってみる</h2>
+<ul class="simple">
+<li><p>ラップする関数に <strong>追加</strong> するコード</p>
+<ul>
+<li><p>実行前に開始する旨を出力</p></li>
+<li><p>実行後に終了する旨を出力</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>関数の開始と終了を示すデコレータ</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def show_start_end(func):
+    def wrapper(*args, **kwargs):
+        print(func.__name__, &quot;Start&quot;)
+        returned = func(*args, **kwargs)
+        print(func.__name__, &quot;End&quot;)
+        return returned
+    return wrapper</code></pre>
+<aside class="notes">
+doctest を通す
+&gt;&gt;&gt; def show_start_end(func):
+...     def wrapper(*args, **kwargs):
+...         print(func.__name__, &quot;Start&quot;)
+...         returned = func(*args, **kwargs)
+...         print(func.__name__, &quot;End&quot;)
+...         return returned
+...     return wrapper</aside>
+</section>
+<section >
+<h3>関数の開始と終了を示すデコレータを使う</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+&#64;show_start_end
+def calculate_bmi(height_m, weight_kg):
+    return weight_kg / height_m / height_m</code></pre>
+<aside class="notes">
+doctest を通す
+&gt;&gt;&gt; &#64;show_start_end
+... def calculate_bmi(height_m, weight_kg):
+...     return weight_kg / height_m / height_m</aside>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; calculate_bmi(1.58, 46)
+calculate_bmi Start
+calculate_bmi End
+18.426534209261334</code></pre>
+</section>
+</section>
+<section >
+<h2><code class="docutils literal notranslate"><span class="pre">*args</span></code> ? <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> ?</h2>
+<p>2つのシーンで使う</p>
+<ul class="simple">
+<li><p>関数定義</p></li>
+<li><p>関数呼び出し</p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2>関数定義の <code class="docutils literal notranslate"><span class="pre">*args</span></code>・ <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">*args</span></code>：可変個の <strong>位置</strong> 引数</p>
+<ul>
+<li><p>関数のスコープでは <code class="docutils literal notranslate"><span class="pre">args</span></code> は <strong>タプル</strong></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>：可変個の <strong>キーワード</strong> 引数</p>
+<ul>
+<li><p>関数のスコープでは <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> は <strong>辞書</strong></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>例：関数定義の <code class="docutils literal notranslate"><span class="pre">*args</span></code>・ <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code></h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def f(*args, **kwargs):
+    print(args)
+    print(kwargs)</code></pre>
+<aside class="notes">
+doctest を通す
+&gt;&gt;&gt; def f(*args, **kwargs):
+...     print(args)
+...     print(kwargs)</aside>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; f(1, 2, c=3)
+(1, 2)
+{'c': 3}</code></pre>
+</section>
+<section >
+<h3>例：関数定義の <code class="docutils literal notranslate"><span class="pre">*args</span></code>・ <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> 実行例</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; # 位置引数のみ渡した時、kwargsは空の辞書
+&gt;&gt;&gt; f(1, 2, 3)
+(1, 2, 3)
+{}
+&gt;&gt;&gt; # キーワード引数のみ渡した時、argsは空のタプル
+&gt;&gt;&gt; f(a=1, b=2, c=3)
+()
+{'a': 1, 'b': 2, 'c': 3}</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2>関数呼び出しの <code class="docutils literal notranslate"><span class="pre">*args</span></code>・ <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code></h2>
+<ul class="simple">
+<li><p>タプルやリストなど <strong>シーケンス</strong> は <code class="docutils literal notranslate"><span class="pre">*</span></code> 演算子で、要素を位置引数に渡せる</p></li>
+<li><p>辞書など <strong>マッピング</strong> は <code class="docutils literal notranslate"><span class="pre">**</span></code> 演算子で、<code class="docutils literal notranslate"><span class="pre">キー=値</span></code> 形式で各要素をキーワード引数に渡せる</p></li>
+</ul>
+</section>
+<section >
+<h3>例：関数呼び出しの <code class="docutils literal notranslate"><span class="pre">*args</span></code>・ <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> 実行例</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; # シーケンスを * を使って渡す（argsがタプルとして受け取る）
+&gt;&gt;&gt; f(*[1,2,3])
+(1, 2, 3)
+{}
+&gt;&gt;&gt; # マッピングを ** を使って渡す（kwargsが辞書として受け取る）
+&gt;&gt;&gt; f(**{&quot;a&quot;: 1, &quot;b&quot;: 2, &quot;c&quot;: 3})
+()
+{'a': 1, 'b': 2, 'c': 3}</code></pre>
+</section>
+<section >
+<h3>再掲：関数の開始と終了を示すデコレータ</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def show_start_end(func):
+    def wrapper(*args, **kwargs):
+        print(func.__name__, &quot;Start&quot;)
+        # wrapper に渡された位置引数、キーワード引数はfuncに渡されるということ
+        returned = func(*args, **kwargs)
+        print(func.__name__, &quot;End&quot;)
+        return returned
+    return wrapper</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2>デコレータを作るときのtips</h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span> <span class="pre">=</span> <span class="pre">awesome_decorator(f)</span></code> という代入の落とし穴</p></li>
+</ul>
+</section>
+<section >
+<h3>落とし穴😱</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+&#64;show_start_end
+def fully_documented_bmi(height_m, weight_kg):
+    &quot;&quot;&quot;Calculate BMI (body mass index).&quot;&quot;&quot;
+    return weight_kg / height_m / height_m</code></pre>
+<aside class="notes">
+doctest を通す
+&gt;&gt;&gt; &#64;show_start_end
+... def fully_documented_bmi(height_m, weight_kg):
+...     &quot;&quot;&quot;Calculate BMI (body mass index).&quot;&quot;&quot;
+...     return weight_kg / height_m / height_m</aside>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; fully_documented_bmi.__name__  # show_start_endが返す関数の名
+'wrapper'
+&gt;&gt;&gt; print(fully_documented_bmi.__doc__)  # 失われたdocstring
+None</code></pre>
+</section>
+<section >
+<h3>💡解決策： <code class="docutils literal notranslate"><span class="pre">functools.wraps</span></code></h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+from functools import wraps
+
+def show_start_end(func):
+    &#64;wraps(func)  # wrapperをデコレートする
+    def wrapper(*args, **kwargs):
+        print(func.__name__, &quot;Start&quot;)
+        returned = func(*args, **kwargs)
+        print(func.__name__, &quot;End&quot;)
+        return returned
+    return wrapper</code></pre>
+<aside class="notes">
+doctest を通す
+&gt;&gt;&gt; from functools import wraps
+&gt;&gt;&gt; def show_start_end(func):
+...     &#64;wraps(func)
+...     def wrapper(*args, **kwargs):
+...         print(func.__name__, &quot;Start&quot;)
+...         returned = func(*args, **kwargs)
+...         print(func.__name__, &quot;End&quot;)
+...         return returned
+...     return wrapper</aside>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">functools.wraps</span></code> で落とし穴回避🙌</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+&#64;show_start_end
+def fully_documented_bmi(height_m, weight_kg):
+    &quot;&quot;&quot;Calculate BMI (body mass index).&quot;&quot;&quot;
+    return weight_kg / height_m / height_m</code></pre>
+<aside class="notes">
+doctest を通す
+&gt;&gt;&gt; &#64;show_start_end
+... def fully_documented_bmi(height_m, weight_kg):
+...     &quot;&quot;&quot;Calculate BMI (body mass index).&quot;&quot;&quot;
+...     return weight_kg / height_m / height_m</aside>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; fully_documented_bmi.__name__  # デコレータを付けた関数自体の名！
+'fully_documented_bmi'
+&gt;&gt;&gt; print(fully_documented_bmi.__doc__)  # docstringが失われていない！
+Calculate BMI (body mass index).</code></pre>
+</section>
+</section>
+<section >
+<h2>🥟小まとめ：デコレータ</h2>
+<ul class="simple">
+<li><p>関数の呼び出し前後に処理を追加できる</p></li>
+<li><p><strong>関数を返す関数</strong> として実装</p></li>
+<li><p>関数定義と関数呼び出しで <code class="docutils literal notranslate"><span class="pre">*args</span></code>・ <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> を使う</p></li>
+<li><p>ワンポイント： <code class="docutils literal notranslate"><span class="pre">functools.wraps</span></code></p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2><code class="docutils literal notranslate"><span class="pre">&#64;skip</span></code> （時間があれば）私が車輪の再実装したデコレータ</h2>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def cache_enabled(func):
+    cache = {}
+
+    &#64;functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        key = kwargs[&quot;number&quot;]
+        if key in cache:
+            return cache[key]
+        retval = func(*args, **kwargs)
+        cache[key] = retval
+        return retval
+
+    return wrapper
+</code></pre>
+</section>
+<section >
+<h3>お品書き：デコレータについて</h3>
+<ul class="simple">
+<li><p>Pythonの関数</p></li>
+<li><p>デコレータ</p></li>
+<li><p><strong>より便利なデコレータを書くために</strong></p></li>
+</ul>
+</section>
+</section>
+<section >
+<h2>より便利なデコレータを書くために</h2>
+<ul class="simple">
+<li><p>参照と代入それぞれのスコープの扱い</p></li>
+<li><p>引数を取るデコレータ</p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2>例：優先したかどうかを返す優先ソート</h2>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def sort_priority(values, group):
+    found = False
+    def helper(x):
+        if x in group:
+            found = True
+            return (0, x)
+        return (1, x)
+    values.sort(key=helper)
+    return found</code></pre>
+<p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/bslatkin/effectivepython/blob/master/example_code/item_21.py#L65">https://github.com/bslatkin/effectivepython/blob/master/example_code/item_21.py#L65</a></p>
+</section>
+<section >
+<h3>優先したかを返していない？🤨</h3>
+<aside class="notes">
+doctest を通す
+&gt;&gt;&gt; def sort_priority(values, group):
+...     found = False
+...     def helper(x):
+...         if x in group:
+...             found = True
+...             return (0, x)
+...         return (1, x)
+...     values.sort(key=helper)
+...     return found</aside>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; values = [1, 4, 3, 5, 2]
+&gt;&gt;&gt; # valuesを素数を優先して並び替えているが、返り値はFalse
+&gt;&gt;&gt; sort_priority(values, {2, 3, 5})
+False
+&gt;&gt;&gt; values
+[2, 3, 5, 1, 4]</code></pre>
+</section>
+<section >
+<h3>なぜ優先したかを返さない？</h3>
+<ul class="simple">
+<li><p>変数の参照のスコープ解決順</p></li>
+<li><p>代入のスコープ解決</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>変数の参照のスコープ解決順</h2>
+<ol class="arabic simple">
+<li><p>現在の関数のスコープ</p></li>
+<li><p>（他の関数の中にある場合）外側のスコープ</p></li>
+<li><p>グローバルスコープ（コードを含むモジュールのスコープ）</p></li>
+<li><p>組み込みスコープ</p></li>
+</ol>
+<p>『Effective Python 第2版』p.81</p>
+</section>
+<section >
+<h3>例：クロージャ <code class="docutils literal notranslate"><span class="pre">helper</span></code> の <code class="docutils literal notranslate"><span class="pre">group</span></code></h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def sort_priority(values, group):
+    found = False
+    def helper(x):
+        if x in group:  # 外側のスコープのgroupを参照
+            found = True
+            return (0, x)
+        return (1, x)
+    values.sort(key=helper)
+    return found</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2>代入のスコープ解決</h2>
+<blockquote>
+<div><p>変数が現在のスコープに存在しないと、Pythonは、代入を変数定義のように扱います</p>
+</div></blockquote>
+<p>『Effective Python 第2版』p.81</p>
+</section>
+<section >
+<h3>なぜ優先したかを返さなかったか？</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def sort_priority(values, group):
+    found = False
+    def helper(x):
+        if x in group:
+            # 以下はhelperのスコープで変数foundを定義
+            found = True  # 2行目のfoundとは無関係
+            return (0, x)
+        return (1, x)
+    values.sort(key=helper)
+    return found  # sort_priorityのスコープのfound</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2>💡解決策： <code class="docutils literal notranslate"><span class="pre">nonlocal</span></code> 文</h2>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def sort_priority(values, group):
+    found = False
+    def helper(x):
+        nonlocal found  # sort_priorityのfound
+        if x in group:
+            found = True  # helperのスコープから代入できる！（nonlocalの効果）
+            return (0, x)
+        return (1, x)
+    values.sort(key=helper)
+    return found</code></pre>
+</section>
+<section >
+<h3>優先したかを返すように！🙌</h3>
+<aside class="notes">
+doctest を通す
+&gt;&gt;&gt; def sort_priority(values, group):
+...     found = False
+...     def helper(x):
+...         nonlocal found
+...         if x in group:
+...             found = True
+...             return (0, x)
+...         return (1, x)
+...     values.sort(key=helper)
+...     return found</aside>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; values = [1, 4, 3, 5, 2]
+&gt;&gt;&gt; sort_priority(values, {2, 3, 5})
+True
+&gt;&gt;&gt; values
+[2, 3, 5, 1, 4]</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">nonlocal</span></code> を使ったデコレータ：呼び出しは1分に1回</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def once_per_minute(func):
+    last_ran_at = 0
+
+    &#64;wraps(func)
+    def wrapper(*args, **kwargs):
+        nonlocal last_ran_at
+        current_time = time.time()
+        if current_time - last_ran_at &lt; 60:
+            raise RunTooOftenError(
+                f&quot;Wait longer before running {func.__name__}&quot;
+            )
+        last_ran_at = current_time
+        value = func(*args, **kwargs)
+        return value
+
+    return wrapper
+</code></pre>
+</section>
+<section >
+<h3>より便利なデコレータを書くために</h3>
+<ul class="simple">
+<li><p>参照と代入それぞれのスコープの扱い</p></li>
+<li><p><strong>引数を取るデコレータ</strong></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>デコレータの例（FastAPI）</h2>
+<pre><code data-trim data-noescape  class="python">
+&#64;app.get(&quot;/&quot;)
+async def root():
+    return {&quot;message&quot;: &quot;Hello World&quot;}</code></pre>
+<p><a class="reference external" href="https://fastapi.tiangolo.com/ja/tutorial/first-steps/">https://fastapi.tiangolo.com/ja/tutorial/first-steps/</a></p>
+</section>
+<section >
+<h3>引数を取るデコレータはどう書く？</h3>
+<ul class="simple">
+<li><p><strong>3つの関数</strong> で実装する</p></li>
+</ul>
+<pre><code data-trim data-noescape  class="python">
+def decorator_with_args(x, y):  # 引数を受け取りmiddleを返す
+    def middle(func):  # 関数を受け取りwrapperを返す
+        def wrapper(*args, **kwargs):
+            ...
+        return wrapper
+    return middle</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2>引数を取るデコレータ：呼び出しはN分に1回</h2>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def once_per_n_minutes(n):
+    def middle(func):
+        last_ran_at = 0
+
+        &#64;wraps(func)
+        def wrapper(*args, **kwargs):
+            nonlocal last_ran_at
+            current_time = time.time()
+            if current_time - last_ran_at &lt; n * 60:
+                raise RunTooOftenError(
+                    f&quot;Wait longer before running {func.__name__}&quot;
+                )
+            last_ran_at = current_time
+            value = func(*args, **kwargs)
+            return value
+
+        return wrapper
+
+    return middle
+</code></pre>
+</section>
+<section >
+<h3>引数を渡してデコレート</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+&#64;once_per_n_minutes(0)
+def calculate_bmi2(height_m, weight_kg):
+    return calculate_bmi(height_m, weight_kg)
+</code></pre>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+&#64;once_per_n_minutes(n=3)
+def calculate_bmi3(height_m, weight_kg):
+    return calculate_bmi(height_m, weight_kg)
+</code></pre>
+</section>
+<section >
+<h3>引数を渡してデコレート 実行例</h3>
+<aside class="notes">
+doctest を通す（デコレータは除いた実装）
+&gt;&gt;&gt; def calculate_bmi2(height_m, weight_kg):
+...     return weight_kg / height_m / height_m
+&gt;&gt;&gt; def calculate_bmi3(height_m, weight_kg):
+...     return weight_kg / height_m / height_m</aside>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; calculate_bmi2(1.58, 46)
+18.426534209261334
+&gt;&gt;&gt; calculate_bmi2(1.58, 46)
+18.426534209261334
+&gt;&gt;&gt; calculate_bmi3(1.58, 46)
+18.426534209261334
+&gt;&gt;&gt; # calculate_bmi3(1.58, 46)  # Raise RunTooOftenError</code></pre>
+</section>
+</section>
+<section >
+<h2>🥟小まとめ：より便利なデコレータを書くために</h2>
+<ul class="simple">
+<li><p>外側のスコープの変数、参照できるが、 <strong>代入</strong> には <code class="docutils literal notranslate"><span class="pre">nonlocal</span></code> 文</p></li>
+<li><p>引数を取るデコレータは、 <strong>3つ</strong> の関数で実装</p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2>🌯まとめ：デコレータについて</h2>
+<ul class="simple">
+<li><p>デコレータ＝関数を返す関数。 <strong>処理を追加</strong> できる</p></li>
+<li><p>実装の鍵は、クロージャ・ <code class="docutils literal notranslate"><span class="pre">*args,</span> <span class="pre">**kwargs</span></code> ・ <code class="docutils literal notranslate"><span class="pre">functools.wraps</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nonlocal</span></code> や引数を取るデコレータでより高機能に！</p></li>
+</ul>
+</section>
+<section >
+<h3>ご清聴ありがとうございました</h3>
+<p><strong>Enjoy</strong> development with decorators!</p>
+<p>References、<strong>Appendix</strong> が続きます（よろしければどうぞ！）</p>
+</section>
+</section>
+<section>
+<section >
+<h2>References 1/2</h2>
+<ul class="simple">
+<li><p>『<a class="reference external" href="https://www.oreilly.co.jp/books/9784873119175/">Effective Python 第2版</a>』3章関数（特に以下）</p>
+<ul>
+<li><p>項目21 クロージャが変数スコープとどう関わるかを把握しておく</p></li>
+<li><p>項目22 可変長位置引数を使って、見た目をすっきりさせる</p></li>
+<li><p>項目26 functools.wrapsを使って関数デコレータを定義する</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>References 2/2</h3>
+<ul class="simple">
+<li><p>The Global Dev Study #4 - FastAPI / Python</p>
+<ul>
+<li><p><a class="reference external" href="https://youtu.be/Ly3ZUDqAsL8">YouTube</a></p></li>
+<li><p><a class="reference external" href="https://github.com/reuven/Forkwell-2021-July-6">Source code</a></p></li>
+</ul>
+</li>
+<li><p>PyCon JP 2020 「<a class="reference external" href="https://pycon.jp/2020/timetable/?id=203944">詳解デコレータ</a>」</p></li>
+</ul>
+</section>
+</section>
+<section >
+<h2>Appendix 作成中</h2>
+</section>
+<section >
+<h2>EOF</h2>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../reveal.js/dist/reveal.js"></script>
+    
+    
+      <script src="../reveal.js/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: "none",
+        slideNumber: "c/t",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>
