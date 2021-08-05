@@ -20,7 +20,7 @@
         values.sort(key=helper)
         return found
 
-https://github.com/bslatkin/effectivepython/blob/master/example_code/item_21.py#L65
+:raw-html:`<i class="fab fa-github"></i>` https://github.com/bslatkin/effectivepython/blob/master/example_code/item_21.py#L65
 
 優先したかを返していない？🤨
 ------------------------------------------------
@@ -223,5 +223,5 @@ https://fastapi.tiangolo.com/ja/tutorial/first-steps/
 🥟小まとめ：より便利なデコレータを書くために
 ============================================================
 
-* 外側のスコープの変数、参照できるが、代入には ``nonlocal`` 文
+* 外側のスコープの変数、参照できるが、 **代入** には ``nonlocal`` 文
 * 引数を取るデコレータは、 **3つ** の関数で実装
