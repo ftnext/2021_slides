@@ -1,0 +1,49 @@
+Streamlitの学習リソース📚
+============================================================
+
+* 豊富！（コミュニティが盛り上がっている）
+* nikkieは必要な情報をつまむ学び方なので、オススメ学習順は no idea です ¯\_(ツ)_/¯
+* **リンク集** 的に使ってください
+
+公式
+------------------------------------------------
+
+* ドキュメント：https://docs.streamlit.io/en/stable/index.html
+
+  * 日本語翻訳提案したらすごーく勉強になりそうですね
+
+* YouTube（動画チュートリアル）：https://www.youtube.com/channel/UC3LD42rjj-Owtxsa6PwGU5Q/playlists
+
+公式さんはドッグフィーディングしています🐶
+------------------------------------------------
+
+* Streamlit製Roadmap：https://share.streamlit.io/streamlit/roadmap
+* ソースコード：https://github.com/streamlit/roadmap
+
+コミュニティ
+------------------------------------------------
+
+* Gallery（アプリの例）：https://streamlit.io/gallery
+* Components（第三者が開発した拡張）：https://streamlit.io/components
+
+コミュニティ その2
+------------------------------------------------
+
+* Forum：https://discuss.streamlit.io/
+
+  * 質問かなり盛んな印象
+  * Wikiなど https://discuss.streamlit.io/t/streamlit-deployment-guide-wiki/5099
+
+Awesomeあります😎
+------------------------------------------------
+
+* https://awesome-streamlit.org/
+* ソースコード：https://github.com/MarcSkovMadsen/awesome-streamlit
+* Streamlitで **大きなアプリ** を作る際の参考にもなると思います
+
+国内の巨人
+------------------------------------------------
+
+* 再掲 `202102Streamlit勉強会スライド <https://docs.google.com/presentation/d/1ZpEnnSEz3YKxDPuolOdzkbBFw2bG4BtT-Ln-TQALtGQ/edit#slide=id.p>`_
+* リポジトリ https://github.com/lightondust/finteract_streamlit
+* 上記の勉強会の内容について fin-py コミュニティに日本語で質問に行くのも、あると思います
