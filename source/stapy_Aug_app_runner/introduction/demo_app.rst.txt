@@ -1,0 +1,53 @@
+Streamlitデモアプリ
+============================================================
+
+* 実際にアプリを触ってみましょう
+* https://share.streamlit.io/ftnext/stapy72-streamlit-sample/main/app.py
+
+.. TODO QRコード
+
+デモアプリ
+------------------------------------------------
+
+* ユーザーが日本語テキストを入力
+* アプリが続きを生成して表示します
+
+入力テキスト例1
+------------------------------------------------
+
+    「みんなのPython勉強会」では、Pythonを中心としてプログラミングを仕事、研究、趣味など様々なシーンに生かす方法を一緒に学びます。
+
+`今回の勉強会のconnpass <https://startpython.connpass.com/event/219206/>`_ からコミュニティの概要
+
+入力テキスト例2
+------------------------------------------------
+
+    2016〜ソフトウェアエンジニア。2019〜データサイエンティストとしてユーザベースにJoin、
+
+nikkieのプロフィールの書き出しです
+
+Streamlitデモアプリの裏側
+============================================================
+
+* 書いたのはPythonスクリプトだけ
+* Streamlit sharingにデプロイ
+
+Pythonスクリプト
+------------------------------------------------
+
+* https://github.com/ftnext/stapy72-streamlit-sample/blob/main/app.py
+* モデルのコード + StreamlitによるUIでも100行未満
+* モデルは「 `AIチャットボット「りんな」を手がけるrinnaが日本語特化のGPT-2大規模言語モデルをオープンソース化 <https://jp.techcrunch.com/2021/04/08/rinna-japanese-gpt2-medium/>`」を利用
+
+魔法みたいなデプロイ
+------------------------------------------------
+
+* PythonスクリプトをGitHubに公開
+* Streamlit sharing側で、リポジトリ、ブランチ、スクリプトを指定する **だけ**
+
+Streamlit sharing
+------------------------------------------------
+
+* https://streamlit.io/sharing から登録申請。利用は無料
+* 詳しくは https://docs.streamlit.io/en/stable/deploy_streamlit_app.html
+* ``st.secrets`` による秘密情報サポート（ `2021/04 v0.80.0〜 <https://docs.streamlit.io/en/stable/changelog.html#version-0-80-0>`_）
