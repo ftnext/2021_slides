@@ -18,7 +18,7 @@ Streamlitの学習リソース📚
 ------------------------------------------------
 
 * Streamlit製Roadmap：https://share.streamlit.io/streamlit/roadmap
-* ソースコード：https://github.com/streamlit/roadmap
+* ソースコード： :raw-html:`<i class="fab fa-github"></i>` https://github.com/streamlit/roadmap
 
 コミュニティ
 ------------------------------------------------
@@ -38,12 +38,12 @@ Awesomeあります😎
 ------------------------------------------------
 
 * https://awesome-streamlit.org/
-* ソースコード：https://github.com/MarcSkovMadsen/awesome-streamlit
+* ソースコード： :raw-html:`<i class="fab fa-github"></i>` https://github.com/MarcSkovMadsen/awesome-streamlit
 * Streamlitで **大きなアプリ** を作る際の参考にもなると思います
 
 国内の巨人
 ------------------------------------------------
 
 * 再掲 `202102Streamlit勉強会スライド <https://docs.google.com/presentation/d/1ZpEnnSEz3YKxDPuolOdzkbBFw2bG4BtT-Ln-TQALtGQ/edit#slide=id.p>`_
-* リポジトリ https://github.com/lightondust/finteract_streamlit
+* リポジトリ :raw-html:`<i class="fab fa-github"></i>` https://github.com/lightondust/finteract_streamlit
 * 上記の勉強会の内容について fin-py コミュニティに日本語で質問に行くのも、あると思います
