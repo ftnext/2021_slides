@@ -1,0 +1,67 @@
+いよいよ本題：Streamlitとは
+============================================================
+
+* Pythonのライブラリ `PyPIリンク <https://pypi.org/project/streamlit/>`_
+* 機械学習分野で **プロトタイピングツール** として注目
+
+百聞は一見に如かず
+------------------------------------------------
+
+* https://streamlit.io/ のかっこいい動画を見ましょう🆒
+
+かっこいい動画🆒
+------------------------------------------------
+
+* Pythonを書くだけ
+* インタラクティブに動くWebアプリ
+* 簡単にデプロイできる
+
+なぜStreamlitを作ったか？
+============================================================
+
+* `Turn Python Scripts into Beautiful ML Tools <https://towardsdatascience.com/coding-ml-tools-like-you-code-ml-models-ddba3357eace>`_
+* 副題：Introducing Streamlit, an app framework built for ML engineers
+
+機械学習を組み込んだツール作成
+------------------------------------------------
+
+* API(Flask)、HTML、JavaScript（コールバックの実装など）
+* ツール作成が、 **Jupyter notebook** でのモデル訓練やデータ分析のように感じられるには？
+
+  * なぜ作ったか記事のslugに *coding-ml-tools-like-you-code-ml-models*
+
+Streamlit 3つの原則
+------------------------------------------------
+
+* なぜ作ったか記事で読んだ解説をもとに、今回 *nikkieの言葉で言語化*
+* このトークで **一緒に手を動かしながら** 3つの原則を体験しましょう
+
+脱線：Streamlit Inc.
+------------------------------------------------
+
+* ライブラリ Streamlit はオープンソースで開発が進む
+* Streamlit社も創業（ `2021年4月に $35 million シリーズB調達 <https://blog.streamlit.io/our-35-million-series-b/>`_）
+* https://streamlit.io/about
+
+Streamlitの事例
+============================================================
+
+* 観測範囲で国内から2事例
+* エムスリー社
+* ティアフォー社
+
+エムスリー社事例
+------------------------------------------------
+
+* `GKEでStreamlitをホスティングして社内用アプリを作った話 <https://www.m3tech.blog/entry/streamlit-gke>`_ (2020/10)
+* 社内向けのデータ可視化アプリをStreamlitで作成
+* コンテナ化してGKEにデプロイ
+
+ティアフォー社事例
+------------------------------------------------
+
+* `自動運転データの検索システムを爆速で作った話 <https://tech.tier4.jp/entry/data-search-alpha>`_ (2021/04)
+
+    画面はStreamlitのおかげで3日くらいで作れました。
+
+* 先日のstapy外伝でも触れられています（ `YouTube <https://youtu.be/nBP9SJu9eR4?t=1112>`_）

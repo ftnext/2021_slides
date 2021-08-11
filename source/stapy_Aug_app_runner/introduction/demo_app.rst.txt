@@ -1,0 +1,71 @@
+Streamlitデモアプリ
+============================================================
+
+* 実際にアプリを触ってみましょう
+* https://share.streamlit.io/ftnext/stapy72-streamlit-sample/main/app.py
+
+デモアプリ埋め込み
+------------------------------------------------
+
+.. raw:: html
+
+    <iframe width="640" height="480" src="https://share.streamlit.io/ftnext/stapy72-streamlit-sample/main/app.py" title="日本語文章生成アプリ"></iframe>
+
+デモアプリ
+------------------------------------------------
+
+* ユーザーが日本語テキストを入力
+* **アプリ（機械学習モデル）が続きを生成** して表示します
+
+入力テキスト例1
+------------------------------------------------
+
+    「みんなのPython勉強会」では、Pythonを中心としてプログラミングを仕事、研究、趣味など様々なシーンに生かす方法を一緒に学びます。
+
+`今回の勉強会のconnpass <https://startpython.connpass.com/event/219206/>`_ からコミュニティの概要
+
+入力テキスト例2
+------------------------------------------------
+
+    2016〜ソフトウェアエンジニア。2019〜データサイエンティストとしてユーザベースにJoin、
+
+nikkieのプロフィールの書き出しです
+
+Streamlitデモアプリの裏側
+============================================================
+
+* 書いたのはPythonスクリプトだけ
+* Streamlit sharingにデプロイ
+
+Pythonスクリプト
+------------------------------------------------
+
+* :raw-html:`<i class="fab fa-github"></i>` https://github.com/ftnext/stapy72-streamlit-sample/blob/main/app.py
+* モデル呼び出すコード + StreamlitによるUIでも100行未満
+* モデルはこちら：「 `AIチャットボット「りんな」を手がけるrinnaが日本語特化のGPT-2大規模言語モデルをオープンソース化 <https://jp.techcrunch.com/2021/04/08/rinna-japanese-gpt2-medium/>`_」
+
+魔法みたいなデプロイ
+------------------------------------------------
+
+1. PythonスクリプトをGitHubに公開
+2. Streamlit sharing側で、リポジトリ、ブランチ、スクリプトを指定する **だけ**
+
+Streamlit sharing
+------------------------------------------------
+
+* https://streamlit.io/sharing から登録申請。利用は無料
+* 詳しくは https://docs.streamlit.io/en/stable/deploy_streamlit_app.html
+* ``st.secrets`` による秘密情報サポート（ `2021/04 v0.80.0〜 <https://docs.streamlit.io/en/stable/changelog.html#version-0-80-0>`_）
+
+小まとめ🥟：Streamlitとは
+============================================================
+
+* 開発のモチベーション：ツール作成が、Jupyter notebookでのモデル訓練やデータ分析のように感じられるには？
+* 動画やデモアプリで体験十分。3つの原則を体得していきましょう🏃‍♂️
+
+小休止（開始10分後だといい感じ）
+------------------------------------------------
+
+    十分に発達した科学技術は、魔法と見分けがつかない。（アーサー・C・クラーク）
+
+`クラークの三法則 <https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%A9%E3%83%BC%E3%82%AF%E3%81%AE%E4%B8%89%E6%B3%95%E5%89%87>`_

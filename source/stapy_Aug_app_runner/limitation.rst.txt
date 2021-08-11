@@ -1,0 +1,105 @@
+Streamlitに限界はあるのか？
+============================================================
+
+* プロトタイピングツールと紹介したStreamlit
+* 「これはもう、Webアプリなのでは」
+* 少し考察してみましょう
+
+Webアプリかの考察
+------------------------------------------------
+
+* データベース
+* ユーザー認証
+
+Streamlitでデータベースは使えるらしい（未検証）
+============================================================
+
+* 各種データベースとつなげられる（MySQL、PostgreSQL、・・）
+* https://docs.streamlit.io/en/stable/tutorial/databases.html
+* なんとGoogleスプレッドシートもDBにできる
+
+秘密情報の扱い 1/2
+------------------------------------------------
+
+* :file:`.streamlit/secrets.toml` に ``キー=値`` 形式で書く
+
+.. code-block:: txt
+
+    ├── .streamlit  # プロジェクト単位の設定情報ディレクトリ
+    │   └── secrets.toml
+    └── app.py
+
+秘密情報の扱い 2/2
+------------------------------------------------
+
+* スクリプトでは ``st.secrets["キー"]`` で秘密情報にアクセス
+* DBの接続情報を扱う例：https://docs.streamlit.io/en/stable/tutorial/postgresql.html#add-username-and-password-to-your-local-app-secrets
+
+Webアプリかの考察
+------------------------------------------------
+
+* データベース： **使える** （可視化アプリのプロトタイピング楽しそう）
+* ユーザー認証
+
+Webアプリかの考察
+------------------------------------------------
+
+* データベース： **使える** （可視化アプリのプロトタイピング楽しそう）
+* ユーザー認証 👈
+
+ユーザー認証
+============================================================
+
+* ユーザーのログイン機能
+* 簡易版：Webに公開しているが、 **パスワードを知っているユーザーにだけ** 見せたい（ベーシック認証的）
+
+ページにパスワードを掛ける実装
+------------------------------------------------
+
+* 秘密情報
+* Session State（ `2021/07 v0.84.0〜 <https://docs.streamlit.io/en/stable/changelog.html#version-0-84-0>`_）
+
+  * https://docs.streamlit.io/en/stable/add_state_app.html
+
+* 実装例： :raw-html:`<i class="fab fa-github"></i>` https://github.com/ftnext/stapy72-streamlit-sample/blob/main/auth.py
+
+ページにパスワードを掛ける
+------------------------------------------------
+
+* パスワード入力欄を表示
+* パスワードが合致すると、スライダーの例が動かせる
+* リロードするとパスワード入力まで戻る（Session Stateはタブを閉じたらクリアされる）
+
+ユーザー管理のハック例
+------------------------------------------------
+
+* データベースを使ってユーザー登録まで実装した例 https://zenn.dev/lapisuru/articles/3ae6dd82e36c29a27190
+* Custom login widget https://github.com/MarcSkovMadsen/awesome-streamlit/tree/master/gallery/custom_widgets_hack
+
+Streamlitでユーザー認証
+------------------------------------------------
+
+* データベースと合わせれば、ユーザー管理はできそう（未検証）
+* IMO：nikkieは **オススメしません** （できる≠使える）
+* c-bataさんがこの後話すDjangoなど、Webアプリケーションフレームワークの出番かなと思います
+
+脱線：Pythonスクリプト＝アプリなので
+------------------------------------------------
+
+* shimizukawaさんが話す『エキスパートPythonプログラミング 改訂3版』
+* Pythonスクリプトが上手く書けるようになれば、Streamlitにも活きるでしょう
+* （今回のテーマ **全方位Python**、私の中ではつながった🙌）
+
+認証の参考：ハックしない方向性
+------------------------------------------------
+
+* https://streamlit.io/for-teams Coming soon
+
+    Quickly and securely share your Streamlit apps with anyone in your organization.
+
+小まとめ🥟：Streamlitの限界の考察
+============================================================
+
+* データベースと接続できる！
+* ページにパスワードも掛けられる
+* IMO：ユーザー管理が必要なら for Teams or Webアプリフレームワーク

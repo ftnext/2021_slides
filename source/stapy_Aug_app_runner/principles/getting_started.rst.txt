@@ -1,0 +1,136 @@
+入門 Streamlit
+============================================================
+
+* ハンズオン🤲🔛パート！
+* 一緒に手を動かしながら、3つの **原則** (principles)を押さえます
+
+Streamlit Principle 1
+============================================================
+
+    Pythonスクリプト、是れ即ちアプリ
+
+Pythonスクリプトを作りましょう
+------------------------------------------------
+
+1. 作業ディレクトリを :command:`mkdir` 後、 :command:`cd`
+2. そこにファイルを作ります
+
+.. code-block:: shell
+
+    $ mkdir stapy72-streamlit
+    $ cd stapy72-streamlit
+    $ touch first.py
+
+:file:`first.py` の中身
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    import streamlit as st
+
+    st.title("My first app")
+
+アプリとして動かす
+------------------------------------------------
+
+* :command:`streamlit run first.py`
+* Webブラウザが起動し、http://localhost:8501/ が表示されます
+
+現在のブラウザ画面
+------------------------------------------------
+
+* 文字列 ``"My first app"`` がタイトルの書式で表示される
+* https://docs.streamlit.io/en/stable/api.html#streamlit.title
+
+補足：使用統計の送信
+------------------------------------------------
+
+* :file:`~/.streamlit/config.toml` （グローバルな設定ファイル）
+* https://docs.streamlit.io/en/stable/streamlit_configuration.html#view-all-configuration-options
+
+.. code-block:: toml
+
+    [browser]
+    # Default: true
+    gatherUsageStats = false
+
+tips💫  :guilabel:`Run on save`
+------------------------------------------------
+
+* 右上ハンバーガーメニューから :guilabel:`Run on save` を有効に
+* スクリプトを保存すると、 **ただちに** ブラウザ画面が **再描画** されます
+* プロトタイピング捗ります！（ ``st.write`` で値を確認しながら進む＝対話モード感）
+
+:file:`first.py` に追記
+------------------------------------------------
+
+.. code-block:: python
+    :emphasize-lines: 1,5-10
+    :linenos:
+
+    import pandas as pd
+    import streamlit as st
+
+    st.title("My first app")
+    st.write("Here's our first attempt at using data to create a table:")
+    st.write(
+        pd.DataFrame(
+            {"first column": [1, 2, 3, 4], "second column": [10, 20, 30, 40]}
+        )
+    )
+
+ブラウザ画面を確認
+------------------------------------------------
+
+* ``pandas`` の ``DataFrame`` は **表** として表示される
+* https://docs.streamlit.io/en/stable/api.html#streamlit.write
+
+Pythonスクリプト、是れ即ちアプリ
+============================================================
+
+* あとはスクリプトをどう書くかを身に着けていきましょう
+* 本トークは体験重視！網羅性は重視しません
+
+  * 巨人の肩へ `202102Streamlit勉強会スライド <https://docs.google.com/presentation/d/1ZpEnnSEz3YKxDPuolOdzkbBFw2bG4BtT-Ln-TQALtGQ/edit#slide=id.p>`_ at `fin-py <https://fin-py.connpass.com/event/201708/>`_
+  * ⬆️はまとまっている日本語情報源
+
+202102Streamlit勉強会スライドより
+------------------------------------------------
+
+nikkieの言葉で雑にまとめると
+
+* 図の表示がイケてる（matplotlib, bokeh, plotly）
+
+  * このトークでは取り上げません🙏
+
+* **インタラクション** ！（後述・お楽しみに）
+
+体験重視のtips💫 :command:`streamlit run URL`
+------------------------------------------------
+
+* :command:`streamlit run` にローカルのPythonスクリプトのパスを渡した
+* Web上にあるPythonスクリプトの **URL** も渡せる
+
+.. code-block:: shell
+
+    $ streamlit run https://raw.githubusercontent.com/ftnext/stapy72-streamlit-sample/main/first.py
+
+Web上のオススメスクリプト
+------------------------------------------------
+
+* :raw-html:`<i class="fab fa-github"></i>` https://github.com/streamlit/streamlit/tree/develop/examples
+* 気になるスクリプトはガンガン試しましょう
+* あなたが作ったスクリプトの **共有** にも使えます！
+
+動かすだけではなく試行錯誤したいときは
+------------------------------------------------
+
+* :command:`curl` で取得しましょう
+
+.. code-block:: shell
+
+    $ curl https://raw.githubusercontent.com/ftnext/stapy72-streamlit-sample/main/app.py -O
+    $ streamlit run app.py
+
+* 実は :command:`streamlit run` は、URLで指定したスクリプトをローカルに *一時ファイルとして保存* しています
