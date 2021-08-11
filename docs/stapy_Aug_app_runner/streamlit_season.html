@@ -1,0 +1,986 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>the app runner Streamlit Season✨</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="../reveal.js/dist/theme/black.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/plugin/highlight/zenburn.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/Font-Awesome/css/all.min.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@ftnext" />
+    <meta property="og:url" content="https://ftnext.github.io/2021_slides/stapy_Aug_app_runner/streamlit_season.html" />
+    <meta property="og:title" content="the app runner Streamlit Season✨" />
+    <meta property="og:description" content="2021/08 みんなのPython勉強会 #72 Streamlitの概要を掴むトークスライド" />
+
+    
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides">
+            <section >
+<h1>the app runner Streamlit Season✨</h1>
+<dl class="field-list simple">
+<dt class="field-odd">Event</dt>
+<dd class="field-odd"><p>みんなのPython勉強会 #72</p>
+</dd>
+<dt class="field-even">Presented</dt>
+<dd class="field-even"><p>2021/08/11🎋 nikkie</p>
+</dd>
+</dl>
+</section>
+<section>
+<section >
+<h2>❓ Question（Slidoへ🙏）</h2>
+<p><a class="reference external" href="https://bit.ly/stapy72question">https://bit.ly/stapy72question</a></p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="../_images/202108_stapy_slido_qrcode.png"><img alt="../_images/202108_stapy_slido_qrcode.png" src="../_images/202108_stapy_slido_qrcode.png" style="width: 50%;" /></a>
+</div>
+</section>
+<section >
+<h3>❓ Question：Streamlitを</h3>
+<ul class="simple">
+<li><p>初めて聞いた</p></li>
+<li><p>聞いたことある</p></li>
+<li><p>触ったことある</p></li>
+<li><p>使っている</p></li>
+</ul>
+</section>
+<section >
+<h3>このトーク：the app runner Streamlit Season✨</h3>
+<ul class="simple">
+<li><p>Streamlit初めて聞いた方向け</p></li>
+<li><p>デモ &amp; ハンズオンでStreamlitを <strong>体験</strong></p></li>
+<li><p>目標：Streamlitの概要を掴む</p></li>
+</ul>
+</section>
+<section >
+<h3>話すこと</h3>
+<ul class="simple">
+<li><p>Streamlitの特徴3点（3つの原則として紹介）</p></li>
+<li><p>おまけ：Streamlitの限界</p></li>
+</ul>
+</section>
+<section >
+<h3>話さないこと</h3>
+<ul class="simple">
+<li><p>網羅的な説明はしません</p></li>
+<li><p>代わりに、網羅している学習リソースを紹介します</p></li>
+</ul>
+</section>
+<section >
+<h3>一緒に体験するために <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">streamlit</span></code> お願いします！</h3>
+<p>環境構築は <strong>自身の慣れた方法で</strong> 行ってください（ <code class="docutils literal notranslate"><span class="pre">pipenv</span></code> など）</p>
+</section>
+<section >
+<h3>お前の環境、どうなってんのよ</h3>
+<ul class="simple">
+<li><p>Python 3.8.6</p>
+<ul>
+<li><p>Requires: Python &gt;=3.6 なので 3.9 でも動作するかも（未検証）</p></li>
+</ul>
+</li>
+<li><p>Streamlit, version 0.86.0</p>
+<ul>
+<li><p>2021/08/06 リリース版🚀</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>お前、誰よ</h2>
+<ul class="simple">
+<li><p>Python大好き <strong>にっきー</strong> （<span class="raw-html"><i class="fab fa-twitter"></i></span> <a class="reference external" href="https://twitter.com/ftnext">&#64;ftnext</a> / <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext">&#64;ftnext</a>）</p></li>
+<li><p>Python歴3年半</p></li>
+<li><p>仕事で楽しく書いています（データサイエンティストにしてNLPer）</p></li>
+</ul>
+</section>
+<section >
+<h3>お前、誰よ（承前）</h3>
+<ul class="simple">
+<li><p>みんなのPython勉強会4代目LT王子🤴・スタッフ</p></li>
+<li><p>PyCon JP 2021 座長🇨🇭</p></li>
+</ul>
+</section>
+<section >
+<h3>お前、誰よ（趣味）</h3>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">我が名はにっきー。アニメ大好き🥰この夏はアニメ映画がアツい！！<br>竜とそばかすの姫🐉、サイダーのように言葉が湧き上がる🥤、映画大好きポンポさん🎦、かくしごと👩‍🎨、きんモザ and so on！<br>しかしここ数日都内は感染者数3000人突破。外出しづらい。めっちゃ見たい！けどリスクとるか悩む。ぐおおお🤨</p>&mdash; nikkie 📣PyCon JP 2021 スタッフ募集中！ (@ftnext) <a href="https://twitter.com/ftnext/status/1421319212081942528?ref_src=twsrc%5Etfw">July 31, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+<section >
+<h3>TODO Question：Streamlitを の確認！</h3>
+</section>
+<section >
+<h3>みなさん、進捗どうですか？ <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">streamlit</span></code></h3>
+</section>
+</section>
+<section>
+<section >
+<h2>❓ Question（再度Slidoへ🙏）</h2>
+<p><a class="reference external" href="https://bit.ly/stapy72question">https://bit.ly/stapy72question</a></p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="../_images/202108_stapy_slido_qrcode.png"><img alt="../_images/202108_stapy_slido_qrcode.png" src="../_images/202108_stapy_slido_qrcode.png" style="width: 50%;" /></a>
+</div>
+</section>
+<section >
+<h3>❓ Question：PyCon JP 2021に</h3>
+<ul class="simple">
+<li><p>参加予定</p></li>
+<li><p>しないかな</p></li>
+<li><p>ってなんすか？</p></li>
+</ul>
+</section>
+<section >
+<h3>PyCon JPって、何よ</h3>
+<ul class="simple">
+<li><p><em>Py</em> thon <em>Con</em> ference JP</p></li>
+<li><p>日本最大のPython祭り</p></li>
+</ul>
+</section>
+<section >
+<h3>PyCon JP 2021 10/15(金)・16(土)開催</h3>
+<p><a class="reference external" href="https://2021.pycon.jp/">https://2021.pycon.jp/</a></p>
+<iframe width="640" height="480" src="https://2021.pycon.jp/" title="PyCon JP 2021 Webサイト"></iframe></section>
+<section >
+<h3>PyCon JP 2021 10/15(金)・16(土)開催</h3>
+<ul class="simple">
+<li><p>座長が <a class="reference external" href="https://pyconjp.blogspot.com/2021/07/hybrid-pyconjp-2021-plan-june.html">6月末時点の全てをお話し</a> 済み</p></li>
+<li><p>8/9にプロポーザルを採択（ <a class="reference external" href="https://pyconjp.blogspot.com/2021/08/pyconjp-2021-proposal-selection.html">採択速報</a>）</p></li>
+<li><p><a class="reference external" href="https://pyconjp.blogspot.com/2021/05/pycon-jp-2021_01988973482.html">スポンサー1ヶ月前まで募集中</a> ！ <a class="reference external" href="https://pyconjp.blogspot.com/2021/01/2021-staff-application-start.html">スタッフも</a></p></li>
+</ul>
+</section>
+<section >
+<h3>TODO Question：PyCon JP 2021に の確認！</h3>
+</section>
+<section >
+<h3>Python学び始めでも、うどんと海ー苔ー（Don't worry）</h3>
+<p>Djangoのカンファレンス（7月開催）公式さんの言</p>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">まったく問題ありませんよ！トークの内容も幅広いので。もし当日「内容難しいかな」と感じられた場合も「こういうことができるんだ」とキーワードだけお持ち帰りいただければ十分と思います。</p>&mdash; django-ja (@django_ja) <a href="https://twitter.com/django_ja/status/1397830929024905216?ref_src=twsrc%5Etfw">May 27, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+<section >
+<h3>完了しましたか？ <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">streamlit</span></code></h3>
+</section>
+</section>
+<section>
+<section >
+<h2>いよいよ本題：Streamlitとは</h2>
+<ul class="simple">
+<li><p>Pythonのライブラリ <a class="reference external" href="https://pypi.org/project/streamlit/">PyPIリンク</a></p></li>
+<li><p>機械学習分野で <strong>プロトタイピングツール</strong> として注目</p></li>
+</ul>
+</section>
+<section >
+<h3>百聞は一見に如かず</h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://streamlit.io/">https://streamlit.io/</a> のかっこいい動画を見ましょう🆒</p></li>
+</ul>
+</section>
+<section >
+<h3>かっこいい動画🆒</h3>
+<ul class="simple">
+<li><p>Pythonを書くだけ</p></li>
+<li><p>インタラクティブに動くWebアプリ</p></li>
+<li><p>簡単にデプロイできる</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>なぜStreamlitを作ったか？</h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://towardsdatascience.com/coding-ml-tools-like-you-code-ml-models-ddba3357eace">Turn Python Scripts into Beautiful ML Tools</a></p></li>
+<li><p>副題：Introducing Streamlit, an app framework built for ML engineers</p></li>
+</ul>
+</section>
+<section >
+<h3>機械学習を組み込んだツール作成</h3>
+<ul class="simple">
+<li><p>API(Flask)、HTML、JavaScript（コールバックの実装など）</p></li>
+<li><p>ツール作成が、 <strong>Jupyter notebook</strong> でのモデル訓練やデータ分析のように感じられるには？</p>
+<ul>
+<li><p>なぜ作ったか記事のslugに <em>coding-ml-tools-like-you-code-ml-models</em></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>Streamlit 3つの原則</h3>
+<ul class="simple">
+<li><p>なぜ作ったか記事で読んだ解説をもとに、今回 <em>nikkieの言葉で言語化</em></p></li>
+<li><p>このトークで <strong>一緒に手を動かしながら</strong> 3つの原則を体験しましょう</p></li>
+</ul>
+</section>
+<section >
+<h3>脱線：Streamlit Inc.</h3>
+<ul class="simple">
+<li><p>ライブラリ Streamlit はオープンソースで開発が進む</p></li>
+<li><p>Streamlit社も創業（ <a class="reference external" href="https://blog.streamlit.io/our-35-million-series-b/">2021年4月に $35 million シリーズB調達</a>）</p></li>
+<li><p><a class="reference external" href="https://streamlit.io/about">https://streamlit.io/about</a></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>Streamlitの事例</h2>
+<ul class="simple">
+<li><p>観測範囲で国内から2事例</p></li>
+<li><p>エムスリー社</p></li>
+<li><p>ティアフォー社</p></li>
+</ul>
+</section>
+<section >
+<h3>エムスリー社事例</h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.m3tech.blog/entry/streamlit-gke">GKEでStreamlitをホスティングして社内用アプリを作った話</a> (2020/10)</p></li>
+<li><p>社内向けのデータ可視化アプリをStreamlitで作成</p></li>
+<li><p>コンテナ化してGKEにデプロイ</p></li>
+</ul>
+</section>
+<section >
+<h3>ティアフォー社事例</h3>
+<ul>
+<li><p><a class="reference external" href="https://tech.tier4.jp/entry/data-search-alpha">自動運転データの検索システムを爆速で作った話</a> (2021/04)</p>
+<blockquote>
+<div><p>画面はStreamlitのおかげで3日くらいで作れました。</p>
+</div></blockquote>
+</li>
+<li><p>先日のstapy外伝でも触れられています（ <a class="reference external" href="https://youtu.be/nBP9SJu9eR4?t=1112">YouTube</a>）</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>Streamlitデモアプリ</h2>
+<ul class="simple">
+<li><p>実際にアプリを触ってみましょう</p></li>
+<li><p><a class="reference external" href="https://share.streamlit.io/ftnext/stapy72-streamlit-sample/main/app.py">https://share.streamlit.io/ftnext/stapy72-streamlit-sample/main/app.py</a></p></li>
+</ul>
+</section>
+<section >
+<h3>デモアプリ埋め込み</h3>
+<iframe width="640" height="480" src="https://share.streamlit.io/ftnext/stapy72-streamlit-sample/main/app.py" title="日本語文章生成アプリ"></iframe></section>
+<section >
+<h3>デモアプリ</h3>
+<ul class="simple">
+<li><p>ユーザーが日本語テキストを入力</p></li>
+<li><p><strong>アプリ（機械学習モデル）が続きを生成</strong> して表示します</p></li>
+</ul>
+</section>
+<section >
+<h3>入力テキスト例1</h3>
+<blockquote>
+<div><p>「みんなのPython勉強会」では、Pythonを中心としてプログラミングを仕事、研究、趣味など様々なシーンに生かす方法を一緒に学びます。</p>
+</div></blockquote>
+<p><a class="reference external" href="https://startpython.connpass.com/event/219206/">今回の勉強会のconnpass</a> からコミュニティの概要</p>
+</section>
+<section >
+<h3>入力テキスト例2</h3>
+<blockquote>
+<div><p>2016〜ソフトウェアエンジニア。2019〜データサイエンティストとしてユーザベースにJoin、</p>
+</div></blockquote>
+<p>nikkieのプロフィールの書き出しです</p>
+</section>
+</section>
+<section>
+<section >
+<h2>Streamlitデモアプリの裏側</h2>
+<ul class="simple">
+<li><p>書いたのはPythonスクリプトだけ</p></li>
+<li><p>Streamlit sharingにデプロイ</p></li>
+</ul>
+</section>
+<section >
+<h3>Pythonスクリプト</h3>
+<ul class="simple">
+<li><p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/stapy72-streamlit-sample/blob/main/app.py">https://github.com/ftnext/stapy72-streamlit-sample/blob/main/app.py</a></p></li>
+<li><p>モデル呼び出すコード + StreamlitによるUIでも100行未満</p></li>
+<li><p>モデルはこちら：「 <a class="reference external" href="https://jp.techcrunch.com/2021/04/08/rinna-japanese-gpt2-medium/">AIチャットボット「りんな」を手がけるrinnaが日本語特化のGPT-2大規模言語モデルをオープンソース化</a>」</p></li>
+</ul>
+</section>
+<section >
+<h3>魔法みたいなデプロイ</h3>
+<ol class="arabic simple">
+<li><p>PythonスクリプトをGitHubに公開</p></li>
+<li><p>Streamlit sharing側で、リポジトリ、ブランチ、スクリプトを指定する <strong>だけ</strong></p></li>
+</ol>
+</section>
+<section >
+<h3>Streamlit sharing</h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://streamlit.io/sharing">https://streamlit.io/sharing</a> から登録申請。利用は無料</p></li>
+<li><p>詳しくは <a class="reference external" href="https://docs.streamlit.io/en/stable/deploy_streamlit_app.html">https://docs.streamlit.io/en/stable/deploy_streamlit_app.html</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">st.secrets</span></code> による秘密情報サポート（ <a class="reference external" href="https://docs.streamlit.io/en/stable/changelog.html#version-0-80-0">2021/04 v0.80.0〜</a>）</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>小まとめ🥟：Streamlitとは</h2>
+<ul class="simple">
+<li><p>開発のモチベーション：ツール作成が、Jupyter notebookでのモデル訓練やデータ分析のように感じられるには？</p></li>
+<li><p>動画やデモアプリで体験十分。3つの原則を体得していきましょう🏃‍♂️</p></li>
+</ul>
+</section>
+<section >
+<h3>小休止（開始10分後だといい感じ）</h3>
+<blockquote>
+<div><p>十分に発達した科学技術は、魔法と見分けがつかない。（アーサー・C・クラーク）</p>
+</div></blockquote>
+<p><a class="reference external" href="https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%A9%E3%83%BC%E3%82%AF%E3%81%AE%E4%B8%89%E6%B3%95%E5%89%87">クラークの三法則</a></p>
+</section>
+</section>
+<section >
+<h2>入門 Streamlit</h2>
+<ul class="simple">
+<li><p>ハンズオン🤲🔛パート！</p></li>
+<li><p>一緒に手を動かしながら、3つの <strong>原則</strong> (principles)を押さえます</p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2>Streamlit Principle 1</h2>
+<blockquote>
+<div><p>Pythonスクリプト、是れ即ちアプリ</p>
+</div></blockquote>
+</section>
+<section >
+<h3>Pythonスクリプトを作りましょう</h3>
+<ol class="arabic simple">
+<li><p>作業ディレクトリを <strong class="command">mkdir</strong> 後、 <strong class="command">cd</strong></p></li>
+<li><p>そこにファイルを作ります</p></li>
+</ol>
+<pre><code data-trim data-noescape  class="shell">
+$ mkdir stapy72-streamlit
+$ cd stapy72-streamlit
+$ touch first.py</code></pre>
+</section>
+<section >
+<h3><code class="file docutils literal notranslate"><span class="pre">first.py</span></code> の中身</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+import streamlit as st
+
+st.title(&quot;My first app&quot;)</code></pre>
+</section>
+<section >
+<h3>アプリとして動かす</h3>
+<ul class="simple">
+<li><p><strong class="command">streamlit run first.py</strong></p></li>
+<li><p>Webブラウザが起動し、<a class="reference external" href="http://localhost:8501/">http://localhost:8501/</a> が表示されます</p></li>
+</ul>
+</section>
+<section >
+<h3>現在のブラウザ画面</h3>
+<ul class="simple">
+<li><p>文字列 <code class="docutils literal notranslate"><span class="pre">&quot;My</span> <span class="pre">first</span> <span class="pre">app&quot;</span></code> がタイトルの書式で表示される</p></li>
+<li><p><a class="reference external" href="https://docs.streamlit.io/en/stable/api.html#streamlit.title">https://docs.streamlit.io/en/stable/api.html#streamlit.title</a></p></li>
+</ul>
+</section>
+<section >
+<h3>補足：使用統計の送信</h3>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">~/.streamlit/config.toml</span></code> （グローバルな設定ファイル）</p></li>
+<li><p><a class="reference external" href="https://docs.streamlit.io/en/stable/streamlit_configuration.html#view-all-configuration-options">https://docs.streamlit.io/en/stable/streamlit_configuration.html#view-all-configuration-options</a></p></li>
+</ul>
+<pre><code data-trim data-noescape  class="toml">
+[browser]
+# Default: true
+gatherUsageStats = false</code></pre>
+</section>
+<section >
+<h3>tips💫  <span class="guilabel">Run on save</span></h3>
+<ul class="simple">
+<li><p>右上ハンバーガーメニューから <span class="guilabel">Run on save</span> を有効に</p></li>
+<li><p>スクリプトを保存すると、 <strong>ただちに</strong> ブラウザ画面が <strong>再描画</strong> されます</p></li>
+<li><p>プロトタイピング捗ります！（ <code class="docutils literal notranslate"><span class="pre">st.write</span></code> で値を確認しながら進む＝対話モード感）</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="file docutils literal notranslate"><span class="pre">first.py</span></code> に追記</h3>
+<pre><code data-trim data-noescape data-line-numbers="1,5,6,7,8,9,10" class="python">
+import pandas as pd
+import streamlit as st
+
+st.title(&quot;My first app&quot;)
+st.write(&quot;Here's our first attempt at using data to create a table:&quot;)
+st.write(
+    pd.DataFrame(
+        {&quot;first column&quot;: [1, 2, 3, 4], &quot;second column&quot;: [10, 20, 30, 40]}
+    )
+)</code></pre>
+</section>
+<section >
+<h3>ブラウザ画面を確認</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> の <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> は <strong>表</strong> として表示される</p></li>
+<li><p><a class="reference external" href="https://docs.streamlit.io/en/stable/api.html#streamlit.write">https://docs.streamlit.io/en/stable/api.html#streamlit.write</a></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>Pythonスクリプト、是れ即ちアプリ</h2>
+<ul class="simple">
+<li><p>あとはスクリプトをどう書くかを身に着けていきましょう</p></li>
+<li><p>本トークは体験重視！網羅性は重視しません</p>
+<ul>
+<li><p>巨人の肩へ <a class="reference external" href="https://docs.google.com/presentation/d/1ZpEnnSEz3YKxDPuolOdzkbBFw2bG4BtT-Ln-TQALtGQ/edit#slide=id.p">202102Streamlit勉強会スライド</a> at <a class="reference external" href="https://fin-py.connpass.com/event/201708/">fin-py</a></p></li>
+<li><p>⬆️はまとまっている日本語情報源</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>202102Streamlit勉強会スライドより</h3>
+<p>nikkieの言葉で雑にまとめると</p>
+<ul class="simple">
+<li><p>図の表示がイケてる（matplotlib, bokeh, plotly）</p>
+<ul>
+<li><p>このトークでは取り上げません🙏</p></li>
+</ul>
+</li>
+<li><p><strong>インタラクション</strong> ！（後述・お楽しみに）</p></li>
+</ul>
+</section>
+<section >
+<h3>体験重視のtips💫 <strong class="command">streamlit run URL</strong></h3>
+<ul class="simple">
+<li><p><strong class="command">streamlit run</strong> にローカルのPythonスクリプトのパスを渡した</p></li>
+<li><p>Web上にあるPythonスクリプトの <strong>URL</strong> も渡せる</p></li>
+</ul>
+<pre><code data-trim data-noescape  class="shell">
+$ streamlit run https://raw.githubusercontent.com/ftnext/stapy72-streamlit-sample/main/first.py</code></pre>
+</section>
+<section >
+<h3>Web上のオススメスクリプト</h3>
+<ul class="simple">
+<li><p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/streamlit/streamlit/tree/develop/examples">https://github.com/streamlit/streamlit/tree/develop/examples</a></p></li>
+<li><p>気になるスクリプトはガンガン試しましょう</p></li>
+<li><p>あなたが作ったスクリプトの <strong>共有</strong> にも使えます！</p></li>
+</ul>
+</section>
+<section >
+<h3>動かすだけではなく試行錯誤したいときは</h3>
+<ul class="simple">
+<li><p><strong class="command">curl</strong> で取得しましょう</p></li>
+</ul>
+<pre><code data-trim data-noescape  class="shell">
+$ curl https://raw.githubusercontent.com/ftnext/stapy72-streamlit-sample/main/app.py -O
+$ streamlit run app.py</code></pre>
+<ul class="simple">
+<li><p>実は <strong class="command">streamlit run</strong> は、URLで指定したスクリプトをローカルに <em>一時ファイルとして保存</em> しています</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>インタラクション！！</h2>
+<p>Streamlitの強みの1つ、インタラクションを取り上げます</p>
+</section>
+<section >
+<h3><code class="file docutils literal notranslate"><span class="pre">first.py</span></code> を書き換える</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+from datetime import datetime
+
+import streamlit as st
+
+st.write(datetime.now())
+
+x = st.slider(&quot;Select a value&quot;)
+st.write(x, &quot;squared is&quot;, x * x)</code></pre>
+</section>
+<section >
+<h3>ブラウザ画面を確認</h3>
+<ul class="simple">
+<li><p>スライダーのUIが表示される（0から100までの整数）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">st.slider</span></code> はスライダーウィジェットを表示</p></li>
+<li><p><a class="reference external" href="https://docs.streamlit.io/en/stable/api.html#streamlit.slider">https://docs.streamlit.io/en/stable/api.html#streamlit.slider</a></p></li>
+</ul>
+</section>
+<section >
+<h3>スライダーを動かすと</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> は現在のスライダーの値</p></li>
+<li><p>スライダーの下に2乗した値が計算される</p></li>
+<li><p>スライダーを変えると、2乗した値が <strong>再計算</strong> される</p></li>
+</ul>
+</section>
+<section >
+<h3>再計算、すなわち再実行</h3>
+<ul class="simple">
+<li><p>スクリプト <strong>全体を再実行</strong> して実現</p></li>
+<li><p>スライダーの上に出している現在日時の表示も変わっています</p></li>
+</ul>
+</section>
+</section>
+<section >
+<h2>Streamlit Principle 2</h2>
+<blockquote>
+<div><p>値変わらば、最新の値を変数に代入してスクリプトを再実行</p>
+</div></blockquote>
+<p>これによりインタラクティブなアプリを実現</p>
+</section>
+<section>
+<section >
+<h2>ウィジェットの紹介</h2>
+<p>詳しくは <a class="reference external" href="https://docs.streamlit.io/en/stable/api.html#display-interactive-widgets">https://docs.streamlit.io/en/stable/api.html#display-interactive-widgets</a></p>
+</section>
+<section >
+<h3>デモアプリで使用</h3>
+<ul class="simple">
+<li><p>1行のテキスト入力 <code class="docutils literal notranslate"><span class="pre">st.text_input</span></code></p></li>
+<li><p>数値の入力 <code class="docutils literal notranslate"><span class="pre">st.number_input</span></code></p></li>
+<li><p>パラメタの選択 <code class="docutils literal notranslate"><span class="pre">st.slider</span></code></p></li>
+</ul>
+</section>
+<section >
+<h3>充実のウィジェット（一部を紹介）</h3>
+<ul class="simple">
+<li><p>ラジオボタン <code class="docutils literal notranslate"><span class="pre">st.radio</span></code></p></li>
+<li><p>チェックボックス <code class="docutils literal notranslate"><span class="pre">st.checkbox</span></code></p></li>
+<li><p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/stapy72-streamlit-sample/blob/main/widgets.py">https://github.com/ftnext/stapy72-streamlit-sample/blob/main/widgets.py</a></p></li>
+</ul>
+</section>
+<section >
+<h3>ファイルアップロードも！</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">st.file_uploader</span></code></p></li>
+<li><p>使い方 <a class="reference external" href="https://docs.streamlit.io/en/stable/api.html#streamlit.file_uploader">https://docs.streamlit.io/en/stable/api.html#streamlit.file_uploader</a></p></li>
+<li><p>再掲 <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/stapy72-streamlit-sample/blob/main/widgets.py">https://github.com/ftnext/stapy72-streamlit-sample/blob/main/widgets.py</a></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>さらにメディアの表示も</h2>
+<p>詳しくは <a class="reference external" href="https://docs.streamlit.io/en/stable/api.html#display-media">https://docs.streamlit.io/en/stable/api.html#display-media</a></p>
+</section>
+<section >
+<h3>メディア表示</h3>
+<ul class="simple">
+<li><p>画像 <code class="docutils literal notranslate"><span class="pre">st.image</span></code></p></li>
+<li><p>音声プレーヤー <code class="docutils literal notranslate"><span class="pre">st.audio</span></code></p></li>
+<li><p>動画プレーヤー <code class="docutils literal notranslate"><span class="pre">st.video</span></code></p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">st.audio</span></code> の例</h3>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/stapy?src=hash&amp;ref_src=twsrc%5Etfw">#stapy</a> 本日19時からですー。<br><br>実はBGMはStreamlit製アプリから流しています。<br>audioも扱えるんですよ、先月から引き続きですけれど、やばくないですか！？<br>今後はシャッフル再生つけてみたいですね <a href="https://t.co/uceZ94qWC8">pic.twitter.com/uceZ94qWC8</a></p>&mdash; nikkie 📣PyCon JP 2021 スタッフ募集中！ (@ftnext) <a href="https://twitter.com/ftnext/status/1349293059066925056?ref_src=twsrc%5Etfw">January 13, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">st.audio</span></code> の例</h3>
+<ul class="simple">
+<li><p>stapy開始前のBGM再生</p></li>
+<li><p>音源を並べて選んで流しています（自作iTunes）</p></li>
+<li><p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://gist.githubusercontent.com/ftnext/bf005f8e688f29bb592e892c7ac8676a/raw/ad7ce1517465413a7150869337919247d1396a22/app.py">https://gist.githubusercontent.com/ftnext/bf005f8e688f29bb592e892c7ac8676a/raw/ad7ce1517465413a7150869337919247d1396a22/app.py</a></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>キャッシュ</h2>
+<ul class="simple">
+<li><p>機械学習モデルをインタラクティブに触れるStreamlit製アプリ（例：デモアプリ）</p></li>
+<li><p>モデルの推論には <strong>時間がかかる</strong> ことも</p></li>
+<li><p>インタラクションがあるたびにスクリプトを再実行🤔</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="file docutils literal notranslate"><span class="pre">first.py</span></code> でシミュレート</h3>
+<ul class="simple">
+<li><p>モデルに推論させる関数（＝時間のかかる処理）を単純化</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time.sleep</span></code> で <strong>必ず2秒かかる</strong> 関数とする</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="file docutils literal notranslate"><span class="pre">first.py</span></code></h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+import time
+
+import streamlit as st
+
+
+def expensive_computation(a, b):
+    time.sleep(2)
+    return a * b
+
+
+a = 2
+b = 21
+res = expensive_computation(a, b)
+
+st.write(&quot;Result:&quot;, res)</code></pre>
+</section>
+<section >
+<h3>ブラウザ画面を確認</h3>
+<ul class="simple">
+<li><p>2秒経過してからResultを表示</p></li>
+<li><p>ブラウザをリロードすると <strong>毎回2秒待つ</strong></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2><code class="docutils literal notranslate"><span class="pre">&#64;st.cache</span></code> で関数をデコレート</h2>
+<ul class="simple">
+<li><p>端的に言うと、 <strong>インメモリのKVS</strong> （key-value store）</p></li>
+<li><p>イメージ「同じ引数で関数を実行した結果がキャッシュにあれば、 <strong>関数を呼び出さずに</strong> キャッシュから返す」</p></li>
+<li><p>⚠️キャッシュのキーは引数だけではないので「イメージ」です</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="file docutils literal notranslate"><span class="pre">first.py</span></code> を変更</h3>
+<pre><code data-trim data-noescape data-line-numbers="6" class="python">
+import time
+
+import streamlit as st
+
+
+&#64;st.cache
+def expensive_computation(a, b):
+    time.sleep(2)
+    return a * b
+
+
+a = 2
+b = 21
+res = expensive_computation(a, b)
+
+st.write(&quot;Result:&quot;, res)</code></pre>
+</section>
+<section >
+<h3>ブラウザ画面を確認（キャッシュの効能）</h3>
+<ul class="simple">
+<li><p>初回表示は、2秒経過してからResultを表示</p></li>
+<li><p>ブラウザをリロードすると <strong>2秒待たずに</strong> Resultを表示（キャッシュが効いている）</p></li>
+</ul>
+</section>
+<section >
+<h3>デモアプリでもキャッシュを利用</h3>
+<ul class="simple">
+<li><p>モデル・Tokenizerの読み込み（初回1回だけ）</p></li>
+<li><p>テキスト生成</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;st.cache</span></code> によるキャッシュは <strong>ユーザー間で共通</strong></p></li>
+<li><p>私が試したのと同じテキストなら、キャッシュを使って結果を返す</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>Streamlit Principle 3</h2>
+<blockquote>
+<div><p>スクリプトを再実行する方針ゆえ、キャッシュ利用を指定すべし</p>
+</div></blockquote>
+</section>
+<section >
+<h3>キャッシュについて詳しく知るために</h3>
+<ul class="simple">
+<li><p>公式ドキュメント <a class="reference external" href="https://docs.streamlit.io/en/stable/caching.html">Improve app performance</a></p></li>
+<li><p>公式ドキュメントを読んで書いた拙ブログ <a class="reference external" href="https://nikkie-ftnext.hatenablog.com/entry/streamlit-magical-cache">魔法みたいな機能満載のStreamlit。その中でもとびっきりの魔法、キャッシュについて</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_entries</span></code> や <code class="docutils literal notranslate"><span class="pre">ttl</span></code> の設定例 <a class="reference external" href="https://towardsdatascience.com/advanced-streamlit-caching-6f528a0f9993">https://towardsdatascience.com/advanced-streamlit-caching-6f528a0f9993</a></p></li>
+</ul>
+</section>
+</section>
+<section >
+<h2>小まとめ🥟：Streamlit Principles</h2>
+<ol class="arabic simple">
+<li><p>Pythonスクリプト、是れ即ちアプリ</p></li>
+<li><p>値変わらば、最新の値を変数に代入してスクリプトを再実行</p></li>
+<li><p>スクリプトを再実行する方針ゆえ、キャッシュ利用を指定すべし</p></li>
+</ol>
+</section>
+<section>
+<section >
+<h2>Streamlitに限界はあるのか？</h2>
+<ul class="simple">
+<li><p>プロトタイピングツールと紹介したStreamlit</p></li>
+<li><p>「これはもう、Webアプリなのでは」</p></li>
+<li><p>少し考察してみましょう</p></li>
+</ul>
+</section>
+<section >
+<h3>Webアプリかの考察</h3>
+<ul class="simple">
+<li><p>データベース</p></li>
+<li><p>ユーザー認証</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>Streamlitでデータベースは使えるらしい（未検証）</h2>
+<ul class="simple">
+<li><p>各種データベースとつなげられる（MySQL、PostgreSQL、・・）</p></li>
+<li><p><a class="reference external" href="https://docs.streamlit.io/en/stable/tutorial/databases.html">https://docs.streamlit.io/en/stable/tutorial/databases.html</a></p></li>
+<li><p>なんとGoogleスプレッドシートもDBにできる</p></li>
+</ul>
+</section>
+<section >
+<h3>秘密情報の扱い 1/2</h3>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">.streamlit/secrets.toml</span></code> に <code class="docutils literal notranslate"><span class="pre">キー=値</span></code> 形式で書く</p></li>
+</ul>
+<pre><code data-trim data-noescape  class="txt">
+├── .streamlit  # プロジェクト単位の設定情報ディレクトリ
+│   └── secrets.toml
+└── app.py</code></pre>
+</section>
+<section >
+<h3>秘密情報の扱い 2/2</h3>
+<ul class="simple">
+<li><p>スクリプトでは <code class="docutils literal notranslate"><span class="pre">st.secrets[&quot;キー&quot;]</span></code> で秘密情報にアクセス</p></li>
+<li><p>DBの接続情報を扱う例：<a class="reference external" href="https://docs.streamlit.io/en/stable/tutorial/postgresql.html#add-username-and-password-to-your-local-app-secrets">https://docs.streamlit.io/en/stable/tutorial/postgresql.html#add-username-and-password-to-your-local-app-secrets</a></p></li>
+</ul>
+</section>
+<section >
+<h3>Webアプリかの考察</h3>
+<ul class="simple">
+<li><p>データベース： <strong>使える</strong> （可視化アプリのプロトタイピング楽しそう）</p></li>
+<li><p>ユーザー認証</p></li>
+</ul>
+</section>
+<section >
+<h3>Webアプリかの考察</h3>
+<ul class="simple">
+<li><p>データベース： <strong>使える</strong> （可視化アプリのプロトタイピング楽しそう）</p></li>
+<li><p>ユーザー認証 👈</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>ユーザー認証</h2>
+<ul class="simple">
+<li><p>ユーザーのログイン機能</p></li>
+<li><p>簡易版：Webに公開しているが、 <strong>パスワードを知っているユーザーにだけ</strong> 見せたい（ベーシック認証的）</p></li>
+</ul>
+</section>
+<section >
+<h3>ページにパスワードを掛ける実装</h3>
+<ul class="simple">
+<li><p>秘密情報</p></li>
+<li><p>Session State（ <a class="reference external" href="https://docs.streamlit.io/en/stable/changelog.html#version-0-84-0">2021/07 v0.84.0〜</a>）</p>
+<ul>
+<li><p><a class="reference external" href="https://docs.streamlit.io/en/stable/add_state_app.html">https://docs.streamlit.io/en/stable/add_state_app.html</a></p></li>
+</ul>
+</li>
+<li><p>実装例： <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/stapy72-streamlit-sample/blob/main/auth.py">https://github.com/ftnext/stapy72-streamlit-sample/blob/main/auth.py</a></p></li>
+</ul>
+</section>
+<section >
+<h3>ページにパスワードを掛ける</h3>
+<ul class="simple">
+<li><p>パスワード入力欄を表示</p></li>
+<li><p>パスワードが合致すると、スライダーの例が動かせる</p></li>
+<li><p>リロードするとパスワード入力まで戻る（Session Stateはタブを閉じたらクリアされる）</p></li>
+</ul>
+</section>
+<section >
+<h3>ユーザー管理のハック例</h3>
+<ul class="simple">
+<li><p>データベースを使ってユーザー登録まで実装した例 <a class="reference external" href="https://zenn.dev/lapisuru/articles/3ae6dd82e36c29a27190">https://zenn.dev/lapisuru/articles/3ae6dd82e36c29a27190</a></p></li>
+<li><p>Custom login widget <a class="reference external" href="https://github.com/MarcSkovMadsen/awesome-streamlit/tree/master/gallery/custom_widgets_hack">https://github.com/MarcSkovMadsen/awesome-streamlit/tree/master/gallery/custom_widgets_hack</a></p></li>
+</ul>
+</section>
+<section >
+<h3>Streamlitでユーザー認証</h3>
+<ul class="simple">
+<li><p>データベースと合わせれば、ユーザー管理はできそう（未検証）</p></li>
+<li><p>IMO：nikkieは <strong>オススメしません</strong> （できる≠使える）</p></li>
+<li><p>c-bataさんがこの後話すDjangoなど、Webアプリケーションフレームワークの出番かなと思います</p></li>
+</ul>
+</section>
+<section >
+<h3>脱線：Pythonスクリプト＝アプリなので</h3>
+<ul class="simple">
+<li><p>shimizukawaさんが話す『エキスパートPythonプログラミング 改訂3版』</p></li>
+<li><p>Pythonスクリプトが上手く書けるようになれば、Streamlitにも活きるでしょう</p></li>
+<li><p>（今回のテーマ <strong>全方位Python</strong>、私の中ではつながった🙌）</p></li>
+</ul>
+</section>
+<section >
+<h3>認証の参考：ハックしない方向性</h3>
+<ul>
+<li><p><a class="reference external" href="https://streamlit.io/for-teams">https://streamlit.io/for-teams</a> Coming soon</p>
+<blockquote>
+<div><p>Quickly and securely share your Streamlit apps with anyone in your organization.</p>
+</div></blockquote>
+</li>
+</ul>
+</section>
+</section>
+<section >
+<h2>小まとめ🥟：Streamlitの限界の考察</h2>
+<ul class="simple">
+<li><p>データベースと接続できる！</p></li>
+<li><p>ページにパスワードも掛けられる</p></li>
+<li><p>IMO：ユーザー管理が必要なら for Teams or Webアプリフレームワーク</p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2>Streamlitの学習リソース📚</h2>
+<ul class="simple">
+<li><p>豊富！（コミュニティが盛り上がっている）</p></li>
+<li><p>nikkieは必要な情報をつまむ学び方なので、オススメ学習順は no idea です ¯_(ツ)_/¯</p></li>
+<li><p><strong>リンク集</strong> 的に使ってください</p></li>
+</ul>
+</section>
+<section >
+<h3>公式</h3>
+<ul class="simple">
+<li><p>ドキュメント：<a class="reference external" href="https://docs.streamlit.io/en/stable/index.html">https://docs.streamlit.io/en/stable/index.html</a></p>
+<ul>
+<li><p>日本語翻訳提案したらすごーく勉強になりそうですね</p></li>
+</ul>
+</li>
+<li><p>YouTube（動画チュートリアル）：<a class="reference external" href="https://www.youtube.com/channel/UC3LD42rjj-Owtxsa6PwGU5Q/playlists">https://www.youtube.com/channel/UC3LD42rjj-Owtxsa6PwGU5Q/playlists</a></p></li>
+</ul>
+</section>
+<section >
+<h3>公式さんはドッグフィーディングしています🐶</h3>
+<ul class="simple">
+<li><p>Streamlit製Roadmap：<a class="reference external" href="https://share.streamlit.io/streamlit/roadmap">https://share.streamlit.io/streamlit/roadmap</a></p></li>
+<li><p>ソースコード： <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/streamlit/roadmap">https://github.com/streamlit/roadmap</a></p></li>
+</ul>
+</section>
+<section >
+<h3>コミュニティ</h3>
+<ul class="simple">
+<li><p>Gallery（アプリの例）：<a class="reference external" href="https://streamlit.io/gallery">https://streamlit.io/gallery</a></p></li>
+<li><p>Components（第三者が開発した拡張）：<a class="reference external" href="https://streamlit.io/components">https://streamlit.io/components</a></p></li>
+</ul>
+</section>
+<section >
+<h3>コミュニティ その2</h3>
+<ul class="simple">
+<li><p>Forum：<a class="reference external" href="https://discuss.streamlit.io/">https://discuss.streamlit.io/</a></p>
+<ul>
+<li><p>質問かなり盛んな印象</p></li>
+<li><p>Wikiなど <a class="reference external" href="https://discuss.streamlit.io/t/streamlit-deployment-guide-wiki/5099">https://discuss.streamlit.io/t/streamlit-deployment-guide-wiki/5099</a></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>Awesomeあります😎</h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://awesome-streamlit.org/">https://awesome-streamlit.org/</a></p></li>
+<li><p>ソースコード： <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/MarcSkovMadsen/awesome-streamlit">https://github.com/MarcSkovMadsen/awesome-streamlit</a></p></li>
+<li><p>Streamlitで <strong>大きなアプリ</strong> を作る際の参考にもなると思います</p></li>
+</ul>
+</section>
+<section >
+<h3>国内の巨人</h3>
+<ul class="simple">
+<li><p>再掲 <a class="reference external" href="https://docs.google.com/presentation/d/1ZpEnnSEz3YKxDPuolOdzkbBFw2bG4BtT-Ln-TQALtGQ/edit#slide=id.p">202102Streamlit勉強会スライド</a></p></li>
+<li><p>リポジトリ <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/lightondust/finteract_streamlit">https://github.com/lightondust/finteract_streamlit</a></p></li>
+<li><p>上記の勉強会の内容について fin-py コミュニティに日本語で質問に行くのも、あると思います</p></li>
+</ul>
+</section>
+</section>
+<section >
+<h2>まとめ🌯：the app runner Streamlit Season✨</h2>
+<ul class="simple">
+<li><p>Streamlitは機械学習分野で注目される <strong>プロトタイピングツール</strong></p></li>
+<li><p>ハンズオンを通して3つの原則を共有</p></li>
+<li><p>Webアプリかの考察から、あくまでプロトタイピング</p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2>再掲 Streamlit Principles</h2>
+<ol class="arabic simple">
+<li><p><strong>Pythonスクリプト</strong>、是れ即ちアプリ</p></li>
+<li><p>値変わらば、 <strong>最新の値</strong> を変数に代入してスクリプトを <strong>再実行</strong></p></li>
+<li><p>スクリプトを再実行する方針ゆえ、 <strong>キャッシュ利用を指定</strong> すべし</p></li>
+</ol>
+</section>
+<section >
+<h3>Streamlit「とびっきりの魔法をかけてあげるわ！」</h3>
+<ul class="simple">
+<li><p><strong>Pythonスクリプトを書くだけ</strong> でインタラクティブなアプリになる</p></li>
+<li><p>スクリプトをGitHubで公開して、Streamlit sharingで指定するだけの <strong>簡単デプロイ</strong></p></li>
+</ul>
+</section>
+<section >
+<h3>Streamlit「とびっきりの魔法をかけてあげるわ！」承前</h3>
+<ul class="simple">
+<li><p><strong class="command">streamlit run URL</strong> コピペすら不要という、こんなに簡単なスクリプトの共有方法がかつてあっただろうか</p></li>
+<li><p><strong>キャッシュ！</strong> スクリプトを何度も再実行しているので、積極利用しましょう</p></li>
+</ul>
+</section>
+<section >
+<h3>最後に Special thanks</h3>
+<ul class="simple">
+<li><p>社内の勉強会でフィードバックくださった皆さま</p></li>
+<li><p>前哨戦のおかげで資料引き締まりました！</p></li>
+</ul>
+</section>
+<section >
+<h3>ご清聴ありがとうございました</h3>
+<p><strong>Enjoy</strong> magical Streamlit Season!</p>
+</section>
+</section>
+<section >
+<h2>Appendix</h2>
+<ul class="simple">
+<li><p>Scrapboxで発表準備</p></li>
+<li><p><a class="reference external" href="https://scrapbox.io/nikkie-memos/Streamlit">https://scrapbox.io/nikkie-memos/Streamlit</a> 以下</p></li>
+</ul>
+</section>
+<section >
+<h2>EOF</h2>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../reveal.js/dist/reveal.js"></script>
+    
+    
+      <script src="../reveal.js/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: "none",
+        slideNumber: "c/t",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>
