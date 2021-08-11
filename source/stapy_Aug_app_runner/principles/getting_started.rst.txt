@@ -28,7 +28,7 @@ Pythonスクリプトを作りましょう
     :linenos:
 
     import streamlit as st
-    
+
     st.title("My first app")
 
 アプリとして動かす
@@ -37,12 +37,30 @@ Pythonスクリプトを作りましょう
 * :command:`streamlit run first.py`
 * Webブラウザが起動し、http://localhost:8501/ が表示されます
 
+現在のブラウザ画面
+------------------------------------------------
+
+* 文字列 ``"My first app"`` がタイトルの書式で表示される
+* https://docs.streamlit.io/en/stable/api.html#streamlit.title
+
+補足：使用統計の送信
+------------------------------------------------
+
+* :file:`~/.streamlit/config.toml` （グローバルな設定ファイル）
+* https://docs.streamlit.io/en/stable/streamlit_configuration.html#view-all-configuration-options
+
+.. code-block:: toml
+
+    [browser]
+    # Default: true
+    gatherUsageStats = false
+
 tips💫  :guilabel:`Run on save`
 ------------------------------------------------
 
 * 右上ハンバーガーメニューから :guilabel:`Run on save` を有効に
 * スクリプトを保存すると、 **ただちに** ブラウザ画面が **再描画** されます
-* プロトタイピング捗ります！（対話モード感）
+* プロトタイピング捗ります！（ ``st.write`` で値を確認しながら進む＝対話モード感）
 
 :file:`first.py` に追記
 ------------------------------------------------
@@ -53,7 +71,7 @@ tips💫  :guilabel:`Run on save`
 
     import pandas as pd
     import streamlit as st
-    
+
     st.title("My first app")
     st.write("Here's our first attempt at using data to create a table:")
     st.write(
@@ -66,6 +84,7 @@ tips💫  :guilabel:`Run on save`
 ------------------------------------------------
 
 * ``pandas`` の ``DataFrame`` は **表** として表示される
+* https://docs.streamlit.io/en/stable/api.html#streamlit.write
 
 Pythonスクリプト、是れ即ちアプリ
 ============================================================
@@ -74,7 +93,7 @@ Pythonスクリプト、是れ即ちアプリ
 * 本トークは体験重視！網羅性は重視しません
 
   * 巨人の肩へ `202102Streamlit勉強会スライド <https://docs.google.com/presentation/d/1ZpEnnSEz3YKxDPuolOdzkbBFw2bG4BtT-Ln-TQALtGQ/edit#slide=id.p>`_ at `fin-py <https://fin-py.connpass.com/event/201708/>`_
-  * まとまっている日本語情報源
+  * ⬆️はまとまっている日本語情報源
 
 202102Streamlit勉強会スライドより
 ------------------------------------------------
@@ -95,7 +114,7 @@ nikkieの言葉で雑にまとめると
 
 .. code-block:: shell
 
-    $ streamlit run <TODO: リポジトリのfirst.pyのURL>
+    $ streamlit run https://raw.githubusercontent.com/ftnext/stapy72-streamlit-sample/main/first.py
 
 Web上のオススメスクリプト
 ------------------------------------------------
@@ -114,4 +133,4 @@ Web上のオススメスクリプト
     $ curl https://raw.githubusercontent.com/ftnext/stapy72-streamlit-sample/main/app.py -O
     $ streamlit run app.py
 
-* 実は :command:`streamlit run` はURLのスクリプトをローカルに一時ファイルとして保存しています
+* 実は :command:`streamlit run` は、URLで指定したスクリプトをローカルに *一時ファイルとして保存* しています
