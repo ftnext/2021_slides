@@ -26,13 +26,20 @@ Python Conference JP 2021 座長🇨🇭
 
 .. raw:: html
 
-    <iframe width="640" height="480" src="https://ftnext.github.io/2021_slides/rakus_Feb_oss/not_only_code_but_various_contributions.html" title="コードだけじゃない！いろいろなコントリビュート"></iframe>
+    <iframe width="800" height="480" src="https://ftnext.github.io/2021_slides/rakus_Feb_oss/not_only_code_but_various_contributions.html" title="コードだけじゃない！いろいろなコントリビュート"></iframe>
 
 アニメも好きです😍
 ------------------------------------------------
 
 * 1つ挙げると『ハイキュー!!』🏐（ `あらすじ <https://alu.jp/series/%E3%83%8F%E3%82%A4%E3%82%AD%E3%83%A5%E3%83%BC%EF%BC%81%EF%BC%81>`_）
 * ブロッカー月島（ツッキー）のエピソードが好き
+
+TODO：イチ推しのツッキーのエピソードはYouTubeで見られます！！
+------------------------------------------------------------------------------------------------
+
+.. raw:: html
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/ycfEo598B5c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ツッキーが言われるセリフ
 ------------------------------------------------
@@ -41,14 +48,7 @@ Python Conference JP 2021 座長🇨🇭
 
 実は今回のタイトルも意識しました
 
-TODO：イチ推しのツッキーエピソードはYouTubeで見られます！！
-------------------------------------------------------------------------------------------------
-
-.. raw:: html
-
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/ycfEo598B5c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-それがお前がバレーにハマる瞬間だ
+それがお前がバレーにハマる瞬間だ✨
 ------------------------------------------------
 
 * このLT「私が初めてコードでコントリビュートしたときの話」
@@ -66,15 +66,34 @@ LT：私が初めてコードでコントリビュートしたときの話
 * **初めてコードでコントリビュートした事例紹介**
 * 振り返り：なぜコントリビュートできたか
 
-質問：PythonライブラリHeliumを知っていますか？
+質問：Pythonライブラリ **Helium** を知っていますか？
 ============================================================
 
 Helium
 ------------------------------------------------
 
-* :raw-html:`<i class="fab fa-github"></i>` https://github.com/mherrmann/selenium-python-helium
+* :raw-html:`<i class="fab fa-github"></i>` https://github.com/mherrmann/selenium-python-helium (2600 star)
 * できること：ブラウザ操作自動化
 * Seleniumのラッパーで、 **非常に簡単** に書ける！💫
+
+こんなに簡単です🍰
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    from helium import *
+    start_chrome("google.com")
+    write("helium selenium github")
+    press(ENTER)
+    click("mherrmann/helium")
+    go_to("github.com/login")
+    write("username", into="Username")
+    write("password", into="Password")
+    click("Sign in")
+    kill_browser()
+
+https://github.com/mherrmann/selenium-python-helium/blob/master/docs/cheatsheet.md
 
 It's me!😎
 ------------------------------------------------
@@ -90,16 +109,17 @@ https://github.com/mherrmann/selenium-python-helium/graphs/contributors
 * ブラウザ自動化が簡単に書けるHeliumを知っていた
 * Google Chromeで試したら、サクッとダウンロードできた！🙌
 
-普段遣いはFirefox
+普段使いはFirefox
 ------------------------------------------------
 
 * Chromeと同じコードでは動かない😢
-* ダウンロードの確認ポップアップのため
+* ダウンロードの **確認ポップアップ** のため
 
 これのことです、Firefoxの確認ポップアップ
 ------------------------------------------------
 
 .. figure:: ../_static/rakus_Aug_oss/202108firefox_download_popup.png
+    :width: 65%
 
 確認ポップアップ抑制したい
 ------------------------------------------------
@@ -110,7 +130,7 @@ https://github.com/mherrmann/selenium-python-helium/graphs/contributors
 
 * Heliumではどうやる？ Issueを見てみる🔍
 
-Ability to set download directory and disable download or open popup using Firefox
+Ability to set download directory and **disable download or open popup** using Firefox
 ------------------------------------------------------------------------------------------------
 
 https://github.com/mherrmann/selenium-python-helium/issues/19
@@ -128,7 +148,7 @@ Ownerのコメント意訳
 * Heliumは最新のリリース(v3.0.2)で ``start_chrome`` 関数に ``ChromeOptions`` を提供できるようになった。おそらくFirefoxについても同様のものを加えられるんじゃないか
 * 実装している時間がない。でも、それをするPRは喜んでマージするよ
 
-手元のFirefoxだけでも動かせれば
+手元のFirefoxでだけでも動かせれば！
 ------------------------------------------------
 
 * ``start_chrome`` のコードを見てみる（ならって ``start_firefox`` をハックしようとした）
@@ -166,7 +186,7 @@ LT：私が初めてコードでコントリビュートしたときの話
 ------------------------------------------------
 
 * Pythonを始めた頃に参加した勉強会（2018/03）での学び
-* ライブラリのドキュメントにないときは、GitHubのIssueを検索する
+* **ライブラリのドキュメントにないときは、GitHubのIssueを検索する**
 * Issue検索で助けられた経験多数（ `テクニックとしてオススメしたことも <https://docs.google.com/presentation/d/1YP03-0THNmWLdqIi_hrcgi-k7y_2G7jj5iWXf973Ew4/edit#slide=id.g774fdc25c3_0_320>`_）
 
 参考：「入門書を読み終わったらなにしよう？」
@@ -174,7 +194,7 @@ LT：私が初めてコードでコントリビュートしたときの話
 
 * スライド：https://www.slideshare.net/laughk/python-webapi-nextsteppythonprograming
 * 私のメモ：https://nikkie-ftnext.hatenablog.com/entry/2018/03/08/002016
-* 注：今回スライドを見返したところ、Issue検索は明記されておらず、質疑や懇親会で聞いたようです
+* 注：今回スライドを見返したところ、Issue検索は明記されておらず、どうやら質疑や懇親会で聞いたようです
 
 振り返り：なぜコントリビュートできたか
 ------------------------------------------------
@@ -203,8 +223,8 @@ LT：私が初めてコードでコントリビュートしたときの話
 ------------------------------------------------
 
 * Pythonは独学で始め、2019年にデータサイエンティストに転職（ユーザベース）
-* **TDD** で開発する環境
-* ``unittest`` やモックを猛練習の末に、スラスラ書けるように
+* **TDD** で開発する環境（ `ユーザベースの例 <https://zine.qiita.com/event/202106-uzabase/>`_）
+* ``unittest`` やモックを **猛練習** の末に、スラスラ書けるように
 
 Heliumのコードを直した際
 ------------------------------------------------
@@ -232,15 +252,15 @@ Heliumのコードを直した際
 OSSにハマった瞬間の先
 ------------------------------------------------
 
-* Heliumのように新しめのOSSのコードを読むように
-* 「そんな書き方できるのか。かっこいい！！」もう楽しくてしょうがない
+* Heliumのように新しめのOSSのコードを読み始めた
+* 「そんな書き方できるのか。かっこいい！！」 **もう楽しくてしょうがない**
 * 🤫 OSSのコード読んでいるだけで、生活に困らないだけのお金もらえないかな・・
 
 コードでコントリビュートしてみたい方へ
 ------------------------------------------------
 
 1. 普段から **Issueをのぞこう**
-2. GitHubのIssueやPull requestを使って **OSS開発フローに慣れよう**
+2. GitHubのIssueやPull requestを使って **OSS開発フロー** に慣れよう
 3. **テストコード** に慣れよう
 4. 1〜3ができているなら、タイミングが来たら飛び込むだけ
 
@@ -252,6 +272,11 @@ OSSにハマった瞬間の先
 
 Appendix
 ============================================================
+
+過去のHelium関連のアウトプット
+------------------------------------------------
+
+* `繰り返すブラウザ操作をPythonにやらせよう <https://github.com/ftnext/2020_slides/blob/master/stapy_May_helium_auto_browser/PITCHME.md>`_ （2020/05 LT）
 
 Heliumにコントリビュートした際のTwitterログ 1/2
 ------------------------------------------------
@@ -266,3 +291,6 @@ Heliumにコントリビュートした際のTwitterログ 2/2
 .. raw:: html
 
     <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">本日コードでOSSに貢献という実績を解除しました！やったー<br><br>heliumのIssueに出ていたoptions引数を<a href="https://t.co/Zk8RwW48K3">https://t.co/Zk8RwW48K3</a><br>Chromeの実装例をもとに実装しました（Firefoxでのダウンロードが自分に必要だったので）。<br>FirefoxOptionsを設定できるようになったhelium v3.0.3が近いうちにリリースです <a href="https://t.co/lEIuit5veE">https://t.co/lEIuit5veE</a></p>&mdash; nikkie 📣PyCon JP 2021 スタッフ募集中！ (@ftnext) <a href="https://twitter.com/ftnext/status/1257227781550698496?ref_src=twsrc%5Etfw">May 4, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+EOF
+============================================================
