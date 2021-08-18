@@ -1,0 +1,386 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>私が初めてコードでコントリビュートしたときの話</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="../reveal.js/dist/theme/black.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/plugin/highlight/zenburn.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/Font-Awesome/css/all.min.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ftnext">
+    <meta property="og:url" content="https://ftnext.github.io/2021_slides/rakus_Aug_oss/first_code_contribution.html">
+    <meta property="og:title" content="私が初めてコードでコントリビュートしたときの話">
+    <meta property="og:description" content="2021/08 ラクス OSS LT会 vol.2 スライド">
+    <meta property="og:image" content="https://ftnext.github.io/2021_slides/_images/ogps/rakus_Aug_oss.png">
+
+    
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides">
+            <section >
+<h1>私が初めてコードでコントリビュートしたときの話</h1>
+<dl class="field-list simple">
+<dt class="field-odd">Event</dt>
+<dd class="field-odd"><p>ラクス OSS LT会 vol.2</p>
+</dd>
+<dt class="field-even">Presented</dt>
+<dd class="field-even"><p>2021/08/18 nikkie</p>
+</dd>
+</dl>
+</section>
+<section>
+<section >
+<h2>お前、誰よ</h2>
+<ul class="simple">
+<li><p>Python大好き <strong>にっきー</strong> （<span class="raw-html"><i class="fab fa-twitter"></i></span> <a class="reference external" href="https://twitter.com/ftnext">&#64;ftnext</a> / <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext">&#64;ftnext</a>）</p></li>
+<li><p>Python歴3年半。データサイエンティストにしてNLPer</p></li>
+</ul>
+</section>
+<section >
+<h3>Python Conference JP 2021 座長🇨🇭</h3>
+<iframe width="640" height="480" src="https://2021.pycon.jp/" title="PyCon JP 2021 Webサイト"></iframe></section>
+<section >
+<h3>2月の vol.1 でもLTしました⚡️</h3>
+<iframe width="800" height="480" src="https://ftnext.github.io/2021_slides/rakus_Feb_oss/not_only_code_but_various_contributions.html" title="コードだけじゃない！いろいろなコントリビュート"></iframe></section>
+<section >
+<h3>アニメも好きです😍</h3>
+<ul class="simple">
+<li><p>1つ挙げると『ハイキュー!!』🏐（ <a class="reference external" href="https://alu.jp/series/%E3%83%8F%E3%82%A4%E3%82%AD%E3%83%A5%E3%83%BC%EF%BC%81%EF%BC%81">あらすじ</a>）</p></li>
+<li><p>ブロッカー月島（ツッキー）のエピソードが好き</p></li>
+</ul>
+</section>
+<section >
+<h3>TODO：イチ推しのツッキーのエピソードはYouTubeで見られます！！</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ycfEo598B5c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></section>
+<section >
+<h3>ツッキーが言われるセリフ</h3>
+<blockquote>
+<div><p>それがお前がバレーにハマる瞬間だ（木兎さん）</p>
+</div></blockquote>
+<p>実は今回のタイトルも意識しました</p>
+</section>
+<section >
+<h3>それがお前がバレーにハマる瞬間だ✨</h3>
+<ul class="simple">
+<li><p>このLT「私が初めてコードでコントリビュートしたときの話」</p></li>
+<li><p>言い換えると、nikkieにとっての <strong>OSSにハマる瞬間</strong> の話</p></li>
+</ul>
+</section>
+<section >
+<h3>お品書き</h3>
+<ul class="simple">
+<li><p>初めてコードでコントリビュートした事例紹介</p></li>
+<li><p>振り返り：なぜコントリビュートできたか</p></li>
+</ul>
+</section>
+<section >
+<h3>LT：私が初めてコードでコントリビュートしたときの話</h3>
+<ul class="simple">
+<li><p><strong>初めてコードでコントリビュートした事例紹介</strong></p></li>
+<li><p>振り返り：なぜコントリビュートできたか</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>質問：Pythonライブラリ <strong>Helium</strong> を知っていますか？</h2>
+</section>
+<section >
+<h3>Helium</h3>
+<ul class="simple">
+<li><p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/mherrmann/selenium-python-helium">https://github.com/mherrmann/selenium-python-helium</a> (2600 star)</p></li>
+<li><p>できること：ブラウザ操作自動化</p></li>
+<li><p>Seleniumのラッパーで、 <strong>非常に簡単</strong> に書ける！💫</p></li>
+</ul>
+</section>
+<section >
+<h3>こんなに簡単です🍰</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+from helium import *
+start_chrome(&quot;google.com&quot;)
+write(&quot;helium selenium github&quot;)
+press(ENTER)
+click(&quot;mherrmann/helium&quot;)
+go_to(&quot;github.com/login&quot;)
+write(&quot;username&quot;, into=&quot;Username&quot;)
+write(&quot;password&quot;, into=&quot;Password&quot;)
+click(&quot;Sign in&quot;)
+kill_browser()</code></pre>
+<p><a class="reference external" href="https://github.com/mherrmann/selenium-python-helium/blob/master/docs/cheatsheet.md">https://github.com/mherrmann/selenium-python-helium/blob/master/docs/cheatsheet.md</a></p>
+</section>
+<section >
+<h3>It's me!😎</h3>
+<div class="figure align-default">
+<img alt="../_images/202108helium_contributor_nikkie.png" src="../_images/202108helium_contributor_nikkie.png" />
+</div>
+<p><a class="reference external" href="https://github.com/mherrmann/selenium-python-helium/graphs/contributors">https://github.com/mherrmann/selenium-python-helium/graphs/contributors</a></p>
+</section>
+<section >
+<h3>経緯：ときは2020年5月</h3>
+<ul class="simple">
+<li><p>connpassから <a class="reference external" href="https://help.connpass.com/organizers/event-admin.html">参加一覧をCSV形式で</a> 定期的にダウンロード。自動化したい</p></li>
+<li><p>ブラウザ自動化が簡単に書けるHeliumを知っていた</p></li>
+<li><p>Google Chromeで試したら、サクッとダウンロードできた！🙌</p></li>
+</ul>
+</section>
+<section >
+<h3>普段使いはFirefox</h3>
+<ul class="simple">
+<li><p>Chromeと同じコードでは動かない😢</p></li>
+<li><p>ダウンロードの <strong>確認ポップアップ</strong> のため</p></li>
+</ul>
+</section>
+<section >
+<h3>これのことです、Firefoxの確認ポップアップ</h3>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="../_images/202108firefox_download_popup.png"><img alt="../_images/202108firefox_download_popup.png" src="../_images/202108firefox_download_popup.png" style="width: 65%;" /></a>
+</div>
+</section>
+<section >
+<h3>確認ポップアップ抑制したい</h3>
+<ul class="simple">
+<li><p>Seleniumでの抑制例が見つかる <code class="docutils literal notranslate"><span class="pre">options.setPreference()</span></code></p>
+<ul>
+<li><p><a class="reference external" href="https://stackoverflow.com/a/36309735">https://stackoverflow.com/a/36309735</a></p></li>
+</ul>
+</li>
+<li><p>Heliumではどうやる？ Issueを見てみる🔍</p></li>
+</ul>
+</section>
+<section >
+<h3>Ability to set download directory and <strong>disable download or open popup</strong> using Firefox</h3>
+<p><a class="reference external" href="https://github.com/mherrmann/selenium-python-helium/issues/19">https://github.com/mherrmann/selenium-python-helium/issues/19</a></p>
+</section>
+<section >
+<h3><a class="reference external" href="https://github.com/mherrmann/selenium-python-helium/issues/19#issuecomment-617803108">Ownerのコメント</a></h3>
+<blockquote>
+<div><p>Helium lets you supply ChromeOptions to start_chrome since the last release. Maybe something similar could be added for Firefox?</p>
+<p>I won't have time to implement this. But I will be happy to merge a PR that does it.</p>
+</div></blockquote>
+</section>
+<section >
+<h3>Ownerのコメント意訳</h3>
+<ul class="simple">
+<li><p>Heliumは最新のリリース(v3.0.2)で <code class="docutils literal notranslate"><span class="pre">start_chrome</span></code> 関数に <code class="docutils literal notranslate"><span class="pre">ChromeOptions</span></code> を提供できるようになった。おそらくFirefoxについても同様のものを加えられるんじゃないか</p></li>
+<li><p>実装している時間がない。でも、それをするPRは喜んでマージするよ</p></li>
+</ul>
+</section>
+<section >
+<h3>手元のFirefoxでだけでも動かせれば！</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">start_chrome</span></code> のコードを見てみる（ならって <code class="docutils literal notranslate"><span class="pre">start_firefox</span></code> をハックしようとした）</p></li>
+<li><p>「 <strong>あ、これ実装できるかも</strong> 」</p></li>
+</ul>
+</section>
+<section >
+<h3>（環境構築でハマりつつも）できた！🙌</h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/mherrmann/selenium-python-helium/pull/22/files">https://github.com/mherrmann/selenium-python-helium/pull/22/files</a></p></li>
+<li><p>Helium v3.0.3 としてリリースされた</p></li>
+</ul>
+</section>
+<section >
+<h3>LT：私が初めてコードでコントリビュートしたときの話</h3>
+<ul class="simple">
+<li><p>初めてコードでコントリビュートした事例紹介</p></li>
+<li><p><strong>振り返り：なぜコントリビュートできたか</strong></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>振り返り：なぜコントリビュートできたか</h2>
+<ol class="arabic simple">
+<li><p>Issueを見る習慣が付いていた</p></li>
+<li><p>GitHubでのOSS開発フローに慣れていた</p></li>
+<li><p>Pythonのテストに慣れていた</p></li>
+<li><p>ちょうど実装できるIssueが開かれたばかりだった</p></li>
+</ol>
+</section>
+<section >
+<h3>振り返り：なぜコントリビュートできたか</h3>
+<ol class="arabic simple">
+<li><p><strong>Issueを見る習慣が付いていた</strong></p></li>
+<li><p>GitHubでのOSS開発フローに慣れていた</p></li>
+<li><p>Pythonのテストに慣れていた</p></li>
+<li><p>ちょうど実装できるIssueが開かれたばかりだった</p></li>
+</ol>
+</section>
+<section >
+<h3>1.Issueを見る習慣が付いていた</h3>
+<ul class="simple">
+<li><p>Pythonを始めた頃に参加した勉強会（2018/03）での学び</p></li>
+<li><p><strong>ライブラリのドキュメントにないときは、GitHubのIssueを検索する</strong></p></li>
+<li><p>Issue検索で助けられた経験多数（ <a class="reference external" href="https://docs.google.com/presentation/d/1YP03-0THNmWLdqIi_hrcgi-k7y_2G7jj5iWXf973Ew4/edit#slide=id.g774fdc25c3_0_320">テクニックとしてオススメしたことも</a>）</p></li>
+</ul>
+</section>
+<section >
+<h3>参考：「入門書を読み終わったらなにしよう？」</h3>
+<ul class="simple">
+<li><p>スライド：<a class="reference external" href="https://www.slideshare.net/laughk/python-webapi-nextsteppythonprograming">https://www.slideshare.net/laughk/python-webapi-nextsteppythonprograming</a></p></li>
+<li><p>私のメモ：<a class="reference external" href="https://nikkie-ftnext.hatenablog.com/entry/2018/03/08/002016">https://nikkie-ftnext.hatenablog.com/entry/2018/03/08/002016</a></p></li>
+<li><p>注：今回スライドを見返したところ、Issue検索は明記されておらず、どうやら質疑や懇親会で聞いたようです</p></li>
+</ul>
+</section>
+<section >
+<h3>振り返り：なぜコントリビュートできたか</h3>
+<ol class="arabic simple">
+<li><p>Issueを見る習慣が付いていた</p></li>
+<li><p><strong>GitHubでのOSS開発フローに慣れていた</strong></p></li>
+<li><p>Pythonのテストに慣れていた</p></li>
+<li><p>ちょうど実装できるIssueが開かれたばかりだった</p></li>
+</ol>
+</section>
+<section >
+<h3>2.GitHubでのOSS開発フローに慣れていた</h3>
+<ul class="simple">
+<li><p>vol.1でのLT「コードだけじゃない！いろいろなコントリビュート」</p></li>
+<li><p>翻訳を通して、GitHubのIssueやPull requestに慣れた</p></li>
+<li><p>コードを書かなかったが、 <strong>コードでコントリビュートするための準備</strong> をしていた</p></li>
+</ul>
+</section>
+<section >
+<h3>振り返り：なぜコントリビュートできたか</h3>
+<ol class="arabic simple">
+<li><p>Issueを見る習慣が付いていた</p></li>
+<li><p>GitHubでのOSS開発フローに慣れていた</p></li>
+<li><p><strong>Pythonのテストに慣れていた</strong></p></li>
+<li><p>ちょうど実装できるIssueが開かれたばかりだった</p></li>
+</ol>
+</section>
+<section >
+<h3>3.Pythonのテストに慣れていた</h3>
+<ul class="simple">
+<li><p>Pythonは独学で始め、2019年にデータサイエンティストに転職（ユーザベース）</p></li>
+<li><p><strong>TDD</strong> で開発する環境（ <a class="reference external" href="https://zine.qiita.com/event/202106-uzabase/">ユーザベースの例</a>）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unittest</span></code> やモックを <strong>猛練習</strong> の末に、スラスラ書けるように</p></li>
+</ul>
+</section>
+<section >
+<h3>Heliumのコードを直した際</h3>
+<ul class="simple">
+<li><p>テストコードのどこを直すか自信を持って判断できた</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">start_chrome</span></code> 関数では <code class="docutils literal notranslate"><span class="pre">options</span></code> 引数のテストがないことにならった</p></li>
+</ul>
+</li>
+<li><p>余談：テストが全部通らなくて、別途Issueを開きもした（ <a class="reference external" href="https://github.com/mherrmann/selenium-python-helium/issues/23">#23</a>）</p></li>
+</ul>
+</section>
+<section >
+<h3>振り返り：なぜコントリビュートできたか</h3>
+<ol class="arabic simple">
+<li><p>Issueを見る習慣が付いていた</p></li>
+<li><p>GitHubでのOSS開発フローに慣れていた</p></li>
+<li><p>Pythonのテストに慣れていた</p></li>
+<li><p><strong>ちょうど実装できるIssueが開かれたばかりだった</strong> （運！）</p></li>
+</ol>
+</section>
+</section>
+<section>
+<section >
+<h2>まとめ🌯：私が初めてコードでコントリビュートしたときの話</h2>
+<ul class="simple">
+<li><p><strong>Helium</strong> というPython製ライブラリに、初めてコードでコントリビュートした</p></li>
+<li><p>なぜコントリビュートできたか、 <strong>4点</strong> 共有</p></li>
+</ul>
+</section>
+<section >
+<h3>OSSにハマった瞬間の先</h3>
+<ul class="simple">
+<li><p>Heliumのように新しめのOSSのコードを読み始めた</p></li>
+<li><p>「そんな書き方できるのか。かっこいい！！」 <strong>もう楽しくてしょうがない</strong></p></li>
+<li><p>🤫 OSSのコード読んでいるだけで、生活に困らないだけのお金もらえないかな・・</p></li>
+</ul>
+</section>
+<section >
+<h3>コードでコントリビュートしてみたい方へ</h3>
+<ol class="arabic simple">
+<li><p>普段から <strong>Issueをのぞこう</strong></p></li>
+<li><p>GitHubのIssueやPull requestを使って <strong>OSS開発フロー</strong> に慣れよう</p></li>
+<li><p><strong>テストコード</strong> に慣れよう</p></li>
+<li><p>1〜3ができているなら、タイミングが来たら飛び込むだけ</p></li>
+</ol>
+</section>
+<section >
+<h3>ご清聴ありがとうございました</h3>
+<ul class="simple">
+<li><p>Next, <strong>YOUR</strong> turn!</p></li>
+<li><p>次は皆さんが、初めてコードでコントリビュートする番です！</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>Appendix</h2>
+</section>
+<section >
+<h3>過去のHelium関連のアウトプット</h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ftnext/2020_slides/blob/master/stapy_May_helium_auto_browser/PITCHME.md">繰り返すブラウザ操作をPythonにやらせよう</a> （2020/05 LT）</p></li>
+</ul>
+</section>
+<section >
+<h3>Heliumにコントリビュートした際のTwitterログ 1/2</h3>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">ダウンロード、Chromeはデフォルトでポップアップが出ないので、以下を参考に指定すれば達成できました（最新のHelium v3.0.2でChromeOptionsがサポートされている）<a href="https://t.co/IeyINOhYJJ">https://t.co/IeyINOhYJJ</a><br><br>Firefoxはデフォルトでポップアップが出ますが、以下を参考に抑制できそう<a href="https://t.co/363vPwQ3nW">https://t.co/363vPwQ3nW</a></p>&mdash; nikkie 📣PyCon JP 2021 スタッフ募集中！ (@ftnext) <a href="https://twitter.com/ftnext/status/1256980377790369793?ref_src=twsrc%5Etfw">May 3, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+<section >
+<h3>Heliumにコントリビュートした際のTwitterログ 2/2</h3>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">本日コードでOSSに貢献という実績を解除しました！やったー<br><br>heliumのIssueに出ていたoptions引数を<a href="https://t.co/Zk8RwW48K3">https://t.co/Zk8RwW48K3</a><br>Chromeの実装例をもとに実装しました（Firefoxでのダウンロードが自分に必要だったので）。<br>FirefoxOptionsを設定できるようになったhelium v3.0.3が近いうちにリリースです <a href="https://t.co/lEIuit5veE">https://t.co/lEIuit5veE</a></p>&mdash; nikkie 📣PyCon JP 2021 スタッフ募集中！ (@ftnext) <a href="https://twitter.com/ftnext/status/1257227781550698496?ref_src=twsrc%5Etfw">May 4, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+</section>
+<section >
+<h2>EOF</h2>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../reveal.js/dist/reveal.js"></script>
+    
+    
+      <script src="../reveal.js/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: "none",
+        slideNumber: "c/t",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>
