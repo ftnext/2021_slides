@@ -1,0 +1,562 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@dataclass のような、 () を付けても付けなくてもいいデコレータはどう作る？</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="../reveal.js/dist/theme/black.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/plugin/highlight/zenburn.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/Font-Awesome/css/all.min.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ftnext">
+    <meta property="og:url" content="https://ftnext.github.io/2021_slides/pysuruga_Aug/decorator_like_dataclass.html">
+    <meta property="og:title" content="@dataclass のような、 () を付けても付けなくてもいいデコレータはどう作る？">
+    <meta property="og:description" content="2021/08 Python駿河 勉強会 #28 ～真夏のLT大会～ スライド">
+    <meta property="og:image" content="https://ftnext.github.io/2021_slides/_images/ogps/pysuruga_Aug.png">
+
+
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides">
+            <section >
+<h1><code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> のような、 <code class="docutils literal notranslate"><span class="pre">()</span></code> を付けても付けなくてもいいデコレータはどう作る？</h1>
+</section>
+<section >
+<h2><code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> のような、 <code class="docutils literal notranslate"><span class="pre">()</span></code> を付けても付けなくてもいいデコレータはどう作る？</h2>
+<dl class="field-list simple">
+<dt class="field-odd">Event</dt>
+<dd class="field-odd"><p>Python駿河 勉強会 #28</p>
+</dd>
+<dt class="field-even">Presented</dt>
+<dd class="field-even"><p>2021/08/28 nikkie</p>
+</dd>
+</dl>
+</section>
+<section>
+<section >
+<h2>11月 #pycon_shizu 開催🎉 楽しみですね</h2>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">お久しぶりです。実行委員会です。<br>今年も PyCon mini Shizuoka 2021を開催することが決定しました🎉<br>開催日は 2021/11/20（土）です。</p>&mdash; PyCon Mini Shizuoka (@PyconShizu) <a href="https://twitter.com/PyconShizu/status/1430168021436231680?ref_src=twsrc%5Etfw">August 24, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+<section >
+<h3>お前、誰よ</h3>
+<ul class="simple">
+<li><p>Python大好き <strong>にっきー</strong> （<span class="raw-html"><i class="fab fa-twitter"></i></span> <a class="reference external" href="https://twitter.com/ftnext">&#64;ftnext</a> / <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext">&#64;ftnext</a>）</p></li>
+<li><p>Python歴3年半。株式会社ユーザベースのデータサイエンティスト（NLPer）</p></li>
+<li><p>アニメも大好き（🌟💫🐙💫🌟　🌲🌳🐲　2️⃣0️⃣0️⃣6️⃣♻️）</p></li>
+</ul>
+</section>
+<section >
+<h3>お前、誰よ：PyCon JP 2021 座長🇨🇭</h3>
+<iframe width="640" height="480" src="https://2021.pycon.jp/" title="PyCon JP 2021 Webサイト"></iframe></section>
+<section >
+<h3>PyCon JP 2021、チケット発売開始です！🎫🙏</h3>
+<p><a class="reference external" href="https://pyconjp.connpass.com/event/221241/">https://pyconjp.connpass.com/event/221241/</a></p>
+</section>
+</section>
+<section>
+<section >
+<h2>LT本題： <code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> のような、 <code class="docutils literal notranslate"><span class="pre">()</span></code> を付けても付けなくてもいいデコレータを作りたい</h2>
+</section>
+<section >
+<h3><a class="reference external" href="https://docs.python.org/ja/3/library/dataclasses.html#dataclasses.dataclass">ドキュメント</a> より、以下の3つは同等</h3>
+<pre><code data-trim data-noescape  class="python">
+&#64;dataclass  # ()を付けない
+class C:
+    ...
+
+&#64;dataclass()  # ()を付ける
+class C:
+    ...
+
+# デフォルトの値で各引数を指定
+&#64;dataclass(init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False)
+class C:
+    ...</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> のようなデコレータの要件</h3>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;decorator</span></code> と <code class="docutils literal notranslate"><span class="pre">&#64;decorator()</span></code> が <strong>同じ</strong></p></li>
+<li><p>その上で、 <strong>引数も渡せる</strong></p></li>
+</ol>
+</section>
+</section>
+<section>
+<section >
+<h2>そもそもデコレータとは</h2>
+<blockquote>
+<div><p>別の関数を返す関数で、通常、 &#64;wrapper 構文で関数変換として適用されます（ <a class="reference external" href="https://docs.python.org/ja/3/glossary.html#term-decorator">用語集</a> より）</p>
+</div></blockquote>
+<p>デコレータで関数呼び出しの前後に <strong>追加コード</strong> を実行できる</p>
+</section>
+<section >
+<h3>🚨 デコレータは関数とクラスに付けられる</h3>
+<ul class="simple">
+<li><p>今回 <code class="docutils literal notranslate"><span class="pre">()</span></code> を付けても付けなくてもいいデコレータを作りたかった</p></li>
+<li><p>そのデコレータは <strong>関数</strong> をデコレートするのに使う</p></li>
+<li><p>実装する上で、知っている範囲から <code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> を参考にした</p></li>
+</ul>
+</section>
+<section >
+<h3>デコレータの書き換え（イメージ）</h3>
+<p><code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> の3つの例について、 <em>だいたい等価</em> な書き方（ <a class="reference external" href="https://docs.python.org/ja/3/reference/compound_stmts.html#class">参考</a> ）</p>
+<pre><code data-trim data-noescape  class="python">
+&#64;dataclass  # C = dataclass(C)
+class C:
+    ...
+
+&#64;dataclass()  # C = dataclass()(C)
+class C:
+    ...
+
+# C = dataclass(init=True, ..., frozen=False)(C)
+&#64;dataclass(init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False)
+class C:
+    ...</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2><code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> はどう実現している？🔍</h2>
+<ul class="simple">
+<li><p>CPythonの実装を見てみます（v3.9.6 <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/python/cpython/blob/db3ff76da19004f266b62e98a81bdfd322861436/Lib/dataclasses.py#L998">Lib/dataclasses.py</a> ）</p></li>
+</ul>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def dataclass(cls=None, /, *, init=True, repr=True, eq=True, order=False,
+              unsafe_hash=False, frozen=False):
+
+    def wrap(cls):
+        return _process_class(cls, init, repr, eq, order, unsafe_hash, frozen)
+
+    if cls is None:
+        return wrap
+
+    return wrap(cls)</code></pre>
+</section>
+<section >
+<h3><code class="file docutils literal notranslate"><span class="pre">Lib/dataclasses.py</span></code> の <code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> の実装 1/4</h3>
+<pre><code data-trim data-noescape data-line-numbers="1,2" class="python">
+# 引数に **デフォルト値** が設定されている
+def dataclass(cls=None, /, *, init=True, repr=True, eq=True, order=False,
+              unsafe_hash=False, frozen=False):
+
+    def wrap(cls):
+        return _process_class(cls, init, repr, eq, order, unsafe_hash, frozen)
+
+    if cls is None:
+        return wrap
+
+    return wrap(cls)</code></pre>
+</section>
+<section >
+<h3><code class="file docutils literal notranslate"><span class="pre">Lib/dataclasses.py</span></code> の <code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> の実装 2/4</h3>
+<pre><code data-trim data-noescape data-line-numbers="5,6,7" class="python">
+def dataclass(cls=None, /, *, init=True, repr=True, eq=True, order=False,
+              unsafe_hash=False, frozen=False):
+
+    def wrap(cls):
+        # クロージャ：外側のスコープ(dataclass)の変数initなどを参照。
+        # 外側のスコープ(dataclass)の変数はデコレータの呼び出しで設定される
+        return _process_class(cls, init, repr, eq, order, unsafe_hash, frozen)
+
+    if cls is None:
+        return wrap
+
+    return wrap(cls)</code></pre>
+</section>
+<section >
+<h3><code class="file docutils literal notranslate"><span class="pre">Lib/dataclasses.py</span></code> の <code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> の実装 3/4</h3>
+<pre><code data-trim data-noescape data-line-numbers="7,8,9,10" class="python">
+def dataclass(cls=None, /, *, init=True, repr=True, eq=True, order=False,
+              unsafe_hash=False, frozen=False):
+
+    def wrap(cls):
+        return _process_class(cls, init, repr, eq, order, unsafe_hash, frozen)
+
+    # &#64;dataclass() や &#64;dataclass(frozen=True) では cls is None
+    if cls is None:
+        # C = dataclass()(C) 👉 C = wrap(C)
+        return wrap
+
+    return wrap(cls)</code></pre>
+</section>
+<section >
+<h3><code class="file docutils literal notranslate"><span class="pre">Lib/dataclasses.py</span></code> の <code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> の実装 4/4</h3>
+<pre><code data-trim data-noescape data-line-numbers="10,11,12" class="python">
+def dataclass(cls=None, /, *, init=True, repr=True, eq=True, order=False,
+              unsafe_hash=False, frozen=False):
+
+    def wrap(cls):
+        return _process_class(cls, init, repr, eq, order, unsafe_hash, frozen)
+
+    if cls is None:
+        return wrap
+
+    # &#64;dataclass では cls は、デコレータに続いて定義されるクラスを指す
+    # C = dataclass(C) 👉 C = wrap(C) となっている
+    return wrap(cls)</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2><code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> を参考に実装したデコレータ <code class="docutils literal notranslate"><span class="pre">&#64;using_firefox</span></code></h2>
+<p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/connpass-ops-playbook/blob/fed230ef2efbd5b1c0bf03ec18da27403f75f960/examples/copy_existing_event.py">copy_existing_event.py</a></p>
+<pre><code data-trim data-noescape data-line-numbers="1" class="python">
+&#64;using_firefox
+&#64;logged_in
+def show_copy_popup(url):
+    copy_existing_event(url, human_confirms=True)</code></pre>
+</section>
+<section >
+<h3><a class="reference external" href="https://github.com/mherrmann/selenium-python-helium">Helium</a>！</h3>
+<ul class="simple">
+<li><p><strong>ブラウザ操作</strong> ライブラリ（2600 star）</p></li>
+<li><p>Seleniumのラッパーで、 <strong>非常に簡単</strong> に書ける！💫</p></li>
+<li><p>詳しくは <a class="reference external" href="https://pyconjp.connpass.com/event/218154/">9/11(土) #pycharity</a> のLTで共有します</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">&#64;using_firefox</span></code></h3>
+<ul class="simple">
+<li><p>ブラウザ（Firefox）を起動する処理 <code class="docutils literal notranslate"><span class="pre">helium.start_firefox</span></code> は必ず呼ぶ</p></li>
+<li><p>デコレータで実装することで、 <strong>関数呼び出しの前に必ず追加</strong> できる！🤩</p></li>
+<li><p>さらに <code class="docutils literal notranslate"><span class="pre">&#64;using_chrome</span></code> とデコレータを変えたら起動するブラウザも変わる実装🆒</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">&#64;using_firefox(options=...)</span></code></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">helium.start_firefox</span></code> に <code class="docutils literal notranslate"><span class="pre">selenium.webdriver.FirefoxOptions</span></code> を渡したい</p>
+<ul>
+<li><p>例：ダウンロードのポップアップを出さないようにFirefoxを設定する</p></li>
+</ul>
+</li>
+<li><p><strong>1つのデコレータ</strong> <code class="docutils literal notranslate"><span class="pre">&#64;using_firefox</span></code> で実現したく今回取り組んだ</p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">&#64;using_firefox(options=...)</span></code> の例</h3>
+<p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/connpass-ops-playbook/blob/fed230ef2efbd5b1c0bf03ec18da27403f75f960/examples/download_participants_csv.py">download_participants_csv.py</a></p>
+<pre><code data-trim data-noescape data-line-numbers="1" class="python">
+&#64;using_firefox(options=options)
+&#64;logged_in
+def download(url):
+    download_latest_participants_csv(url)</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> にならって実装</h3>
+<pre><code data-trim data-noescape data-line-numbers="5" class="python">
+def using_firefox(func=None, /, *, options=None):
+    def middle(func):
+        &#64;wraps(func)
+        def wrapper(*args, **kwargs):
+            start_firefox(options=options)  # 関数呼び出し前に追加したかった！
+            func(*args, **kwargs)
+
+        return wrapper
+
+    if func is None:
+        return middle
+
+    return middle(func)</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">&#64;using_firefox()</span></code> でデコレートしたとき（ <code class="docutils literal notranslate"><span class="pre">()</span></code> を付けて）</h3>
+<pre><code data-trim data-noescape data-line-numbers="4,5,6" class="python">
+def using_firefox(func=None, /, *, options=None):
+    # middle の定義は省略
+
+    if func is None:
+        # f = using_firefox()(f) 👉 f = middle(f)
+        return middle
+
+    return middle(func)</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">&#64;using_firefox</span></code> でデコレートしたとき（ <code class="docutils literal notranslate"><span class="pre">()</span></code> を付けないで）</h3>
+<pre><code data-trim data-noescape data-line-numbers="7,8" class="python">
+def using_firefox(func=None, /, *, options=None):
+    # middle の定義は省略
+
+    if func is None:
+        return middle
+
+    # f = using_firefox(f) 👉 f = middle(f)
+    return middle(func)</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2>まとめ🌯： <code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> のような、 <code class="docutils literal notranslate"><span class="pre">()</span></code> を付けても付けなくてもいいデコレータはどう作る？</h2>
+</section>
+<section >
+<h3>PyCon JP 2021 チケットお願いします🐦🍕🙏</h3>
+<p><a class="reference external" href="https://pyconjp.connpass.com/event/221241/">https://pyconjp.connpass.com/event/221241/</a></p>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">()</span></code> を付けても付けなくてもいいデコレータの作り方</h3>
+<ul class="simple">
+<li><p>第1引数 <code class="docutils literal notranslate"><span class="pre">func</span></code> / <code class="docutils literal notranslate"><span class="pre">cls</span></code> の <strong>デフォルト値</strong> を <code class="docutils literal notranslate"><span class="pre">None</span></code> にする</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">func</span></code> / <code class="docutils literal notranslate"><span class="pre">cls</span></code> の値で <strong>分岐</strong></p></li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">()</span></code> を付けても付けなくてもいいデコレータの作り方（承前）</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">func</span></code> / <code class="docutils literal notranslate"><span class="pre">cls</span></code> の値で分岐</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> なら、クラス/関数を引数に受け取る <strong>関数</strong> を返す（ <code class="docutils literal notranslate"><span class="pre">()</span></code> 付きに対応）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> でないなら、クラス/関数を引数に受け取る関数に <code class="docutils literal notranslate"><span class="pre">func</span></code> / <code class="docutils literal notranslate"><span class="pre">cls</span></code> を渡した <strong>返り値</strong> を返す（ <code class="docutils literal notranslate"><span class="pre">()</span></code> なしに対応）</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>クラス/関数を引数に受け取る関数</h3>
+<ul class="simple">
+<li><p>実装には <strong>クロージャ</strong> を利用</p></li>
+<li><p>この関数の中で、 <strong>デコレータの引数を参照</strong> して実装する</p></li>
+<li><p>クロージャ： <em>functions that refer to variables from the scope in which they were defined</em> （『Effective Python second edition』Item 21 p.84）</p></li>
+</ul>
+</section>
+<section >
+<h3>ご清聴ありがとうございました</h3>
+<p><strong>Enjoy</strong> development with decorators!</p>
+<p>References、 <strong>Appendix</strong> が続きます（よろしければどうぞ！）</p>
+</section>
+</section>
+<section >
+<h2>References：直近のデコレータ関連アウトプット⚡️</h2>
+<iframe width="800" height="480" src="https://ftnext.github.io/2021_slides/rakus_Aug_pythontips/about_decorators.html" title="デコレータについて（ラクス Python tips LT）"></iframe></section>
+<section >
+<h2>Appendix</h2>
+<ul class="simple">
+<li><p>位置専用・キーワード専用引数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> のようなデコレータの別の例</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">print</span></code> を仕込んで <code class="docutils literal notranslate"><span class="pre">decorator()(f)</span></code> 呼び出し順を確認</p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2>位置専用・キーワード専用引数</h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">using_firefox(func=None,</span> <span class="pre">/,</span> <span class="pre">*,</span> <span class="pre">options=None):</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">func</span></code> は <strong>位置専用</strong> 引数（🙅‍♂️ <code class="docutils literal notranslate"><span class="pre">using_firefox(func=f)</span></code>）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">options</span></code> は <strong>キーワード専用</strong> 。 <code class="docutils literal notranslate"><span class="pre">options=...</span></code> と指定する必要がある（位置引数として指定できない 🙅‍♂️ <code class="docutils literal notranslate"><span class="pre">using_firefox(func,</span> <span class="pre">options)</span></code>）</p></li>
+</ul>
+</section>
+<section >
+<h3>位置専用引数 in Pythonチュートリアル</h3>
+<blockquote>
+<div><p><em>位置専用</em> の場合、引数の順序が重要であり、キーワードで引数を渡せません。 位置専用引数は <code class="docutils literal notranslate"><span class="pre">/</span></code> （スラッシュ）の前に配置されます。</p>
+</div></blockquote>
+<p><a class="reference external" href="https://docs.python.org/ja/3/tutorial/controlflow.html#positional-only-parameters">https://docs.python.org/ja/3/tutorial/controlflow.html#positional-only-parameters</a></p>
+</section>
+<section >
+<h3>キーワード専用引数 in Pythonチュートリアル</h3>
+<blockquote>
+<div><p>引数をキーワード引数で渡す必要があることを示す <em>キーワード専用</em> として引数をマークするには、引数リストの最初の <em>キーワード専用</em> 引数の直前に <code class="docutils literal notranslate"><span class="pre">*</span></code> を配置します。</p>
+</div></blockquote>
+<p><a class="reference external" href="https://docs.python.org/ja/3/tutorial/controlflow.html#keyword-only-arguments">https://docs.python.org/ja/3/tutorial/controlflow.html#keyword-only-arguments</a></p>
+</section>
+</section>
+<section>
+<section >
+<h2><code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> のようなデコレータの別の例</h2>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def once_per_minutes(func=None, /, *, n=1):
+    def middle(func):
+        last_ran_at = 0
+
+        &#64;wraps(func)
+        def wrapper(*args, **kwargs):
+            nonlocal last_ran_at
+            current_time = time.time()
+            if current_time - last_ran_at &lt; n * 60:
+                raise RunTooOftenError(
+                    f&quot;Wait longer before running {func.__name__}&quot;
+                )
+            last_ran_at = current_time
+            value = func(*args, **kwargs)
+            return value
+
+        return wrapper
+
+    if func is None:
+        return middle
+
+    return middle(func)
+</code></pre>
+</section>
+<section >
+<h3>別の例のコンテキスト</h3>
+<ul class="simple">
+<li><p>引数を取るデコレータの例：呼び出しはN分に1回（詳しくはReferencesのスライドをどうぞ）</p></li>
+<li><p>今回の内容をもとに、 <strong>引数を取らない使い方もできる</strong> ように拡張した</p></li>
+</ul>
+</section>
+<section >
+<h3>別の例を実行</h3>
+<aside class="notes">
+doctest を通す（デコレータは除いた実装）
+&gt;&gt;&gt; def calculate_bmi(height_m, weight_kg):
+...     return weight_kg / height_m / height_m
+&gt;&gt;&gt; calculate_bmi1 = calculate_bmi2 = calculate_bmi3 = calculate_bmi</aside>
+<p>実行環境 Python 3.9.4</p>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; calculate_bmi1(1.58, 46)
+18.426534209261334
+&gt;&gt;&gt; # calculate_bmi1(1.58, 46)  # Raise RunTooOftenError
+&gt;&gt;&gt; calculate_bmi2(1.58, 46)
+18.426534209261334
+&gt;&gt;&gt; # calculate_bmi2(1.58, 46)  # Raise RunTooOftenError
+&gt;&gt;&gt; calculate_bmi3(1.58, 46)
+18.426534209261334
+&gt;&gt;&gt; calculate_bmi3(1.58, 46)
+18.426534209261334</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2><code class="docutils literal notranslate"><span class="pre">print</span></code> を仕込んで <code class="docutils literal notranslate"><span class="pre">decorator()(f)</span></code> 呼び出し順を確認</h2>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def decorator(func=None, /, *, n=1):
+    print(f&quot;decorator start: {func=} {n=}&quot;)
+
+    def middle(func):
+        print(&quot;middle start&quot;)
+
+        def wrapper(*args, **kwargs):
+            print(f&quot;wrapper start: {args=}, {kwargs=}&quot;)
+            func(*args, **kwargs)
+            print(&quot;wrapper end&quot;)
+
+        print(&quot;middle end&quot;)
+        return wrapper
+
+    print(&quot;decorator end&quot;)
+    if func is None:
+        return middle
+
+    return middle(func)
+</code></pre>
+</section>
+<section >
+<h3>(1) <code class="docutils literal notranslate"><span class="pre">()</span></code> なしでデコレート</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; &#64;decorator  
+... def f1(): ...
+...
+decorator start: func=&lt;function f1 at 0x1092a9a60&gt; n=1  # funcにf1が渡っている
+decorator end
+middle start  # middle(func) を返したことによる実行
+middle end</code></pre>
+</section>
+<section >
+<h3>(2) <code class="docutils literal notranslate"><span class="pre">()</span></code> を付け、デフォルト値でデコレート</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; &#64;decorator()  
+... def f2(): ...
+...
+decorator start: func=None n=1
+decorator end
+middle start  # f2 = middle(f2) 部分
+middle end</code></pre>
+</section>
+<section >
+<h3>寄り道： <code class="docutils literal notranslate"><span class="pre">middle</span></code> が返っている 1/2</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; decorator()  
+decorator start: func=None n=1
+decorator end
+&lt;function decorator.&lt;locals&gt;.middle at 0x1092ba280&gt;  # decorator() の返り値</code></pre>
+</section>
+<section >
+<h3>寄り道： <code class="docutils literal notranslate"><span class="pre">middle</span></code> が返っている 2/2</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; def f(): ...
+...
+&gt;&gt;&gt; decorator()(f)  
+decorator start: func=None n=1
+decorator end
+middle start
+middle end
+&lt;function decorator.&lt;locals&gt;.middle.&lt;locals&gt;.wrapper at 0x1092ba430&gt;
+&gt;&gt;&gt; f2  # decorator()(f) と同様に wrapper  
+&lt;function decorator.&lt;locals&gt;.middle.&lt;locals&gt;.wrapper at 0x1092ba550&gt;</code></pre>
+</section>
+<section >
+<h3>(3) <code class="docutils literal notranslate"><span class="pre">()</span></code> を付け、値も指定してデコレート</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; &#64;decorator(n=3)  
+... def f3(): ...
+...
+decorator start: func=None n=3  # nは渡した値
+decorator end
+middle start
+middle end</code></pre>
+</section>
+</section>
+<section >
+<h2><code class="docutils literal notranslate"><span class="pre">print</span></code> で確認した呼び出し順</h2>
+<ul class="simple">
+<li><p>(1)~(3)の3例とも <strong>出力されるメッセージは同様</strong></p></li>
+<li><p>つまり <code class="docutils literal notranslate"><span class="pre">()</span></code> の有無によらず、関数がデコレートされている</p></li>
+<li><p>分岐の実装により <code class="docutils literal notranslate"><span class="pre">()</span></code> の有無によらず、関数がデコレートされる</p></li>
+</ul>
+</section>
+<section >
+<h2>EOF</h2>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../reveal.js/dist/reveal.js"></script>
+    
+    
+      <script src="../reveal.js/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: "none",
+        slideNumber: "c/t",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>
