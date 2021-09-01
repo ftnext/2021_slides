@@ -8,7 +8,7 @@
 :Event: ラクス 情報収集ハック 超LT会 - vol.4
 :Presented: 2021/09/01 nikkie
 
-「ういっすういっすういっすー!」🐙
+「ういっすういっすういっすー!」✌️✌️✌️🐙
 ========================================================================================================================
 
 🖐引かないでください、ただの挨拶です
@@ -21,7 +21,7 @@
 * Python Conference JP 2021 座長🇨🇭
 * アニメも大好き（🌟💫🐙💫🌟　🌲🌳🐲　2️⃣0️⃣0️⃣6️⃣♻️）
 
-10/15(金),16(土)開催 **Py** thon **Con** ference JP 2021 チケット、よろしくお願いします🎫🙏
+10/15(金),16(土)開催 **Py** thon **Con** ference **JP 2021** チケット、よろしくお願いします🎫🙏
 ------------------------------------------------------------------------------------------------
 
 https://pyconjp.connpass.com/event/221241/
@@ -36,7 +36,7 @@ https://rakus.connpass.com/event/220541/ （強調は引用者による）
 nikkieからのtips：メルマガ📧
 ------------------------------------------------
 
-登壇者募集のメッセージに「メルマガのすすめ」が予定されているのを見つけ、エントリーしました
+登壇者募集のメッセージの中に「メルマガのすすめが予定されている」と見て、「我も！」とエントリーしました
 
 ヨーダからのメルマガ： `Better developers <https://sparklp.co/66b46acc>`_
 ========================================================================================================================
@@ -54,38 +54,53 @@ nikkieからのtips：メルマガ📧
 * 週一（月曜）発行
 * 毎週というよりかは、自分のペースで読んでます
 
-書いてるの、誰よ？
+書いてるの、誰よ？ - Reuvenさん（一番右）
 ========================================================================================================================
-
-* Reuven Lernerさん
-* Python trainer
-* :raw-html:`<i class="fab fa-twitter"></i>` `@reuvenmlerner <https://twitter.com/reuvenmlerner>`_
-
-勝手にヨーダ（師）
-------------------------------------------------------------------------------------------------
-
-* PyCon Africa 2020のジェネレータのトークが、知的興奮の連続で素晴らしかった！
-* 以来、nikkieは一方的に **Pythonのヨーダ** と思っていて、メルマガも購読
-* ヨーダは『SOFT SKILLS』から（Appendixへ）
-
-ReuvenさんはPythonのツボを教えてくれます
-------------------------------------------------------------------------------------------------
 
 .. raw:: html
 
     <iframe width="560" height="315" src="https://www.youtube.com/embed/Ly3ZUDqAsL8?start=126" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+Reuvenさん
+------------------------------------------------------------------------------------------------
+
+* Reuven Lernerさん :raw-html:`<i class="fab fa-twitter"></i>` `@reuvenmlerner <https://twitter.com/reuvenmlerner>`_
+* Python **trainer**
+* 各地のPython Conferenceで登壇多数
+
+Generators, coroutines, and nanoservices (PyCon Africa 2020)
+------------------------------------------------------------------------------------------------
+
+.. raw:: html
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/tkoaeVS2zRQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+勝手にヨーダ（師）
+------------------------------------------------------------------------------------------------
+
+* ジェネレータのトークが素晴らしかった！👏
+* 以来、nikkieは一方的に **Pythonのヨーダ** と思っていて、メルマガも購読
+* ヨーダは『SOFT SKILLS』から（Appendixへ）
+
 `Better developers <https://sparklp.co/66b46acc>`_ から
 ========================================================================================================================
 
-* Descriptors の回は、気づき満載でした（こんなものがあるのか！）
-* 最近（積ん読消化中）： ``threading`` -> ``multiprocessing``
+Descriptors, Python's general-purpose properties
+------------------------------------------------------------------------------------------------
 
-まとめ🌯：ヨーダからのメルマガ
+* 2021年3月の連載
+* Descriptors、こんなものがあるのか！
+
+``threading`` / ``multiprocessing``
+------------------------------------------------------------------------------------------------
+
+* 2021年5〜7月の連載
+* 積ん読消化中です💦（やっていき！）
+
+まとめ🌯：ヨーダからのメルマガ 📧 `Better developers <https://sparklp.co/66b46acc>`_ （特にPython使いに）
 ========================================================================================================================
 
-* Python使いに響くのでは？ メルマガ📧 `Better developers <https://sparklp.co/66b46acc>`_ を紹介
-* Reuvenさんのトークのアーカイブもおすすめです（Appendixへ）
+Reuvenさんのトークのアーカイブもおすすめです（Appendixへ）
 
 PyCon JP 2021 チケットもよろしければ！🐦🍕🙏
 ------------------------------------------------
@@ -122,7 +137,7 @@ Appendix（1分に収まらなかったもの）
 おすすめのReuvenさんのトーク
 ============================================================
 
-Generators, coroutines, and nanoservices (PyCon Africa 2020)
+再掲：Generators, coroutines, and nanoservices (PyCon Africa 2020)
 ------------------------------------------------------------------------------------------------
 
 .. raw:: html
