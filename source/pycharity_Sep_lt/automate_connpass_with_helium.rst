@@ -28,19 +28,19 @@
 週に数回connpassのイベントを作る **PyCon JP** スタッフは、Heliumを使って自動化しました
 ========================================================================================================================
 
-``import PythonConference as PyCon``
+``import PythonConference as`` **PyCon**
 ------------------------------------------------
 
 Pythonについてのカンファレンス（国際会議）
 
-10/15(金), 16(土) 開催です！
+**10/15(金), 16(土)** 開催です！
 ------------------------------------------------
 
 .. raw:: html
 
     <iframe width="640" height="480" src="https://2021.pycon.jp/" title="PyCon JP 2021 Webサイト"></iframe>
 
-PyCon JP 2021 チケット発売中！🎫
+PyCon JP 2021 **チケット発売中** ！🎫
 ------------------------------------------------
 
 * https://pyconjp.connpass.com/event/221241/ （申込250名(50%)超え🎉）
@@ -56,7 +56,7 @@ PyCon JP 2021では現在（ ``@skip`` ）
 週に数回 **connpass** のイベントを作るPyCon JPスタッフは、Heliumを使って自動化しました
 ========================================================================================================================
 
-お世話になっております🙇‍♂️
+いつもお世話になっております🙇‍♂️
 ------------------------------------------------
 
 .. figure:: ../_static/pycharity_Sep_lt/202109_connpass_first_view.png
@@ -67,6 +67,7 @@ PyCon JP 2021では現在（ ``@skip`` ）
 ------------------------------------------------
 
 .. figure:: ../_static/pycharity_Sep_lt/202109_pycharity_connpass.png
+    :scale: 50
 
     https://pyconjp.connpass.com/event/218154/
 
@@ -81,6 +82,7 @@ PyCon JP スタッフとconnpass
 ------------------------------------------------
 
 .. figure:: ../_static/pycharity_Sep_lt/202109_recent_staff_mtg.png
+    :scale: 50
 
     https://pyconjp-staff.connpass.com/event/224823/
 
@@ -91,6 +93,7 @@ nikkieのconnpassカレンダー
 ------------------------------------------------
 
 .. figure:: ../_static/pycharity_Sep_lt/202109_nikkie_connpass_calendar_August.png
+    :scale: 50
 
     週に2つはPyCon JP 2021ロゴ🐍がありますね
 
@@ -163,15 +166,15 @@ Helium
     :linenos:
 
     from helium import *
-    start_chrome("google.com")
+    start_chrome("google.com")  # 1. Chrome立ち上げ、「helium」についてGoogle検索
     write("helium selenium github")
     press(ENTER)
-    click("mherrmann/helium")
-    go_to("github.com/login")
+    click("mherrmann/helium")  # 検索結果の中からクリック
+    go_to("github.com/login")  # 2. 別の例：GitHubにログイン
     write("username", into="Username")
     write("password", into="Password")
     click("Sign in")
-    kill_browser()
+    kill_browser()  # Chrome終了
 
 https://github.com/mherrmann/selenium-python-helium/blob/master/docs/cheatsheet.md
 
@@ -182,7 +185,7 @@ https://github.com/mherrmann/selenium-python-helium/blob/master/docs/cheatsheet.
 ------------------------------------------------
 
 * ブラウザのシークレットウィンドウ立ち上げ
-* スタッフ共通アカウントを確認し、ログイン（これが毎回面倒でした）
+* スタッフ共通アカウントを確認し、ログイン（👈これが毎回面倒でした）
 * 既存のイベントの「コピーを作成」
 
 デモの時間です！ 🤖「見てもらおうか」
@@ -283,6 +286,12 @@ PyCon JP 2021スタッフが開催したイベントの集計
 
 * https://pyconjp-staff.connpass.com/event/ から2021年のイベントをスクレイピング
 * イベントのタイトルと開催日を中間ファイルに保存し、 **開催月** で集計
+
+集計ソースコード
+------------------------------------------------
+
+* :raw-html:`<i class="fab fa-github"></i>` `samplecode/pycharity <https://github.com/ftnext/2021_slides/tree/1afdde62270c69be94f67793809e4327db0e58ca/samplecode/pycharity>`_
+* ダウンロードまたはcloneし、仮想環境を有効にしてから ``make all`` で動くと思います
 
 robots.txtを守って楽しくスクレイピング！
 ------------------------------------------------
