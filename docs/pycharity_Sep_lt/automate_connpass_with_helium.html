@@ -1,0 +1,382 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>週に数回connpassのイベントを作るPyCon JPスタッフは、Heliumを使って自動化しました</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="../reveal.js/dist/theme/black.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/plugin/highlight/zenburn.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/Font-Awesome/css/all.min.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ftnext">
+    <meta property="og:url" content="https://ftnext.github.io/2021_slides/pycharity_Sep_lt/automate_connpass_with_helium.html">
+    <meta property="og:title" content="週に数回connpassのイベントを作るPyCon JPスタッフは、Heliumを使って自動化しました">
+    <meta property="og:description" content="2021/09 Python Charity Talks in Japan LT">
+    <meta property="og:image" content="https://ftnext.github.io/2021_slides/_images/ogps/pycharity_Sep_lt.png">
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides">
+            <section >
+<h1>週に数回connpassのイベントを作るPyCon JPスタッフは、Heliumを使って自動化しました</h1>
+</section>
+<section >
+<h2>週に数回connpassのイベントを作るPyCon JPスタッフは、Heliumを使って自動化しました</h2>
+<dl class="field-list simple">
+<dt class="field-odd">Event</dt>
+<dd class="field-odd"><p>Python Charity Talks in Japan</p>
+</dd>
+<dt class="field-even">Presented</dt>
+<dd class="field-even"><p>2021/09/11 nikkie</p>
+</dd>
+</dl>
+</section>
+<section>
+<section >
+<h2>お前、誰よ</h2>
+<ul class="simple">
+<li><p>Python大好き <strong>にっきー</strong> （<span class="raw-html"><i class="fab fa-twitter"></i></span> <a class="reference external" href="https://twitter.com/ftnext">&#64;ftnext</a> / <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext">&#64;ftnext</a>）</p></li>
+<li><p>PyCon JP 2021 座長🇨🇭</p></li>
+<li><p>アニメも大好き。最近好きな挨拶「うぃっす✌️」🐙</p></li>
+</ul>
+</section>
+<section >
+<h3>お前、誰よ（ <code class="docutils literal notranslate"><span class="pre">&#64;skip</span></code> ）</h3>
+<ul class="simple">
+<li><p>Python歴もうじき4年。株式会社ユーザベースのデータサイエンティスト（NLPer）</p></li>
+<li><p><a class="reference external" href="https://startpython.connpass.com/">Start Python Club（みんなのPython勉強会）</a> 4代目LT王子、スタッフ</p></li>
+<li><p>最近エモかったPEP：Inadaさんによる <a class="reference external" href="https://www.python.org/dev/peps/pep-0597/">PEP597</a></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>週に数回connpassのイベントを作る <strong>PyCon JP</strong> スタッフは、Heliumを使って自動化しました</h2>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">PythonConference</span> <span class="pre">as</span></code> <strong>PyCon</strong></h3>
+<p>Pythonについてのカンファレンス（国際会議）</p>
+</section>
+<section >
+<h3><strong>10/15(金), 16(土)</strong> 開催です！</h3>
+<iframe width="640" height="480" src="https://2021.pycon.jp/" title="PyCon JP 2021 Webサイト"></iframe></section>
+<section >
+<h3>PyCon JP 2021 <strong>チケット発売中</strong> ！🎫</h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pyconjp.connpass.com/event/221241/">https://pyconjp.connpass.com/event/221241/</a> （申込250名(50%)超え🎉）</p></li>
+<li><p>早期購入特典🍕、まだ間に合う！🇲🇬</p></li>
+</ul>
+</section>
+<section >
+<h3>PyCon JP 2021では現在（ <code class="docutils literal notranslate"><span class="pre">&#64;skip</span></code> ）</h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pyconjp.blogspot.com/2021/09/closed-sponsor-application.html">9/17(金)まで</a> 、 <a class="reference external" href="https://pyconjp.blogspot.com/2021/06/pycon-jp-2021-2notice-of-start-of.html">スポンサー募集中</a></p></li>
+<li><p><a class="reference external" href="https://pyconjp.blogspot.com/2021/09/pyconjp-2021-support-staff.html">9月末まで、サポートスタッフを募集中</a> Help, please!🙏</p></li>
+<li><p><span class="raw-html"><i class="fab fa-twitter"></i></span> <a class="reference external" href="https://twitter.com/pyconjapan">&#64;pyconjapan</a> や <a class="reference external" href="https://pyconjp.blogspot.com/search/label/pyconjp2021">PyCon JP Blog</a> で発信しています。フォローしてもらえると嬉しいです😃</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>週に数回 <strong>connpass</strong> のイベントを作るPyCon JPスタッフは、Heliumを使って自動化しました</h2>
+</section>
+<section >
+<h3>いつもお世話になっております🙇‍♂️</h3>
+<div class="figure align-default" id="id29">
+<img alt="../_images/202109_connpass_first_view.png" src="../_images/202109_connpass_first_view.png" />
+<p class="caption"><span class="caption-text"><a class="reference external" href="https://connpass.com/">https://connpass.com/</a></span></p>
+</div>
+</section>
+<section >
+<h3>今日申し込んだ方は利用済み✅</h3>
+<div class="figure align-default" id="id30">
+<a class="reference internal image-reference" href="../_images/202109_pycharity_connpass.png"><img alt="../_images/202109_pycharity_connpass.png" src="../_images/202109_pycharity_connpass.png" style="width: 750.0px; height: 429.0px;" /></a>
+<p class="caption"><span class="caption-text"><a class="reference external" href="https://pyconjp.connpass.com/event/218154/">https://pyconjp.connpass.com/event/218154/</a></span></p>
+</div>
+</section>
+<section >
+<h3>PyCon JP スタッフとconnpass</h3>
+<blockquote>
+<div><p>スタッフmtgの参加者管理に利用</p>
+</div></blockquote>
+<p><a class="reference external" href="https://pyconjp.atlassian.net/wiki/spaces/pyconjp/pages/1019150497/connpass">PyCon JP スタッフナレッジベース connpassの項</a> より</p>
+</section>
+<section >
+<h3>スタッフmtgの例</h3>
+<div class="figure align-default" id="id31">
+<a class="reference internal image-reference" href="../_images/202109_recent_staff_mtg.png"><img alt="../_images/202109_recent_staff_mtg.png" src="../_images/202109_recent_staff_mtg.png" style="width: 741.0px; height: 393.0px;" /></a>
+<p class="caption"><span class="caption-text"><a class="reference external" href="https://pyconjp-staff.connpass.com/event/224823/">https://pyconjp-staff.connpass.com/event/224823/</a></span></p>
+</div>
+</section>
+</section>
+<section>
+<section >
+<h2><strong>週に数回</strong> connpassのイベントを作るPyCon JPスタッフは、Heliumを使って自動化しました</h2>
+</section>
+<section >
+<h3>nikkieのconnpassカレンダー</h3>
+<div class="figure align-default" id="id32">
+<a class="reference internal image-reference" href="../_images/202109_nikkie_connpass_calendar_August.png"><img alt="../_images/202109_nikkie_connpass_calendar_August.png" src="../_images/202109_nikkie_connpass_calendar_August.png" style="width: 401.0px; height: 389.0px;" /></a>
+<p class="caption"><span class="caption-text">週に2つはPyCon JP 2021ロゴ🐍がありますね</span></p>
+</div>
+</section>
+<section >
+<h3>この機に集計：半年間、週2回以上</h3>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<canvas id="myChart" width="800" height="600"></canvas>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+Chart.defaults.color = '#CCC';
+Chart.defaults.font.size = 16;
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月'],
+        datasets: [{
+            label: '# of connpass events',
+            data: [4, 3, 11, 9, 9, 11, 15, 20],
+            backgroundColor: [
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(201, 203, 207, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 159, 64, 1)',
+                'rgba(201, 203, 207, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        responsive: false
+    }
+});
+</script></section>
+</section>
+<section>
+<section >
+<h2>週に数回connpassのイベントを作るPyCon JPスタッフは、 <strong>Helium</strong> を使って自動化しました</h2>
+</section>
+<section >
+<h3>Helium</h3>
+<ul class="simple">
+<li><p><strong>ブラウザ操作自動化</strong> ライブラリ</p></li>
+<li><p>Seleniumのラッパーで、 非常に簡単に書ける！💫（次へ⏬）</p></li>
+<li><p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/mherrmann/selenium-python-helium">https://github.com/mherrmann/selenium-python-helium</a> (2600 star)</p></li>
+</ul>
+</section>
+<section >
+<h3>こんなに簡単です🍰</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+from helium import *
+start_chrome(&quot;google.com&quot;)  # 1. Chrome立ち上げ、「helium」についてGoogle検索
+write(&quot;helium selenium github&quot;)
+press(ENTER)
+click(&quot;mherrmann/helium&quot;)  # 検索結果の中からクリック
+go_to(&quot;github.com/login&quot;)  # 2. 別の例：GitHubにログイン
+write(&quot;username&quot;, into=&quot;Username&quot;)
+write(&quot;password&quot;, into=&quot;Password&quot;)
+click(&quot;Sign in&quot;)
+kill_browser()  # Chrome終了</code></pre>
+<p><a class="reference external" href="https://github.com/mherrmann/selenium-python-helium/blob/master/docs/cheatsheet.md">https://github.com/mherrmann/selenium-python-helium/blob/master/docs/cheatsheet.md</a></p>
+</section>
+</section>
+<section>
+<section >
+<h2>週に数回connpassのイベントを作るPyCon JPスタッフは、Heliumを使って <strong>自動化しました</strong></h2>
+</section>
+<section >
+<h3>単調な作業の繰り返し😫</h3>
+<ul class="simple">
+<li><p>ブラウザのシークレットウィンドウ立ち上げ</p></li>
+<li><p>スタッフ共通アカウントを確認し、ログイン（👈これが毎回面倒でした）</p></li>
+<li><p>既存のイベントの「コピーを作成」</p></li>
+</ul>
+</section>
+<section >
+<h3>デモの時間です！ 🤖「見てもらおうか」</h3>
+</section>
+<section >
+<h3>connpassのイベント作成を自動化🙌</h3>
+<ol class="arabic simple">
+<li><p>スタッフ共通アカウントでconnpassにログイン</p></li>
+<li><p>指定した既存のイベントの「コピーを作成」押下（確認ポップアップを出す）</p></li>
+</ol>
+<p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/connpass-ops-playbook/blob/fed230ef2efbd5b1c0bf03ec18da27403f75f960/examples/copy_existing_event.py">copy_existing_event.py</a></p>
+</section>
+</section>
+<section>
+<section >
+<h2>まとめ🌯：週に数回connpassのイベントを作るPyCon JPスタッフは、Heliumを使って自動化しました</h2>
+</section>
+<section >
+<h3>PyCon JP 2021 チケットお願いします🐦🍕🙏</h3>
+<p><a class="reference external" href="https://pyconjp.connpass.com/event/221241/">https://pyconjp.connpass.com/event/221241/</a></p>
+</section>
+<section >
+<h3>週2くらいでconnpassイベントを作る方へ</h3>
+<ul class="simple">
+<li><p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/connpass-ops-playbook">https://github.com/ftnext/connpass-ops-playbook</a></p></li>
+<li><p>「指定したイベントのコピー」「参加者情報CSVのダウンロード」現在サポート</p></li>
+<li><p>詳しくはAppendixへ</p></li>
+</ul>
+</section>
+<section >
+<h3>pycharity の後は <strong>pyconjp</strong> で！</h3>
+<p>その後に <a class="reference external" href="https://shizuoka.pycon.jp/2021">pycon_shizu</a> や <a class="reference external" href="https://kyushu.pycon.jp/2022/">pyconk</a> もありますね😊</p>
+</section>
+<section >
+<h3>🎫🙏🐦🍕</h3>
+<p>ご清聴ありがとうございました</p>
+<p><strong>Appendix</strong> が続きます（よろしければどうぞ！）</p>
+</section>
+</section>
+<section >
+<h2>Appendix</h2>
+<ul class="simple">
+<li><p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/connpass-ops-playbook">connpass-ops-playbook</a></p></li>
+<li><p>Heliumチートシート</p></li>
+<li><p>PyCon JP 2021スタッフが開催したイベントの集計</p></li>
+<li><p>Future Works</p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/connpass-ops-playbook">connpass-ops-playbook</a></h2>
+<ul class="simple">
+<li><p>もともと <a class="reference external" href="https://github.com/ftnext/python-as-pyconjp-staff/tree/master/mtg_secretary/connpass">https://github.com/ftnext/python-as-pyconjp-staff/tree/master/mtg_secretary/connpass</a> で自動化していた</p></li>
+<li><p><strong>今回のLTを機に</strong> 共通化できる部分を切り出した（パッケージ化したい）</p></li>
+<li><p>スクリプトの見た目かっこよくしたくて、connpass-ops-playbook作成（開発中！）</p></li>
+</ul>
+</section>
+<section ><blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/pyhack?src=hash&amp;ref_src=twsrc%5Etfw">#pyhack</a> の成果物はこんな感じになりました<a href="https://t.co/Di3uFSfUE2">https://t.co/Di3uFSfUE2</a><br><br>操作するブラウザの指定や、ログイン操作の部分がデコレータで書けたのが、気に入っています♬<br><br>@ using_firefox<br>@ logged_in<br>def show_copy_popup(url):<br> ...<br><br>9/11 <a href="https://twitter.com/hashtag/pycharity?src=hash&amp;ref_src=twsrc%5Etfw">#pycharity</a> をお楽しみに！ <a href="https://t.co/7r9vyhnsJH">https://t.co/7r9vyhnsJH</a></p>&mdash; nikkie 📣PyCon JP 2021 スタッフ募集中！ (@ftnext) <a href="https://twitter.com/ftnext/status/1429101000573341698?ref_src=twsrc%5Etfw">August 21, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+<section >
+<h3>この書き方、かっこよくないですか？😎</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+from connpass_ops_playbook.decorators import logged_in, using_firefox
+from connpass_ops_playbook.plays import copy_existing_event
+
+
+&#64;using_firefox
+&#64;logged_in
+def show_copy_popup(url):
+    copy_existing_event(url, human_confirms=True)</code></pre>
+<p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/connpass-ops-playbook/blob/fed230ef2efbd5b1c0bf03ec18da27403f75f960/examples/copy_existing_event.py">copy_existing_event.py</a></p>
+</section>
+<section >
+<h3>補足：コピーの確認ポップアップ</h3>
+<ul class="simple">
+<li><p><strong>ポップアップ操作も自動化できます</strong></p></li>
+<li><p>デモが確認ポップアップを出すまでだったのは、LT練習で不要なイベントを作らないようにするためです</p></li>
+<li><p><a class="reference external" href="https://github.dev/ftnext/connpass-ops-playbook/blob/main/examples/copy_existing_event.py">デモのスクリプトをVSCodeのUIで見られるリンク</a> （実装の詳細は <code class="docutils literal notranslate"><span class="pre">connpass_ops_playbook</span></code> 以下をどうぞ）</p></li>
+</ul>
+</section>
+</section>
+<section >
+<h2>Heliumチートシート</h2>
+<ul class="simple">
+<li><p>「こんなに簡単です」スライドのコードも <a class="reference external" href="https://github.com/mherrmann/selenium-python-helium/blob/master/docs/cheatsheet.md">チートシート</a> から</p></li>
+<li><p><strong>できる操作と書き方がつかめる</strong> ので、一読をオススメします！</p></li>
+<li><p>「python helium」で検索すると、日本語の情報も見つかるようになってきました</p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2>PyCon JP 2021スタッフが開催したイベントの集計</h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pyconjp-staff.connpass.com/event/">https://pyconjp-staff.connpass.com/event/</a> から2021年のイベントをスクレイピング</p></li>
+<li><p>イベントのタイトルと開催日を中間ファイルに保存し、 <strong>開催月</strong> で集計</p></li>
+</ul>
+</section>
+<section >
+<h3>集計ソースコード</h3>
+<ul class="simple">
+<li><p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/2021_slides/tree/1afdde62270c69be94f67793809e4327db0e58ca/samplecode/pycharity">samplecode/pycharity</a></p></li>
+<li><p>ダウンロードまたはcloneし、仮想環境を有効にしてから <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">all</span></code> で動くと思います</p></li>
+</ul>
+</section>
+<section >
+<h3>robots.txtを守って楽しくスクレイピング！</h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://connpass.com/robots.txt">https://connpass.com/robots.txt</a> で確認できます</p></li>
+</ul>
+</section>
+</section>
+<section >
+<h2>Future Works</h2>
+<ul class="simple">
+<li><p>現在は人が定期的に実行している➡️ <strong>自動</strong> で定期実行</p></li>
+<li><p>他のスタッフも使えるようにしたい（ <strong>Slack</strong> opsが理想🌟）</p></li>
+</ul>
+</section>
+<section >
+<h2>EOF</h2>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../reveal.js/dist/reveal.js"></script>
+    
+    
+      <script src="../reveal.js/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: "none",
+        slideNumber: "c/t",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>
