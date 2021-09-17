@@ -1,0 +1,160 @@
+1️⃣ 繰り返し書くコードがある
+============================================================
+
+Heliumを使う中で感じた😖 1点目
+
+例：HeliumのリポジトリをGoogle検索して移動
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    start_firefox()
+    go_to("google.com")
+    write("helium selenium github")
+    press(ENTER)
+    click("Selenium-python but lighter: Helium - GitHub")
+
+例：connpassにログイン
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    start_firefox()
+    go_to("connpass.com/login")
+    write(os.getenv("CONNPASS_USERNAME"), into="ユーザー名")
+    write(os.getenv("CONNPASS_PASSWORD"), into="パスワード")
+    click("ログインする")
+
+    wait_until(Text("あなたのイベント").exists)
+
+繰り返し書く ``start_firefox``
+------------------------------------------------
+
+.. code-block:: python
+    :emphasize-lines: 1
+    :linenos:
+
+    start_firefox()
+    go_to("connpass.com/login")
+    write(os.getenv("CONNPASS_USERNAME"), into="ユーザー名")
+    write(os.getenv("CONNPASS_PASSWORD"), into="パスワード")
+    click("ログインする")
+
+    wait_until(Text("あなたのイベント").exists)
+
+``start_firefox`` を繰り返し書くのをなくしたい
+------------------------------------------------------------------------------------------------
+
+* ``start_firefox`` でFirefoxを立ち上げている
+* 👉 **デコレータ**
+
+デコレータとは（ざっくり）
+============================================================
+
+* 関数やクラスの定義の直前に ``@`` で付けるあれ
+
+.. code-block:: python
+
+    @decorator
+    def function():
+        ...
+
+デコレータとは
+------------------------------------------------
+
+* 関数を引数に取り、関数を返す **関数** （ `用語集 <https://docs.python.org/ja/3/glossary.html#term-decorator>`_ ）
+* 渡された関数の前後にコードを追加できる（ref:『Effective Python 第2版』項目26）
+
+デコレータの実装
+============================================================
+
+.. code-block:: python
+    :linenos:
+
+    def decorator(function):  # 引数に関数
+        def wrapper(*args, **kwargs):
+            # functionの前に実行する処理
+            function(*args, **kwargs)
+            # functionの後に実行する処理
+        
+        return wrapper  # コードを追加した関数を返す
+
+デコレータの例：関数の開始と終了を示す
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    def show_start_end(func):
+        @functools.wraps(func)  # funcの__name__や__doc__を残すために付ける
+        def wrapper(*args, **kwargs):
+            print(func.__name__, "Start")
+            returned = func(*args, **kwargs)
+            print(func.__name__, "End")
+            return returned
+        return wrapper
+
+関数の開始と終了を示すデコレータを使う
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    @show_start_end
+    def calculate_bmi(height_m, weight_kg):
+        return weight_kg / height_m / height_m
+
+.. code-block:: python
+
+    >>> calculate_bmi(1.58, 46)
+    calculate_bmi Start
+    calculate_bmi End
+    18.426534209261334
+
+✅ 関数の実行前に ``start_firefox`` を呼び出すコード
+------------------------------------------------------------------------------------------------
+
+.. literalinclude:: ../../samplecode/cool_helium/decorator_examples.py
+    :language: python
+    :pyobject: using_firefox
+    :linenos:
+
+``@using_firefox`` でデコレートすれば、``start_firefox`` は不要
+------------------------------------------------------------------------------------------------
+
+.. literalinclude:: ../../samplecode/cool_helium/decorator_examples.py
+    :language: python
+    :pyobject: search_helium_repository
+    :linenos:
+
+``@using_firefox`` でデコレートすれば、``start_firefox`` は不要（その2）
+------------------------------------------------------------------------------------------------
+
+.. literalinclude:: ../../samplecode/cool_helium/decorator_examples.py
+    :language: python
+    :pyobject: login_connpass
+    :linenos:
+
+デコレータの効能
+============================================================
+
+* 繰り返しがなくなった！🙌
+* FirefoxだけでなくChromeでも動かしたい場合、 **デコレータを書き換えるだけ** で済む！！
+
+Chromeで動きます
+------------------------------------------------
+
+.. code-block:: python
+    :emphasize-lines: 1
+    :linenos:
+
+    @using_chrome  # start_chromeを呼び出すデコレータ
+    def login_connpass():
+        go_to("connpass.com/login")
+        write(os.getenv("CONNPASS_USERNAME"), into="ユーザー名")
+        write(os.getenv("CONNPASS_PASSWORD"), into="パスワード")
+        click("ログインする")
+
+        wait_until(Text("あなたのイベント").exists)
