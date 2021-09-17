@@ -39,7 +39,7 @@ def using_firefox(func):
 
 @using_firefox
 def search_helium_repository():
-    """HeliumのGitHubレポジトリを検索して移動する"""
+    """HeliumのGitHubリポジトリをGoogle検索して移動する"""
     go_to("google.com")
     write("helium selenium github")
     press(ENTER)
