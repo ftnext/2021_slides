@@ -1,0 +1,555 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Helium - Cool Python!</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="../reveal.js/dist/theme/black.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/plugin/highlight/zenburn.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/Font-Awesome/css/all.min.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ftnext">
+    <meta property="og:url" content="https://ftnext.github.io/2021_slides/hannari_Sep/cool_python_with_helium.html">
+    <meta property="og:title" content="Helium - Cool Python!">
+    <meta property="og:description" content="2021/09 はんなりPython #43 夏の終わりのLT会 スライド">
+    <meta property="og:image" content="https://ftnext.github.io/2021_slides/_images/ogps/hannari_Sep.png">
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides">
+            <section >
+<h1>Helium - Cool Python!</h1>
+<dl class="field-list simple">
+<dt class="field-odd">Event</dt>
+<dd class="field-odd"><p>はんなりPython #43</p>
+</dd>
+<dt class="field-even">Presented</dt>
+<dd class="field-even"><p>2021/09/17 nikkie</p>
+</dd>
+</dl>
+</section>
+<section >
+<h2>このLTでは</h2>
+<blockquote>
+<div><p>ブラウザ操作自動化ライブラリHeliumを、 <strong>書き方を工夫</strong> 🆒して使ったことについて共有します</p>
+</div></blockquote>
+</section>
+<section >
+<h2>お前、誰よ</h2>
+<ul class="simple">
+<li><p>Python大好き <strong>にっきー</strong> （<span class="raw-html"><i class="fab fa-twitter"></i></span> <a class="reference external" href="https://twitter.com/ftnext">&#64;ftnext</a> / <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext">&#64;ftnext</a>）</p></li>
+<li><p>Python歴もうじき4年。株式会社ユーザベースのデータサイエンティスト（NLPer）</p></li>
+<li><p>アニメも大好き。最近好きな挨拶「ういっす✌️」🐙</p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2>お前、誰よ：PyCon JP 2021 座長🇨🇭</h2>
+<iframe width="640" height="480" src="https://2021.pycon.jp/" title="PyCon JP 2021 Webサイト"></iframe></section>
+<section >
+<h3>PyCon JP 2021（ <strong>10/15(金), 16(土)</strong> ）、チケット販売中！🎫🙏</h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pyconjp.connpass.com/event/221241/">https://pyconjp.connpass.com/event/221241/</a> （申込300名(60%)超え🎉）</p></li>
+<li><p>早期購入特典🍕、まだ間に合う！🇲🇬</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>LT：Helium - Cool Python!</h2>
+<p>まずは導入</p>
+</section>
+<section >
+<h3>先日のLT⚡️</h3>
+<iframe width="800" height="480" src="https://ftnext.github.io/2021_slides/pycharity_Sep_lt/automate_connpass_with_helium.html#/1"
+    title="週に数回connpassのイベントを作るPyCon JPスタッフは、Heliumを使って自動化しました（Python Charity Talks in Japan 2021.09 LT）"></iframe></section>
+<section >
+<h3>Helium</h3>
+<ul class="simple">
+<li><p><strong>ブラウザ操作自動化</strong> ライブラリ</p></li>
+<li><p>Seleniumのラッパーで、 非常に簡単に書ける！💫（次へ⏬）</p></li>
+<li><p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/mherrmann/selenium-python-helium">https://github.com/mherrmann/selenium-python-helium</a> (2650 star)</p></li>
+</ul>
+</section>
+<section >
+<h3>こんなに簡単です🍰</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+from helium import *
+start_chrome(&quot;google.com&quot;)  # 1. Chrome立ち上げ、「helium」についてGoogle検索
+write(&quot;helium selenium github&quot;)
+press(ENTER)
+click(&quot;mherrmann/helium&quot;)  # 検索結果の中からクリック
+go_to(&quot;github.com/login&quot;)  # 2. 別の例：GitHubにログイン
+write(&quot;username&quot;, into=&quot;Username&quot;)
+write(&quot;password&quot;, into=&quot;Password&quot;)
+click(&quot;Sign in&quot;)
+kill_browser()  # Chrome終了</code></pre>
+<p><a class="reference external" href="https://github.com/mherrmann/selenium-python-helium/blob/master/docs/cheatsheet.md">https://github.com/mherrmann/selenium-python-helium/blob/master/docs/cheatsheet.md</a></p>
+</section>
+<section >
+<h3>PyCon JP スタッフでよくやる作業を自動化</h3>
+<ul class="simple">
+<li><p>先日のLTでは、指定したconnpassイベントのコピー（デモしました）</p></li>
+<li><p><strong>今日デモします</strong> ：connpassから参加者情報CSVのダウンロード</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>Heliumを使う中で感じた😖</h2>
+<ol class="arabic simple">
+<li><p>繰り返し書くコードがある</p></li>
+<li><p>スクリプトで例外が送出されたときにブラウザのウィンドウが残る</p></li>
+</ol>
+<p>それぞれ、詳しい説明 👉 解決策 の順で話します</p>
+</section>
+<section >
+<h3>Heliumを使う中で感じた2点は解決済み🙌</h3>
+<ul class="simple">
+<li><p><strong>Pythonの知識</strong> を使って解決。共有していきます</p></li>
+<li><p>解決方法＝カッコいいPythonの書き方✨</p></li>
+<li><p>おことわり：ブラウザはFirefoxです（Chromeについても途中言及します）</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>1️⃣ 繰り返し書くコードがある</h2>
+<p>Heliumを使う中で感じた😖 1点目</p>
+</section>
+<section >
+<h3>例：HeliumのリポジトリをGoogle検索して移動</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+start_firefox()
+go_to(&quot;google.com&quot;)
+write(&quot;helium selenium github&quot;)
+press(ENTER)
+click(&quot;Selenium-python but lighter: Helium - GitHub&quot;)</code></pre>
+</section>
+<section >
+<h3>例：connpassにログイン</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+start_firefox()
+go_to(&quot;connpass.com/login&quot;)
+write(os.getenv(&quot;CONNPASS_USERNAME&quot;), into=&quot;ユーザー名&quot;)
+write(os.getenv(&quot;CONNPASS_PASSWORD&quot;), into=&quot;パスワード&quot;)
+click(&quot;ログインする&quot;)
+
+wait_until(Text(&quot;あなたのイベント&quot;).exists)</code></pre>
+</section>
+<section >
+<h3>繰り返し書く <code class="docutils literal notranslate"><span class="pre">start_firefox</span></code></h3>
+<pre><code data-trim data-noescape data-line-numbers="1" class="python">
+start_firefox()
+go_to(&quot;connpass.com/login&quot;)
+write(os.getenv(&quot;CONNPASS_USERNAME&quot;), into=&quot;ユーザー名&quot;)
+write(os.getenv(&quot;CONNPASS_PASSWORD&quot;), into=&quot;パスワード&quot;)
+click(&quot;ログインする&quot;)
+
+wait_until(Text(&quot;あなたのイベント&quot;).exists)</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">start_firefox</span></code> を繰り返し書くのをなくしたい</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">start_firefox</span></code> でFirefoxを立ち上げている</p></li>
+<li><p>👉 <strong>デコレータ</strong></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>デコレータとは（ざっくり）</h2>
+<ul class="simple">
+<li><p>関数やクラスの定義の直前に <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> で付けるあれ</p></li>
+</ul>
+<pre><code data-trim data-noescape  class="python">
+&#64;decorator
+def function():
+    ...</code></pre>
+</section>
+<section >
+<h3>デコレータとは</h3>
+<ul class="simple">
+<li><p>関数を引数に取り、関数を返す <strong>関数</strong> （ <a class="reference external" href="https://docs.python.org/ja/3/glossary.html#term-decorator">用語集</a> ）</p></li>
+<li><p>渡された関数の前後にコードを追加できる（ref:『Effective Python 第2版』項目26）</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>デコレータの実装</h2>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def decorator(function):  # 引数に関数
+    def wrapper(*args, **kwargs):
+        # functionの前に実行する処理
+        function(*args, **kwargs)
+        # functionの後に実行する処理
+
+    return wrapper  # コードを追加した関数を返す</code></pre>
+</section>
+<section >
+<h3>デコレータの例：関数の開始と終了を示す</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def show_start_end(func):
+    &#64;functools.wraps(func)  # funcの__name__や__doc__を残すために付ける
+    def wrapper(*args, **kwargs):
+        print(func.__name__, &quot;Start&quot;)
+        returned = func(*args, **kwargs)
+        print(func.__name__, &quot;End&quot;)
+        return returned
+    return wrapper</code></pre>
+</section>
+<section >
+<h3>関数の開始と終了を示すデコレータを使う</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+&#64;show_start_end
+def calculate_bmi(height_m, weight_kg):
+    return weight_kg / height_m / height_m</code></pre>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; calculate_bmi(1.58, 46)
+calculate_bmi Start
+calculate_bmi End
+18.426534209261334</code></pre>
+</section>
+<section >
+<h3>✅ 関数の実行前に <code class="docutils literal notranslate"><span class="pre">start_firefox</span></code> を呼び出すコード</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def using_firefox(func):
+    &#64;wraps(func)
+    def wrapper(*args, **kwargs):
+        start_firefox()
+        func(*args, **kwargs)
+
+    return wrapper
+</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">&#64;using_firefox</span></code> でデコレートすれば、<code class="docutils literal notranslate"><span class="pre">start_firefox</span></code> は不要</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+&#64;using_firefox
+def search_helium_repository():
+    &quot;&quot;&quot;HeliumのGitHubリポジトリをGoogle検索して移動する&quot;&quot;&quot;
+    go_to(&quot;google.com&quot;)
+    write(&quot;helium selenium github&quot;)
+    press(ENTER)
+    click(&quot;Selenium-python but lighter: Helium - GitHub&quot;)
+</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">&#64;using_firefox</span></code> でデコレートすれば、<code class="docutils literal notranslate"><span class="pre">start_firefox</span></code> は不要（その2）</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+&#64;using_firefox
+def login_connpass():
+    &quot;&quot;&quot;connpassにログインする（ユーザー名とパスワードは環境変数を想定）&quot;&quot;&quot;
+    go_to(&quot;connpass.com/login&quot;)
+    write(os.getenv(&quot;CONNPASS_USERNAME&quot;), into=&quot;ユーザー名&quot;)
+    write(os.getenv(&quot;CONNPASS_PASSWORD&quot;), into=&quot;パスワード&quot;)
+    click(&quot;ログインする&quot;)
+
+    wait_until(Text(&quot;あなたのイベント&quot;).exists)
+</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2>デコレータの効能</h2>
+<ul class="simple">
+<li><p>繰り返しがなくなった！🙌</p></li>
+<li><p>FirefoxだけでなくChromeでも動かしたい場合、 <strong>デコレータを書き換えるだけ</strong> で済む！！</p></li>
+</ul>
+</section>
+<section >
+<h3>Chromeで動きます</h3>
+<pre><code data-trim data-noescape data-line-numbers="1" class="python">
+&#64;using_chrome  # start_chromeを呼び出すデコレータ
+def login_connpass():
+    go_to(&quot;connpass.com/login&quot;)
+    write(os.getenv(&quot;CONNPASS_USERNAME&quot;), into=&quot;ユーザー名&quot;)
+    write(os.getenv(&quot;CONNPASS_PASSWORD&quot;), into=&quot;パスワード&quot;)
+    click(&quot;ログインする&quot;)
+
+    wait_until(Text(&quot;あなたのイベント&quot;).exists)</code></pre>
+</section>
+</section>
+<section >
+<h2>閑話休題：販売中はチケット🎫だけでなく</h2>
+<p><a class="reference external" href="https://pyconjp.connpass.com/event/221241/">https://pyconjp.connpass.com/event/221241/</a></p>
+</section>
+<section ><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">PyCon JP 2021 参加者Tシャツ発売!<br>PyCon JP 2021は、参加者向けTシャツはオンラインで購入できる形にしました!<br>9月28日（火）23:59まではお安く手に入れることが出来ます！<br>この機会に是非どうぞ。 <a href="https://twitter.com/hashtag/pyconjp?src=hash&amp;ref_src=twsrc%5Etfw">#pyconjp</a><a href="https://t.co/8UJwyF2J46">https://t.co/8UJwyF2J46</a><a href="https://t.co/Siq0xkSFtN">https://t.co/Siq0xkSFtN</a> <a href="https://t.co/QI9K4FGNAt">pic.twitter.com/QI9K4FGNAt</a></p>&mdash; PyCon JP (@pyconjapan) <a href="https://twitter.com/pyconjapan/status/1438115871973466114?ref_src=twsrc%5Etfw">September 15, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+<section>
+<section >
+<h2>2️⃣ スクリプトで例外が送出されたときにブラウザのウィンドウが残る</h2>
+<p>Heliumを使う中で感じた😖 2点目</p>
+</section>
+<section >
+<h3>ブラウザの終了は <code class="docutils literal notranslate"><span class="pre">kill_browser</span></code></h3>
+<pre><code data-trim data-noescape  class="python">
+start_firefox()
+# 退屈なブラウザ操作を代わりにやってくれる処理
+kill_browser()</code></pre>
+</section>
+<section >
+<h3>スクリプトの途中でエラーが送出されると、 <code class="docutils literal notranslate"><span class="pre">kill_browser</span></code> が呼び出されない</h3>
+<pre><code data-trim data-noescape  class="python">
+start_firefox()
+# 退屈なブラウザ操作を代わりにやってくれる処理の途中で
+raise Exception
+kill_browser()  # 呼び出されない</code></pre>
+<p>デモします</p>
+<aside class="notes">
+TODO：画像（``kill_browser`` が呼び出されず、残ってしまったブラウザウィンドウ）</aside>
+</section>
+<section >
+<h3>例外が送出されても、ブラウザのウィンドウは閉じたい</h3>
+<ul class="simple">
+<li><p>例外が送出された場合も、 <code class="docutils literal notranslate"><span class="pre">kill_browser</span></code> を呼び出したい</p></li>
+<li><p>👉 <strong>コンテキストマネージャ</strong></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>コンテキストマネージャとは</h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">with</span></code> 文で使えるオブジェクト （ <a class="reference external" href="https://docs.python.org/ja/3/glossary.html#term-context-manager">用語集</a> ）</p></li>
+</ul>
+<pre><code data-trim data-noescape  class="python">
+with コンテキストマネージャ:
+    # 処理
+    ...</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">with</span></code> 文</h3>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">with</span></code> 文はコードのかたまりの前後でコードの初期化と終了処理を実行できるようにします。</p>
+</div></blockquote>
+<p><a class="reference external" href="https://docs.python.org/ja/3/reference/compound_stmts.html">https://docs.python.org/ja/3/reference/compound_stmts.html</a> の冒頭より</p>
+</section>
+<section >
+<h3>コンテキストマネージャとは（詳しく）</h3>
+<ul class="simple">
+<li><p>コードの初期化：オブジェクトの <code class="docutils literal notranslate"><span class="pre">__enter__</span></code> メソッド</p></li>
+<li><p>終了処理：オブジェクトの <code class="docutils literal notranslate"><span class="pre">__exit__</span></code> メソッド</p></li>
+</ul>
+</section>
+<section >
+<h3>コンテキストマネージャを使ったコード</h3>
+<pre><code data-trim data-noescape  class="python">
+with EXPR as VAR:
+    BLOCK</code></pre>
+<p><a class="reference external" href="https://www.python.org/dev/peps/pep-0343/#specification-the-with-statement">https://www.python.org/dev/peps/pep-0343/#specification-the-with-statement</a></p>
+</section>
+<section >
+<h3>コンテキストマネージャのイメージ</h3>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">EXPR</span></code> を評価（コンテキストマネージャを返す）</p></li>
+<li><p>コンテキストマネージャの <code class="docutils literal notranslate"><span class="pre">__enter__</span></code> を呼ぶ（＝初期化処理）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BLOCK</span></code> を実行</p></li>
+<li><p>コンテキストマネージャの <code class="docutils literal notranslate"><span class="pre">__exit__</span></code> を呼ぶ（＝終了処理）</p></li>
+</ol>
+</section>
+</section>
+<section>
+<section >
+<h2>コンテキストマネージャの実装</h2>
+<ul class="simple">
+<li><p>クラス</p></li>
+<li><p>関数</p></li>
+</ul>
+</section>
+<section >
+<h3>クラスで実装（イメージ）</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+class MyContextManager:
+    def __enter__(self):
+        ...
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        ...</code></pre>
+<p><a class="reference external" href="https://docs.python.org/ja/3/reference/datamodel.html#context-managers">https://docs.python.org/ja/3/reference/datamodel.html#context-managers</a></p>
+</section>
+<section >
+<h3>関数で実装もできる！</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+import contextlib
+
+&#64;contextlib.contextmanager
+def my_context_manager():
+    # __enter__ に相当する初期化処理
+
+    yield  # （yieldで値を返すと as で受け取れる）
+
+    # __exit__ に相当する終了処理</code></pre>
+<p><a class="reference external" href="https://docs.python.org/ja/3/library/contextlib.html#contextlib.contextmanager">https://docs.python.org/ja/3/library/contextlib.html#contextlib.contextmanager</a></p>
+</section>
+<section >
+<h3>✅ 例外が送出された場合も、 <code class="docutils literal notranslate"><span class="pre">kill_browser</span></code> を呼び出すコード</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+&#64;contextmanager
+def using_firefox():
+    start_firefox()
+    try:
+        yield
+    finally:
+        kill_browser()
+</code></pre>
+</section>
+<section >
+<h3>例外が送出された場合も、ブラウザウィンドウは閉じる🙌</h3>
+<pre><code data-trim data-noescape  class="python">
+with using_firefox():
+    # 退屈なブラウザ操作を代わりにやってくれる処理
+    raise Exception</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2>まとめ🌯：Helium - Cool Python!</h2>
+</section>
+<section >
+<h3>PyCon JP 2021 チケットお願いします🐦🍕🙏</h3>
+<p><a class="reference external" href="https://pyconjp.connpass.com/event/221241/">https://pyconjp.connpass.com/event/221241/</a></p>
+<p>🍕は <strong>9/20（月・祝）まで</strong> （まだ知らない方に教えてあげてください）</p>
+</section>
+<section >
+<h3>Heliumを使う中で感じた2点😖をカッコいいPythonの書き方で解決🙌</h3>
+<ol class="arabic simple">
+<li><p>繰り返し書くコードがある 👉 <strong>デコレータ</strong> で繰り返し <code class="docutils literal notranslate"><span class="pre">start_firefox</span></code> を書かない</p></li>
+<li><p>スクリプトで例外が送出されたときにブラウザのウィンドウが残る 👉 <strong>コンテキストマネージャ</strong> でどんなときも <code class="docutils literal notranslate"><span class="pre">kill_browser</span></code></p></li>
+</ol>
+</section>
+<section >
+<h3>ご清聴ありがとうございました</h3>
+<p>紹介したデコレータやコンテキストマネージャはヘルパーとしてPyPIで公開予定です</p>
+<p>References &amp; Appendixが続きます（よろしければどうぞ！）</p>
+</section>
+</section>
+<section>
+<section >
+<h2>References</h2>
+<ul class="simple">
+<li><p>説明できなかった <code class="docutils literal notranslate"><span class="pre">wraps</span></code></p></li>
+<li><p>コンテキストマネージャ</p></li>
+<li><p>デコレータの最終形</p></li>
+</ul>
+</section>
+<section >
+<h3>説明できなかった <code class="docutils literal notranslate"><span class="pre">wraps</span></code></h3>
+<iframe width="800" height="480" src="https://ftnext.github.io/2021_slides/rakus_Aug_pythontips/about_decorators.html"
+    title="デコレータについて（ラクス Python Tips LT会 vol.2 (2021/08)）"></iframe></section>
+<section >
+<h3>コンテキストマネージャ</h3>
+<iframe width="800" height="480" src="https://ftnext.github.io/2021_slides/rakus_Feb_pythontips/about_yield.html"
+    title="yield について（ラクス Python Tips LT会 (2021/02)）"></iframe></section>
+<section >
+<h3>デコレータの最終形</h3>
+<iframe width="800" height="480" src="https://ftnext.github.io/2021_slides/pysuruga_Aug/decorator_like_dataclass.html#/1"
+    title="@dataclass のような、 () を付けても付けなくてもいいデコレータはどう作る？（Python駿河 勉強会 #28 (2021/08)）"></iframe></section>
+</section>
+<section>
+<section >
+<h2>Appendix：loginもデコレータにする</h2>
+<ul class="simple">
+<li><p>PyCon JP スタッフのconnpass操作自動化をいくつも書いて</p></li>
+<li><p>connpassにログインするコードを繰り返す</p></li>
+</ul>
+</section>
+<section >
+<h3>connpassにログインするコード</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+go_to(&quot;connpass.com/login&quot;)
+write(os.getenv(&quot;CONNPASS_USERNAME&quot;), into=&quot;ユーザー名&quot;)
+write(os.getenv(&quot;CONNPASS_PASSWORD&quot;), into=&quot;パスワード&quot;)
+click(&quot;ログインする&quot;)
+
+wait_until(Text(&quot;あなたのイベント&quot;).exists)</code></pre>
+</section>
+<section >
+<h3>ログインするコードをデコレータに</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def logged_in(func):
+    &#64;wraps(func)
+    def wrapper(*args, **kwargs):
+        go_to(&quot;connpass.com/login&quot;)
+        write(os.getenv(&quot;CONNPASS_USERNAME&quot;), into=&quot;ユーザー名&quot;)
+        write(os.getenv(&quot;CONNPASS_PASSWORD&quot;), into=&quot;パスワード&quot;)
+        click(&quot;ログインする&quot;)
+
+        wait_until(Text(&quot;あなたのイベント&quot;).exists)
+
+        func(*args, **kwargs)
+
+    return wrapper</code></pre>
+</section>
+<section >
+<h3>📣 2つのデコレータは以下の順</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+&#64;using_firefox
+&#64;logged_in
+def automate():
+    # connpassにログインが必要な退屈なブラウザ操作を代わりにやってくれる処理</code></pre>
+</section>
+<section >
+<h3>2つのデコレータの実行順は <strong>外側から</strong></h3>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">logged_in</span></code> で <code class="docutils literal notranslate"><span class="pre">automate</span></code> の実行前後にコードを追加</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">logged_in</span></code> が返した関数の実行前後に <code class="docutils literal notranslate"><span class="pre">using_firefox</span></code> でコードを追加</p></li>
+</ol>
+<p>これにより、 <code class="docutils literal notranslate"><span class="pre">start_firefox</span></code> が <strong>一番最初に呼ばれる</strong></p>
+</section>
+</section>
+<section >
+<h2>EOF</h2>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../reveal.js/dist/reveal.js"></script>
+    
+    
+      <script src="../reveal.js/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: "none",
+        slideNumber: "c/t",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>
