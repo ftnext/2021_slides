@@ -165,6 +165,38 @@ References
     <iframe width="800" height="480" src="https://ftnext.github.io/2021_slides/pysuruga_Aug/decorator_like_dataclass.html#/1"
         title="@dataclass のような、 () を付けても付けなくてもいいデコレータはどう作る？（Python駿河 勉強会 #28 (2021/08)）"></iframe>
 
+Appendix：LTにいただいた質問
+============================================================
+
+1. 定期実行
+2. AWS Lambdaで実行
+
+ブラウザ自動化処理の定期実行はできるか？
+------------------------------------------------
+
+* heliumの中にはない（ブラウザ操作自動化だけ）
+* 回答1: スクリプトの自動実行として ``crontab`` で設定
+* 回答2: 定期実行のライブラリ（次へ）
+
+ブラウザ自動化処理の定期実行はできるか？（承前）
+------------------------------------------------
+
+* 回答2: 定期実行のライブラリを使う
+
+  * 標準ライブラリのイベントスケジューラ `sched <https://docs.python.org/ja/3/library/sched.html>`_
+  * 以前はんなりPythonで知った `schedule <https://schedule.readthedocs.io/en/stable/>`_ （有力候補）
+
+.. code-block:: python
+
+    import schedule
+    schedule.every().day.at("10:30").do(job)
+
+AWS Lambdaで実行できるか
+------------------------------------------------
+
+* IMO： ``docker run`` する方法でできると思う
+* `簡単な調査のまとめ（Scrapbox） <https://scrapbox.io/nikkie-memos/%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E6%93%8D%E4%BD%9C%E8%87%AA%E5%8B%95%E5%8C%96%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%82%92AWS_Lambda%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%97%E3%81%9F%E3%81%84>`_
+
 Appendix：loginもデコレータにする
 ========================================================================================================================
 
