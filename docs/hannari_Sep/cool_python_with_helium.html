@@ -28,7 +28,7 @@
     <meta name="twitter:site" content="@ftnext">
     <meta property="og:url" content="https://ftnext.github.io/2021_slides/hannari_Sep/cool_python_with_helium.html">
     <meta property="og:title" content="Helium - Cool Python!">
-    <meta property="og:description" content="2021/09 はんなりPython #43 夏の終わりのLT会 スライド">
+    <meta property="og:description" content="2021/09 はんなりPython #43 夏の終わりのLT会 スライド（質疑応答反映版）">
     <meta property="og:image" content="https://ftnext.github.io/2021_slides/_images/ogps/hannari_Sep.png">
 
   </head><body>
@@ -313,8 +313,12 @@ start_firefox()
 raise Exception
 kill_browser()  # 呼び出されない</code></pre>
 <p>デモします</p>
-<aside class="notes">
-TODO：画像（``kill_browser`` が呼び出されず、残ってしまったブラウザウィンドウ）</aside>
+</section>
+<section >
+<h3>残ってしまったブラウザウィンドウ</h3>
+<div class="figure align-default">
+<img alt="../_images/202109_remaining_window_in_error.png" src="../_images/202109_remaining_window_in_error.png" />
+</div>
 </section>
 <section >
 <h3>例外が送出されても、ブラウザのウィンドウは閉じたい</h3>
@@ -462,6 +466,44 @@ with using_firefox():
 <h3>デコレータの最終形</h3>
 <iframe width="800" height="480" src="https://ftnext.github.io/2021_slides/pysuruga_Aug/decorator_like_dataclass.html#/1"
     title="@dataclass のような、 () を付けても付けなくてもいいデコレータはどう作る？（Python駿河 勉強会 #28 (2021/08)）"></iframe></section>
+</section>
+<section>
+<section >
+<h2>Appendix：LTにいただいた質問</h2>
+<ol class="arabic simple">
+<li><p>定期実行</p></li>
+<li><p>AWS Lambdaで実行</p></li>
+</ol>
+</section>
+<section >
+<h3>ブラウザ自動化処理の定期実行はできるか？</h3>
+<ul class="simple">
+<li><p>heliumの中にはない（ブラウザ操作自動化だけ）</p></li>
+<li><p>回答1: スクリプトの自動実行として <code class="docutils literal notranslate"><span class="pre">crontab</span></code> で設定</p></li>
+<li><p>回答2: 定期実行のライブラリ（次へ）</p></li>
+</ul>
+</section>
+<section >
+<h3>ブラウザ自動化処理の定期実行はできるか？（承前）</h3>
+<ul class="simple">
+<li><p>回答2: 定期実行のライブラリを使う</p>
+<ul>
+<li><p>標準ライブラリのイベントスケジューラ <a class="reference external" href="https://docs.python.org/ja/3/library/sched.html">sched</a></p></li>
+<li><p>以前はんなりPythonで知った <a class="reference external" href="https://schedule.readthedocs.io/en/stable/">schedule</a> （有力候補）</p></li>
+</ul>
+</li>
+</ul>
+<pre><code data-trim data-noescape  class="python">
+import schedule
+schedule.every().day.at(&quot;10:30&quot;).do(job)</code></pre>
+</section>
+<section >
+<h3>AWS Lambdaで実行できるか</h3>
+<ul class="simple">
+<li><p>IMO： <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> する方法でできると思う</p></li>
+<li><p><a class="reference external" href="https://scrapbox.io/nikkie-memos/%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E6%93%8D%E4%BD%9C%E8%87%AA%E5%8B%95%E5%8C%96%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%82%92AWS_Lambda%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%97%E3%81%9F%E3%81%84">簡単な調査のまとめ（Scrapbox）</a></p></li>
+</ul>
+</section>
 </section>
 <section>
 <section >
