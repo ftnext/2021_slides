@@ -32,21 +32,22 @@ class HtmlNamingRuleTestCase(TestCase):
 
 
 class ImagesNamingRuleTestCase(TestCase):
+    def setUp(self):
+        self.rule = sut.ImagesNamingRule()
+
     def test_inheritance(self):
-        actual = sut.ImagesNamingRule()
+        actual = self.rule
 
         self.assertIsInstance(actual, sut.BaseNamingRule)
 
     def test_source(self):
-        rule = sut.ImagesNamingRule()
-        actual = rule.source
+        actual = self.rule.source
 
         expected = Path("build/revealjs") / "_images"
         self.assertEqual(actual, expected)
 
     def test_destination(self):
-        rule = sut.ImagesNamingRule()
-        actual = rule.destination
+        actual = self.rule.destination
 
         expected = Path("docs") / "_images"
         self.assertEqual(actual, expected)
