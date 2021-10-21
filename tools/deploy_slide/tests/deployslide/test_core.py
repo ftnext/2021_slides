@@ -100,8 +100,8 @@ class SlideDeployerTestCase(TestCase):
     @patch("deployslide.core.shutil")
     def test__copy_images(self, shutil):
         image1_path = Path("build/revealjs/_images/image01.png")
-        image2_path = Path("build/revealjs/_images/image02.png")
-        self.images_rule.source.glob.return_value = iter(
+        image2_path = Path("build/revealjs/_images/image02.jpg")
+        self.images_rule.iter_target.return_value = iter(
             (image1_path, image2_path)
         )
         images_destination_path = Path("docs/_images")
@@ -109,11 +109,11 @@ class SlideDeployerTestCase(TestCase):
 
         self.deployer._copy_images()
 
-        self.images_rule.source.glob.assert_called_once_with("*.png")
+        self.images_rule.iter_target.assert_called_once_with()
         shutil.copyfile.assert_has_calls(
             [
                 call(image1_path, images_destination_path / "image01.png"),
-                call(image2_path, images_destination_path / "image02.png"),
+                call(image2_path, images_destination_path / "image02.jpg"),
             ]
         )
 

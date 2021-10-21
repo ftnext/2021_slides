@@ -37,6 +37,9 @@ class ImagesNamingRule(BaseNamingRule):
     def destination(self):
         return Path("docs") / "_images"
 
+    def iter_target(self):
+        raise NotImplementedError
+
 
 class CssNamingRule(BaseNamingRule):
     @property
