@@ -37,6 +37,11 @@ class ImagesNamingRule(BaseNamingRule):
     def destination(self):
         return Path("docs") / "_images"
 
+    def iter_target(self):
+        yield from self.source.glob("*.png")
+        yield from self.source.glob("*.jpg")
+        yield from self.source.glob("*.jpeg")
+
 
 class CssNamingRule(BaseNamingRule):
     @property

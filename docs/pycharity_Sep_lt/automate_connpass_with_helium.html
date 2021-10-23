@@ -28,7 +28,7 @@
     <meta name="twitter:site" content="@ftnext">
     <meta property="og:url" content="https://ftnext.github.io/2021_slides/pycharity_Sep_lt/automate_connpass_with_helium.html">
     <meta property="og:title" content="週に数回connpassのイベントを作るPyCon JPスタッフは、Heliumを使って自動化しました">
-    <meta property="og:description" content="2021/09 Python Charity Talks in Japan LT">
+    <meta property="og:description" content="2021/09 Python Charity Talks in Japan LT スライド（フィードバックへの回答追加版）">
     <meta property="og:image" content="https://ftnext.github.io/2021_slides/_images/ogps/pycharity_Sep_lt.png">
 
   </head><body>
@@ -99,14 +99,14 @@
 </section>
 <section >
 <h3>いつもお世話になっております🙇‍♂️</h3>
-<div class="figure align-default" id="id29">
+<div class="figure align-default" id="id31">
 <img alt="../_images/202109_connpass_first_view.png" src="../_images/202109_connpass_first_view.png" />
 <p class="caption"><span class="caption-text"><a class="reference external" href="https://connpass.com/">https://connpass.com/</a></span></p>
 </div>
 </section>
 <section >
 <h3>今日申し込んだ方は利用済み✅</h3>
-<div class="figure align-default" id="id30">
+<div class="figure align-default" id="id32">
 <a class="reference internal image-reference" href="../_images/202109_pycharity_connpass.png"><img alt="../_images/202109_pycharity_connpass.png" src="../_images/202109_pycharity_connpass.png" style="width: 750.0px; height: 429.0px;" /></a>
 <p class="caption"><span class="caption-text"><a class="reference external" href="https://pyconjp.connpass.com/event/218154/">https://pyconjp.connpass.com/event/218154/</a></span></p>
 </div>
@@ -120,7 +120,7 @@
 </section>
 <section >
 <h3>スタッフmtgの例</h3>
-<div class="figure align-default" id="id31">
+<div class="figure align-default" id="id33">
 <a class="reference internal image-reference" href="../_images/202109_recent_staff_mtg.png"><img alt="../_images/202109_recent_staff_mtg.png" src="../_images/202109_recent_staff_mtg.png" style="width: 741.0px; height: 393.0px;" /></a>
 <p class="caption"><span class="caption-text"><a class="reference external" href="https://pyconjp-staff.connpass.com/event/224823/">https://pyconjp-staff.connpass.com/event/224823/</a></span></p>
 </div>
@@ -132,7 +132,7 @@
 </section>
 <section >
 <h3>nikkieのconnpassカレンダー</h3>
-<div class="figure align-default" id="id32">
+<div class="figure align-default" id="id34">
 <a class="reference internal image-reference" href="../_images/202109_nikkie_connpass_calendar_August.png"><img alt="../_images/202109_nikkie_connpass_calendar_August.png" src="../_images/202109_nikkie_connpass_calendar_August.png" style="width: 401.0px; height: 389.0px;" /></a>
 <p class="caption"><span class="caption-text">週に2つはPyCon JP 2021ロゴ🐍がありますね</span></p>
 </div>
@@ -271,6 +271,7 @@ kill_browser()  # Chrome終了</code></pre>
 <li><p>Heliumチートシート</p></li>
 <li><p>PyCon JP 2021スタッフが開催したイベントの集計</p></li>
 <li><p>Future Works</p></li>
+<li><p>LTへのフィードバック</p></li>
 </ul>
 </section>
 <section>
@@ -341,6 +342,33 @@ def show_copy_popup(url):
 <li><p>現在は人が定期的に実行している➡️ <strong>自動</strong> で定期実行</p></li>
 <li><p>他のスタッフも使えるようにしたい（ <strong>Slack</strong> opsが理想🌟）</p></li>
 </ul>
+</section>
+<section>
+<section >
+<h2>LTへのフィードバック</h2>
+<p>LT中にZoomでいただいたコメントに回答します</p>
+<ul class="simple">
+<li><p>ログインを待つ制御の実装</p></li>
+</ul>
+</section>
+<section >
+<h3>ログインを待つ制御の実装</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">wait_until</span></code> を使っています</p></li>
+<li><p><a class="reference external" href="https://selenium-python-helium.readthedocs.io/en/latest/api.html#helium.wait_until">https://selenium-python-helium.readthedocs.io/en/latest/api.html#helium.wait_until</a></p></li>
+</ul>
+<pre><code data-trim data-noescape  class="python">
+click(&quot;ログインする&quot;)
+# ログインをクリックした後、ダッシュボードのテキストが見つかるまで待ちます
+wait_until(Text(&quot;あなたのイベント&quot;).exists)</code></pre>
+</section>
+<section >
+<h3>補足：ログインを待つ制御の実装</h3>
+<ul class="simple">
+<li><p>ログインに使うアカウント情報（メールアドレスとパスワード）</p></li>
+<li><p>それぞれ <strong>環境変数</strong> で渡しています</p></li>
+</ul>
+</section>
 </section>
 <section >
 <h2>EOF</h2>

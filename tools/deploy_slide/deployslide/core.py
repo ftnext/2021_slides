@@ -53,7 +53,7 @@ class SlideDeployer:
         destination_path.write_text("".join(converted_lines), encoding="utf-8")
 
     def _copy_images(self):
-        for image_path in self.images_rule.source.glob("*.png"):
+        for image_path in self.images_rule.iter_target():
             destination_path = self.images_rule.destination / image_path.name
             shutil.copyfile(image_path, destination_path)
 
