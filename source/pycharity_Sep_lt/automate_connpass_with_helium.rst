@@ -16,7 +16,7 @@
 
 * Python大好き **にっきー** （:raw-html:`<i class="fab fa-twitter"></i>` `@ftnext <https://twitter.com/ftnext>`_ / :raw-html:`<i class="fab fa-github"></i>` `@ftnext <https://github.com/ftnext>`_）
 * PyCon JP 2021 座長🇨🇭
-* アニメも大好き。最近好きな挨拶「うぃっす✌️」🐙
+* アニメも大好き。最近好きな挨拶「ういっす✌️」🐙
 
 お前、誰よ（ ``@skip`` ）
 ------------------------------------------------
