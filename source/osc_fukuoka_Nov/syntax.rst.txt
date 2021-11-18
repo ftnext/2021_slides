@@ -1,0 +1,262 @@
+構文
+====================
+
+リファレンスの中の「文の定義」について共有します。
+
+拡張BNF記法
+========================================
+
+    字句解析と構文に関する記述では、BNF 文法記法に手を加えたものを使っています。
+
+    各規則は name (規則によって定義されているものの名前) と ::= から始まります。
+
+`1.2. 本マニュアルにおける表記法 <https://docs.python.org/ja/3/reference/introduction.html#notation>`_
+
+拡張BNF記法における記号
+------------------------------------------------
+
+* ``|``
+* ``*``
+* ``+``
+* ``[]``
+* ``()``
+* ``"``
+* 『　』（※空白です）
+
+``|``
+------------------------------------------------
+
+    複数の選択項目を分かち書きするときに使います
+
+「または」
+
+``*``
+------------------------------------------------
+
+    直前にくる要素のゼロ個以上の繰り返しを表します
+
+``+``
+------------------------------------------------
+
+    プラス (+) は一個以上の繰り返し
+
+``*`` に似て、直前に来る要素の一個以上の繰り返し
+
+``[]``
+------------------------------------------------
+
+    角括弧 ([ ]) に囲われた字句は、字句がゼロ個か一個出現する
+    (別の言い方をすれば、囲いの中の字句はオプションである)
+
+``()``
+------------------------------------------------
+
+    字句のグループ化には丸括弧を使います。
+
+``"``
+------------------------------------------------
+
+    リテラル文字列はクオートで囲われます。
+
+空白
+------------------------------------------------
+
+    空白はトークンを分割しているときのみ意味を持ちます。
+
+拡張BNF記法の例
+------------------------------------------------
+
+.. productionlist:: notation
+   name: lc_letter (lc_letter | "_")*
+
+「lc_letter は 'a' から 'z' までの何らかの文字一字」
+
+``(lc_letter | "_")*``
+------------------------------------------------
+
+* ``|``： ``lc_letter`` またはリテラルの ``_``
+* 丸括弧によるグループ化
+* ``*`` により、「``lc_letter`` またはリテラルの ``_``」の0個以上の繰り返し
+
+``lc_letter (lc_letter | "_")*``
+------------------------------------------------
+
+* ``lc_letter`` の後に、「``lc_letter`` またはリテラルの ``_``」が0個以上の繰り返されることを表す
+* この規則を ``name`` として定義した
+
+構文定義を読んでみる
+========================================
+
+* `8. 複合文 <https://docs.python.org/ja/3/reference/compound_stmts.html#compound-statements>`_ 中の定義を読んでみましょう
+* 拡張BNF記法に沿って読むと、説明される感動がありました！
+
+構文定義、積ん読！
+------------------------------------------------
+
+* ``if`` 文
+* ``while`` 文
+* ``for`` 文
+* 関数定義（``def``）
+
+``if`` 文
+========================================
+
+.. productionlist:: python-grammar
+   if_stmt: "if" assignment_expression ":" suite
+          : ("elif" assignment_expression ":" suite)*
+          : ["else" ":" suite]
+
+`8.1. if 文 <https://docs.python.org/ja/3/reference/compound_stmts.html#the-if-statement>`_
+
+味わう ``if`` 文 1/3
+------------------------------------------------
+
+.. productionlist:: python-grammar
+   if_stmt: "if" assignment_expression ":" suite
+          : ("elif" assignment_expression ":" suite)*
+          : ["else" ":" suite]
+
+* キーワード ``if`` で始まるヘッダと続くスイートからなる節は必須
+
+味わう ``if`` 文 2/3
+------------------------------------------------
+
+.. productionlist:: python-grammar
+   if_stmt: "if" assignment_expression ":" suite
+          : ("elif" assignment_expression ":" suite)*
+          : ["else" ":" suite]
+
+* ``elif`` の節は0回以上の繰り返し（ない場合もあるし、複数ある場合もある）
+
+味わう ``if`` 文 3/3
+------------------------------------------------
+
+.. productionlist:: python-grammar
+   if_stmt: "if" assignment_expression ":" suite
+          : ("elif" assignment_expression ":" suite)*
+          : ["else" ":" suite]
+
+* ``else`` の節はオプション（0回または1回繰り返し）
+
+脱線： ``assignment_expression``
+========================================
+
+``if`` や ``else`` のヘッダに登場する ``assignment_expression`` について
+
+``assignment_expression`` は代入式
+------------------------------------------------
+
+.. productionlist:: python-grammar
+   assignment_expression: [identifier ":="] expression
+
+`6.12. 代入式 <https://docs.python.org/ja/3/reference/expressions.html#grammar-token-python-grammar-assignment_expression>`_
+
+代入式
+------------------------------------------------
+
+* Python3.8 (2019/10 release) から登場した代入式
+
+    大きな構文の一部として、変数に値を割り当てる新しい構文 := が追加されました。
+    この構文は セイウチの目と牙 に似ているため、「セイウチ演算子」の愛称で知られています。
+
+https://docs.python.org/ja/3/whatsnew/3.8.html#assignment-expressions
+
+代入式の例（What's Newより）
+------------------------------------------------
+
+    代入式により len() 関数を二重に呼びだすことを回避しています:
+
+.. code-block:: python
+
+    if (n := len(a)) > 10:
+        print(f"List is too long ({n} elements, expected <= 10)")
+
+構文を読んでの気づき
+------------------------------------------------
+
+* ``:=`` はオプションとして ``if`` 文の定義に登場
+* 制御フローの構文が変わるほどの **大きな変更だった** ことを実感
+* ``while`` 文の定義にも登場します
+
+``while`` 文
+========================================
+
+.. productionlist:: python-grammar
+   while_stmt: "while" assignment_expression ":" suite
+             : ["else" ":" suite]
+
+`8.2. while 文 <https://docs.python.org/ja/3/reference/compound_stmts.html#the-while-statement>`_
+
+味わう ``while`` 文
+------------------------------------------------
+
+.. productionlist:: python-grammar
+   while_stmt: "while" assignment_expression ":" suite
+             : ["else" ":" suite]
+
+* キーワード ``while`` で始まるヘッダと続くスイートからなる節が必須
+* オプションの ``else`` の節
+
+``while`` ``else``
+------------------------------------------------
+
+    式が偽であれば (最初から偽になっていることもありえます)、 else 節がある場合にはそれを実行し、ループを終了します。
+
+    最初のスイート内で break 文が実行されると、 else 節のスイートを実行することなくループを終了します。
+
+``for`` 文
+========================================
+
+.. productionlist:: python-grammar
+   for_stmt: "for" target_list "in" expression_list ":" suite
+           : ["else" ":" suite]
+
+`8.3. for 文 <https://docs.python.org/ja/3/reference/compound_stmts.html#the-for-statement>`_
+
+味わう ``for`` 文
+------------------------------------------------
+
+.. productionlist:: python-grammar
+   for_stmt: "for" target_list "in" expression_list ":" suite
+           : ["else" ":" suite]
+
+* キーワード ``for`` で始まり ``in`` を含むヘッダと、続くスイートからなる節が必須
+* オプションの ``else`` の節
+
+``for`` ``else``
+------------------------------------------------
+
+    全ての要素を使い切ったとき（略）else 節があればそれが実行され、ループは終了します。
+
+    最初のスイートの中で break 文が実行されると、 else 節のスイートを実行することなくループを終了します。
+
+関数定義（``def``）
+========================================
+
+.. productionlist:: python-grammar
+   funcdef: [decorators] "def" funcname "(" [parameter_list] ")"
+          : ["->" expression] ":" suite
+
+`8.7. 関数定義 <https://docs.python.org/ja/3/reference/compound_stmts.html#function-definitions>`_
+
+味わう関数定義 1/2
+------------------------------------------------
+
+.. productionlist:: python-grammar
+   funcdef: [decorators] "def" funcname "(" [parameter_list] ")"
+          : ["->" expression] ":" suite
+
+* キーワード ``def`` で始まり関数名 ``funcname`` と ``()`` を含むヘッダと、続くスイートからなる節が必須
+* ``()`` の中の仮引数 ``parameter_list`` はオプショナル
+
+味わう関数定義 2/2
+------------------------------------------------
+
+.. productionlist:: python-grammar
+   funcdef: [decorators] "def" funcname "(" [parameter_list] ")"
+          : ["->" expression] ":" suite
+
+* 他にもオプショナルなもの
+
+  * デコレータ ``decorators`` （👉Appendix）
+  * 返り値の型を表す型ヒント ``-> expression`` の部分
