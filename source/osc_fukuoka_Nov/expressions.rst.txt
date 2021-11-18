@@ -1,0 +1,122 @@
+式
+====================
+
+「文」の前に「式」を少しだけ深堀りします。
+
+Pythonにおける「文」とは
+------------------------------------------------
+
+    文は 式 かキーワードから構成されるもののどちらかです。
+    (A statement is either an expression or one of several constructs with a keyword,)
+
+`Python用語集 文 <https://docs.python.org/ja/3/glossary.html#term-statement>`_
+
+文の構成要素
+------------------------------------------------
+
+* 式
+* キーワード（から構成されるもの）
+
+順番に見ていきます
+
+.. _Python用語集 式: https://docs.python.org/ja/3/glossary.html#term-expression
+
+Pythonにおける「式」とは
+========================================
+
+    何かの値と評価される、一まとまりの構文
+    (A piece of syntax which can be evaluated to some value.)
+
+`Python用語集 式`_
+
+用語集「式」の続き
+------------------------------------------------
+
+    言い換えると、式とは（中略）値を返す式の要素の積み重ねです。
+    (In other words, an expression is an accumulation of expression elements [...] which all return a value.)
+
+`Python用語集 式`_
+
+「値を返す式の要素」
+------------------------------------------------
+
+* リテラル (literals)
+* 名前 (names)
+* 属性アクセス (attribute access)
+* 演算子 (operators)
+* 関数呼び出し (function calls)
+* など（リファレンス `6. 式 <https://docs.python.org/ja/3/reference/expressions.html#expressions>`_ 参照）
+
+三度、用語集「式」より
+------------------------------------------------
+
+    Python では言語の全ての構成要素が式というわけではありません。
+    (not all language constructs are expressions.)
+
+    代入も式ではなく文です。(Assignments are also statements, not expressions.)
+
+`Python用語集 式`_
+
+キーワード
+========================================
+
+* 文の構成要素のもう一つ
+* トークンと関係します
+
+.. _2.3.1. キーワード (keyword): https://docs.python.org/ja/3/reference/lexical_analysis.html#keywords
+
+キーワードとは、予約語
+------------------------------------------------
+
+    以下の識別子は、予約語、または Python 言語における キーワード (keyword) として使われ、
+    (The following identifiers are used as reserved words, or keywords of the language)
+
+`2.3.1. キーワード (keyword)`_
+
+「識別子」？
+------------------------------------------------
+
+* **名前** (name)とも呼ばれる
+* ASCII範囲では ``[a-zA-Z_0-9]`` （数字は先頭に使えない）
+* ASCII範囲外も使える（``数 = 1231``）
+
+`2.3. 識別子 (identifier) およびキーワード (keyword) <https://docs.python.org/ja/3/reference/lexical_analysis.html#identifiers>`_
+
+キーワードの例
+------------------------------------------------
+
+* ``if``
+* ``for``
+* ``while``
+* ``def``
+
+`2.3.1. キーワード (keyword)`_
+
+予約されています
+------------------------------------------------
+
+    通常の識別子として使うことはできません。（`2.3.1. キーワード (keyword)`_）
+
+.. code-block:: python
+
+    >>> if = 1231
+      File "<stdin>", line 1
+        if = 1231
+           ^
+    SyntaxError: invalid syntax
+
+小まとめ🥟：文の構成要素
+========================================
+
+* 式
+* キーワード（から構成されるもの）
+
+  * この後は **キーワードから構成される文** にフォーカスします
+
+お品書き：文に立ち返って再入門するPython
+------------------------------------------------
+
+* プログラムの実行
+* 式
+* **文**
+* 構文
