@@ -8,6 +8,7 @@
 
 .. literalinclude:: ../../samplecode/reintro/roland.py
     :language: python
+    :lines: 5-9
     :linenos:
 
 .. code-block:: shell

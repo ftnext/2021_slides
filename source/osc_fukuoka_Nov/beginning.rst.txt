@@ -18,6 +18,7 @@ Pythonの文法を、プログラミングの入門者に説明
 
 .. literalinclude:: ../../samplecode/reintro/roland.py
     :language: python
+    :lines: 5-9
     :linenos:
 
 .. code-block:: shell
