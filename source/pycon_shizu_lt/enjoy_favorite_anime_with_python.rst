@@ -48,24 +48,28 @@ PyCon JP 2021の会期を終えたnikkie
 ------------------------------------------------
 
 .. raw:: html
+
    <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">アイの歌声を聴かせて、めっちゃよかったです👏<br><br>予告で聞いた「秘密はね、最後に明かされるんだよ」という言の通りで、AIに関わっている立場からはいいなと思わされる希望のフィルムでした<br><br>叶わないですが記憶消して何周もしたいです。<br>今後スタッフトークショー楽しみ！<a href="https://t.co/WsA2nv6TY6">https://t.co/WsA2nv6TY6</a></p>&mdash; nikkie 📣PyCon JP 2021 ありがとうございました (@ftnext) <a href="https://twitter.com/ftnext/status/1454373641496367108?ref_src=twsrc%5Etfw">October 30, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 TODO：『アイの歌声を聴かせて』ロングPVはYouTubeで見られます！！
 ------------------------------------------------------------------------------------------------
 
 .. raw:: html
+
    <iframe width="560" height="315" src="https://www.youtube.com/embed/58q1s6B8lCM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 連日 #アイの歌声を聴かせて でTLをお騒がせしています😉
 ------------------------------------------------------------------------------------------------
 
 .. raw:: html
+
    <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">アイの歌声を聴かせてにどハマりしちゃったんですが、これは座長業などの締切に追われていないこの時期だからこそできるんですよね。<br>観た方とTwitterでいいよねーって語れるのがもう最高で<br><br>こういう、今を楽しめるって幸せもあるんだなあ（これまでが不幸せだったと思ってるわけじゃないですよ。為念</p>&mdash; nikkie 📣PyCon JP 2021 ありがとうございました (@ftnext) <a href="https://twitter.com/ftnext/status/1458818025289764867?ref_src=twsrc%5Etfw">November 11, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 LT：Pythonと一緒に！　好きなアニメ映画のファン活動
 ------------------------------------------------------------------------------------------------
 
 .. raw:: html
+
    <blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/%E3%82%A2%E3%82%A4%E3%81%AE%E6%AD%8C%E5%A3%B0%E3%82%92%E8%81%B4%E3%81%8B%E3%81%9B%E3%81%A6?src=hash&amp;ref_src=twsrc%5Etfw">#アイの歌声を聴かせて</a> 私にできる応援ということでプログラミングと絡めます。<br>先日のスタッフトーク音楽篇で1曲め「ユー・ニード・ア・フレンド」には「友達」という語が頻出とのこと。<br>パンフレット収録の歌詞には6回出てきてました。<br><br>ではここで問題（たたーん♪）、友達の次に出てくる語は？</p>&mdash; nikkie 📣PyCon JP 2021 ありがとうございました (@ftnext) <a href="https://twitter.com/ftnext/status/1458106396637949952?ref_src=twsrc%5Etfw">November 9, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 お品書き：Pythonと一緒に！　好きなアニメ映画のファン活動
@@ -108,6 +112,7 @@ Pythonと一緒に！　好きなアニメ映画のファン活動
 ------------------------------------------------------------------------------------------------
 
 .. raw:: html
+
    <iframe class="speakerdeck-iframe" style="border: 0px none; background: rgba(0, 0, 0, 0.1) none repeat scroll 0% 0% padding-box; margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 560px; height: 314px;" src="https://speakerdeck.com/player/e077f158437f423294d2600076abc3b4?slide=8" title="Python for Everyday" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" data-ratio="1.78343949044586" frameborder="0"></iframe>
 
 Pythonと一緒に！　好きなアニメ映画のファン活動
@@ -121,12 +126,14 @@ Pythonと一緒に！　好きなアニメ映画のファン活動
 ============================================================
 
 .. raw:: html
+
    <blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/%E3%82%A2%E3%82%A4%E3%81%AE%E6%AD%8C%E5%A3%B0%E3%82%92%E8%81%B4%E3%81%8B%E3%81%9B%E3%81%A6?src=hash&amp;ref_src=twsrc%5Etfw">#アイの歌声を聴かせて</a> <br>気付いてしまいましたよ、<a href="https://t.co/5KHa4xqMzt">https://t.co/5KHa4xqMzt</a> を決まった時間に流せれば、サトミとお揃い！<br>ちょっと実装試みてみます<br>（もしかしてトウマ先生、実装済みだったりする？）</p>&mdash; nikkie 📣PyCon JP 2021 ありがとうございました (@ftnext) <a href="https://twitter.com/ftnext/status/1459531260938776581?ref_src=twsrc%5Etfw">November 13, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 目覚ましの曲「フィール ザ ムーンライト ～愛の歌声を聴かせて～」
 ------------------------------------------------------------------------------------------------
 
 .. raw:: html
+
    <iframe width="560" height="315" src="https://www.youtube.com/embed/BVJhS-cXhOc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 💡ひらめいたnikkie（アニメ脳）
@@ -184,6 +191,7 @@ Pythonと一緒に！　好きなアニメ映画のファン活動
 ============================================================
 
 .. raw:: html
+
    <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">数え方にもよるかもしれませんが、「欲しい」でした。<br>友達欲しいって連呼する曲なだけありますね<br><br>ちなみに1回以上は<br>[(&#39;友達&#39;, 6), (&#39;欲しい&#39;, 3), (&#39;幸せ&#39;, 2), (&#39;ひとりぼっち&#39;, 2), (&#39;歌う&#39;, 2)]<br>といったラインナップで、ここを見るだけでも曲の意図が伝わってきますね <a href="https://twitter.com/hashtag/%E3%82%A2%E3%82%A4%E3%81%AE%E6%AD%8C%E5%A3%B0%E3%82%92%E8%81%B4%E3%81%8B%E3%81%9B%E3%81%A6?src=hash&amp;ref_src=twsrc%5Etfw">#アイの歌声を聴かせて</a></p>&mdash; nikkie 📣PyCon JP 2021 ありがとうございました (@ftnext) <a href="https://twitter.com/ftnext/status/1458106930623250439?ref_src=twsrc%5Etfw">November 9, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 『アイの歌声を聴かせて』はミュージカルものでもある
@@ -197,6 +205,7 @@ Pythonと一緒に！　好きなアニメ映画のファン活動
 ------------------------------------------------------------------------------------------------
 
 .. raw:: html
+
    <iframe width="560" height="315" src="https://www.youtube.com/embed/sEvbda8vkzg?start=29" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 「ユー・ニード・ア・フレンド」で2回以上出てくる語
@@ -215,6 +224,7 @@ Pythonと一緒に！　好きなアニメ映画のファン活動
 ------------------------------------------------------------------------------------------------
 
 .. raw:: html
+
    <iframe width="560" height="315" src="https://www.youtube.com/embed/Ht8oqfSgf8w?start=66" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 「You've Got Friends」で2回以上出てくる語
