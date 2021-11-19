@@ -141,7 +141,7 @@ Pythonと一緒に！　好きなアニメ映画のファン活動
 
 .. code-block:: shell
 
-    # アイの歌声を聞かせての目覚ましを2分後にかけるコマンド
+    # 『アイの歌声を聴かせて』の目覚ましを2分後にかけるコマンド
     $ python after_x_minutes.py 2
 
 JavaScriptでYouTubeを自動再生
@@ -172,3 +172,123 @@ JavaScriptでYouTubeを自動再生
     # 先のデモスクリプトでは webbrowser.open_new_tab を呼んでいます
 
 https://docs.python.org/ja/3/library/webbrowser.html
+
+Pythonと一緒に！　好きなアニメ映画のファン活動
+------------------------------------------------------------------------------------------------
+
+1. 公開から何日目？
+2. 劇中のシーンを再現（目覚まし）
+3. **劇中歌の歌詞分析**
+
+3.劇中歌の歌詞分析
+============================================================
+
+.. raw:: html
+   <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">数え方にもよるかもしれませんが、「欲しい」でした。<br>友達欲しいって連呼する曲なだけありますね<br><br>ちなみに1回以上は<br>[(&#39;友達&#39;, 6), (&#39;欲しい&#39;, 3), (&#39;幸せ&#39;, 2), (&#39;ひとりぼっち&#39;, 2), (&#39;歌う&#39;, 2)]<br>といったラインナップで、ここを見るだけでも曲の意図が伝わってきますね <a href="https://twitter.com/hashtag/%E3%82%A2%E3%82%A4%E3%81%AE%E6%AD%8C%E5%A3%B0%E3%82%92%E8%81%B4%E3%81%8B%E3%81%9B%E3%81%A6?src=hash&amp;ref_src=twsrc%5Etfw">#アイの歌声を聴かせて</a></p>&mdash; nikkie 📣PyCon JP 2021 ありがとうございました (@ftnext) <a href="https://twitter.com/ftnext/status/1458106930623250439?ref_src=twsrc%5Etfw">November 9, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+『アイの歌声を聴かせて』はミュージカルものでもある
+------------------------------------------------------------------------------------------------
+
+* 歌でありセリフでもある
+* 作詞のこだわりを聞き、歌詞の **単語を数えて** みました
+* spaCyの素振りも兼ねてます（都合により2系 ``2.3.7`` です）
+
+「ユー・ニード・ア・フレンド」
+------------------------------------------------------------------------------------------------
+
+.. raw:: html
+   <iframe width="560" height="315" src="https://www.youtube.com/embed/sEvbda8vkzg?start=29" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+「ユー・ニード・ア・フレンド」で2回以上出てくる語
+------------------------------------------------------------------------------------------------
+
+.. code-block:: shell
+
+    $ python word_counter.py you_need_a_friend.txt
+    友達 [6]  # 友達友達と連呼する曲です
+    欲しい [3]
+    幸せ [2]
+    ひとりぼっち [2]
+    歌う [2]
+
+対になる「You've Got Friends」
+------------------------------------------------------------------------------------------------
+
+.. raw:: html
+   <iframe width="560" height="315" src="https://www.youtube.com/embed/Ht8oqfSgf8w?start=66" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+「You've Got Friends」で2回以上出てくる語
+------------------------------------------------------------------------------------------------
+
+.. code-block:: shell
+
+    $ python word_counter.py youve_got_friends.txt
+    あなた [3]
+    光 [3]
+    幸せ [2]
+    月 [2]  # 月や光に関連する語が多い曲です
+    照らす [2]
+    明かり [2]
+    誰 [2]
+    空 [2]
+    友達 [2]
+
+spaCyで日本語テキストを形態素解析
+------------------------------------------------------------------------------------------------
+
+.. code-block:: python
+
+    >>> # pip install 'spacy[ja]<3'
+    >>> from spacy.lang.ja import Japanese
+    >>> nlp = Japanese()
+    >>> doc = nlp("あなたには友達が要る")
+    >>> for token in doc:
+    ...   print(token.lemma_)  # 辞書の見出し語
+    ...
+    あなた
+    に
+    は
+    友達
+    が
+    要る
+
+カウントしたい語の絞り込み
+------------------------------------------------------------------------------------------------
+
+.. code-block:: python
+
+    >>> EXCLUDED_POS_SET = set(["ADP"])  # に、は、が などの助詞を除く
+    >>> for token in doc:
+    ...   # こと、するなど日本語のstop wordsは is_stop=True になることを使って除く
+    ...   if token.pos_ not in EXCLUDED_POS_SET and not token.is_stop:
+    ...     print(token.lemma_)
+    ...
+    あなた
+    友達
+    要る
+
+実装イメージ
+------------------------------------------------------------------------------------------------
+
+* 先の2スライドのコードを使って、歌詞から語を取り出す
+* ``collections.Counter`` を使って計数し、 ``most_common`` で登場回数順にする
+
+  * https://docs.python.org/ja/3/library/collections.html#collections.Counter.most_common
+
+まとめ🌯：Pythonと一緒に！　好きなアニメ映画のファン活動
+========================================================================================================================
+
+* 『アイの歌声を聴かせて』はいいぞ！
+* 好きな作品を題材にPythonを使った3例を紹介しました
+
+あなたの好きなもの × Python
+------------------------------------------------
+
+* 示した例自体は再利用できなくても、裏の考え方は再利用できるかも
+* 「自分も **やってみたい**」「**参考** にしてこういうことができるかも」の気持ちを大切に
+* このLTが手を動かすきっかけやアウトプットのきっかけになったら嬉しいです✌️
+
+ご清聴ありがとうございました
+------------------------------------------------
+
+Happy hacking👋
