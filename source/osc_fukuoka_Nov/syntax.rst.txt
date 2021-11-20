@@ -3,7 +3,7 @@
 
 リファレンスの中の「文の定義」について共有します。
 
-拡張BNF記法
+拡張したBNF記法
 ========================================
 
     字句解析と構文に関する記述では、BNF 文法記法に手を加えたものを使っています。
@@ -12,7 +12,7 @@
 
 `1.2. 本マニュアルにおける表記法 <https://docs.python.org/ja/3/reference/introduction.html#notation>`_
 
-拡張BNF記法における記号
+拡張したBNF記法における記号
 ------------------------------------------------
 
 * ``|``
@@ -63,32 +63,33 @@
 
     空白はトークンを分割しているときのみ意味を持ちます。
 
-拡張BNF記法の例
+拡張したBNF記法の例
 ------------------------------------------------
+
+前提「lc_letter は 'a' から 'z' までの何らかの文字一字」
 
 .. productionlist:: notation
    name: lc_letter (lc_letter | "_")*
 
-「lc_letter は 'a' から 'z' までの何らかの文字一字」
-
 ``(lc_letter | "_")*``
 ------------------------------------------------
 
-* ``|``： ``lc_letter`` またはリテラルの ``_``
+* ``|``： ``lc_letter`` またはリテラルの ``_``（例： ``z`` , ``_``）
 * 丸括弧によるグループ化
-* ``*`` により、「``lc_letter`` またはリテラルの ``_``」の0個以上の繰り返し
+* ``*`` により、「``lc_letter`` またはリテラルの ``_``」の0個以上の繰り返し（例： ``z`` , ``w_`` , ``prq``）
 
 ``lc_letter (lc_letter | "_")*``
 ------------------------------------------------
 
 * ``lc_letter`` の後に、「``lc_letter`` またはリテラルの ``_``」が0個以上の繰り返されることを表す
+* 例： ``a`` , ``b_`` , ``cde``
 * この規則を ``name`` として定義した
 
 構文定義を読んでみる
 ========================================
 
 * `8. 複合文 <https://docs.python.org/ja/3/reference/compound_stmts.html#compound-statements>`_ 中の定義を読んでみましょう
-* 拡張BNF記法に沿って読むと、説明される感動がありました！
+* 拡張したBNF記法に沿って読むと、**簡潔な行数で、抜け漏れなく説明される** 感動がありました！
 
 構文定義、積ん読！
 ------------------------------------------------
@@ -101,12 +102,17 @@
 ``if`` 文
 ========================================
 
+    if 文は、条件分岐を実行するために使われます:
+
+`8.1. if 文 <https://docs.python.org/ja/3/reference/compound_stmts.html#the-if-statement>`_
+
+``if`` 文の構文
+------------------------------------------------
+
 .. productionlist:: python-grammar
    if_stmt: "if" assignment_expression ":" suite
           : ("elif" assignment_expression ":" suite)*
           : ["else" ":" suite]
-
-`8.1. if 文 <https://docs.python.org/ja/3/reference/compound_stmts.html#the-if-statement>`_
 
 味わう ``if`` 文 1/3
 ------------------------------------------------
@@ -116,7 +122,7 @@
           : ("elif" assignment_expression ":" suite)*
           : ["else" ":" suite]
 
-* キーワード ``if`` で始まるヘッダと続くスイートからなる節は必須
+* キーワード ``if`` で始まるヘッダと続くスイートからなる節は **必須**
 
 味わう ``if`` 文 2/3
 ------------------------------------------------
@@ -126,7 +132,7 @@
           : ("elif" assignment_expression ":" suite)*
           : ["else" ":" suite]
 
-* ``elif`` の節は0回以上の繰り返し（ない場合もあるし、複数ある場合もある）
+* ``elif`` の節は **0回以上** の繰り返し（ない場合もあるし、複数ある場合もある）
 
 味わう ``if`` 文 3/3
 ------------------------------------------------
@@ -136,12 +142,12 @@
           : ("elif" assignment_expression ":" suite)*
           : ["else" ":" suite]
 
-* ``else`` の節はオプション（0回または1回繰り返し）
+* ``else`` の節は **オプション** （0回または1回繰り返し）
 
 脱線： ``assignment_expression``
 ========================================
 
-``if`` や ``else`` のヘッダに登場する ``assignment_expression`` について
+``if`` 節や ``else`` 節のヘッダに登場する ``assignment_expression`` について
 
 ``assignment_expression`` は代入式
 ------------------------------------------------
@@ -151,17 +157,15 @@
 
 `6.12. 代入式 <https://docs.python.org/ja/3/reference/expressions.html#grammar-token-python-grammar-assignment_expression>`_
 
-代入式
+代入式はPython3.8 (2019/10 release) から
 ------------------------------------------------
-
-* Python3.8 (2019/10 release) から登場した代入式
 
     大きな構文の一部として、変数に値を割り当てる新しい構文 := が追加されました。
     この構文は セイウチの目と牙 に似ているため、「セイウチ演算子」の愛称で知られています。
 
 https://docs.python.org/ja/3/whatsnew/3.8.html#assignment-expressions
 
-代入式の例（What's Newより）
+代入式の例（Python 3.8 What's Newより）
 ------------------------------------------------
 
     代入式により len() 関数を二重に呼びだすことを回避しています:
@@ -171,21 +175,33 @@ https://docs.python.org/ja/3/whatsnew/3.8.html#assignment-expressions
     if (n := len(a)) > 10:
         print(f"List is too long ({n} elements, expected <= 10)")
 
-構文を読んでの気づき
+構文を読んでの気づき 1/2
 ------------------------------------------------
 
-* ``:=`` はオプションとして ``if`` 文の定義に登場
-* 制御フローの構文が変わるほどの **大きな変更だった** ことを実感
+.. productionlist:: python-grammar
+   assignment_expression: [identifier ":="] expression
+
+* ``:=`` は **オプション** として ``if`` 文の定義に登場
+
+構文を読んでの気づき 2/2
+------------------------------------------------
+
+* ``:=`` が使えるようになるんだくらいの理解だったが、制御フローの構文が変わるほどの **大きな変更だった** ことを実感
 * ``while`` 文の定義にも登場します
 
 ``while`` 文
 ========================================
 
+    while 文は、式の値が真である間、実行を繰り返すために使われます:
+
+`8.2. while 文 <https://docs.python.org/ja/3/reference/compound_stmts.html#the-while-statement>`_
+
+``while`` 文の構文
+------------------------------------------------
+
 .. productionlist:: python-grammar
    while_stmt: "while" assignment_expression ":" suite
              : ["else" ":" suite]
-
-`8.2. while 文 <https://docs.python.org/ja/3/reference/compound_stmts.html#the-while-statement>`_
 
 味わう ``while`` 文
 ------------------------------------------------
@@ -194,7 +210,7 @@ https://docs.python.org/ja/3/whatsnew/3.8.html#assignment-expressions
    while_stmt: "while" assignment_expression ":" suite
              : ["else" ":" suite]
 
-* キーワード ``while`` で始まるヘッダと続くスイートからなる節が必須
+* キーワード ``while`` で始まるヘッダと続くスイートからなる節が **必須**
 * オプションの ``else`` の節
 
 ``while`` ``else``
@@ -204,14 +220,26 @@ https://docs.python.org/ja/3/whatsnew/3.8.html#assignment-expressions
 
     最初のスイート内で break 文が実行されると、 else 節のスイートを実行することなくループを終了します。
 
+🚨 構文でサポートされますが、ループでは ``else`` 節を使わないのがオススメ
+------------------------------------------------------------------------------------------------
+
+    項目9　forループとwhileループの後のelseブロックは使わない
+
+`Effective Python 第2版 <https://www.oreilly.co.jp/books/9784873119175/>`_ （誤解を生みやすいためと説明されます）
+
 ``for`` 文
 ========================================
+
+    for 文は、シーケンス (文字列、タプルまたはリスト) や、その他の反復可能なオブジェクト (iterable object) 内の要素に渡って反復処理を行うために使われます:
+
+`8.3. for 文 <https://docs.python.org/ja/3/reference/compound_stmts.html#the-for-statement>`_
+
+``for`` 文の構文
+------------------------------------------------
 
 .. productionlist:: python-grammar
    for_stmt: "for" target_list "in" expression_list ":" suite
            : ["else" ":" suite]
-
-`8.3. for 文 <https://docs.python.org/ja/3/reference/compound_stmts.html#the-for-statement>`_
 
 味わう ``for`` 文
 ------------------------------------------------
@@ -230,14 +258,19 @@ https://docs.python.org/ja/3/whatsnew/3.8.html#assignment-expressions
 
     最初のスイートの中で break 文が実行されると、 else 節のスイートを実行することなくループを終了します。
 
-関数定義（``def``）
+関数定義
 ========================================
+
+    関数定義は、ユーザ定義関数オブジェクトを定義します
+
+`8.7. 関数定義 <https://docs.python.org/ja/3/reference/compound_stmts.html#function-definitions>`_
+
+関数定義の構文（``def``）
+------------------------------------------------
 
 .. productionlist:: python-grammar
    funcdef: [decorators] "def" funcname "(" [parameter_list] ")"
           : ["->" expression] ":" suite
-
-`8.7. 関数定義 <https://docs.python.org/ja/3/reference/compound_stmts.html#function-definitions>`_
 
 味わう関数定義 1/2
 ------------------------------------------------
