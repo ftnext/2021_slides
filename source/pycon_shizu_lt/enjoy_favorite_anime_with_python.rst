@@ -18,10 +18,17 @@ PyCon JP 2021でお会いして以来ですね
 
 PyCon JP 2021 座長でした。ご参加ありがとうございました
 
+当日の雰囲気はこちら
+------------------------------------------------
+
 .. raw:: html
 
-   </section>
-   <section >
+   <iframe width="560" height="315" src="https://www.youtube.com/embed/ESn5WQqYmo8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+`PyCon JP 2021インタビュー動画公開 <https://pyconjp.blogspot.com/2021/11/pyconjp2021-interview-video.html>`_ （寺田さん、ありがとうございました！）
+
+1つお知らせです
+------------------------------------------------
 
 .. raw:: html
 
@@ -44,7 +51,9 @@ PyCon JP 2021 座長でした。ご参加ありがとうございました
 PyCon JP 2021の会期を終えたnikkie
 ============================================================
 
-『アイの歌声を聴かせて』にハマりました
+.. _アイの歌声を聴かせて: https://ainouta.jp/
+
+『`アイの歌声を聴かせて`_』にハマりました
 ------------------------------------------------
 
 .. raw:: html
@@ -58,7 +67,7 @@ TODO：『アイの歌声を聴かせて』ロングPVはYouTubeで見られま�
 
    <iframe width="560" height="315" src="https://www.youtube.com/embed/58q1s6B8lCM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-連日 #アイの歌声を聴かせて でTLをお騒がせしています😉
+連日TLを #アイの歌声を聴かせて で evangelist しています😉
 ------------------------------------------------------------------------------------------------
 
 .. raw:: html
@@ -88,8 +97,6 @@ Pythonと一緒に！　好きなアニメ映画のファン活動
 
 1.公開から何日目？
 ============================================================
-
-デモします
 
 .. code-block:: shell
 
@@ -141,7 +148,7 @@ Pythonと一緒に！　好きなアニメ映画のファン活動
 
 * 目覚ましの曲はYouTubeで流せる
 * 指定した時間に目覚ましの曲を流す＝目覚ましのシーン再現！
-* 要は「YouTubeの動画を自動で流す」を実装
+* 要は「**YouTubeの動画を自動で流す**」を実装
 
 デモ 🤖🎤🎼
 ------------------------------------------------------------------------------------------------
@@ -149,13 +156,15 @@ Pythonと一緒に！　好きなアニメ映画のファン活動
 .. code-block:: shell
 
     # 『アイの歌声を聴かせて』の目覚ましを2分後にかけるコマンド
-    $ python after_x_minutes.py 2
+    $ python3.10 after_x_minutes.py 2
+
+:raw-html:`<i class="fab fa-github"></i>` `after_x_minutes.py <https://github.com/ftnext/anime-fan-python/blob/089e9600acc7c35ff745f26ee5dfaa811cf8826b/satomi-alarm/after_x_minutes.py>`_
 
 JavaScriptでYouTubeを自動再生
 ------------------------------------------------------------------------------------------------
 
 .. code-block:: javascript
-    :caption: autoplay.html
+    :caption: autoplay.html（に書いたJavaScriptの一部）
 
     var player;
     function onYouTubeIframeAPIReady() {
@@ -169,6 +178,8 @@ JavaScriptでYouTubeを自動再生
         },
       });
     }
+
+:raw-html:`<i class="fab fa-github"></i>` `autoplay.html <https://github.com/ftnext/anime-fan-python/blob/089e9600acc7c35ff745f26ee5dfaa811cf8826b/satomi-alarm/autoplay.html>`_
 
 ``webbrowser`` でHTMLを開けば、自動再生始まる
 ------------------------------------------------------------------------------------------------
@@ -194,12 +205,12 @@ Pythonと一緒に！　好きなアニメ映画のファン活動
 
    <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">数え方にもよるかもしれませんが、「欲しい」でした。<br>友達欲しいって連呼する曲なだけありますね<br><br>ちなみに1回以上は<br>[(&#39;友達&#39;, 6), (&#39;欲しい&#39;, 3), (&#39;幸せ&#39;, 2), (&#39;ひとりぼっち&#39;, 2), (&#39;歌う&#39;, 2)]<br>といったラインナップで、ここを見るだけでも曲の意図が伝わってきますね <a href="https://twitter.com/hashtag/%E3%82%A2%E3%82%A4%E3%81%AE%E6%AD%8C%E5%A3%B0%E3%82%92%E8%81%B4%E3%81%8B%E3%81%9B%E3%81%A6?src=hash&amp;ref_src=twsrc%5Etfw">#アイの歌声を聴かせて</a></p>&mdash; nikkie 📣PyCon JP 2021 ありがとうございました (@ftnext) <a href="https://twitter.com/ftnext/status/1458106930623250439?ref_src=twsrc%5Etfw">November 9, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-『アイの歌声を聴かせて』はミュージカルものでもある
+『`アイの歌声を聴かせて`_』はミュージカルものでもある
 ------------------------------------------------------------------------------------------------
 
 * 歌でありセリフでもある
-* 作詞のこだわりを聞き、歌詞の **単語を数えて** みました
-* spaCyの素振りも兼ねてます（都合により2系 ``2.3.7`` です）
+* 作詞のこだわりを知ったのをきっかけに、歌詞の **単語を数えて** みました
+* spaCyの素振りも兼ねてます（都合により2系 ``2.3.7`` です。Pythonは3.9系です）
 
 「ユー・ニード・ア・フレンド」
 ------------------------------------------------------------------------------------------------
@@ -220,7 +231,7 @@ Pythonと一緒に！　好きなアニメ映画のファン活動
     ひとりぼっち [2]
     歌う [2]
 
-対になる「You've Got Friends」
+対になる「You've Got Friends」（ロングPV 1分過ぎから）
 ------------------------------------------------------------------------------------------------
 
 .. raw:: html
@@ -248,7 +259,7 @@ spaCyで日本語テキストを形態素解析
 
 .. code-block:: python
 
-    >>> # pip install 'spacy[ja]<3'
+    >>> # 前提: pip install 'spacy[ja]<3'
     >>> from spacy.lang.ja import Japanese
     >>> nlp = Japanese()
     >>> doc = nlp("あなたには友達が要る")
@@ -280,7 +291,10 @@ spaCyで日本語テキストを形態素解析
 実装イメージ
 ------------------------------------------------------------------------------------------------
 
-* 先の2スライドのコードを使って、歌詞から語を取り出す
+* 先の2スライドのコードを使って、歌詞から単語を取り出す
+
+  * :raw-html:`<i class="fab fa-github"></i>` `word_counter.py <https://github.com/ftnext/anime-fan-python/blob/089e9600acc7c35ff745f26ee5dfaa811cf8826b/ainouta-nlp/word_counter.py>`_
+
 * ``collections.Counter`` を使って計数し、 ``most_common`` で登場回数順にする
 
   * https://docs.python.org/ja/3/library/collections.html#collections.Counter.most_common
@@ -288,13 +302,13 @@ spaCyで日本語テキストを形態素解析
 まとめ🌯：Pythonと一緒に！　好きなアニメ映画のファン活動
 ========================================================================================================================
 
-* 『アイの歌声を聴かせて』はいいぞ！
-* 好きな作品を題材にPythonを使った3例を紹介しました
+* **『アイの歌声を聴かせて』はいいぞ！**
+* 好きな作品を題材にPython{を使った,で素振りした}3例を紹介しました
 
 あなたの好きなもの × Python
 ------------------------------------------------
 
-* 示した例自体は再利用できなくても、裏の考え方は再利用できるかも
+* 示した例自体は再利用できなくても、 **裏の考え方** は再利用できるかも
 * 「自分も **やってみたい**」「**参考** にしてこういうことができるかも」の気持ちを大切に
 * このLTが手を動かすきっかけやアウトプットのきっかけになったら嬉しいです✌️
 
@@ -302,3 +316,21 @@ spaCyで日本語テキストを形態素解析
 ------------------------------------------------
 
 Happy hacking👋
+
+Reference（技術面）
+============================================================
+
+* 自動再生に使った `iFrame Player API のリファレンス <https://developers.google.com/youtube/iframe_api_reference?hl=ja>`_
+* spaCy（v2のチュートリアル） `第1章: 単語やフレーズ、名前、概念の検索 <https://course.spacy.io/ja/chapter1>`_
+
+Reference（アイの歌声を聴かせて）
+------------------------------------------------
+
+* 『アイの歌声を聴かせて』の歌詞は `パンフレット <https://froovie.jp/shop/g/g5610130/>`_ を参照しました
+
+  * 劇中で流れる部分限定です（フルではありません）
+
+* 作品に興味持った方へ「`SNSで広がる『アイの歌声を聴かせて』の感動！ミュージカルアニメ映画史上最高の名作を絶対に今週末に観てほしい理由 <https://cinema.ne.jp/article/detail/48241>`_」
+
+EOF
+------------------------------------------------
