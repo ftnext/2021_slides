@@ -1,0 +1,367 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pythonと一緒に！ 好きなアニメ映画のファン活動</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="../reveal.js/dist/theme/black.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/plugin/highlight/zenburn.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/Font-Awesome/css/all.min.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ftnext">
+    <meta property="og:url" content="https://ftnext.github.io/2021_slides/pycon_shizu_lt/enjoy_favorite_anime_with_python.html">
+    <meta property="og:title" content="Pythonと一緒に！　好きなアニメ映画のファン活動">
+    <meta property="og:description" content="2021/11/20 PyCon mini Shizuoka 2021 LTスライド">
+    <meta property="og:image" content="https://ftnext.github.io/2021_slides/_images/ogps/pycon_shizu_lt.png">
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides">
+            <section >
+<h1>Pythonと一緒に！　好きなアニメ映画のファン活動</h1>
+<dl class="field-list simple">
+<dt class="field-odd">Event</dt>
+<dd class="field-odd"><p>PyCon mini Shizuoka 2021</p>
+</dd>
+<dt class="field-even">Presented</dt>
+<dd class="field-even"><p>2021/11/20 nikkie</p>
+</dd>
+</dl>
+</section>
+<section>
+<section >
+<h2>皆さん、本物のnikkieですよ</h2>
+<p>※変なテンションで「お前、誰よ」（自己紹介）をお送りします</p>
+</section>
+<section >
+<h3>PyCon JP 2021でお会いして以来ですね</h3>
+<p>PyCon JP 2021 座長でした。ご参加ありがとうございました</p>
+</section>
+<section >
+<h3>当日の雰囲気はこちら</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ESn5WQqYmo8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><p><a class="reference external" href="https://pyconjp.blogspot.com/2021/11/pyconjp2021-interview-video.html">PyCon JP 2021インタビュー動画公開</a> （寺田さん、ありがとうございました！）</p>
+</section>
+<section >
+<h3>1つお知らせです</h3>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">PyCon JP 2021 Advent Calendar、やりますよーー！！（参加者募集中🙏）: <a href="https://twitter.com/hashtag/pyconjp?src=hash&amp;ref_src=twsrc%5Etfw">#pyconjp</a> 皆さん、こんにちは。 PyCon JP 2021 座長のnikkieです。 今回はPyCon JP 2021… <a href="https://t.co/kD37moCApr">https://t.co/kD37moCApr</a></p>&mdash; PyCon JP (@pyconjapan) <a href="https://twitter.com/pyconjapan/status/1457928695679578114?ref_src=twsrc%5Etfw">November 9, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+<section >
+<h3>📣 PyCon JP 2021 Advent Calendar、やります！</h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://qiita.com/advent-calendar/2021/pyconjp">https://qiita.com/advent-calendar/2021/pyconjp</a></p></li>
+<li><p>PyCon JP 2021にちなんだアウトプット募集中</p></li>
+<li><p><strong>小さなアウトプット大歓迎</strong>。チケット買ってなくても、資料やアーカイブ見て参加して大丈夫です！</p></li>
+</ul>
+</section>
+<section >
+<h3>お前、誰よ</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.skip(&quot;スライドだけを確認する方向けのスライド&quot;)</span></code></p></li>
+<li><p>Python大好き <strong>にっきー</strong> （<span class="raw-html"><i class="fab fa-twitter"></i></span> <a class="reference external" href="https://twitter.com/ftnext">&#64;ftnext</a> / <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext">&#64;ftnext</a>）</p></li>
+<li><p>Python歴4年。株式会社ユーザベースのデータサイエンティスト（NLPer）</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>PyCon JP 2021の会期を終えたnikkie</h2>
+</section>
+<section >
+<h3>『<a class="reference external" href="https://ainouta.jp/">アイの歌声を聴かせて</a>』にハマりました</h3>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">アイの歌声を聴かせて、めっちゃよかったです👏<br><br>予告で聞いた「秘密はね、最後に明かされるんだよ」という言の通りで、AIに関わっている立場からはいいなと思わされる希望のフィルムでした<br><br>叶わないですが記憶消して何周もしたいです。<br>今後スタッフトークショー楽しみ！<a href="https://t.co/WsA2nv6TY6">https://t.co/WsA2nv6TY6</a></p>&mdash; nikkie 📣PyCon JP 2021 ありがとうございました (@ftnext) <a href="https://twitter.com/ftnext/status/1454373641496367108?ref_src=twsrc%5Etfw">October 30, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+<section >
+<h3>TODO：『アイの歌声を聴かせて』ロングPVはYouTubeで見られます！！</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/58q1s6B8lCM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></section>
+<section >
+<h3>連日TLを #アイの歌声を聴かせて で evangelist しています😉</h3>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">アイの歌声を聴かせてにどハマりしちゃったんですが、これは座長業などの締切に追われていないこの時期だからこそできるんですよね。<br>観た方とTwitterでいいよねーって語れるのがもう最高で<br><br>こういう、今を楽しめるって幸せもあるんだなあ（これまでが不幸せだったと思ってるわけじゃないですよ。為念</p>&mdash; nikkie 📣PyCon JP 2021 ありがとうございました (@ftnext) <a href="https://twitter.com/ftnext/status/1458818025289764867?ref_src=twsrc%5Etfw">November 11, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+<section >
+<h3>LT：Pythonと一緒に！　好きなアニメ映画のファン活動</h3>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/%E3%82%A2%E3%82%A4%E3%81%AE%E6%AD%8C%E5%A3%B0%E3%82%92%E8%81%B4%E3%81%8B%E3%81%9B%E3%81%A6?src=hash&amp;ref_src=twsrc%5Etfw">#アイの歌声を聴かせて</a> 私にできる応援ということでプログラミングと絡めます。<br>先日のスタッフトーク音楽篇で1曲め「ユー・ニード・ア・フレンド」には「友達」という語が頻出とのこと。<br>パンフレット収録の歌詞には6回出てきてました。<br><br>ではここで問題（たたーん♪）、友達の次に出てくる語は？</p>&mdash; nikkie 📣PyCon JP 2021 ありがとうございました (@ftnext) <a href="https://twitter.com/ftnext/status/1458106396637949952?ref_src=twsrc%5Etfw">November 9, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+<section >
+<h3>お品書き：Pythonと一緒に！　好きなアニメ映画のファン活動</h3>
+<ol class="arabic simple">
+<li><p>公開から何日目？</p></li>
+<li><p>劇中のシーンを再現（目覚まし）</p></li>
+<li><p>劇中歌の歌詞分析</p></li>
+</ol>
+</section>
+<section >
+<h3>Pythonと一緒に！　好きなアニメ映画のファン活動</h3>
+<ol class="arabic simple">
+<li><p><strong>公開から何日目？</strong></p></li>
+<li><p>劇中のシーンを再現（目覚まし）</p></li>
+<li><p>劇中歌の歌詞分析</p></li>
+</ol>
+</section>
+</section>
+<section>
+<section >
+<h2>1.公開から何日目？</h2>
+<pre><code data-trim data-noescape  class="shell">
+$ python3.10 x-days-anniversary/main.py
+『アイの歌声を聴かせて』公開から23日目です</code></pre>
+</section>
+<section >
+<h3>公開から何日目？の実装</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; from datetime import date
+&gt;&gt;&gt; AINOUTA_DAY = date(2021, 10, 29)
+&gt;&gt;&gt; date.today() - AINOUTA_DAY
+datetime.timedelta(days=22)
+&gt;&gt;&gt; (date.today() - AINOUTA_DAY).days + 1  # 10/29を1日目とする
+23</code></pre>
+</section>
+<section >
+<h3>9月の #pycharity でのHayaoさんのLTにインスパイアされました！</h3>
+<iframe class="speakerdeck-iframe" style="border: 0px none; background: rgba(0, 0, 0, 0.1) none repeat scroll 0% 0% padding-box; margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 560px; height: 314px;" src="https://speakerdeck.com/player/e077f158437f423294d2600076abc3b4?slide=8" title="Python for Everyday" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" data-ratio="1.78343949044586" frameborder="0"></iframe></section>
+<section >
+<h3>Pythonと一緒に！　好きなアニメ映画のファン活動</h3>
+<ol class="arabic simple">
+<li><p>公開から何日目？</p></li>
+<li><p><strong>劇中のシーンを再現（目覚まし）</strong></p></li>
+<li><p>劇中歌の歌詞分析</p></li>
+</ol>
+</section>
+</section>
+<section>
+<section >
+<h2>2.劇中のシーンを再現（目覚まし）</h2>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/%E3%82%A2%E3%82%A4%E3%81%AE%E6%AD%8C%E5%A3%B0%E3%82%92%E8%81%B4%E3%81%8B%E3%81%9B%E3%81%A6?src=hash&amp;ref_src=twsrc%5Etfw">#アイの歌声を聴かせて</a> <br>気付いてしまいましたよ、<a href="https://t.co/5KHa4xqMzt">https://t.co/5KHa4xqMzt</a> を決まった時間に流せれば、サトミとお揃い！<br>ちょっと実装試みてみます<br>（もしかしてトウマ先生、実装済みだったりする？）</p>&mdash; nikkie 📣PyCon JP 2021 ありがとうございました (@ftnext) <a href="https://twitter.com/ftnext/status/1459531260938776581?ref_src=twsrc%5Etfw">November 13, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+<section >
+<h3>目覚ましの曲「フィール ザ ムーンライト ～愛の歌声を聴かせて～」</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/BVJhS-cXhOc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></section>
+<section >
+<h3>💡ひらめいたnikkie（アニメ脳）</h3>
+<ul class="simple">
+<li><p>目覚ましの曲はYouTubeで流せる</p></li>
+<li><p>指定した時間に目覚ましの曲を流す＝目覚ましのシーン再現！</p></li>
+<li><p>要は「<strong>YouTubeの動画を自動で流す</strong>」を実装</p></li>
+</ul>
+</section>
+<section >
+<h3>デモ 🤖🎤🎼</h3>
+<pre><code data-trim data-noescape  class="shell">
+# 『アイの歌声を聴かせて』の目覚ましを2分後にかけるコマンド
+$ python3.10 after_x_minutes.py 2</code></pre>
+<p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/anime-fan-python/blob/089e9600acc7c35ff745f26ee5dfaa811cf8826b/satomi-alarm/after_x_minutes.py">after_x_minutes.py</a></p>
+</section>
+<section >
+<h3>JavaScriptでYouTubeを自動再生</h3>
+<div class="literal-block-wrapper docutils container" id="id30">
+<div class="code-block-caption"><span class="caption-text">autoplay.html（に書いたJavaScriptの一部）</span></div>
+<pre><code data-trim data-noescape  class="javascript">
+var player;
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player(&quot;player&quot;, {
+    height: &quot;315&quot;,
+    width: &quot;560&quot;,
+    videoId: &quot;BVJhS-cXhOc&quot;,
+    events: {
+    onReady: onPlayerReady,
+    onStateChange: onPlayerStateChange,
+    },
+  });
+}</code></pre>
+</div>
+<p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/anime-fan-python/blob/089e9600acc7c35ff745f26ee5dfaa811cf8826b/satomi-alarm/autoplay.html">autoplay.html</a></p>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">webbrowser</span></code> でHTMLを開けば、自動再生始まる</h3>
+<pre><code data-trim data-noescape  class="shell">
+$ python3 -m webbrowser -t &quot;autoplay.html&quot;
+# 先のデモスクリプトでは webbrowser.open_new_tab を呼んでいます</code></pre>
+<p><a class="reference external" href="https://docs.python.org/ja/3/library/webbrowser.html">https://docs.python.org/ja/3/library/webbrowser.html</a></p>
+</section>
+<section >
+<h3>Pythonと一緒に！　好きなアニメ映画のファン活動</h3>
+<ol class="arabic simple">
+<li><p>公開から何日目？</p></li>
+<li><p>劇中のシーンを再現（目覚まし）</p></li>
+<li><p><strong>劇中歌の歌詞分析</strong></p></li>
+</ol>
+</section>
+</section>
+<section>
+<section >
+<h2>3.劇中歌の歌詞分析</h2>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">数え方にもよるかもしれませんが、「欲しい」でした。<br>友達欲しいって連呼する曲なだけありますね<br><br>ちなみに1回以上は<br>[(&#39;友達&#39;, 6), (&#39;欲しい&#39;, 3), (&#39;幸せ&#39;, 2), (&#39;ひとりぼっち&#39;, 2), (&#39;歌う&#39;, 2)]<br>といったラインナップで、ここを見るだけでも曲の意図が伝わってきますね <a href="https://twitter.com/hashtag/%E3%82%A2%E3%82%A4%E3%81%AE%E6%AD%8C%E5%A3%B0%E3%82%92%E8%81%B4%E3%81%8B%E3%81%9B%E3%81%A6?src=hash&amp;ref_src=twsrc%5Etfw">#アイの歌声を聴かせて</a></p>&mdash; nikkie 📣PyCon JP 2021 ありがとうございました (@ftnext) <a href="https://twitter.com/ftnext/status/1458106930623250439?ref_src=twsrc%5Etfw">November 9, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+<section >
+<h3>『<a class="reference external" href="https://ainouta.jp/">アイの歌声を聴かせて</a>』はミュージカルものでもある</h3>
+<ul class="simple">
+<li><p>歌でありセリフでもある</p></li>
+<li><p>作詞のこだわりを知ったのをきっかけに、歌詞の <strong>単語を数えて</strong> みました</p></li>
+<li><p>spaCyの素振りも兼ねてます（都合により2系 <code class="docutils literal notranslate"><span class="pre">2.3.7</span></code> です。Pythonは3.9系です）</p></li>
+</ul>
+</section>
+<section >
+<h3>「ユー・ニード・ア・フレンド」</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sEvbda8vkzg?start=29" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></section>
+<section >
+<h3>「ユー・ニード・ア・フレンド」で2回以上出てくる語</h3>
+<pre><code data-trim data-noescape  class="shell">
+$ python word_counter.py you_need_a_friend.txt
+友達 [6]  # 友達友達と連呼する曲です
+欲しい [3]
+幸せ [2]
+ひとりぼっち [2]
+歌う [2]</code></pre>
+</section>
+<section >
+<h3>対になる「You've Got Friends」（ロングPV 1分過ぎから）</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Ht8oqfSgf8w?start=66" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></section>
+<section >
+<h3>「You've Got Friends」で2回以上出てくる語</h3>
+<pre><code data-trim data-noescape  class="shell">
+$ python word_counter.py youve_got_friends.txt
+あなた [3]
+光 [3]
+幸せ [2]
+月 [2]  # 月や光に関連する語が多い曲です
+照らす [2]
+明かり [2]
+誰 [2]
+空 [2]
+友達 [2]</code></pre>
+</section>
+<section >
+<h3>spaCyで日本語テキストを形態素解析</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; # 前提: pip install 'spacy[ja]&lt;3'
+&gt;&gt;&gt; from spacy.lang.ja import Japanese
+&gt;&gt;&gt; nlp = Japanese()
+&gt;&gt;&gt; doc = nlp(&quot;あなたには友達が要る&quot;)
+&gt;&gt;&gt; for token in doc:
+...   print(token.lemma_)  # 辞書の見出し語
+...
+あなた
+に
+は
+友達
+が
+要る</code></pre>
+</section>
+<section >
+<h3>カウントしたい語の絞り込み</h3>
+<pre><code data-trim data-noescape  class="python">
+&gt;&gt;&gt; EXCLUDED_POS_SET = set([&quot;ADP&quot;])  # に、は、が などの助詞を除く
+&gt;&gt;&gt; for token in doc:
+...   # こと、するなど日本語のstop wordsは is_stop=True になることを使って除く
+...   if token.pos_ not in EXCLUDED_POS_SET and not token.is_stop:
+...     print(token.lemma_)
+...
+あなた
+友達
+要る</code></pre>
+</section>
+<section >
+<h3>実装イメージ</h3>
+<ul class="simple">
+<li><p>先の2スライドのコードを使って、歌詞から単語を取り出す</p>
+<ul>
+<li><p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/anime-fan-python/blob/089e9600acc7c35ff745f26ee5dfaa811cf8826b/ainouta-nlp/word_counter.py">word_counter.py</a></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">collections.Counter</span></code> を使って計数し、 <code class="docutils literal notranslate"><span class="pre">most_common</span></code> で登場回数順にする</p>
+<ul>
+<li><p><a class="reference external" href="https://docs.python.org/ja/3/library/collections.html#collections.Counter.most_common">https://docs.python.org/ja/3/library/collections.html#collections.Counter.most_common</a></p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>まとめ🌯：Pythonと一緒に！　好きなアニメ映画のファン活動</h2>
+<ul class="simple">
+<li><p><strong>『アイの歌声を聴かせて』はいいぞ！</strong></p></li>
+<li><p>好きな作品を題材にPython{を使った,で素振りした}3例を紹介しました</p></li>
+</ul>
+</section>
+<section >
+<h3>あなたの好きなもの × Python</h3>
+<ul class="simple">
+<li><p>示した例自体は再利用できなくても、 <strong>裏の考え方</strong> は再利用できるかも</p></li>
+<li><p>「自分も <strong>やってみたい</strong>」「<strong>参考</strong> にしてこういうことができるかも」の気持ちを大切に</p></li>
+<li><p>このLTが手を動かすきっかけやアウトプットのきっかけになったら嬉しいです✌️</p></li>
+</ul>
+</section>
+<section >
+<h3>ご清聴ありがとうございました</h3>
+<p>Happy hacking👋</p>
+</section>
+</section>
+<section>
+<section >
+<h2>Reference（技術面）</h2>
+<ul class="simple">
+<li><p>自動再生に使った <a class="reference external" href="https://developers.google.com/youtube/iframe_api_reference?hl=ja">iFrame Player API のリファレンス</a></p></li>
+<li><p>spaCy（v2のチュートリアル） <a class="reference external" href="https://course.spacy.io/ja/chapter1">第1章: 単語やフレーズ、名前、概念の検索</a></p></li>
+</ul>
+</section>
+<section >
+<h3>Reference（アイの歌声を聴かせて）</h3>
+<ul class="simple">
+<li><p>『アイの歌声を聴かせて』の歌詞は <a class="reference external" href="https://froovie.jp/shop/g/g5610130/">パンフレット</a> を参照しました</p>
+<ul>
+<li><p>劇中で流れる部分限定です（フルではありません）</p></li>
+</ul>
+</li>
+<li><p>作品に興味持った方へ「<a class="reference external" href="https://cinema.ne.jp/article/detail/48241">SNSで広がる『アイの歌声を聴かせて』の感動！ミュージカルアニメ映画史上最高の名作を絶対に今週末に観てほしい理由</a>」</p></li>
+</ul>
+</section>
+<section >
+<h3>EOF</h3>
+</section>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../reveal.js/dist/reveal.js"></script>
+    
+    
+      <script src="../reveal.js/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: "none",
+        slideNumber: "c/t",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>
