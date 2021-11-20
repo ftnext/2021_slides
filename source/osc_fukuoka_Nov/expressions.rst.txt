@@ -6,8 +6,9 @@
 Pythonにおける「文」とは
 ------------------------------------------------
 
-    文は 式 かキーワードから構成されるもののどちらかです。
-    (A statement is either an expression or one of several constructs with a keyword,)
+    A statement is either an expression or one of several constructs with a keyword,
+
+文は、式または、キーワードから構成されるものです（nikkie訳）
 
 `Python用語集 文 <https://docs.python.org/ja/3/glossary.html#term-statement>`_
 
@@ -61,9 +62,20 @@ Pythonにおける「式」とは
 ========================================
 
 * 文の構成要素のもう一つ
-* トークンと関係します
+* いくつかのトークンがキーワードです（キーワード ⊆ 識別子 ⊆ トークン）
 
 .. _2.3.1. キーワード (keyword): https://docs.python.org/ja/3/reference/lexical_analysis.html#keywords
+
+キーワードの例
+------------------------------------------------
+
+* ``if``
+* ``for``
+* ``while``
+* ``def``
+* ``else``
+
+`2.3.1. キーワード (keyword)`_
 
 キーワードとは、予約語
 ------------------------------------------------
@@ -73,24 +85,16 @@ Pythonにおける「式」とは
 
 `2.3.1. キーワード (keyword)`_
 
+※「以下の識別子」として、先のスライドのキーワードも挙げられています
+
 「識別子」？
 ------------------------------------------------
 
 * **名前** (name)とも呼ばれる
-* ASCII範囲では ``[a-zA-Z_0-9]`` （数字は先頭に使えない）
+* ASCII範囲では ``[a-zA-Z_0-9]`` （数字は先頭に使えない。 ``variable2 = 108``）
 * ASCII範囲外も使える（``数 = 1231``）
 
 `2.3. 識別子 (identifier) およびキーワード (keyword) <https://docs.python.org/ja/3/reference/lexical_analysis.html#identifiers>`_
-
-キーワードの例
-------------------------------------------------
-
-* ``if``
-* ``for``
-* ``while``
-* ``def``
-
-`2.3.1. キーワード (keyword)`_
 
 予約されています
 ------------------------------------------------
