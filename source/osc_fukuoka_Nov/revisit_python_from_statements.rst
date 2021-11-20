@@ -135,3 +135,57 @@ Why 文に立ち返って再入門するPython? に立ち戻ると
 ------------------------------------------------
 
 **Enjoy** development with Python!
+
+Links - Python入門
+========================================================================================================================
+
+* 紹介した構文よりも、文の動きの説明を読みたい方へ
+
+  * Pythonチュートリアル `4. その他の制御フローツール <https://docs.python.org/ja/3/tutorial/controlflow.html>`_
+  * python.jp `ゼロからのPython入門講座 <https://www.python.jp/train/index.html>`_
+  * 東京大学 `Pythonプログラミング入門 <https://utokyo-ipp.github.io/>`_
+
+Links - 標準ライブラリ
+------------------------------------------------
+
+* `token --- Python 解析木と共に使われる定数 <https://docs.python.org/ja/3/library/token.html>`_
+* `keyword --- Python キーワードチェック <https://docs.python.org/ja/3/library/keyword.html>`_
+* `tokenize --- Pythonソースのためのトークナイザ <https://docs.python.org/ja/3/library/tokenize.html>`_
+* `ast --- 抽象構文木 <https://docs.python.org/ja/3/library/ast.html>`_
+
+Appendix - ``tokenize`` でトークンにしてみる
+========================================================================================================================
+
+    tokenize モジュールはコマンドラインからスクリプトとして実行することができます
+
+:command:`python -m tokenize [-e] [filename.py]`
+
+https://docs.python.org/ja/3/library/tokenize.html#command-line-usage
+
+:file:`roland.py` をトークナイズ（一部抜粋）
+------------------------------------------------
+
+.. code-block:: shell
+
+    $ python3.10 -m tokenize -e roland.py
+    2,0-2,2:            NAME           'if'
+    2,3-2,7:            NAME           'name'
+    2,8-2,10:           EQEQUAL        '=='
+    2,11-2,18:          STRING         '"ローランド"'
+    2,18-2,19:          COLON          ':'
+    2,19-2,20:          NEWLINE        '\n'
+    3,0-3,4:            INDENT         '    '
+    3,4-3,9:            NAME           'print'
+    3,9-3,10:           LPAR           '('
+    3,10-3,14:          STRING         '"俺か"'
+    3,14-3,15:          RPAR           ')'
+    3,15-3,16:          NEWLINE        '\n'
+
+Appendix - 字句解析（TODO）
+========================================================================================================================
+
+* `2. 字句解析 <https://docs.python.org/ja/3/reference/lexical_analysis.html#lexical-analysis>`_ の内容を紹介
+* 字句解析と構文について拡張したBNF記法が使われますが、本編は構文だけに絞りました
+
+EOF
+============================================================
