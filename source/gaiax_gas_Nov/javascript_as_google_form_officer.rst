@@ -120,3 +120,128 @@ Pythonによる実装の総括
 * 要件「Googleフォームの回答を通知」
 * Pythonで通知を実装
 * **GASで通知を実装**
+
+GASで通知を実装
+============================================================
+
+* フォームが送信されたイベントをトリガーに、Slackに通知する処理を実行する
+* ＝フォームの応募が **即時通知** される！
+* Pythonではできないが、Google App Script（GAS）なるものでできるらしい
+
+Python使いnikkieとGAS
+------------------------------------------------
+
+* Pythonと比べたら、JavaScript（GAS）全然スラスラ書けない・・・
+* 先人のアウトプットを参考にする
+
+  * Qiita `Googleformからのslack通知設定方法 <https://qiita.com/pchan52/items/574e930a3cc42cf7f8b9>`_
+
+GASによる実装
+------------------------------------------------
+
+* Slack通知は、GASからIncoming Webhookにリクエストする
+* フォーム送信イベントがトリガー： **イベントを引数に受け取る関数** を実装
+
+  * ``From form - On form submit`` でその関数が実行されるようにTriggerを作る
+
+今回のフォーム
+------------------------------------------------
+
+TODO：リンク & 画像
+
+GASからHTTPリクエスト
+------------------------------------------------
+
+.. code-block:: javascript
+  :linenos:
+
+  const url = "Incoming Webhook URL";
+  const options = {
+    "method": "POST",
+    "contentType": "application/json",
+    "payload": JSON.stringify({text: "Spam ham"}),
+  };
+  UrlFetchApp.fetch(url, options);
+
+https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app#fetch(String,Object)
+
+``From form - On form submit`` イベント
+------------------------------------------------
+
+https://developers.google.com/apps-script/guides/triggers/events#google_forms_events
+
+* イベントのプロパティ
+
+  * ``source``
+  * ``response`` 👈 こちらのデータにアクセス
+
+``FormResponse`` オブジェクト
+------------------------------------------------
+
+* **フォームの回答** を表す
+* ``getItemResponses()`` メソッドで ``ItemResponse`` からなる配列を取得
+
+.. code-block:: javascript
+  :linenos:
+
+  function onFormSubmit(e) {  // From form - On form submit イベントに登録する
+    const itemResponses = e.response.getItemResponses();
+    // 続くスライドをお楽しみに
+  }
+
+``ItemResponse`` オブジェクト
+------------------------------------------------
+
+* 質問文は ``getItem().getTitle()`` で取れる
+* 回答は ``getResponse()`` で取れる
+
+.. code-block:: javascript
+  :linenos:
+  :emphasize-lines: 4-5
+
+  function onFormSubmit(e) {
+    const itemResponses = e.response.getItemResponses();
+    const qaPairs = itemResponses.map((formData) => {
+      let question = formData.getItem().getTitle();
+      let answer = formData.getResponse();
+      return [question, answer];
+    });
+  }
+
+参考実装をリファクタリング
+------------------------------------------------
+
+* スタッフ活動中はQiitaの記事の通りで動かしていた（動いて価値を出しているのは正義）
+* 質問文に応じて条件分岐する ``switch`` 文、やや変更しづらい
+* このLTを機に、質問文をキー、回答を値に持つ ``Map`` を組み立てるように変更
+
+通知文面組み立て
+------------------------------------------------
+
+.. code-block:: javascript
+  :linenos:
+  :emphasize-lines: 8-10
+
+  function onFormSubmit(e) {
+    const itemResponses = e.response.getItemResponses();
+    const qaPairs = itemResponses.map((formData) => {
+      let question = formData.getItem().getTitle();
+      let answer = formData.getResponse();
+      return [question, answer];
+    });
+    const questionToAnswer = new Map(qaPairs);
+    const name = questionToAnswer.get("呼ばれたいお名前");
+    const text = `${name}さんの申込みがありました！`;
+    // Slackに送る処理を呼び出す
+  }
+
+まとめ：私のアツいPyCon JP 2021スタッフ活動＝GAS活！
+========================================================================================================================
+
+* フォームの回答通知をPythonに代えてGASにしたことで、通知の即時性がもたらされた
+* 今回のLTを機にGASのドキュメントを当たる → 他のフォームにも流用できるスクリプト完成！
+
+ご清聴ありがとうございました
+------------------------------------------------
+
+フィードバック歓迎！もっといいやり方思いついた方は教えてください
