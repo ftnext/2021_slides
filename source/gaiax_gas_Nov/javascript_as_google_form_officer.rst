@@ -11,12 +11,22 @@
 私のアツいPyCon JP 2021スタッフ活動＝GAS活！（フォームの回答通知）
 ========================================================================================================================
 
+始まります！！🙌 `ﾌﾌｯﾋ <https://dic.pixiv.net/a/%E3%83%95%E3%83%95%E3%83%83%E3%83%92>`_
+
 お前、誰よ（≒自己紹介）
 ============================================================
 
 * Python大好き **にっきー** （:raw-html:`<i class="fab fa-twitter"></i>` `@ftnext <https://twitter.com/ftnext>`_ / :raw-html:`<i class="fab fa-github"></i>` `@ftnext <https://github.com/ftnext>`_）
 * Python歴4年。株式会社ユーザベースのデータサイエンティスト（NLPer）
-* アニメも大好き。『アイの歌声を聴かせて』はいいぞ！🤖🎤🎼
+* アニメも大好き
+
+『`アイの歌声を聴かせて <https://ainouta.jp/>`_』はいいぞ！🤖🎤🎼
+------------------------------------------------------------------------------------------------
+
+.. raw:: html
+
+    <iframe width="800" height="480" src="https://ftnext.github.io/2021_slides/pycon_shizu_lt/enjoy_favorite_anime_with_python.html#/2/5"
+        title="Pythonと一緒に！　好きなアニメ映画のファン活動（2021/11 PyCon mini Shizuoka LT）"></iframe>
 
 お前、誰よ
 ------------------------------------------------
@@ -56,7 +66,7 @@ Googleフォームをheavy use
 * フォームからスプレッドシートに連携する機能もよく使う
 * Confluence `Google Documents(Slides/Sheets/Docs...) <https://pyconjp.atlassian.net/l/c/X1NXf2Ex>`_
 
-通知先はどこに？ PyCon JP Slackに！
+通知先はどこに？ PyCon JP **Slack** に！
 ------------------------------------------------
 
 * スタッフ用のSlack workspaceがある
@@ -87,8 +97,8 @@ Googleフォームをheavy use
 ------------------------------------------------------------------------------------------------
 
 * 要件「Googleフォームの回答を通知」
-* **Pythonで通知を実装**
-* GASで通知を実装
+* **Pythonで通知を実装** （2020）
+* GASで通知を実装（2021）
 
 Pythonで通知を実装
 ============================================================
@@ -108,16 +118,26 @@ Pythonで通知を実装
 フォームと連携したスプレッドシート
 ------------------------------------------------
 
-* その行について **通知済みか否かを記録** するための列を追加
-* ライブラリ ``gspread`` で読み書きする
+* 各行について **通知済みか否かを記録** するための列を追加
+
+.. list-table::
+    :header-rows: 1
+
+    * - 質問A
+      - 質問B
+      - 通知済み
+    * - 1件目の回答A
+      - 1件目の回答B
+      - ◯
+    * - 2件目の回答A
+      - 2件目の回答B
+      - 
 
 Slack投稿
 ------------------------------------------------
 
-* 通知する必要のある行の文だけ、Slackに投稿する
-* ``urllib`` を使って、Incoming WebhookにPOSTリクエストを送った
-
-https://docs.python.org/ja/3/howto/urllib2.html#data
+* ライブラリ ``gspread`` でスプレッドシートを読み書きする
+* 通知する必要のある行の分だけ、Incoming Webhookを通してSlackに投稿（`urllib <https://docs.python.org/ja/3/howto/urllib2.html#data>`_）
 
 定期実行
 ------------------------------------------------
@@ -137,8 +157,8 @@ Pythonによる実装の総括
 ------------------------------------------------------------------------------------------------
 
 * 要件「Googleフォームの回答を通知」
-* Pythonで通知を実装
-* **GASで通知を実装**
+* Pythonで通知を実装（2020）
+* **GASで通知を実装** （2021）
 
 GASで通知を実装
 ============================================================
@@ -167,6 +187,7 @@ GASによる実装
 ------------------------------------------------
 
 .. figure:: ../_static/gaiax_gas_Nov/202111_practice_form.png
+  :width: 80%
 
 https://forms.gle/r6gZ2vaKWxp5yhhq9
 
@@ -184,7 +205,7 @@ GASからHTTPリクエスト
   };
   UrlFetchApp.fetch(url, options);
 
-https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app#fetch(String,Object)
+`https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app#fetch(String,Object) <https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app#fetch(String,Object)>`_
 
 ``From form - On form submit`` イベント
 ------------------------------------------------
@@ -256,19 +277,27 @@ https://developers.google.com/apps-script/guides/triggers/events#google_forms_ev
     // Slackに送る処理を呼び出す
   }
 
+GASでSlack通知、実装できました🙌
+------------------------------------------------------------------------------------------------
+
+.. figure:: ../_static/gaiax_gas_Nov/202111_application_notifier.png
+
 まとめ：私のアツいPyCon JP 2021スタッフ活動＝GAS活！
 ========================================================================================================================
 
 * フォームの回答通知をPythonに代えて **GASにしたことで、通知の即時性** がもたらされた
-* 今回のLTを機にGASのドキュメントを当たる 👉 他のフォームにも流用できるスクリプト完成！
+* フォーム送信イベントをトリガーにするので、Pythonスクリプトを定期実行していたような **環境も不要** に
 
-Future works
+Future works 1/2
 ------------------------------------------------
 
 * Incoming Webhookのやり方がlegacyになっていることに気付いた
+* `新しいやり方（Slack App作成？） <https://slack.com/intl/ja-jp/help/articles/115005265063>`_ に移行せねば
 
-  * `新しいやり方（Slack App作成？） <https://slack.com/intl/ja-jp/help/articles/115005265063>`_ に移行せねば
+Future works 2/2
+------------------------------------------------
 
+* 今回のLTを機にGASのドキュメントを当たる 👉 他のフォームにも流用できるスクリプト完成！
 * 新しいフォームに対してテンプレートを埋める形でGASを作り、**他のスタッフも使えるように** したい
 
 ご清聴ありがとうございました
