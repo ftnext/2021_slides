@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>私のアツいPyCon JP 2021スタッフ活動＝GAS活！</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="../reveal.js/dist/theme/black.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/plugin/highlight/zenburn.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/Font-Awesome/css/all.min.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ftnext">
+    <meta property="og:url" content="https://ftnext.github.io/2021_slides/gaiax_gas_Nov/javascript_as_google_form_officer.html">
+    <meta property="og:title" content="私のアツいPyCon JP 2021スタッフ活動＝GAS活！（フォームの回答通知）">
+    <meta property="og:description" content="2021/11 Google Apps Script 活用ミートアップ #8 LTスライド">
+    <meta property="og:image" content="https://ftnext.github.io/2021_slides/_images/ogps/gaiax_gas_Nov.png">
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides">
+            <section >
+<h1>私のアツいPyCon JP 2021スタッフ活動＝GAS活！</h1>
+<dl class="field-list simple">
+<dt class="field-odd">Event</dt>
+<dd class="field-odd"><p>Google Apps Script 活用ミートアップ #8</p>
+</dd>
+<dt class="field-even">Presented</dt>
+<dd class="field-even"><p>2021/11/22 nikkie</p>
+</dd>
+</dl>
+</section>
+<section >
+<h2>私のアツいPyCon JP 2021スタッフ活動＝GAS活！（フォームの回答通知）</h2>
+<p>始まります！！🙌 <a class="reference external" href="https://dic.pixiv.net/a/%E3%83%95%E3%83%95%E3%83%83%E3%83%92">ﾌﾌｯﾋ</a></p>
+</section>
+<section>
+<section >
+<h2>お前、誰よ（≒自己紹介）</h2>
+<ul class="simple">
+<li><p>Python大好き <strong>にっきー</strong> （<span class="raw-html"><i class="fab fa-twitter"></i></span> <a class="reference external" href="https://twitter.com/ftnext">&#64;ftnext</a> / <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext">&#64;ftnext</a>）</p></li>
+<li><p>Python歴4年。株式会社ユーザベースのデータサイエンティスト（NLPer）</p></li>
+<li><p>アニメも大好き</p></li>
+</ul>
+</section>
+<section >
+<h3>『<a class="reference external" href="https://ainouta.jp/">アイの歌声を聴かせて</a>』はいいぞ！🤖🎤🎼</h3>
+<iframe width="800" height="480" src="https://ftnext.github.io/2021_slides/pycon_shizu_lt/enjoy_favorite_anime_with_python.html#/2/5"
+    title="Pythonと一緒に！　好きなアニメ映画のファン活動（2021/11 PyCon mini Shizuoka LT）"></iframe></section>
+<section >
+<h3>お前、誰よ</h3>
+<ul class="simple">
+<li><p>10/15, 16開催の <strong>Py</strong> thon <strong>Con</strong> ference JP 2021の座長🇨🇭でした</p></li>
+<li><p>＝PyCon JP 2021の開催に責任を持つ人</p></li>
+</ul>
+</section>
+<section >
+<h3>「繰り返すタスクはPythonにやらせよう」</h3>
+<ul class="simple">
+<li><p>スタッフ活動の中で、自分が繰り返しているタスクを <strong>自動化</strong> してきました</p>
+<ul>
+<li><p>決まった期間、Slackで繰り返し投稿</p></li>
+<li><p>Googleフォームに回答があったことの確認</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>このLTでは</h3>
+<ul class="simple">
+<li><p>「Googleフォームの回答を通知」という要件の実装について話します</p></li>
+<li><p>PyCon JP 2020のスタッフ活動の中で、Pythonで実装しました</p></li>
+<li><p>2021年の活動の中で、 <strong>GASでの実装に切り替え</strong> ました</p></li>
+</ul>
+</section>
+<section >
+<h3>私のアツいPyCon JP 2021スタッフ活動＝GAS活！ <strong>始まります！！</strong></h3>
+<ul class="simple">
+<li><p>要件「Googleフォームの回答を通知」</p></li>
+<li><p>Pythonで通知を実装</p></li>
+<li><p>GASで通知を実装</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>要件「Googleフォームの回答を通知」</h2>
+</section>
+<section >
+<h3>Googleフォームをheavy use</h3>
+<ul class="simple">
+<li><p>スタッフ応募、スポンサー応募、レビュアー応募など、<strong>至るところでGoogleフォーム</strong> を使う</p></li>
+<li><p>フォームからスプレッドシートに連携する機能もよく使う</p></li>
+<li><p>Confluence <a class="reference external" href="https://pyconjp.atlassian.net/l/c/X1NXf2Ex">Google Documents(Slides/Sheets/Docs...)</a></p></li>
+</ul>
+</section>
+<section >
+<h3>通知先はどこに？ PyCon JP <strong>Slack</strong> に！</h3>
+<ul class="simple">
+<li><p>スタッフ用のSlack workspaceがある</p>
+<ul>
+<li><p>Confluence <a class="reference external" href="https://pyconjp.atlassian.net/l/c/rN1T8k7P">Slack</a></p></li>
+</ul>
+</li>
+<li><p>通知にはIncoming Webhookを使う</p></li>
+</ul>
+</section>
+<section >
+<h3>投稿方法：Incoming WebhookのURLにHTTPリクエスト送信</h3>
+<pre><code data-trim data-noescape  class="shell">
+curl -X POST --data-urlencode &quot;payload={\&quot;text\&quot;: \&quot;Spam ham\&quot;}&quot; \
+  https://hooks.slack.com/services/...</code></pre>
+<ul class="simple">
+<li><p><a class="reference external" href="https://manual.pycon.jp/appendix/templates.html#webhook-url">スタッフマニュアルの記載</a> に沿って生成</p></li>
+<li><p>Incoming Webhookの設定ページ内の例を参照</p></li>
+</ul>
+</section>
+<section >
+<h3>例：スタッフ応募フォームに回答があったことをSlack通知</h3>
+<div class="figure align-default">
+<img alt="../_images/202111_application_notifier.png" src="../_images/202111_application_notifier.png" />
+</div>
+<p>このあと話す、GASでの実装です</p>
+</section>
+<section >
+<h3>私のアツいPyCon JP 2021スタッフ活動＝GAS活！ 話し始めてます！！</h3>
+<ul class="simple">
+<li><p>要件「Googleフォームの回答を通知」</p></li>
+<li><p><strong>Pythonで通知を実装</strong> （2020）</p></li>
+<li><p>GASで通知を実装（2021）</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>Pythonで通知を実装</h2>
+<ul class="simple">
+<li><p>フォームと連携した <strong>スプレッドシート</strong> を読み取って通知する</p></li>
+<li><p>この処理を定期的に動かす</p></li>
+</ul>
+</section>
+<section >
+<h3>詳しくはPyCon JP 2020で話しています</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VBeJU9o9API?start=225" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><p><a class="reference external" href="https://pycon.jp/2020/timetable/?id=203919">スタッフとしてコードを書こう！〜Code for PyCon JP and yourself〜</a></p>
+</section>
+<section >
+<h3>フォームと連携したスプレッドシート</h3>
+<ul class="simple">
+<li><p>各行について <strong>通知済みか否かを記録</strong> するための列を追加</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>質問A</p></th>
+<th class="head"><p>質問B</p></th>
+<th class="head"><p>通知済み</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1件目の回答A</p></td>
+<td><p>1件目の回答B</p></td>
+<td><p>◯</p></td>
+</tr>
+<tr class="row-odd"><td><p>2件目の回答A</p></td>
+<td><p>2件目の回答B</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section >
+<h3>Slack投稿</h3>
+<ul class="simple">
+<li><p>ライブラリ <code class="docutils literal notranslate"><span class="pre">gspread</span></code> でスプレッドシートを読み書きする</p></li>
+<li><p>通知する必要のある行の分だけ、Incoming Webhookを通してSlackに投稿（<a class="reference external" href="https://docs.python.org/ja/3/howto/urllib2.html#data">urllib</a>）</p></li>
+</ul>
+</section>
+<section >
+<h3>定期実行</h3>
+<ul class="simple">
+<li><p>スプレッドシートを読み取り、通知するスクリプトを <strong>AWS Lambda</strong> の関数に移植</p></li>
+<li><p><strong>Amazon CloudWatch Events</strong> でLambda関数を定期的に実行する（例：半日に1回）</p></li>
+</ul>
+</section>
+<section >
+<h3>Pythonによる実装の総括</h3>
+<ul class="simple">
+<li><p>Slackを見ているだけでGoogleフォームの応募に気付けるようになった🙌</p></li>
+<li><p>伸びしろは <strong>即時性</strong> （リアルタイムでない）</p>
+<ul>
+<li><p>半日に1回起動する設定なので、通知が最大で半日遅れる</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>私のアツいPyCon JP 2021スタッフ活動＝GAS活！ 話し始めてます！</h3>
+<ul class="simple">
+<li><p>要件「Googleフォームの回答を通知」</p></li>
+<li><p>Pythonで通知を実装（2020）</p></li>
+<li><p><strong>GASで通知を実装</strong> （2021）</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>GASで通知を実装</h2>
+<ul class="simple">
+<li><p>フォームが送信されたイベントをトリガーに、Slackに通知する処理を実行する</p></li>
+<li><p>＝フォームの応募が <strong>即時通知</strong> される！</p></li>
+<li><p>Pythonではできないが、Google App Script（GAS）なるものでできるらしい</p></li>
+</ul>
+</section>
+<section >
+<h3>Python使いnikkieとGAS</h3>
+<ul class="simple">
+<li><p>Pythonと比べたら、JavaScript（GAS）全然スラスラ書けない・・・</p></li>
+<li><p>先人のアウトプットを参考にする</p>
+<ul>
+<li><p>Qiita <a class="reference external" href="https://qiita.com/pchan52/items/574e930a3cc42cf7f8b9">Googleformからのslack通知設定方法</a></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>GASによる実装</h3>
+<ul class="simple">
+<li><p>Slack通知は、GASからIncoming Webhookにリクエストする</p></li>
+<li><p>フォーム送信イベントがトリガー： <strong>イベントを引数に受け取る関数</strong> を実装</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">From</span> <span class="pre">form</span> <span class="pre">-</span> <span class="pre">On</span> <span class="pre">form</span> <span class="pre">submit</span></code> でその関数が実行されるようにTriggerを作る</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>今回のLT用のフォーム</h3>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="../_images/202111_practice_form.png"><img alt="../_images/202111_practice_form.png" src="../_images/202111_practice_form.png" style="width: 80%;" /></a>
+</div>
+<p><a class="reference external" href="https://forms.gle/r6gZ2vaKWxp5yhhq9">https://forms.gle/r6gZ2vaKWxp5yhhq9</a></p>
+</section>
+<section >
+<h3>GASからHTTPリクエスト</h3>
+<pre><code data-trim data-noescape data-line-numbers class="javascript">
+const url = &quot;Incoming Webhook URL&quot;;
+const options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;contentType&quot;: &quot;application/json&quot;,
+  &quot;payload&quot;: JSON.stringify({text: &quot;Spam ham&quot;}),
+};
+UrlFetchApp.fetch(url, options);</code></pre>
+<p><a class="reference external" href="https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app#fetch(String,Object)">https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app#fetch(String,Object)</a></p>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">From</span> <span class="pre">form</span> <span class="pre">-</span> <span class="pre">On</span> <span class="pre">form</span> <span class="pre">submit</span></code> イベント</h3>
+<p><a class="reference external" href="https://developers.google.com/apps-script/guides/triggers/events#google_forms_events">https://developers.google.com/apps-script/guides/triggers/events#google_forms_events</a></p>
+<ul class="simple">
+<li><p>このイベントのプロパティ</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">source</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">response</span></code> 👈 こちらのデータにアクセス</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">FormResponse</span></code> オブジェクト</h3>
+<ul class="simple">
+<li><p><strong>フォームの回答</strong> を表す</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getItemResponses()</span></code> メソッドで <code class="docutils literal notranslate"><span class="pre">ItemResponse</span></code> からなる配列を取得</p></li>
+</ul>
+<pre><code data-trim data-noescape data-line-numbers class="javascript">
+function onFormSubmit(e) {  // From form - On form submit イベントに登録する
+  const itemResponses = e.response.getItemResponses();
+  // 続くスライドをお楽しみに
+}</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">ItemResponse</span></code> オブジェクト</h3>
+<ul class="simple">
+<li><p>質問文は <code class="docutils literal notranslate"><span class="pre">getItem().getTitle()</span></code> で取れる</p></li>
+<li><p>回答は <code class="docutils literal notranslate"><span class="pre">getResponse()</span></code> で取れる</p></li>
+</ul>
+<pre><code data-trim data-noescape data-line-numbers="4,5" class="javascript">
+function onFormSubmit(e) {
+  const itemResponses = e.response.getItemResponses();
+  const qaPairs = itemResponses.map((formData) =&gt; {
+    let question = formData.getItem().getTitle();
+    let answer = formData.getResponse();
+    return [question, answer];
+  });
+}</code></pre>
+</section>
+<section >
+<h3>参考実装をリファクタリング</h3>
+<ul class="simple">
+<li><p>スタッフ活動中はQiitaの記事の通りで動かしていた（動いて価値を出しているのは正義）</p></li>
+<li><p>質問文に応じて条件分岐する <code class="docutils literal notranslate"><span class="pre">switch</span></code> 文、やや変更しづらい</p></li>
+<li><p>このLTを機に、<strong>質問文をキー、回答を値</strong> とする <code class="docutils literal notranslate"><span class="pre">Map</span></code> を組み立てるように変更</p></li>
+</ul>
+</section>
+<section >
+<h3>通知文面組み立て</h3>
+<pre><code data-trim data-noescape data-line-numbers="8,9,10" class="javascript">
+function onFormSubmit(e) {
+  const itemResponses = e.response.getItemResponses();
+  const qaPairs = itemResponses.map((formData) =&gt; {
+    let question = formData.getItem().getTitle();
+    let answer = formData.getResponse();
+    return [question, answer];
+  });
+  const questionToAnswer = new Map(qaPairs);
+  const name = questionToAnswer.get(&quot;呼ばれたいお名前&quot;);
+  const text = `${name}さんの申込みがありました！`;
+  // Slackに送る処理を呼び出す
+}</code></pre>
+</section>
+<section >
+<h3>GASでSlack通知、実装できました🙌</h3>
+<div class="figure align-default">
+<img alt="../_images/202111_application_notifier.png" src="../_images/202111_application_notifier.png" />
+</div>
+</section>
+</section>
+<section>
+<section >
+<h2>まとめ：私のアツいPyCon JP 2021スタッフ活動＝GAS活！</h2>
+<ul class="simple">
+<li><p>フォームの回答通知をPythonに代えて <strong>GASにしたことで、通知の即時性</strong> がもたらされた</p></li>
+<li><p>フォーム送信イベントをトリガーにするので、Pythonスクリプトを定期実行していたような <strong>環境も不要</strong> に</p></li>
+</ul>
+</section>
+<section >
+<h3>Future works 1/2</h3>
+<ul class="simple">
+<li><p>Incoming Webhookのやり方がlegacyになっていることに気付いた</p></li>
+<li><p><a class="reference external" href="https://slack.com/intl/ja-jp/help/articles/115005265063">新しいやり方（Slack App作成？）</a> に移行せねば</p></li>
+</ul>
+</section>
+<section >
+<h3>Future works 2/2</h3>
+<ul class="simple">
+<li><p>今回のLTを機にGASのドキュメントを当たる 👉 他のフォームにも流用できるスクリプト完成！</p></li>
+<li><p>新しいフォームに対してテンプレートを埋める形でGASを作り、<strong>他のスタッフも使えるように</strong> したい</p></li>
+</ul>
+</section>
+<section >
+<h3>ご清聴ありがとうございました</h3>
+<p>フィードバック歓迎！もっといいやり方思いついた方は教えてください</p>
+</section>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../reveal.js/dist/reveal.js"></script>
+    
+    
+      <script src="../reveal.js/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: "none",
+        slideNumber: "c/t",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>
