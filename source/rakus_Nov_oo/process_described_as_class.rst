@@ -134,6 +134,8 @@ LT：そうか、犬や自動車のように、処理もクラスで表せるの
     :lines: 9,20-31
     :linenos:
 
+:raw-html:`<i class="fab fa-github"></i>` `dog.py <https://github.com/ftnext/2021_slides/blob/b76b79fd8d25d4f57bbcd41b614d71245b924bae/samplecode/class_examples/dog.py>`_
+
 ``Dog`` クラスのインスタンスと戯れる
 ------------------------------------------------
 
@@ -207,6 +209,7 @@ connpass受付番号（Ticket No）
 ------------------------------------------------
 
 .. figure:: ../_static/rakus_Nov_oo/202111_connpass_ticket_no.png
+    :width: 80%
 
 connpassご利用ガイド `受付表を確認する <https://help.connpass.com/participants/show-event-ticket.html>`_
 
@@ -333,6 +336,8 @@ connpassご利用ガイド `受付表を確認する <https://help.connpass.com/
             await RoleAttacher.attach(member, role)
             self.searcher.register_as_collected(ticket_cell)
 
+:raw-html:`<i class="fab fa-github"></i>` `TicketCollector (mogirin.py) <https://github.com/pyconjp/mogirin/blob/620f7aaa8cf7e5454425c78920c43988066dbdf5/mogirin.py#L25-L38>`_
+
 ボットの実装： ``TicketCollector`` インスタンスを呼び出す
 ------------------------------------------------------------------------------------------------
 
@@ -350,6 +355,8 @@ connpassご利用ガイド `受付表を確認する <https://help.connpass.com/
         )
         await message.channel.send(f"{message.author.mention} {reply_message}")
 
+:raw-html:`<i class="fab fa-github"></i>` `discordbot.py <https://github.com/pyconjp/mogirin/blob/620f7aaa8cf7e5454425c78920c43988066dbdf5/discordbot.py>`_
+
 まとめ🌯：そうか、犬や自動車のように、処理もクラスで表せるのか！
 ========================================================================================================================
 
@@ -361,7 +368,15 @@ connpassご利用ガイド `受付表を確認する <https://help.connpass.com/
 
 **Enjoy** development with classes!
 
-Appendixが続きます
+Links & Appendixが続きます
+
+Links
+============================================================
+
+* mogirinの実装 :raw-html:`<i class="fab fa-github"></i>` `pyconjp/mogirin <https://github.com/pyconjp/mogirin>`_
+
+Appendix
+============================================================
 
 クラスの別の例：自動車
 ------------------------------------------------
@@ -371,7 +386,7 @@ Appendixが続きます
 * 加速できる
 * 減速できる
 
-犬を表すクラスの設計
+自動車を表すクラスの設計
 ------------------------------------------------
 
 * **加速** できる： ``speed_up`` メソッドで ``speed`` 属性を操作する
@@ -408,6 +423,8 @@ Appendixが続きます
     :language: python
     :lines: 7,16-25
     :linenos:
+
+:raw-html:`<i class="fab fa-github"></i>` `car.py <https://github.com/ftnext/2021_slides/blob/b76b79fd8d25d4f57bbcd41b614d71245b924bae/samplecode/class_examples/car.py>`_
 
 ``Car`` クラスのインスタンスと戯れる
 ------------------------------------------------
