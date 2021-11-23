@@ -125,3 +125,140 @@ Why programmers? 犬や自動車、どんなプログラムで使うんですか
 * クラスへの苦手意識
 * **払拭のヒント**
 * 実践例
+
+========================================================================================================================
+そうか、犬や自動車のように、処理もクラスで表せるのか！
+========================================================================================================================
+
+タイトル回収！
+
+払拭のヒント
+============================================================
+
+* クラスの使い所が分からないという苦手意識
+* **処理** もクラスで表せるという気付き！（〇〇する処理のクラス）
+* （全てがクラスであるJavaを経験していたらもっと早く気付けたかも）
+
+お品書き：そうか、犬や自動車のように、処理もクラスで表せるのか！
+------------------------------------------------------------------------------------------------
+
+* クラスへの苦手意識
+* 払拭のヒント
+* 処理をクラスで表す実践例
+
+処理をクラスで表す実践例
+============================================================
+
+* PyCon JP 2021のスタッフ活動で作ったDiscord Botの設計を紹介
+* 処理を表すクラスが少しは自分の道具になったかなというタイミングで書きました
+* 設計力付けたいので、フィードバック歓迎！
+
+Discord Bot: mogirin（もぎりん）
+------------------------------------------------
+
+* 参加者の受付（＝チケットの **もぎり**）を担当
+* 参加者は ``@mogirin 1234667`` のように受付番号を伝える
+* 受付が済むと参加者にRoleが付き、カンファレンスで使うチャンネルが見えるようになる
+
+connpass受付番号（Ticket No）
+------------------------------------------------
+
+.. figure:: ../_static/rakus_Nov_oo/202111_connpass_ticket_no.png
+
+connpassご利用ガイド `受付表を確認する <https://help.connpass.com/participants/show-event-ticket.html>`_
+
+登場人物
+------------------------------------------------
+
+* Discord：参加者用のRole
+* Googleスプレッドシート：connpassの受付番号、受付済みか
+
+.. list-table::
+    :header-rows: 1
+
+    * - 受付番号
+      - 受付済み
+    * - 1234567
+      - ✅
+    * - 2345678
+      - 
+
+受付処理フロー 1/3
+------------------------------------------------
+
+* 参加者が入力した受付番号がスプレッドシートにあるか
+* ある場合は次に進む
+* ない場合はエラー送出（入力ミスや別の勉強会の受付番号と取り違えが考えられる）
+
+受付処理フロー 2/3
+------------------------------------------------
+
+* 参加者が入力した受付番号でまだ受付されていないか
+
+.. list-table::
+    :header-rows: 1
+
+    * - 受付番号
+      - 受付済み
+      - 処理フロー
+    * - 1234567
+      - ✅
+      - エラー送出（入力ミスが考えられる）
+    * - 2345678
+      - 
+      - 次に進む
+
+受付処理フロー 3/3
+------------------------------------------------
+
+* （処理フローの1や2でエラーが送出されなければ受付する）
+* 参加者用のRoleを付与する
+* スプレッドシートの「受付済み」のセルを更新
+
+設計へ：もぎり処理オブジェクト
+------------------------------------------------
+
+* スプレッドシートを操作できる（処理フローで使う、値の取得、検索、書き込み）
+* Doscordのロールを付与できる
+
+もぎり処理を表すクラス ``TicketCollector``
+------------------------------------------------
+
+* スプレッドシートを操作できる：もぎりで必要な **スプレッドシート操作を表すクラス** を ``searcher`` 属性に持つ
+* Doscordのロールを付与できる：属性には持たせず、**Role付与クラス** のスタティックメソッドを呼び出した（関数でもよい）
+
+``TicketCollector`` 実装
+------------------------------------------------
+
+.. code-block:: python
+    :linenos:
+
+    class TicketCollector:
+        def __init__(self, spreadsheet_id: str) -> None:
+            self.searcher = TicketSheetSearcher.from_id(spreadsheet_id)
+
+        async def collect(
+            self, ticket_number: str, member: discord.Member, role: discord.Role
+        ) -> None:
+            if not (ticket_cell := self.searcher.find_cell(ticket_number)):
+                raise TicketNumberNotFound  # 処理フロー1の例外
+            if self.searcher.query_already_collected(ticket_cell):
+                raise TicketAlreadyCollected  # 処理フロー2の例外
+            await RoleAttacher.attach(member, role)  # スタティックメソッド呼び出し
+            self.searcher.register_as_collected(ticket_cell)
+
+ボットの実装： ``TicketCollector`` インスタンスを呼び出す
+------------------------------------------------------------------------------------------------
+
+.. code-block:: python
+
+    collector = TicketCollector(getenv("SPREADSHEET_ID"))
+
+    @bot.event
+    async def on_message(message):
+        # 省略
+        ticket_number = find_ticket_number(message.clean_content)
+        reply_message = await collect_ticket(  # collector.collectを呼び出す
+            ticket_number, message.author, attendee_role
+        )
+        await message.channel.send(f"{message.author.mention} {reply_message}")
