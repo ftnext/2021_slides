@@ -366,4 +366,59 @@ Appendixが続きます
 クラスの別の例：自動車
 ------------------------------------------------
 
-TODO
+自動車というオブジェクトは
+
+* 加速できる
+* 減速できる
+
+犬を表すクラスの設計
+------------------------------------------------
+
+* **加速** できる： ``speed_up`` メソッドで ``speed`` 属性を操作する
+
+.. code-block:: python
+    :linenos:
+
+    class Car:
+        def __init__(self) -> None:
+            self.speed = 0
+        def speed_up(self, value: int) -> int:
+            ...
+
+.. revealjs_break::
+
+* **減速** できる： ``speed_down`` メソッド（``speed`` 属性を操作）
+
+.. code-block:: python
+    :linenos:
+    :emphasize-lines: 6
+
+    class Car:
+        def __init__(self) -> None:
+            self.speed = 0
+        def speed_up(self, value: int) -> int:
+            ...
+        def speed_down(self, value: int) -> int:
+            ...
+
+``Car`` クラス
+------------------------------------------------
+
+.. literalinclude:: ../../samplecode/class_examples/car.py
+    :language: python
+    :lines: 7,16-25
+    :linenos:
+
+``Car`` クラスのインスタンスと戯れる
+------------------------------------------------
+
+.. literalinclude:: ../../samplecode/class_examples/car.py
+    :language: python
+    :lines: 9-13
+    :linenos:
+    :dedent: 4
+
+『`スラスラわかるJava <https://www.shoeisha.co.jp/book/detail/9784798130798>`_』(p.203-204)をPythonで実装した例です
+
+EOF
+============================================================
