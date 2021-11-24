@@ -1,0 +1,553 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>そうか、犬や自動車のように、処理もクラスで表せるのか！</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="../reveal.js/dist/theme/black.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/plugin/highlight/zenburn.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/Font-Awesome/css/all.min.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ftnext">
+    <meta property="og:url" content="https://ftnext.github.io/2021_slides/rakus_Nov_oo/process_described_as_class.html">
+    <meta property="og:title" content="そうか、犬や自動車のように、処理もクラスで表せるのか！">
+    <meta property="og:description" content="2021/11 ラクス オブジェクト指向LT会 vol.3 LTスライド">
+    <meta property="og:image" content="https://ftnext.github.io/2021_slides/_images/ogps/rakus_Nov_oo.png">
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides">
+            <section >
+<h1>そうか、犬や自動車のように、処理もクラスで表せるのか！</h1>
+<dl class="field-list simple">
+<dt class="field-odd">Event</dt>
+<dd class="field-odd"><p>ラクス オブジェクト指向LT会 vol.3</p>
+</dd>
+<dt class="field-even">Presented</dt>
+<dd class="field-even"><p>2021/11/24 nikkie</p>
+</dd>
+</dl>
+</section>
+<section>
+<section >
+<h2>お前、誰よ（≒自己紹介）</h2>
+<ul class="simple">
+<li><p>Python大好き <strong>にっきー</strong> （<span class="raw-html"><i class="fab fa-twitter"></i></span> <a class="reference external" href="https://twitter.com/ftnext">&#64;ftnext</a> / <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext">&#64;ftnext</a>）</p></li>
+<li><p>Python歴4年。株式会社ユーザベースのデータサイエンティスト（NLPer）</p></li>
+<li><p>Python Conference JP 2021 座長（＝開催に責任を持つ人）</p></li>
+</ul>
+</section>
+<section >
+<h3>アニメも大好き：『<a class="reference external" href="https://ainouta.jp/">アイの歌声を聴かせて</a>』はいいぞ！🤖🎤🎼</h3>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/58q1s6B8lCM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><p><a class="reference external" href="https://ftnext.github.io/2021_slides/pycon_shizu_lt/enjoy_favorite_anime_with_python.html">プログラミングの題材にもしています</a> （PyCon mini ShizuokaでLT）</p>
+</section>
+<section >
+<h3>オブジェクトとの近況（※オブジェクト指向ではなく <strong>JavaScriptのオブジェクト</strong> です）</h3>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">プログラミングにおける連想配列、Pythonのdictに親しみすぎたためか、オブジェクトとMapがあるJavaScriptでめっちゃハマりました。<br>・オブジェクトのプロパティは[]か . でアクセス<br>・Mapではgetメソッドを使う（[]や . でアクセスしていてundefinedとなって、あれ？ってなってました）</p>&mdash; nikkie 📣PyCon JP 2021 ありがとうございました (@ftnext) <a href="https://twitter.com/ftnext/status/1462400950757298181?ref_src=twsrc%5Etfw">November 21, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+</section>
+<section>
+<section >
+<h2>LT：そうか、犬や自動車のように、処理もクラスで表せるのか！</h2>
+<ul class="simple">
+<li><p><strong>クラスへの苦手意識とその払拭について</strong> 話します</p></li>
+<li><p>クラスを使いこなしている感覚はまだ持てていなくて、苦手ではなくなったという共有です</p></li>
+</ul>
+</section>
+<section >
+<h3>お品書き：そうか、犬や自動車のように、処理もクラスで表せるのか！</h3>
+<ul class="simple">
+<li><p>クラスへの苦手意識</p></li>
+<li><p>払拭のヒント</p></li>
+<li><p>実践例</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>クラスへの苦手意識</h2>
+<ul class="simple">
+<li><p>例えばPythonなどで、文法的にどう書けばいいかは分かる</p></li>
+<li><p>プログラミングで <strong>どう使えばいいか</strong> が長いこと分かりませんでした</p></li>
+</ul>
+</section>
+<section >
+<h3>オブジェクト指向設計</h3>
+<blockquote>
+<div><p>「データ（<strong>属性</strong>）」と「データを操作する手続き（<strong>メソッド</strong>）」を一体化した <strong>オブジェクト</strong> を標準部品として定義し、システムを設計すること</p>
+</div></blockquote>
+<p>『<a class="reference external" href="https://book.impress.co.jp/books/1115101034">徹底攻略 基本情報技術者教科書 平成28年度</a>』（p.360）</p>
+</section>
+<section >
+<h3>オブジェクトとクラス</h3>
+<blockquote>
+<div><p>（前略）オブジェクトを一般化（抽象化）したものを <strong>クラス</strong> と呼び、オブジェクトを作る雛形とします。</p>
+</div></blockquote>
+<p>『<a class="reference external" href="https://book.impress.co.jp/books/1115101034">徹底攻略 基本情報技術者教科書 平成28年度</a>』（p.361）</p>
+</section>
+<section >
+<h3>オブジェクト・クラス・インスタンス</h3>
+<blockquote>
+<div><p>クラスから具体的な値を持たせて作ったオブジェクトを <strong>インスタンス（実体）</strong> と呼びます。</p>
+</div></blockquote>
+<p>『<a class="reference external" href="https://book.impress.co.jp/books/1115101034">徹底攻略 基本情報技術者教科書 平成28年度</a>』（p.361）</p>
+</section>
+<section >
+<h3>クラスの例：犬</h3>
+<p>犬というオブジェクトには</p>
+<ul class="simple">
+<li><p>名前がある</p></li>
+<li><p>芸を覚えさせられる</p></li>
+<li><p>覚えた芸をする</p></li>
+</ul>
+</section>
+<section >
+<h3>犬を表すクラスの設計</h3>
+<ul class="simple">
+<li><p><strong>名前</strong> がある 👉 <code class="docutils literal notranslate"><span class="pre">name</span></code> 属性</p></li>
+</ul>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+class Dog:
+    def __init__(self, name: str) -&gt; None:
+        self.name = name</code></pre>
+</section>
+<section >
+<h3>犬を表すクラスの設計</h3>
+<ul class="simple">
+<li><p><strong>芸</strong> を覚えさせられる 👉 <code class="docutils literal notranslate"><span class="pre">tricks</span></code> 属性。<code class="docutils literal notranslate"><span class="pre">add_trick</span></code> メソッドで芸を追加</p></li>
+</ul>
+<pre><code data-trim data-noescape data-line-numbers="4,5" class="python">
+class Dog:
+    def __init__(self, name: str) -&gt; None:
+        self.name = name
+        self.tricks = []
+    def add_trick(self, trick: str) -&gt; None:
+        ...</code></pre>
+</section>
+<section >
+<h3>犬を表すクラスの設計</h3>
+<ul class="simple">
+<li><p>覚えた <strong>芸</strong> をする 👉 <code class="docutils literal notranslate"><span class="pre">trick</span></code> メソッドで <code class="docutils literal notranslate"><span class="pre">tricks</span></code> 属性から1つ取り出す</p></li>
+</ul>
+<pre><code data-trim data-noescape data-line-numbers="7" class="python">
+class Dog:
+    def __init__(self, name: str) -&gt; None:
+        self.name = name
+        self.tricks = []
+    def add_trick(self, trick: str) -&gt; None:
+        ...
+    def trick(self) -&gt; str:
+        ...</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">Dog</span></code> クラス</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+class Dog:
+    def __init__(self, name: str) -&gt; None:
+        self.name = name
+        self.tricks = []  # 犬が覚えた芸をリスト（＝配列）で表す
+
+    def add_trick(self, trick: str) -&gt; None:
+        &quot;&quot;&quot;犬に芸を覚えさせる&quot;&quot;&quot;
+        self.tricks.append(trick)
+
+    def trick(self) -&gt; str:
+        if not self.tricks:
+            raise ValueError(&quot;覚えている芸がありません。add_trickして覚えさせてください&quot;)
+        return random.choice(self.tricks)
+</code></pre>
+<p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/2021_slides/blob/b76b79fd8d25d4f57bbcd41b614d71245b924bae/samplecode/class_examples/dog.py">dog.py</a></p>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">Dog</span></code> クラスのインスタンスと戯れる</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+&gt;&gt;&gt; dog = Dog(&quot;ラテ&quot;)
+&gt;&gt;&gt; dog.add_trick(&quot;寝返り&quot;)
+&gt;&gt;&gt; dog.add_trick(&quot;死んだふり&quot;)
+&gt;&gt;&gt; dog.trick()
+'死んだふり'
+</code></pre>
+<p><a class="reference external" href="https://docs.python.org/ja/3/tutorial/classes.html#class-and-instance-variables">Pythonチュートリアルを元に</a> 作った例です</p>
+</section>
+<section >
+<h3>クラスの別の例：自動車</h3>
+<p>タイトルに含みますが、 <code class="docutils literal notranslate"><span class="pre">&#64;skip</span></code> します（Appendixへ）</p>
+</section>
+</section>
+<section>
+<section >
+<h2>Why programmers? 犬や自動車、どんなプログラムで使うんですか？</h2>
+<ul class="simple">
+<li><p>私の普段のプログラミング、犬も自動車も出てこないんですが・・😅</p></li>
+<li><p>これらは <strong>クラスという文法を説明するための例</strong></p></li>
+</ul>
+</section>
+<section >
+<h3>クラスを自分の道具にできていないという苦手意識</h3>
+<ul class="simple">
+<li><p>プログラミングの <strong>どんなシーンでどうクラスを使えばいい</strong> か（＝クラスの使い所）が分からない😖</p></li>
+<li><p>クラスを道具として使えないので、使ってきたPythonやPHPでは関数で書くことが多かった</p></li>
+</ul>
+</section>
+<section >
+<h3>お品書き：そうか、犬や自動車のように、処理もクラスで表せるのか！</h3>
+<ul class="simple">
+<li><p>クラスへの苦手意識</p></li>
+<li><p><strong>払拭のヒント</strong></p></li>
+<li><p>実践例</p></li>
+</ul>
+</section>
+</section>
+<section >
+<h1>そうか、犬や自動車のように、処理もクラスで表せるのか！</h1>
+<p>タイトル回収！</p>
+</section>
+<section>
+<section >
+<h2>払拭のヒント</h2>
+<ul class="simple">
+<li><p>クラスの使い所が分からないという苦手意識</p></li>
+<li><p><strong>処理</strong> もクラスで表せるという気付き！（〇〇する処理のクラス）</p></li>
+<li><p>（全てがクラスであるJavaを経験していたらもっと早く気付けたかも）</p></li>
+</ul>
+</section>
+<section >
+<h3>何がきっかけ？</h3>
+<ul class="simple">
+<li><p>あんまり覚えていません・・</p></li>
+<li><p>クラスの使い所が分からないと考え続けていたら閃いた💡？</p></li>
+<li><p>DDDの <em>UseCaseクラス</em> はなるほどと思いました</p></li>
+</ul>
+</section>
+<section >
+<h3>実はオブジェクト指向LT会 vol.1 にて共有しています</h3>
+<iframe width="800" height="480" src="https://ftnext.github.io/2020_slides/rakus_Feb_python_oop/slide.html#/3/3"
+    title="OORC予告：Pythonでオブジェクト指向"></iframe></section>
+<section >
+<h3>お品書き：そうか、犬や自動車のように、処理もクラスで表せるのか！</h3>
+<ul class="simple">
+<li><p>クラスへの苦手意識</p></li>
+<li><p>払拭のヒント</p></li>
+<li><p><strong>処理をクラスで表す実践例</strong></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>処理をクラスで表す実践例</h2>
+<ul class="simple">
+<li><p>PyCon JP 2021のスタッフ活動で作った <strong>Discord Botの設計</strong> を紹介</p></li>
+<li><p>処理を表すクラスが少しは自分の道具になったかなというタイミングで書きました</p></li>
+<li><p>設計力付けたいので、フィードバック歓迎！</p></li>
+</ul>
+</section>
+<section >
+<h3>Discord Bot: mogirin（もぎりん）</h3>
+<ul class="simple">
+<li><p>参加者の受付（＝チケットの <strong>もぎり</strong>）を担当</p></li>
+<li><p>参加者は <code class="docutils literal notranslate"><span class="pre">&#64;mogirin</span> <span class="pre">1234567</span></code> のように受付番号を伝える</p></li>
+<li><p>受付が済むと参加者にRoleが付き、カンファレンスで使うチャンネルが見えるようになる</p></li>
+</ul>
+</section>
+<section >
+<h3>connpass受付番号（Ticket No）</h3>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="../_images/202111_connpass_ticket_no.png"><img alt="../_images/202111_connpass_ticket_no.png" src="../_images/202111_connpass_ticket_no.png" style="width: 80%;" /></a>
+</div>
+<p>connpassご利用ガイド <a class="reference external" href="https://help.connpass.com/participants/show-event-ticket.html">受付表を確認する</a></p>
+</section>
+<section >
+<h3>登場人物</h3>
+<ul class="simple">
+<li><p>Discord：参加者用のRole</p></li>
+<li><p>Googleスプレッドシート：connpassの受付番号、受付済みか</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>受付番号</p></th>
+<th class="head"><p>受付済み</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1234567</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>2345678</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section >
+<h3>受付処理フロー 1/3</h3>
+<ul class="simple">
+<li><p>参加者が入力した受付番号が <strong>スプレッドシートにあるか</strong></p></li>
+<li><p>ある場合は次に進む</p></li>
+<li><p>ない場合はエラー送出（入力ミスや別の勉強会の受付番号と取り違えが考えられる）</p></li>
+</ul>
+</section>
+<section >
+<h3>受付処理フロー 2/3</h3>
+<ul class="simple">
+<li><p>参加者が入力した受付番号で <strong>まだ受付されていないか</strong></p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>受付番号</p></th>
+<th class="head"><p>受付済み</p></th>
+<th class="head"><p>処理フロー</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1234567</p></td>
+<td><p>✅</p></td>
+<td><p>エラー送出（入力ミスが考えられる）</p></td>
+</tr>
+<tr class="row-odd"><td><p>2345678</p></td>
+<td></td>
+<td><p>次に進む</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section >
+<h3>受付処理フロー 3/3</h3>
+<ul class="simple">
+<li><p>処理フローの1や2でエラーが送出されなければ <strong>受付</strong> する</p>
+<ul>
+<li><p>参加者用のRoleを付与する</p></li>
+<li><p>スプレッドシートの「受付済み」のセルを更新</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>設計へ：もぎり処理オブジェクト</h3>
+<ul class="simple">
+<li><p>スプレッドシートを操作できる（処理フローで使う、値の取得、検索、書き込み）</p></li>
+<li><p>DiscordのRoleを付与できる</p></li>
+<li><p>もぎりメソッドでもぎり処理を実行する</p></li>
+</ul>
+</section>
+<section >
+<h3>もぎり処理を表すクラス <code class="docutils literal notranslate"><span class="pre">TicketCollector</span></code></h3>
+<ul class="simple">
+<li><p>スプレッドシートを操作できる：もぎりで必要な <strong>スプレッドシート操作を表すクラス</strong> を <code class="docutils literal notranslate"><span class="pre">searcher</span></code> 属性に持つ</p></li>
+</ul>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+class TicketCollector:
+    def __init__(self, spreadsheet_id: str) -&gt; None:
+        self.searcher = TicketSheetSearcher.from_id(spreadsheet_id)</code></pre>
+</section>
+<section >
+<h3>もぎり処理を表すクラス <code class="docutils literal notranslate"><span class="pre">TicketCollector</span></code></h3>
+<aside class="notes">
+revealjs_break だと TicketCollector が落ちるバグ</aside>
+<ul class="simple">
+<li><p><strong>もぎりメソッド</strong> でもぎり処理を実行する</p></li>
+</ul>
+<pre><code data-trim data-noescape data-line-numbers="4" class="python">
+class TicketCollector:
+    def __init__(self, spreadsheet_id: str) -&gt; None:
+        self.searcher = TicketSheetSearcher.from_id(spreadsheet_id)
+    async def collect(self, ...):
+        ...</code></pre>
+</section>
+<section >
+<h3>もぎり処理を表すクラス <code class="docutils literal notranslate"><span class="pre">TicketCollector</span></code></h3>
+<ul class="simple">
+<li><p>DiscordのRoleを付与できる：属性には持たせず、<strong>Role付与クラス</strong> のスタティックメソッドを呼び出した（関数でもよい）</p></li>
+</ul>
+<pre><code data-trim data-noescape data-line-numbers="6" class="python">
+class TicketCollector:
+    def __init__(self, spreadsheet_id: str) -&gt; None:
+        self.searcher = TicketSheetSearcher.from_id(spreadsheet_id)
+    async def collect(self, ...):
+        ...
+        await RoleAttacher.attach(member, role)
+        ...</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">TicketCollector</span></code> 実装</h3>
+<pre><code data-trim data-noescape data-line-numbers="8,10,12,13" class="python">
+class TicketCollector:
+    def __init__(self, spreadsheet_id: str) -&gt; None:
+        self.searcher = TicketSheetSearcher.from_id(spreadsheet_id)
+
+    async def collect(
+        self, ticket_number: str, member: discord.Member, role: discord.Role
+    ) -&gt; None:
+        if not (ticket_cell := self.searcher.find_cell(ticket_number)):
+            raise TicketNumberNotFound  # 処理フロー1の例外
+        if self.searcher.query_already_collected(ticket_cell):
+            raise TicketAlreadyCollected  # 処理フロー2の例外
+        await RoleAttacher.attach(member, role)
+        self.searcher.register_as_collected(ticket_cell)</code></pre>
+<p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/pyconjp/mogirin/blob/620f7aaa8cf7e5454425c78920c43988066dbdf5/mogirin.py#L25-L38">TicketCollector (mogirin.py)</a></p>
+</section>
+<section >
+<h3>ボットの実装： <code class="docutils literal notranslate"><span class="pre">TicketCollector</span></code> インスタンスを呼び出す</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+collector = TicketCollector(getenv(&quot;SPREADSHEET_ID&quot;))
+
+&#64;bot.event
+async def on_message(message):
+    # 省略
+    ticket_number = find_ticket_number(message.clean_content)
+    reply_message = await collect_ticket(  # collector.collectを呼び出す
+        ticket_number, message.author, attendee_role
+    )
+    await message.channel.send(f&quot;{message.author.mention} {reply_message}&quot;)</code></pre>
+<p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/pyconjp/mogirin/blob/620f7aaa8cf7e5454425c78920c43988066dbdf5/discordbot.py">discordbot.py</a></p>
+</section>
+</section>
+<section>
+<section >
+<h2>まとめ🌯：そうか、犬や自動車のように、処理もクラスで表せるのか！</h2>
+<ul class="simple">
+<li><p>犬や自動車の例でクラスの文法を掴んだら、<strong>処理をクラスで表しちゃおう！</strong> （〇〇する処理のクラス）</p></li>
+<li><p>オブジェクトに必要な属性とメソッドをまず考え、それをもとにクラスを実装しています</p></li>
+</ul>
+</section>
+<section >
+<h3>ご清聴ありがとうございました</h3>
+<p><strong>Enjoy</strong> development with classes!</p>
+<p>Links &amp; Appendixが続きます</p>
+</section>
+</section>
+<section >
+<h2>Links</h2>
+<ul class="simple">
+<li><p>mogirinの実装 <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/pyconjp/mogirin">pyconjp/mogirin</a></p></li>
+</ul>
+</section>
+<section>
+<section >
+<h2>Appendix</h2>
+</section>
+<section >
+<h3>クラスの別の例：自動車</h3>
+<p>自動車というオブジェクトは</p>
+<ul class="simple">
+<li><p>加速できる</p></li>
+<li><p>減速できる</p></li>
+</ul>
+</section>
+<section >
+<h3>自動車を表すクラスの設計</h3>
+<ul class="simple">
+<li><p><strong>加速</strong> できる： <code class="docutils literal notranslate"><span class="pre">speed_up</span></code> メソッドで <code class="docutils literal notranslate"><span class="pre">speed</span></code> 属性を操作する</p></li>
+</ul>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+class Car:
+    def __init__(self) -&gt; None:
+        self.speed = 0
+    def speed_up(self, value: int) -&gt; int:
+        ...</code></pre>
+</section>
+<section >
+<h3>自動車を表すクラスの設計</h3>
+<ul class="simple">
+<li><p><strong>減速</strong> できる： <code class="docutils literal notranslate"><span class="pre">speed_down</span></code> メソッド（<code class="docutils literal notranslate"><span class="pre">speed</span></code> 属性を操作）</p></li>
+</ul>
+<pre><code data-trim data-noescape data-line-numbers="6" class="python">
+class Car:
+    def __init__(self) -&gt; None:
+        self.speed = 0
+    def speed_up(self, value: int) -&gt; int:
+        ...
+    def speed_down(self, value: int) -&gt; int:
+        ...</code></pre>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">Car</span></code> クラス</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+class Car:
+    def __init__(self) -&gt; None:
+        self.speed = 0
+
+    def speed_up(self, value: int) -&gt; int:
+        self.speed += value
+        return self.speed
+
+    def speed_down(self, value: int) -&gt; int:
+        self.speed -= value
+        return self.speed
+</code></pre>
+<p><span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext/2021_slides/blob/b76b79fd8d25d4f57bbcd41b614d71245b924bae/samplecode/class_examples/car.py">car.py</a></p>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">Car</span></code> クラスのインスタンスと戯れる</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+&gt;&gt;&gt; car = Car()
+&gt;&gt;&gt; car.speed_up(60)
+60
+&gt;&gt;&gt; car.speed_down(20)
+40
+</code></pre>
+<p>『<a class="reference external" href="https://www.shoeisha.co.jp/book/detail/9784798130798">スラスラわかるJava</a>』(p.203-204)をPythonで実装した例です</p>
+</section>
+</section>
+<section >
+<h2>EOF</h2>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../reveal.js/dist/reveal.js"></script>
+    
+    
+      <script src="../reveal.js/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: "none",
+        slideNumber: "c/t",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>
