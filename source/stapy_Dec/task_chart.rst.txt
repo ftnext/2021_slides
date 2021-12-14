@@ -1,0 +1,86 @@
+.. raw:: html
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+    <canvas id="myChart" width="800" height="600"></canvas>
+    <script>
+    // ref: https://cattech-lab.net/blog/programming/783/
+    let myChart;
+    const xmin = 10;
+    const xmax = 70;
+    const nx = 200;
+
+    function calc_func(mu, sigma, xmin, xmax, nx) {
+      const data = [];
+      for (let i = 0; i < nx + 1; i++) {
+        let x = xmin + ((xmax - xmin) / nx) * i;
+        let y =
+          (1.0 / Math.sqrt(2.0 * Math.PI * sigma * sigma)) *
+          Math.exp((-1.0 * (x - mu) * (x - mu)) / (2.0 * sigma * sigma));
+        data.push({ x: x, y: y });
+      }
+      return data;
+    }
+
+    function plotChart() {
+      const ctx = document.getElementById("myChart").getContext("2d");
+
+      if (myChart) {
+        myChart.destroy();
+      }
+      myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          datasets: [
+            {
+              data: calc_func(40.0, 10.0, 15, 65, nx),
+              backgroundColor: "RGBA(255, 0, 0, 1)",
+              borderColor: "RGBA(255, 0, 0, 1)",
+              borderWidth: 5,
+              showLine: true,
+              fill: false,
+              lineTension: 0,
+              pointRadius: 0,
+              pointHoverRadius: 10,
+              pointHoverBackgroundColor: "rgba(255, 140, 0, 0.6)",
+              pointHoverBorderColor: "rgba(255, 140, 0, 0.6)",
+              pointHoverBorderWidth: 10,
+              pointHitRadius: 10,
+            },
+            {
+              data: calc_func(45.0, 5.0, 32.5, 57.5, nx),
+              backgroundColor: "RGBA(0, 255, 0, 1)",
+              borderColor: "RGBA(0, 255, 0, 1)",
+              borderWidth: 5,
+              showLine: true,
+              fill: false,
+              lineTension: 0,
+              pointRadius: 0,
+              pointHoverRadius: 10,
+              pointHoverBackgroundColor: "rgba(255, 140, 0, 0.6)",
+              pointHoverBorderColor: "rgba(255, 140, 0, 0.6)",
+              pointHoverBorderWidth: 10,
+              pointHitRadius: 10,
+            },
+          ],
+        },
+        options: {
+          animation: false,
+          legend: { display: false },
+          scales: {
+            yAxes: [{ scaleLabel: { display: true, labelString: "確率" } }],
+            xAxes: [
+              {
+                scaleLabel: { display: true, labelString: "メリット" },
+                type: "linear",
+                position: "bottom",
+                ticks: { min: xmin, max: xmax },
+              },
+            ],
+          },
+          responsive: false
+        },
+      });
+    }
+
+    plotChart();
+    </script>
