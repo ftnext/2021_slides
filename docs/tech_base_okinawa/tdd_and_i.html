@@ -1,0 +1,370 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>テスト駆動開発と私</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="../reveal.js/dist/theme/black.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../reveal.js/plugin/highlight/zenburn.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/Font-Awesome/css/all.min.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ftnext">
+    <meta property="og:url" content="https://ftnext.github.io/2021_slides/tech_base_okinawa/tdd_and_i.html">
+    <meta property="og:title" content="テスト駆動開発と私">
+    <meta property="og:description" content="2021/12 Tech BASE Okinawa LT">
+    <meta property="og:image" content="https://ftnext.github.io/2021_slides/_images/ogps/tech_base_okinawa.png">
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides">
+            <section >
+<h1>テスト駆動開発と私</h1>
+<dl class="field-list simple">
+<dt class="field-odd">Event</dt>
+<dd class="field-odd"><p>Tech BASE Okinawa</p>
+</dd>
+<dt class="field-even">Presented</dt>
+<dd class="field-even"><p>2021/12/18 nikkie</p>
+</dd>
+</dl>
+</section>
+<section>
+<section >
+<h2>はじめまして、nikkie（にっきー）です</h2>
+</section>
+<section >
+<h3>nikkie（にっきー）</h3>
+<ul class="simple">
+<li><p><strong>東京</strong> から来ました（飛行機に乗り遅れたりしながら・・）</p></li>
+<li><p>よく使う言語： <strong>Python</strong> （株式会社ユーザベースのデータサイエンティスト）</p></li>
+<li><p>Python Conference JPのスタッフ活動（2021の <strong>座長</strong> です）</p></li>
+</ul>
+</section>
+<section >
+<h3>アンケート：Pythonちょっとでも書いたことある方？🙋‍♂️</h3>
+</section>
+<section >
+<h3>初の沖縄の感想：冬過ごすのに絶好では？</h3>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">12月に訪れた沖縄の感想<br><br>暖房入ってますよね？</p>&mdash; nikkie 📣PyCon JP 2021 ありがとうございました (@ftnext) <a href="https://twitter.com/ftnext/status/1471863785241845760?ref_src=twsrc%5Etfw">December 17, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+</section>
+<section>
+<section >
+<h2>このLTでは、テスト駆動開発を始めてからの私の <strong>変化</strong> を共有します</h2>
+<p>注：「私」の話なので、 <strong>N=1</strong> です。経験は2年くらい</p>
+</section>
+<section >
+<h3>お品書き：テスト駆動開発と私</h3>
+<ul class="simple">
+<li><p>認知</p></li>
+<li><p>実践開始</p></li>
+<li><p>実践中</p></li>
+</ul>
+</section>
+<section >
+<h3>お品書き：テスト駆動開発と私</h3>
+<ul class="simple">
+<li><p><strong>認知</strong> （用語として知った）</p></li>
+<li><p>実践開始</p></li>
+<li><p>実践中</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>認知：Pythonコミュニティで「テスト駆動開発」と出会った</h2>
+</section>
+<section >
+<h3>2018/02 <a class="reference external" href="https://pyladies-tokyo.connpass.com/event/76967/">PyLadies Tokyo Meetup #29 テストをまなぼう</a></h3>
+<ul class="simple">
+<li><p>わかりやすい資料 <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/okusama27/pyladies_2018_02/blob/master/samples/fizzbuzz/test_fizzbuzz_6.py">https://github.com/okusama27/pyladies_2018_02/blob/master/samples/fizzbuzz/test_fizzbuzz_6.py</a></p></li>
+<li><p>Python <strong>独学</strong> 時代に、マネてテストコードを書いてみた</p></li>
+</ul>
+</section>
+<section >
+<h3>2018/07 <a class="reference external" href="https://startpython.connpass.com/event/81625/">みんなのPython勉強会#37</a> （東京）</h3>
+<ul>
+<li><p>家永さん「『テスト駆動開発』を通じてプログラマがコードと向き合う活動を改めて学び直す」</p>
+<blockquote>
+<div><p>TDDのリズムがどのようなものかの雰囲気をつかめる内容です。</p>
+</div></blockquote>
+</li>
+<li><p>やってみたいが、独学の中では難しく・・</p></li>
+</ul>
+</section>
+<section >
+<h3>お品書き：テスト駆動開発と私</h3>
+<ul class="simple">
+<li><p>認知</p></li>
+<li><p><strong>実践開始</strong> （手を動かし始めた）</p></li>
+<li><p>実践中</p></li>
+</ul>
+</section>
+</section>
+<section >
+<h2>2019年、ユーザベースにJoinし、テスト駆動開発を実践開始</h2>
+<p><a class="reference external" href="https://zine.qiita.com/event/202106-uzabase/">ユーザベースのTDD文化</a> （TDDだけというよりXPを実践しています）</p>
+</section>
+<section>
+<section >
+<h2>💥知っていたテストコードとのギャップ</h2>
+<p>「やってみたかった」テスト駆動開発の現実は・・・</p>
+</section>
+<section >
+<h3>知っていたテストコード</h3>
+<pre><code data-trim data-noescape  class="python">
+class FizzBuzzTestCase(TestCase):
+    def test_return_fizzbuzz(self):
+        actual = fizzbuzz(15)
+
+        # テスト対象の処理の返り値と期待値が一致するか比較
+        self.assertEqual(actual, &quot;FizzBuzz&quot;)</code></pre>
+</section>
+<section >
+<h3>実践の中で目にしたコード（イメージ）</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+class MainTestCase(TestCase):
+    &#64;patch(&quot;awesome_module.a&quot;)
+    def test_main(self, a):
+        from awesome_module import main
+
+        actual = main()
+
+        self.assertEqual(actual, a.return_value)
+        a.assert_called_once_with(42, &quot;spam&quot;)
+</code></pre>
+</section>
+</section>
+<section>
+<section >
+<h2>出会ったのは、<strong>設計</strong> としてのテスト</h2>
+</section>
+<section >
+<h3>モック主義TDD</h3>
+<blockquote>
+<div><p>モックを活用すれば、テスト駆動開発自体が、開発する要求や対象の世界を理解していくうえでの設計ツールになり、（『テスト駆動開発』付録C）</p>
+</div></blockquote>
+</section>
+<section >
+<h3><code class="docutils literal notranslate"><span class="pre">unittest.mock</span></code> 😳</h3>
+<p>オススメのドキュメント <a class="reference external" href="https://docs.python.org/ja/3/library/unittest.mock-examples.html">unittest.mock --- 入門</a></p>
+</section>
+<section >
+<h3>呼び出す先の実装は後回しにしてTDD</h3>
+<pre><code data-trim data-noescape data-line-numbers class="python">
+def main():
+    # mainではaをこう呼び出すというテスト（設計）を通す
+    return a(42, &quot;spam&quot;)
+
+
+def a(x, y):
+    # aのテストを書くときにaを設計していく
+    raise NotImplementedError
+</code></pre>
+</section>
+<section >
+<h3>Practice, practice, practice!!</h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">unittest.mock</span></code> を使ったコードが読み書きできるように <strong>ひたすら練習</strong></p></li>
+<li><p>練習例（2019年） <a class="reference external" href="https://github.com/ftnext/pyconjp2019.sprint.theme.update/tree/master/tests">https://github.com/ftnext/pyconjp2019.sprint.theme.update/tree/master/tests</a></p></li>
+</ul>
+</section>
+<section >
+<h3>お品書き：テスト駆動開発と私</h3>
+<ul class="simple">
+<li><p>認知</p></li>
+<li><p>実践開始</p></li>
+<li><p><strong>実践中</strong> （感じていること）</p></li>
+</ul>
+</section>
+</section>
+<section >
+<h2>テスト駆動開発のここが好き</h2>
+</section>
+<section>
+<section >
+<h2>1.変更したときに他を壊していないという安心感🤗</h2>
+</section>
+<section >
+<h3>かつての不安は、今は <strong>退屈</strong></h3>
+<blockquote>
+<div><p>テストは不安を退屈に変える賢者の石だ。（『テスト駆動開発』第25章）</p>
+</div></blockquote>
+</section>
+</section>
+<section>
+<section >
+<h2>2.設計としてのテスト⚒（モック主義TDD）</h2>
+</section>
+<section >
+<h3>目標は、動作するきれいなコード</h3>
+<ul class="simple">
+<li><p>動作するけど <em>きれい</em> か？（変更しやすいか？） 2020/05 <a class="reference external" href="https://docs.google.com/presentation/d/1YP03-0THNmWLdqIi_hrcgi-k7y_2G7jj5iWXf973Ew4/edit#slide=id.g774fdc25c3_0_235">Remote.py 発表資料</a></p></li>
+<li><p>テストが書きにくいならば <strong>設計を見直す</strong></p></li>
+<li><p>道半ばですが、練習初期のテストコードと比較すると成長実感</p></li>
+</ul>
+</section>
+<section >
+<h3>お品書き：テスト駆動開発と私</h3>
+<ul class="simple">
+<li><p>認知</p></li>
+<li><p>実践開始</p></li>
+<li><p><strong>実践中</strong> （試していること）</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>考え方をデータサイエンスにも取り入れる（お試し中）</h2>
+</section>
+<section >
+<h3>データサイエンスのコードは <em>書き捨て</em> と言われる</h3>
+<ul class="simple">
+<li><p>PyCon mini Hiroshima 2020 「<a class="reference external" href="https://ytknzw.github.io/PyCon/PyCon_mini_Hiroshima/%E3%83%87%E3%83%BC%E3%82%BF%E3%82%B5%E3%82%A4%E3%82%A8%E3%83%B3%E3%82%B9%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E3%83%AA%E3%83%BC%E3%83%80%E3%83%96%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E3%82%B9%E3%82%B9%E3%83%A1_PyCon_mini_Hiroshima_20201010.pdf">データサイエンスのためのリーダブルコードのススメ</a>」 <a class="reference external" href="https://youtu.be/Brg7LXL3bSo?t=8400">アーカイブ</a></p></li>
+<li><p>「コードはアウトプットを作成する手段」</p></li>
+</ul>
+</section>
+<section >
+<h3>書き捨てコードにフィードバックサイクルを</h3>
+<ul class="simple">
+<li><p>テスト駆動開発で体験した <strong>フィードバックサイクル</strong></p></li>
+<li><p>データサイエンスの（書き捨て）コードにも持ち込めないか</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>お試し：doctest</h2>
+</section>
+<section >
+<h3>Pythonのdocstring（ドキュメンテーション文字列）</h3>
+<pre><code data-trim data-noescape  class="python">
+def awesome_function():
+    &quot;&quot;&quot;ここがdocstringです
+
+    docstring = 関数（など）の最初の式である文字列リテラル
+    ref: https://docs.python.org/ja/3/glossary.html#term-docstring
+    &quot;&quot;&quot;
+    ...</code></pre>
+</section>
+<section >
+<h3>標準ライブラリ doctest</h3>
+<ul class="simple">
+<li><p>docstringに <strong>対話モードの実行例</strong> を書く</p>
+<ul>
+<li><p>実行する式</p></li>
+<li><p>評価した値（期待値）</p></li>
+</ul>
+</li>
+<li><p><strong class="command">python -m doctest example.py</strong> で実行</p></li>
+</ul>
+</section>
+<section >
+<h3>doctestの例</h3>
+<pre><code data-trim data-noescape  class="python">
+def factorial(n):
+    &quot;&quot;&quot;
+    &gt;&gt;&gt; [factorial(n) for n in range(6)]
+    [1, 1, 2, 6, 24, 120]
+    &quot;&quot;&quot;
+    ...</code></pre>
+<p>ref: <a class="reference external" href="https://docs.python.org/ja/3/library/doctest.html">doctest --- 対話的な実行例をテストする</a></p>
+</section>
+<section >
+<h3>データサイエンスのコードでdoctest</h3>
+<ul class="simple">
+<li><p>関数の <strong>実装前</strong> にdocstringに <strong>実行例</strong> を書く</p></li>
+<li><p>実装がちょっと不安な処理（データの複雑な変換など）をdoctestで頻繁に検証（不安を退屈に変える）</p></li>
+<li><p>同様の例：Qiita <a class="reference external" href="https://qiita.com/hmkz/items/0689cd85fb3e1adcda1a">忙しい研究者のためのテストコードとドキュメントの書き方</a></p></li>
+</ul>
+</section>
+</section>
+<section>
+<section >
+<h2>まとめ🌯：テスト駆動開発と私</h2>
+<ul class="simple">
+<li><p>テスト駆動開発、好きです！</p></li>
+<li><p>不安が <strong>退屈</strong> に変わるなど、恩恵感じてます</p></li>
+<li><p>データサイエンスの&quot;書き捨て&quot;コードでもTDDの考え方適用できるのでは？</p></li>
+</ul>
+</section>
+<section >
+<h3>ご清聴ありがとうございました</h3>
+<p>Enjoy development with TDD!</p>
+</section>
+<section >
+<h3>お前、誰よ（＝自己紹介）</h3>
+<ul class="simple">
+<li><p>nikkie（にっきー） <span class="raw-html"><i class="fab fa-twitter"></i></span> <a class="reference external" href="https://twitter.com/ftnext">&#64;ftnext</a> / <span class="raw-html"><i class="fab fa-github"></i></span> <a class="reference external" href="https://github.com/ftnext">&#64;ftnext</a></p></li>
+<li><p>アニメが好き。アイの歌声を聴かせてはいいぞ！</p></li>
+<li><p>2022/01/22 <a class="reference external" href="https://kyushu.pycon.jp/2022/">PyCon Kyushu 2022 Kumamoto</a> で話します（よろしければ熊本城ホールでお会いしましょう！）</p></li>
+</ul>
+</section>
+<section >
+<h3>アイの歌声を聴かせてはいいぞ！！</h3>
+<iframe width="800" height="480" src="https://ftnext.github.io/2021_slides/ainouta/recommend_as_best.html"
+    title="アイうたはいいぞ"></iframe></section>
+</section>
+<section>
+<section >
+<h2>Appendix</h2>
+</section>
+<section >
+<h3>補足：家永さんトーク <code class="docutils literal notranslate"><span class="pre">&#64;skip</span></code></h3>
+<ul class="simple">
+<li><p>アーカイブ <a class="reference external" href="https://youtu.be/TZmR095OWz8?t=2000">https://youtu.be/TZmR095OWz8?t=2000</a></p></li>
+<li><p><a class="reference external" href="https://twop.agile.esm.co.jp/i-like-tdd-16d9ce2c2201">家永さんによる登壇報告</a></p></li>
+</ul>
+</section>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../reveal.js/dist/reveal.js"></script>
+    
+    
+      <script src="../reveal.js/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: "none",
+        slideNumber: "c/t",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>
