@@ -18,7 +18,7 @@ if __name__ == "__main__":
     slides = list(slide_directory.glob("*.html"))
     assert len(slides) == 1, str(slides)
     slide_html_path = slides[0]
-    slide_page_url = f"file://{slide_html_path}"
+    slide_page_url = slide_html_path.as_uri()
     # タイトルが長い場合は2枚めを使う運用をしている
     if args.is_long_title:
         slide_page_url += "#/1"
