@@ -11,14 +11,22 @@ if __name__ == "__main__":
     parser.add_argument("--is_long_title", action="store_true")
     args = parser.parse_args()
 
-    script_path = Path(__file__).resolve()
-    project_root = script_path.parent.parent
-    slide_directory = (
-        project_root / "build" / "revealjs" / args.slide_path_or_directory_name
-    )
-    slides = list(slide_directory.glob("*.html"))
-    assert len(slides) == 1, str(slides)
-    slide_html_path = slides[0]
+    if not args.slide_path_or_directory_name.endswith(".html"):
+        # Case: slide directory name only
+        script_path = Path(__file__).resolve()
+        project_root = script_path.parent.parent
+        slide_directory = (
+            project_root
+            / "build"
+            / "revealjs"
+            / args.slide_path_or_directory_name
+        )
+        slides = list(slide_directory.glob("*.html"))
+        assert len(slides) == 1, str(slides)
+        slide_html_path = slides[0]
+    else:
+        # Case: slide path
+        slide_html_path = Path(args.slide_path_or_directory_name).resolve()
     slide_page_url = slide_html_path.as_uri()
     # タイトルが長い場合は2枚めを使う運用をしている
     if args.is_long_title:
