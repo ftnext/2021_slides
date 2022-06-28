@@ -6,7 +6,7 @@ from selenium.webdriver import FirefoxOptions
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("slide_directory_name")
+    parser.add_argument("slide_path_or_directory_name")
     parser.add_argument("output_path", nargs="?", type=Path)
     parser.add_argument("--is_long_title", action="store_true")
     args = parser.parse_args()
@@ -14,7 +14,7 @@ if __name__ == "__main__":
     script_path = Path(__file__).resolve()
     project_root = script_path.parent.parent
     slide_directory = (
-        project_root / "build" / "revealjs" / args.slide_directory_name
+        project_root / "build" / "revealjs" / args.slide_path_or_directory_name
     )
     slides = list(slide_directory.glob("*.html"))
     assert len(slides) == 1, str(slides)
@@ -30,7 +30,7 @@ if __name__ == "__main__":
             / "docs"
             / "_images"
             / "ogps"
-            / f"{args.slide_directory_name}.png"
+            / f"{args.slide_path_or_directory_name}.png"
         )
 
     options = FirefoxOptions()
