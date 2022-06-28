@@ -7,6 +7,7 @@ from selenium.webdriver import FirefoxOptions
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("slide_directory_name")
+    parser.add_argument("output_path", nargs="?", type=Path)
     parser.add_argument("--is_long_title", action="store_true")
     args = parser.parse_args()
 
@@ -23,13 +24,14 @@ if __name__ == "__main__":
     if args.is_long_title:
         slide_page_url += "#/1"
 
-    output_path = (
-        project_root
-        / "docs"
-        / "_images"
-        / "ogps"
-        / f"{args.slide_directory_name}.png"
-    )
+    if not args.output_path:
+        args.output_path = (
+            project_root
+            / "docs"
+            / "_images"
+            / "ogps"
+            / f"{args.slide_directory_name}.png"
+        )
 
     options = FirefoxOptions()
     options.add_argument("--width=800")
@@ -37,5 +39,5 @@ if __name__ == "__main__":
 
     start_firefox(options=options, headless=True)
     go_to(slide_page_url)  # TODO: #/1 のようにページの指定を追加可能に
-    get_driver().save_screenshot(str(output_path))
+    get_driver().save_screenshot(str(args.output_path))
     kill_browser()
