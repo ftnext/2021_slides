@@ -23,7 +23,7 @@ if __name__ == "__main__":
     if args.is_long_title:
         slide_page_url += "#/1"
 
-    ogp_path = (
+    output_path = (
         project_root
         / "docs"
         / "_images"
@@ -37,5 +37,5 @@ if __name__ == "__main__":
 
     start_firefox(options=options, headless=True)
     go_to(slide_page_url)  # TODO: #/1 のようにページの指定を追加可能に
-    get_driver().save_screenshot(str(ogp_path))
+    get_driver().save_screenshot(str(output_path))
     kill_browser()
