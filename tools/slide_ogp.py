@@ -11,10 +11,10 @@ if __name__ == "__main__":
     parser.add_argument("--is_long_title", action="store_true")
     args = parser.parse_args()
 
+    script_path = Path(__file__).resolve()
+    project_root = script_path.parent.parent
     if not args.slide_path_or_directory_name.endswith(".html"):
         # Case: slide directory name only
-        script_path = Path(__file__).resolve()
-        project_root = script_path.parent.parent
         slide_directory = (
             project_root
             / "build"
@@ -38,7 +38,7 @@ if __name__ == "__main__":
             / "docs"
             / "_images"
             / "ogps"
-            / f"{args.slide_path_or_directory_name}.png"
+            / f"{slide_html_path.stem}.png"
         )
 
     options = FirefoxOptions()
