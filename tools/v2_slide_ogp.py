@@ -36,6 +36,20 @@ def format_as_uri(string_for_slide: str) -> str:
     return slides[0].as_uri()
 
 
+def build_output_path(slide_path: str) -> Path:
+    """
+    >>> expected = Path.cwd() / "docs/_images/ogps/test.png"
+    >>> expected == build_output_path("file:///.../test/awesome_slide.html")
+    True
+    """
+    parsed = urlparse(slide_path)
+    stem = Path(parsed.path).parent.stem
+
+    script_path = Path(__file__).resolve()
+    project_root = script_path.parent.parent
+    return project_root / "docs" / "_images" / "ogps" / f"{stem}.png"
+
+
 def take_screenshot(url, save_path):
     options = FirefoxOptions()
     options.add_argument("--width=800")
@@ -52,8 +66,11 @@ if __name__ == "__main__":
     parser.add_argument(
         "slide", help="URL, local file path or local directory name"
     )
-    parser.add_argument("output_path", type=Path)
+    parser.add_argument("output_path", nargs="?", type=Path)
     args = parser.parse_args()
 
     uri = format_as_uri(args.slide)
-    take_screenshot(uri, str(args.output_path))
+    output_path = (
+        args.output_path if args.output_path else build_output_path(uri)
+    )
+    take_screenshot(uri, str(output_path))
