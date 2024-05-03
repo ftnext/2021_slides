@@ -1,5 +1,6 @@
 # 2021_slides
 
+- [Pythonと一緒に！ 好きなアニメ映画のファン活動](https://ftnext.github.io/2021_slides/pycon_shizu_lt/enjoy_favorite_anime_with_python.html) @PyCon mini Shizuoka 2021 (2021/11)
 - [Helium - Cool Python!](https://ftnext.github.io/2021_slides/hannari_Sep/cool_python_with_helium.html) @[はんなりPython #43 夏の終わりのLT会 (2021/09)](https://hannari-python.connpass.com/event/223452/)
 - [週に数回connpassのイベントを作るPyCon JPスタッフは、Heliumを使って自動化しました](https://ftnext.github.io/2021_slides/pycharity_Sep_lt/automate_connpass_with_helium.html#/1) @[Python Charity Talks in Japan 2021.09](https://pyconjp.connpass.com/event/218154/) [YouTubeアーカイブ](https://youtu.be/Q7-w19HuAWU?t=15758)
 - [カンファレンスに行こう！](https://ftnext.github.io/2021_slides/rakus_Sep_ultralt1/lets_go_conference.html) @[ラクス 情報収集ハック 超LT会 - vol.4 (2021/09)](https://rakus.connpass.com/event/220541/)
